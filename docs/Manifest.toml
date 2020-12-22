@@ -33,7 +33,7 @@ version = "0.1.1"
 deps = ["Markdown"]
 uuid = "b77e0a4c-d291-57a0-90e8-8db25a27a240"
 
-[[InterpretableCompositionalNetworks]]
+[[CompositionalNetworks]]
 path = ".."
 uuid = "4b67e4b5-442d-4ef5-b760-3f5df3a57537"
 version = "0.1.0"
