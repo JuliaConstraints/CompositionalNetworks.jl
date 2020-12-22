@@ -1,5 +1,9 @@
 module CompositionalNetworks
 
-# Write your package code here.
+# Includes layers
+include("transformation.jl")
+include("arithmetic.jl")
+include("aggregation.jl")
+include("comparison.jl")
 
 end
