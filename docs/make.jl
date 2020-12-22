@@ -1,14 +1,14 @@
-using InterpretableCompositionalNetworks
+using CompositionalNetworks
 using Documenter
 
 makedocs(;
-    modules=[InterpretableCompositionalNetworks],
+    modules=[CompositionalNetworks],
     authors="Jean-François Baffier",
-    repo="https://github.com/JuliaConstraints/InterpretableCompositionalNetworks.jl/blob/{commit}{path}#L{line}",
-    sitename="InterpretableCompositionalNetworks.jl",
+    repo="https://github.com/JuliaConstraints/CompositionalNetworks.jl/blob/{commit}{path}#L{line}",
+    sitename="CompositionalNetworks.jl",
     format=Documenter.HTML(;
         prettyurls=get(ENV, "CI", "false") == "true",
-        canonical="https://JuliaConstraints.github.io/InterpretableCompositionalNetworks.jl",
+        canonical="https://JuliaConstraints.github.io/CompositionalNetworks.jl",
         assets=String[],
     ),
     pages=[
@@ -17,5 +17,5 @@ makedocs(;
 )
 
 deploydocs(;
-    repo="github.com/JuliaConstraints/InterpretableCompositionalNetworks.jl",
+    repo="github.com/JuliaConstraints/CompositionalNetworks.jl",
 )

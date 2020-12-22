@@ -1,6 +1,6 @@
-using InterpretableCompositionalNetworks
+using CompositionalNetworks
 using Test
 
-@testset "InterpretableCompositionalNetworks.jl" begin
+@testset "CompositionalNetworks.jl" begin
     # Write your tests here.
 end
