@@ -1,12 +1,12 @@
 ```@meta
-CurrentModule = InterpretableCompositionalNetworks
+CurrentModule = CompositionalNetworks
 ```
 
-# InterpretableCompositionalNetworks
+# Compositional Networks
 
 ```@index
 ```
 
 ```@autodocs
-Modules = [InterpretableCompositionalNetworks]
+Modules = [CompositionalNetworks]
 ```
