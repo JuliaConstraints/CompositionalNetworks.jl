@@ -1,5 +1,3 @@
-# TODO: large test set
-
 # Transformation layer
 data = [
     [1, 5, 2, 4, 3] => 2,
@@ -128,15 +126,15 @@ for (f, results) in funcs_param, (key, vals) in enumerate(data)
     @test f(vals.first, vals.second[1]) == results[key]
 end
 
-# funcs_vars = [
-#     ICN._abs_diff_val_vars => [0, 5],
-#     ICN._val_minus_vars => [0, 5],
-#     ICN._vars_minus_val => [0, 5],
-# ]
+funcs_vars = [
+    ICN._abs_diff_val_vars => [2, 0],
+    ICN._val_minus_vars => [0, 0],
+    ICN._vars_minus_val => [2, 0],
+]
 
-# for (f, results) in funcs_param, (key, vals) in enumerate(data)
-#     @test f(vals.first, rand(vals.second[1])) == results[key]
-# end
+for (f, results) in funcs_vars, (key, vals) in enumerate(data)
+    @test f(vals.first, rand(1:10, vals.second[2])) == results[key]
+end
 
 
 funcs_param_dom = [
