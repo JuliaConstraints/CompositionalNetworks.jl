@@ -13,6 +13,12 @@ makedocs(;
     ),
     pages=[
         "Home" => "index.md",
+        "Layers" => [
+            "Transformation" => "transformation.md",
+            "Arithmetic" => "arithmetic.md",
+            "Aggregation" => "aggregation.md",
+            "Comparison" => "comparison.md",
+        ],
     ],
 )
 
