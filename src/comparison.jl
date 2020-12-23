@@ -24,7 +24,7 @@ function _euclidian_param(x::T, param::T, dom_size::T2) where {T <: Number, T2 <
     return x == param ? 0.0 : (1.0 + abs(x - param) \ dom_size)
 end
 function _euclidian(x::T, dom_size::T2) where {T <: Number, T2 <: Number}
-    return _euclidian_param(x, 0.0, dom_size)
+    return _euclidian_param(x, zero(T), dom_size)
 end
 
 """

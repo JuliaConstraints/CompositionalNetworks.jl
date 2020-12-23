@@ -36,7 +36,7 @@ function _count_greater(i::Int, x::V) where {T <: Number,V <: AbstractVector{T}}
     return count(y -> x[i] < y, x)
 end
 function _count_lesser(i::Int, x::V) where {T <: Number,V <: AbstractVector{T}}
-    return count(y -> x[i] < y, x)
+    return count(y -> x[i] > y, x)
 end
 function _count_g_left(i::Int, x::V) where {T <: Number,V <: AbstractVector{T}}
     return _count_greater(i, @view x[1:i])
@@ -90,11 +90,11 @@ Return the difference `x[i] - param` (resp. `param - x[i]`) if positive, `0.0` o
 """
 function _val_minus_param(i::Int, x::V, param::T
 ) where {T <: Number,V <: AbstractVector{T}}
-    return max(0.0, x[i] - param)
+    return max(0, x[i] - param)
 end
 function _param_minus_val(i::Int, x::V, param::T
 ) where {T <: Number,V <: AbstractVector{T}}
-    return max(0.0, param - x[i])
+    return max(0, param - x[i])
 end
 # Generating vetorized versions
 lazy_param(_val_minus_param, _param_minus_val)
@@ -105,11 +105,11 @@ lazy_param(_val_minus_param, _param_minus_val)
 Return the difference `x[i] - x[i + 1]` (resp. `x[i + 1] - x[i]`) if positive, `0.0` otherwise. Extended method to vector with sig `(x::V)` are generated.
 """
 function _contiguous_vals_minus(i::Int, x::V) where {T <: Number,V <: AbstractVector{T}}
-    return length(x) == i ? 0.0 : _val_minus_param(x[i + 1], i, x)
+    return length(x) == i ? 0 : _val_minus_param(i, x, x[i + 1])
 end
 function _contiguous_vals_minus_rev(i::Int, x::V
 ) where {T <: Number,V <: AbstractVector{T}}
-    return length(x) == i ? 0.0 : _param_minus_val(x[i + 1], i, x)
+    return length(x) == i ? 0 : _param_minus_val(i, x, x[i + 1])
 end
 # Generating vetorized versions
 lazy(_contiguous_vals_minus, _contiguous_vals_minus_rev)

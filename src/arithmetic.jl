@@ -1,7 +1,11 @@
 """
-    _sum(x::V...)
-    _prod(x::V...)
+    _sum(x::W) where {T <: Number, V <: AbstractVector{T}, W <: AbstractVector{V}}
+    _prod(x::W) where {T <: Number, V <: AbstractVector{T}, W <: AbstractVector{V}}
 Reduce `k = length(x)` vectors through sum/product to a single vector.
 """
-_sum(x::V...) where {T <: Number, V <: AbstractVector{T}} = reduce((y, z) -> y .+ z, x)
-_prod(x::V...) where {T <: Number, V <: AbstractVector{T}} = reduce((y, z) -> y .* z, x)
+function _sum(x::W) where {T <: Number, V <: AbstractVector{T}, W <: AbstractVector{V}}
+    return reduce((y, z) -> y .+ z, x)
+end
+function _prod(x::W) where {T <: Number, V <: AbstractVector{T}, W <: AbstractVector{V}}
+    return reduce((y, z) -> y .* z, x)
+end
