@@ -1,7 +1,4 @@
-"""
-    _identity(x::T) where T <: Number
-Identity function. Already defined in Julia as `identity`, specialized for scalars.
-"""
+# doc in transformation.jl
 _identity(x::T) where T <: Number = identity(x)
 
 """
