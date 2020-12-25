@@ -1,5 +1,8 @@
 module CompositionalNetworks
 
+# Imports
+import Evolutionary
+
 # Exports utilities
 export lazy, lazy_param
 
