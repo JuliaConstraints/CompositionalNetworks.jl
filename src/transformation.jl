@@ -113,3 +113,39 @@ function _contiguous_vals_minus_rev(i::Int, x::V
 end
 # Generating vetorized versions
 lazy(_contiguous_vals_minus, _contiguous_vals_minus_rev)
+
+
+"""
+    transformation_layer(param = nothing)
+Generate the layer of transformations functions of the ICN. Iff `param` value is set, also includes all the parametric transformation with that value.
+"""
+function transformation_layer(param = nothing)
+    transformations = Dict{Symbol, Function}(
+        :identity => _identity,
+        :count_eq => _count_eq,
+        :count_eq_left => _count_eq_left,
+        :count_eq_right => _count_eq_right,
+        :count_greater => _count_greater,
+        :count_lesser => _count_lesser,
+        :count_g_left => _count_g_left,
+        :count_l_left => _count_l_left,
+        :count_g_right => _count_g_right,
+        :count_l_right => _count_l_right,
+        :contiguous_vals_minus => _contiguous_vals_minus,
+        :contiguous_vals_minus_rev => _contiguous_vals_minus_rev,
+    )
+    
+    if !isnothing(param)
+        transformations_param = Dict{Symbol, Function}(
+            :count_eq_param => ((x...) -> _count_eq_param(x..., param)),
+            :count_l_param => ((x...) -> _count_l_param(x..., param)),
+            :count_g_param => ((x...) -> _count_g_param(x..., param)),
+            :count_bounding_param => ((x...) -> _count_bounding_param(x..., param)),
+            :val_minus_param => ((x...) -> _val_minus_param(x..., param)),
+            :param_minus_val => ((x...) -> _param_minus_val(x..., param)),
+        )
+        transformations = Dict(union(transformations, transformations_param))
+    end
+
+    return transformations
+end

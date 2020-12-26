@@ -133,7 +133,7 @@ funcs_vars = [
 ]
 
 for (f, results) in funcs_vars, (key, vals) in enumerate(data)
-    @test f(vals.first, rand(1:10, vals.second[2])) == results[key]
+    @test f(vals.first, vals.second[2]) == results[key]
 end
 
 

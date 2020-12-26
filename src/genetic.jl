@@ -1,2 +1,1 @@
-Individual = Vector{Bool}
-
+function generate_population() end

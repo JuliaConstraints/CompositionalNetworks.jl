@@ -9,3 +9,16 @@ end
 function _prod(x::W) where {T <: Number, V <: AbstractVector{T}, W <: AbstractVector{V}}
     return reduce((y, z) -> y .* z, x)
 end
+
+"""
+    arithmetic_layer()
+Generate the layer of arithmetic functions of the ICN.
+"""
+function arithmetic_layer()
+    arithmetics = Dict(
+        :sum => _sum,
+        :prod => _prod,
+    )
+
+    return arithmetics
+end
