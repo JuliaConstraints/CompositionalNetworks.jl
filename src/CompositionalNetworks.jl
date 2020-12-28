@@ -2,6 +2,7 @@ module CompositionalNetworks
 
 # Imports
 import Evolutionary
+import Random: bitrand
 
 # Exports utilities
 export lazy, lazy_param
@@ -14,5 +15,8 @@ include("transformation.jl")
 include("arithmetic.jl")
 include("aggregation.jl")
 include("comparison.jl")
+
+# Genetic Algorithm
+include("genetic.jl")
 
 end
