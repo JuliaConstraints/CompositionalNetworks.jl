@@ -8,7 +8,7 @@ end
 
 function _generate_exclusive_operation(max_op_number)
     op = rand(1:nax_op_number)
-    return _as_bitvector(op, )max_op_number
+    return _as_bitvector(op, max_op_number)
 end
 
 
