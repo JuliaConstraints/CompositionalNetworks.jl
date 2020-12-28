@@ -1,3 +1,5 @@
+# Test with manually weighted ICN
+
 icn = ICN(nvars = 4, dom_size = 4, param = 2)
 
 icn.weigths = vcat(trues(18), falses(6))
