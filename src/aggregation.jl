@@ -15,10 +15,10 @@ _count_positive(x::V) where {T <: Number, V <: AbstractVector{T}} = count(y -> y
 Generate the layer of aggregation functions of the ICN.
 """
 function aggregation_layer()
-    aggregations = Dict(
+    aggregations = LittleDict{Symbol, Function}(
         :sum => _sum,
         :count_positive => _count_positive,
     )
 
-    return aggregations
+    return Layer(aggregations, true)
 end

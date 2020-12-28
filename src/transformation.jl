@@ -120,7 +120,7 @@ lazy(_contiguous_vals_minus, _contiguous_vals_minus_rev)
 Generate the layer of transformations functions of the ICN. Iff `param` value is set, also includes all the parametric transformation with that value.
 """
 function transformation_layer(param = nothing)
-    transformations = Dict{Symbol, Function}(
+    transformations = LittleDict{Symbol, Function}(
         :identity => _identity,
         :count_eq => _count_eq,
         :count_eq_left => _count_eq_left,
@@ -134,9 +134,9 @@ function transformation_layer(param = nothing)
         :contiguous_vals_minus => _contiguous_vals_minus,
         :contiguous_vals_minus_rev => _contiguous_vals_minus_rev,
     )
-    
+
     if !isnothing(param)
-        transformations_param = Dict{Symbol, Function}(
+        transformations_param = LittleDict{Symbol, Function}(
             :count_eq_param => ((x...) -> _count_eq_param(x..., param)),
             :count_l_param => ((x...) -> _count_l_param(x..., param)),
             :count_g_param => ((x...) -> _count_g_param(x..., param)),
@@ -144,8 +144,8 @@ function transformation_layer(param = nothing)
             :val_minus_param => ((x...) -> _val_minus_param(x..., param)),
             :param_minus_val => ((x...) -> _param_minus_val(x..., param)),
         )
-        transformations = Dict(union(transformations, transformations_param))
+        transformations = LittleDict(union(transformations, transformations_param))
     end
 
-    return transformations
+    return Layer(transformations, false)
 end

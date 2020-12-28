@@ -1,30 +1,27 @@
-function _generate_individual_layer(predicate, bits)
+function _generate_inclusive_operations(predicate, bits)
     while true
         ind = bitrand(bits)
         predicate(ind) && break
     end
     return ind
 end
-    
 
-function generate_population(pop_size, nvars, dom_size;
-    tr_layer = transformation_layer(),
-    ar_layer = arithmetic_layer(),
-    ag_layer = aggregation_layer(),
-    co_layer = comparison_layer(nvars, dom_size),
-)
-    tr_length = length(tr_layer)
-    ar_length = ceil(log2(length(ar_layer)))
-    ag_length = ceil(log2(length(ag_layer)))
-    co_length = length(co_layer) 
-
-    tr_bitvec = _generate_individual_layer(any, tr_length)
-    ar_bitvec = _generate_individual_layer()
-
-    co_bitvec = _generate_individual_layer(any, co_length)
+function _generate_exclusive_operation(max_op_number)
+    op = rand(1:nax_op_number)
+    return _as_bitvector(op, )max_op_number
+end
 
 
-    
+function generate_population(icn, pop_size)
+    population = falses(_length(icn), pop_size)
 
-
+    for i in 1:pop_size
+        bitvecs = map(l -> _exclu(l) ?
+            _generate_exclusive_operation(_length(l)) :
+            _generate_inclusive_operations(any, _length(l)),
+            layers(icn)
+        )
+        population[:, i] = vcat(bitvecs...)
+    end
+    return population
 end

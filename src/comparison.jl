@@ -52,23 +52,23 @@ end
 Generate the layer of transformations functions of the ICN. Iff `param` value is set, also includes all the parametric transformation with that value.
 """
 function comparison_layer(nvars, dom_size, param = nothing)
-    comparisons = Dict{Symbol, Function}(
+    comparisons = LittleDict{Symbol, Function}(
         :identity => _identity,
         :euclidian => (x -> _euclidian(x, dom_size)),
         :abs_diff_val_vars => (x -> _abs_diff_val_vars(x, nvars)),
         :val_minus_vars => (x -> _val_minus_vars(x, nvars)),
         :vars_minus_val => (x -> _vars_minus_val(x, nvars)),
     )
-    
+
     if !isnothing(param)
-        comparisons_param = Dict{Symbol, Function}(
+        comparisons_param = LittleDict{Symbol, Function}(
             :abs_diff_val_param => (x -> _abs_diff_val_param(x, param)),
             :val_minus_param => (x -> _val_minus_param(x, param)),
             :param_minus_val => (x -> _param_minus_val(x, param)),
             :euclidian_param => (x -> _euclidian_param(x, param, dom_size)),
         )
-        comparisons = Dict(union(comparisons, comparisons_param))
+        comparisons = LittleDict{Symbol, Function}(union(comparisons, comparisons_param))
     end
 
-    return comparisons
+    return Layer(comparisons, true)
 end

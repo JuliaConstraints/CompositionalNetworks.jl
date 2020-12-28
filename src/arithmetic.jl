@@ -15,10 +15,10 @@ end
 Generate the layer of arithmetic functions of the ICN.
 """
 function arithmetic_layer()
-    arithmetics = Dict(
+    arithmetics = LittleDict{Symbol, Function}(
         :sum => _sum,
         :prod => _prod,
     )
 
-    return arithmetics
+    return Layer(arithmetics, true)
 end
