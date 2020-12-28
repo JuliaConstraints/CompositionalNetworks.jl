@@ -1,3 +1,14 @@
+"""
+    ICN(; nvars, dom_size, param, transformation, arithmetic, aggregation, comparison)
+Construct an Interpretable Compositional Network, with the following arguments:
+- `nvars`: number of variable in the constraint
+- `dom_size: maximum domain size of any variable in the constraint`
+- `param`: optional parameter (default to `nothing`)
+- `transformation`: a transformation layer (optional)
+- `arithmetic`: a arithmetic layer (optional)
+- `aggregation`: a aggregation layer (optional)
+- `comparison`: a comparison layer (optional)
+"""
 mutable struct ICN
     transformation::Layer
     arithmetic::Layer
@@ -20,12 +31,28 @@ mutable struct ICN
     end
 end
 
+"""
+    _layers(icn)
+Return the ordered layers of an ICN.
+"""
 _layers(icn) = [icn.transformation, icn.arithmetic, icn.aggregation, icn.comparison]
+
+"""
+    _length(icn)
+Return the total number of operations of an ICN.
+"""
 _length(icn::ICN) = sum(_length, _layers(icn))
+
+"""
+    _weigths(icn)
+Access the current set of weigths of an ICN.
+"""
 _weigths(icn) = icn.weigths
 
-_nbits_exclu(layer) = ceil(Int, log2(_length(layer)))
-
+"""
+    compose(icn)
+Return a function composed by some of the operations of a given ICN. Can be applied to any vector of variables.
+"""
 function compose(icn::ICN)
     funcs = Vector{Vector{Function}}()
     symbols = Vector{Vector{Symbol}}()

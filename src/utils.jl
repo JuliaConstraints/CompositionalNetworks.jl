@@ -47,6 +47,10 @@ end
 #     v
 # end
 
+"""
+    _as_bitvector(v::AbstractVector)
+Convert a `BitVector` into an `Int`.
+"""
 function _as_int(v::AbstractVector)
     n = 0
     for (i, b) in enumerate(v)
