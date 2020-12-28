@@ -1,0 +1,4 @@
+Constraint: AllDiff.
+Number of solutions: 935435
+Number of samplings: 1000000000
+Estimated percent solutions: 0.0935435

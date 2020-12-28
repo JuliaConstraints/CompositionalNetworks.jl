@@ -1,4 +1,3 @@
-
 """
     _map_tr(f, x)
     _map_tr(f, x, param)
@@ -17,4 +16,45 @@ function lazy(funcs::Function...)
 end
 function lazy_param(funcs::Function...)
     foreach(f -> eval(:($f(x, param) = (y -> _map_tr($f, y, param))(x))), map(Symbol, funcs))
+end
+
+"""
+    _as_bitvector(n::Int, max_n::Int = n)
+Convert an Int to a BitVector of minimal size (relatively to `max_n`).
+"""
+function _as_bitvector(n::Int, max_n::Int = n)
+    v = falses(ceil(Int, log2(n + 1)))
+    i = 0
+    @inbounds while !iszero(n)
+        tz = trailing_zeros(n)
+        i += (tz + 1)
+        v[i] = true
+        n >>>= (tz + 1)
+    end
+    v
+end
+
+# TODO: memory layout stable bitvector for the general individual
+# function as_bitvector(n::Int)
+#     v = falses(8*sizeof(n))
+#     i = 0
+#     @inbounds while !iszero(n)
+#         tz = trailing_zeros(n)
+#         i += (tz + 1)
+#         v[i] = true
+#         n >>>= (tz + 1)
+#     end
+#     v
+# end
+
+"""
+    _as_bitvector(v::AbstractVector)
+Convert a `BitVector` into an `Int`.
+"""
+function _as_int(v::AbstractVector)
+    n = 0
+    for (i, b) in enumerate(v)
+        n += b ? 2^(i - 1) : 0
+    end
+    return n
 end

@@ -28,21 +28,47 @@ function _euclidian(x::T, dom_size::T2) where {T <: Number, T2 <: Number}
 end
 
 """
-    _abs_diff_val_vars(x::T, vars::V)
+    _abs_diff_val_vars(x::T, nvars::Int)
 Return the absolute difference between `x` and the number of variables.
 """
-function _abs_diff_val_vars(x::T, vars::V) where {T <: Number, V <: AbstractVector{T}}
-    return abs(x - length(vars))
+function _abs_diff_val_vars(x::T, nvars::Int) where {T <: Number}
+    return abs(x - nvars)
 end
 
 """
-    _val_minus_vars(x::T, vars::V)
-    _vars_minus_val(x::T, vars::V)
-Return the difference `x - length(vars)` (resp. `length(vars) - x`) if positive, `0.0` otherwise.
+    _val_minus_vars(x::T, nvars::Int)
+    _vars_minus_val(x::T, nvars::Int)
+Return the difference `x - nvars` (resp. `nvars - x`) if positive, `0.0` otherwise.
 """
-function _val_minus_vars(x::T, vars::V) where {T <: Number, V <: AbstractVector{T}}
-    return _val_minus_param(x, length(vars))
+function _val_minus_vars(x::T, nvars::Int) where {T <: Number}
+    return _val_minus_param(x, nvars)
 end
-function _vars_minus_val(x::T, vars::V) where {T <: Number, V <: AbstractVector{T}}
-    return _param_minus_val(x, length(vars))
+function _vars_minus_val(x::T, nvars::Int) where {T <: Number}
+    return _param_minus_val(x, nvars)
+end
+
+"""
+    comparison_layer(nvars, dom_size, param = nothing)
+Generate the layer of transformations functions of the ICN. Iff `param` value is set, also includes all the parametric transformation with that value.
+"""
+function comparison_layer(nvars, dom_size, param = nothing)
+    comparisons = LittleDict{Symbol, Function}(
+        :identity => _identity,
+        :euclidian => (x -> _euclidian(x, dom_size)),
+        :abs_diff_val_vars => (x -> _abs_diff_val_vars(x, nvars)),
+        :val_minus_vars => (x -> _val_minus_vars(x, nvars)),
+        :vars_minus_val => (x -> _vars_minus_val(x, nvars)),
+    )
+
+    if !isnothing(param)
+        comparisons_param = LittleDict{Symbol, Function}(
+            :abs_diff_val_param => (x -> _abs_diff_val_param(x, param)),
+            :val_minus_param => (x -> _val_minus_param(x, param)),
+            :param_minus_val => (x -> _param_minus_val(x, param)),
+            :euclidian_param => (x -> _euclidian_param(x, param, dom_size)),
+        )
+        comparisons = LittleDict{Symbol, Function}(union(comparisons, comparisons_param))
+    end
+
+    return Layer(comparisons, true)
 end

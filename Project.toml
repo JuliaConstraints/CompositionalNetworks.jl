@@ -3,6 +3,11 @@ uuid = "4b67e4b5-442d-4ef5-b760-3f5df3a57537"
 authors = ["Jean-François Baffier"]
 version = "0.0.1"
 
+[deps]
+Evolutionary = "86b6b26d-c046-49b6-aa0b-5f0f74682bd6"
+OrderedCollections = "bac558e1-5e72-5ebc-8fee-abe8a469f55d"
+Random = "9a3f8284-a2c9-5f02-9a11-845980a1fd5c"
+
 [compat]
 julia = "1.5"
 

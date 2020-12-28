@@ -1,8 +1,9 @@
 using CompositionalNetworks
 using Test
 
-ICN = CompositionalNetworks
+CN = CompositionalNetworks
 
 @testset "CompositionalNetworks.jl" begin
     include("layers.jl")
+    include("icn.jl")
 end
