@@ -50,10 +50,16 @@ Access the current set of weigths of an ICN.
 _weigths(icn) = icn.weigths
 
 """
-    compose(icn)
-Return a function composed by some of the operations of a given ICN. Can be applied to any vector of variables.
+    show_layers(icn)
+Return a formated string with each layers in the icn.
 """
-function compose(icn::ICN)
+show_layers(icn) = map(_show_layer, _layers(icn))
+
+"""
+    _compose(icn)
+Internal function called by `compose` and `show_composition`.
+"""
+function _compose(icn::ICN)
     funcs = Vector{Vector{Function}}()
     symbols = Vector{Vector{Symbol}}()
 
@@ -90,5 +96,22 @@ function compose(icn::ICN)
     end
 
     l = length(funcs[1])
-    return x -> fill(x, l) .|> funcs[1] |> funcs[2][1] |> funcs[3][1] |> funcs[4][1]
+    composition = x -> fill(x, l) .|> funcs[1] |> funcs[2][1] |> funcs[3][1] |> funcs[4][1]
+    return composition, symbols
 end
+
+"""
+    show_composition(icn)
+Return the composition (weights) of an ICN.
+"""
+function show_composition(icn) 
+    symbs = _compose(icn)[2]
+    aux = map(s -> _reduce_symbols(s, "+", length(s) > 1), symbs)
+    return _reduce_symbols(aux, "∘", false)
+end
+
+"""
+    compose(icn)
+Return a function composed by some of the operations of a given ICN. Can be applied to any vector of variables.
+"""
+compose(icn) = _compose(icn)[1]

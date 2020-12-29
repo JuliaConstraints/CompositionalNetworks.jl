@@ -32,3 +32,9 @@ _symbol(layer, i) = collect(keys(_functions(layer)))[i]
 Convert the length of an exclusive layer into a number of bits.
 """
 _nbits_exclu(layer) = ceil(Int, log2(_length(layer)))
+
+"""
+    _show_layer(layer)
+Return a string that contains the elements in a layer.
+"""
+_show_layer(layer) = layer |> _functions |> keys |> string

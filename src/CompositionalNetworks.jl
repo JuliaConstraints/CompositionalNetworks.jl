@@ -9,7 +9,7 @@ import OrderedCollections: LittleDict
 export lazy, lazy_param
 
 # Export ICN
-export ICN, compose
+export ICN, compose, show_layers, show_composition
 
 # Include utils
 include("utils.jl")
