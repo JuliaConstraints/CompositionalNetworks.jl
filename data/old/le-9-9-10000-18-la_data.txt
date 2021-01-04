@@ -1,0 +1,8 @@
+Constraint: Linear equation.
+9-9-18
+Perform Latin Hypercube sampling.
+Number of solutions: 10000
+Space size: 387420489
+Percent solutions: 0.00630163
+Percent explored space: 0.00516235
+Elapsed time: 19827ms

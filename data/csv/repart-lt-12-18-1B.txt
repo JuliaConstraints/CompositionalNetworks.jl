@@ -1,0 +1,4 @@
+Constraint: Less than.
+Number of solutions: 40
+Number of samplings: 1000000000
+Estimated percent solutions: 4e-06
