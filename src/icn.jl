@@ -60,7 +60,6 @@ _weigths(icn) = icn.weigths
 Set the weights of an ICN with a `BitVector`.
 """
 function _weigths!(icn, weigths)
-    @info "Debug _weigths" weigths
     @assert length(weigths) == _nbits(icn)
     icn.weigths = weigths
 end
@@ -143,7 +142,6 @@ Return a function composed by some of the operations of a given ICN. Can be appl
 function compose(icn, weigths = BitVector())
     !isempty(weigths) && _weigths!(icn, weigths)
     _compose(icn)[1]
-    @info "just in case"
 end
 
 """
