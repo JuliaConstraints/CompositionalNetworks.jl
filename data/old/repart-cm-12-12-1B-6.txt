@@ -1,0 +1,4 @@
+Constraint: Connection Minimum (greater-than version).
+Number of solutions: 1551968
+Number of samplings: 1000000000
+Estimated percent solutions: 0.155197

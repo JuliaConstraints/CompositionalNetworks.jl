@@ -50,6 +50,12 @@ Access the current set of weigths of an ICN.
 _weigths(icn) = icn.weigths
 
 """
+    _weights!(icn, weights)
+Set the weights of an ICN with a `BitVector`.
+"""
+_weigths!(icn, weigths) = icn.weights = weigths
+
+"""
     show_layers(icn)
 Return a formated string with each layers in the icn.
 """
@@ -114,4 +120,25 @@ end
     compose(icn)
 Return a function composed by some of the operations of a given ICN. Can be applied to any vector of variables.
 """
-compose(icn) = _compose(icn)[1]
+function compose(icn, weigths = BitVector())
+    !isempty(weigths) && _weigths!(icn, weigths)
+    _compose(icn)[1]
+end
+
+"""
+    regularization(icn)
+Return the regularization value of an ICN weights, which is proportional to the normalized number of operations selected in the icn layers.
+"""
+function regularization(icn)
+    Σop = 0
+    _start = 0
+    _end = 0
+    for layer in _layers(icn)
+        l = _length(layer)
+        _start = _end + 1
+        _end += _exclu(layer) ? _nbits_exclu(layer) : l
+        Σop += _selected_size(icn, @view _weigths(icn)[_start:_end])
+    end
+    return Σop / (_length(icn) + 1)
+end
+

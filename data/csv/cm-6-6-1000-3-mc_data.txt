@@ -1,0 +1,8 @@
+Constraint: Connection Minimum (greater-than version).
+6-6-3
+Perform Monte Carlo sampling.
+Number of solutions: 1000
+Space size: 46656
+Percent solutions: 8.68583
+Percent explored space: 4.28669
+Elapsed time: 3.55341ms

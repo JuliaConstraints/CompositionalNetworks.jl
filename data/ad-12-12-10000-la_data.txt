@@ -1,8 +1,0 @@
-Constraint: AllDiff.
-12-12
-Perform Latin Hypercube sampling.
-Number of solutions: 10000
-Space size: 8916100448256
-Percent solutions: 0.00530304
-Percent explored space: 2.24313e-07
-Elapsed time: 38738ms

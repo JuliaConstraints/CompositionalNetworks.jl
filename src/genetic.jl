@@ -25,3 +25,8 @@ function generate_population(icn, pop_size)
     end
     return population
 end
+
+function _loss(X, icn, weigths, metric)
+    f = compose(icn, weigths)
+    return sum(x -> abs(f(x) - metric(x)), X) + regularization(icn)
+end
