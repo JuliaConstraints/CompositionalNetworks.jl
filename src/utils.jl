@@ -23,14 +23,13 @@ end
 Convert an Int to a BitVector of minimal size (relatively to `max_n`).
 """
 function _as_bitvector(n::Int, max_n::Int = n)
-    nm1 = n - 1
-    v = falses(ceil(Int, log2(max_n)))
+    v = falses(ceil(Int, log2(n + 1)))
     i = 0
-    @inbounds while !iszero(nm1)
-        tz = trailing_zeros(nm1)
+    @inbounds while !iszero(n)
+        tz = trailing_zeros(n)
         i += (tz + 1)
         v[i] = true
-        nm1 >>>= (tz + 1)
+        n >>>= (tz + 1)
     end
     v
 end
@@ -58,13 +57,4 @@ function _as_int(v::AbstractVector)
         n += b ? 2^(i - 1) : 0
     end
     return n
-end
-
-"""
-    _reduce_symbols(symbols, sep)
-Produce a formatted string that separates the symbols by `sep`. Used internally for `show_composition`.
-"""
-function _reduce_symbols(symbols, sep, parenthesis = true)
-    str = reduce((x,y) -> "$y $sep $x", symbols)
-    return parenthesis ? "($str)" : str
 end
