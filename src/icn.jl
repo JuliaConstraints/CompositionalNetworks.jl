@@ -44,6 +44,12 @@ Return the total number of operations of an ICN.
 _length(icn::ICN) = sum(_length, _layers(icn))
 
 """
+    _nbits(icn)
+Return the expected number of bits of a viable weigth of an ICN.
+"""
+_nbits(icn) = mapreduce(l -> _exclu(l) ? _nbits_exclu(l) : _length(l), +, _layers(icn))
+
+"""
     _weigths(icn)
 Access the current set of weigths of an ICN.
 """
@@ -53,7 +59,11 @@ _weigths(icn) = icn.weigths
     _weights!(icn, weights)
 Set the weights of an ICN with a `BitVector`.
 """
-_weigths!(icn, weigths) = icn.weights = weigths
+function _weigths!(icn, weigths)
+    @info "Debug _weigths" weigths
+    @assert length(weigths) == _nbits(icn)
+    icn.weigths = weigths
+end
 
 """
     show_layers(icn)
@@ -66,6 +76,7 @@ show_layers(icn) = map(_show_layer, _layers(icn))
 Internal function called by `compose` and `show_composition`.
 """
 function _compose(icn::ICN)
+    @info "mark 1"
     funcs = Vector{Vector{Function}}()
     symbols = Vector{Vector{Symbol}}()
 
@@ -73,10 +84,12 @@ function _compose(icn::ICN)
     _end = 0
 
     for layer in _layers(icn)
+        @info "mark 2"
         _start = _end + 1
         _end += _exclu(layer) ? _nbits_exclu(layer) : _length(layer)
 
         if _exclu(layer)
+            @info "mark 3.1"
             f_id = _as_int(@view _weigths(icn)[_start:_end])
             f_id ≥ _length(layer) && return ((x...) -> 0.0)
             s = _symbol(layer, f_id + 1)
@@ -84,11 +97,14 @@ function _compose(icn::ICN)
             push!(symbols, [s])
 
         else
+            @info "mark 3.2" _start _end _weigths(icn)
+            @info "mark 3.3" (!any(@view _weigths(icn)[_start:_end]))
             !any(@view _weigths(icn)[_start:_end]) && return ((x...) -> 0.0)
-
+            @info "mark 3.9"
             layer_funcs = Vector{Function}()
             layer_symbs = Vector{Symbol}()
 
+            @info "mark 4"
             for (f_id, b) in enumerate(@view _weigths(icn)[_start:_end])
                 if b
                     s = _symbol(layer, f_id)
@@ -96,10 +112,14 @@ function _compose(icn::ICN)
                     push!(layer_symbs, s)
                 end
             end
+            @info "mark 5"
             push!(funcs, layer_funcs)
             push!(symbols, layer_symbs)
         end
     end
+
+
+
 
     l = length(funcs[1])
     composition = x -> fill(x, l) .|> funcs[1] |> funcs[2][1] |> funcs[3][1] |> funcs[4][1]
@@ -110,7 +130,7 @@ end
     show_composition(icn)
 Return the composition (weights) of an ICN.
 """
-function show_composition(icn) 
+function show_composition(icn)
     symbs = _compose(icn)[2]
     aux = map(s -> _reduce_symbols(s, "+", length(s) > 1), symbs)
     return _reduce_symbols(aux, "∘", false)
@@ -123,6 +143,7 @@ Return a function composed by some of the operations of a given ICN. Can be appl
 function compose(icn, weigths = BitVector())
     !isempty(weigths) && _weigths!(icn, weigths)
     _compose(icn)[1]
+    @info "just in case"
 end
 
 """
@@ -137,8 +158,7 @@ function regularization(icn)
         l = _length(layer)
         _start = _end + 1
         _end += _exclu(layer) ? _nbits_exclu(layer) : l
-        Σop += _selected_size(icn, @view _weigths(icn)[_start:_end])
+        Σop += _selected_size(layer, @view _weigths(icn)[_start:_end])
     end
     return Σop / (_length(icn) + 1)
 end
-
