@@ -32,7 +32,7 @@ function _loss(X, icn, weigths, metric)
     return sum(x -> abs(f(x) - metric(x, X)), X) + regularization(icn)
 end
 
-function _optimize(icn, X; ga = _icn_ga, metric = hamming, pop_size = 100)
+function _optimize(icn, X; ga = GA(), metric = hamming, pop_size = 100)
     f = weigths -> _loss(X, icn, weigths, metric)
 
     _icn_ga = GA(populationSize = pop_size, crossoverRate = 0.8, ɛ = .05, selection = tournament, crossover = singlepoint, mutation = flip)

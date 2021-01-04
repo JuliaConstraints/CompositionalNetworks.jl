@@ -13,11 +13,12 @@ v = [1,2,4,3]
 @test f(v) == 67
 
 ## Test GA
-icn = ICN(nvars = 4, dom_size = 4)
+
 X = csv2space("../data/csv/complete_ad-4-4.csv"; filter = :solutions)
 @test hamming([1,2,3,3], X) == 1
 
-x = CN.generate_population(icn, 1)[:,1]
-CN._loss(X, icn, x, hamming)
+# icn = ICN(nvars = 4, dom_size = 4)
+# x = CN.generate_population(icn, 1)[:,1]
+# CN._loss(X, icn, x, hamming)
 
-CN._optimize(icn, X; pop_size = 10)
+# CN._optimize(icn, X; pop_size = 10)

@@ -75,7 +75,7 @@ show_layers(icn) = map(_show_layer, _layers(icn))
 Internal function called by `compose` and `show_composition`.
 """
 function _compose(icn::ICN)
-    @info "mark 1"
+    # @info "mark 1"
     funcs = Vector{Vector{Function}}()
     symbols = Vector{Vector{Symbol}}()
 
@@ -83,12 +83,12 @@ function _compose(icn::ICN)
     _end = 0
 
     for layer in _layers(icn)
-        @info "mark 2"
+        # @info "mark 2"
         _start = _end + 1
         _end += _exclu(layer) ? _nbits_exclu(layer) : _length(layer)
 
         if _exclu(layer)
-            @info "mark 3.1"
+            # @info "mark 3.1"
             f_id = _as_int(@view _weigths(icn)[_start:_end])
             f_id ≥ _length(layer) && return ((x...) -> 0.0)
             s = _symbol(layer, f_id + 1)
@@ -96,14 +96,14 @@ function _compose(icn::ICN)
             push!(symbols, [s])
 
         else
-            @info "mark 3.2" _start _end _weigths(icn)
-            @info "mark 3.3" (!any(@view _weigths(icn)[_start:_end]))
+            # @info "mark 3.2" _start _end _weigths(icn)
+            # @info "mark 3.3" (!any(@view _weigths(icn)[_start:_end]))
             !any(@view _weigths(icn)[_start:_end]) && return ((x...) -> 0.0)
-            @info "mark 3.9"
+            # @info "mark 3.9"
             layer_funcs = Vector{Function}()
             layer_symbs = Vector{Symbol}()
 
-            @info "mark 4"
+            # @info "mark 4"
             for (f_id, b) in enumerate(@view _weigths(icn)[_start:_end])
                 if b
                     s = _symbol(layer, f_id)
@@ -111,7 +111,7 @@ function _compose(icn::ICN)
                     push!(layer_symbs, s)
                 end
             end
-            @info "mark 5"
+            # @info "mark 5"
             push!(funcs, layer_funcs)
             push!(symbols, layer_symbs)
         end
