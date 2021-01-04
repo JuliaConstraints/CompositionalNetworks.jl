@@ -1,0 +1,8 @@
+Constraint: Connection Minimum (greater-than version).
+6-6-3
+Perform Latin Hypercube sampling.
+Number of solutions: 1000
+Space size: 46656
+Percent solutions: 1.47977
+Percent explored space: 4.28669
+Elapsed time: 7.5412ms

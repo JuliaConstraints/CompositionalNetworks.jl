@@ -58,6 +58,8 @@ funcs = Dict(
 
 for (f, results) in funcs, (key, vals) in enumerate(data)
     @test f(vals.first) == results[key]
+    foreach(i -> f(i, vals.first), vals.first)
+    @info f
 end
 
 # Test transformations with parameter
@@ -90,6 +92,8 @@ funcs_param = Dict(
 
 for (f, results) in funcs_param, (key, vals) in enumerate(data)
     @test f(vals.first, vals.second) == results[key]
+    foreach(i -> f(i, vals.first, vals.second), vals.first)
+    @info f
 end
 
 # arithmetic layer
