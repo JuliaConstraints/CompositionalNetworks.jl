@@ -1,8 +1,0 @@
-Constraint: Less than.
-6-9
-Perform Latin Hypercube sampling.
-Number of solutions: 100
-Space size: 531441
-Percent solutions: 0.573033
-Percent explored space: 0.0376335
-Elapsed time: 8.11335ms

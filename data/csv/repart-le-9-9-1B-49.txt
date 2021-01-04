@@ -1,4 +1,0 @@
-Constraint: Linear equation.
-Number of solutions: 44672487
-Number of samplings: 1000000000
-Estimated percent solutions: 4.46725

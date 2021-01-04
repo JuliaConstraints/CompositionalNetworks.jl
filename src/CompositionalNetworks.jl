@@ -1,23 +1,18 @@
 module CompositionalNetworks
 
 # Imports
-import Evolutionary: GA, tournament, singlepoint, flip, optimize, minimizer
+import Evolutionary
 import Random: bitrand
 import OrderedCollections: LittleDict
-import DataFrames: DataFrame, Not
-import CSV: CSV
 
 # Exports utilities
-export lazy, lazy_param, csv2space
-export hamming
+export lazy, lazy_param
 
 # Export ICN
-export ICN, compose, show_layers, show_composition
+export ICN, compose
 
 # Include utils
 include("utils.jl")
-include("io.jl")
-include("hamming.jl")
 
 # Includes layers
 include("layer.jl")

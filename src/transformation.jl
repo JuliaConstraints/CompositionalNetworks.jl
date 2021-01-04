@@ -5,8 +5,6 @@ Identity function. Already defined in Julia as `identity`, specialized for vecto
 """
 _identity(x::V) where {T <: Number,V <: AbstractVector{T}} = identity(x)
 
-_identity(i::T, x::V) where {T <: Number,V <: AbstractVector{T}} = identity(i)
-
 """
     _count_eq(i::Int, x::V)
     _count_eq_right(i::Int, x::V)
