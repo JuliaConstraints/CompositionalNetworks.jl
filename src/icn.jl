@@ -93,6 +93,21 @@ function _generate_weights(icn)
     return vcat(bitvecs...)
 end
 
+function _is_viable(icn::ICN, weigths)
+    _start = 0
+    _end = 0
+
+    for layer in _layers(icn)
+        _start = _end + 1
+        _end += _exclu(layer) ? _nbits_exclu(layer) : _length(layer)
+
+        w = @view weigths[_start:_end]
+
+        !_is_viable(layer, w) && return false
+    end
+    return true
+end
+
 """
     _compose(icn)
 Internal function called by `compose` and `show_composition`.

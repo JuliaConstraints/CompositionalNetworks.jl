@@ -49,7 +49,7 @@ end
 # end
 
 """
-    _as_bitvector(v::AbstractVector)
+    _as_int(v::AbstractVector)
 Convert a `BitVector` into an `Int`.
 """
 function _as_int(v::AbstractVector)

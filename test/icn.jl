@@ -19,32 +19,5 @@ X = csv2space("../data/csv/complete_ad-4-4.csv"; filter = :solutions)
 
 icn = ICN(nvars = 4, dom_size = 4)
 
-using Evolutionary
-using Random
-
-function _optimize2(icn = icn, X = X;ga=GA(), pop_size=50)
-    pop = [bitrand(17) for i in 1:pop_size]
-    @info typeof(pop)
-    @info pop
-
-    f = weigths -> _loss(X, icn, weigths, metric)
-
-    Evolutionary.optimize(sum, pop, ga)
-end
-
-_ga = GA(
-    populationSize=5,
-    crossoverRate=0.8,
-    epsilon = 0.05,
-    selection = rouletteinv,
-    crossover=singlepoint,
-    mutation=flip,
-)
-
-_optimize2(;ga=_ga, pop_size=5)
-
-
-
-
-CN._optimize(icn, X; pop_size = 5)
+CN._optimize(icn, X; pop_size = 100)
 
