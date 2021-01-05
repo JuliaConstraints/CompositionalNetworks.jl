@@ -108,6 +108,8 @@ function _is_viable(icn::ICN, weigths)
     return true
 end
 
+_is_viable(icn::ICN) = _is_viable(icn, _weigths(icn))
+
 """
     _compose(icn)
 Internal function called by `compose` and `show_composition`.
@@ -126,22 +128,13 @@ function _compose(icn::ICN)
         _end += _exclu(layer) ? _nbits_exclu(layer) : _length(layer)
 
         if _exclu(layer)
-            # @info "mark 3.1"
             f_id = _as_int(@view _weigths(icn)[_start:_end])
-            f_id ≥ _length(layer) && return ((x...) -> 0.0)
             s = _symbol(layer, f_id + 1)
             push!(funcs, [_functions(layer)[s]])
             push!(symbols, [s])
-
         else
-            # @info "mark 3.2" _start _end _weigths(icn)
-            # @info "mark 3.3" (!any(@view _weigths(icn)[_start:_end]))
-            !any(@view _weigths(icn)[_start:_end]) && return ((x...) -> 0.0)
-            # @info "mark 3.9"
             layer_funcs = Vector{Function}()
             layer_symbs = Vector{Symbol}()
-
-            # @info "mark 4"
             for (f_id, b) in enumerate(@view _weigths(icn)[_start:_end])
                 if b
                     s = _symbol(layer, f_id)
@@ -149,14 +142,10 @@ function _compose(icn::ICN)
                     push!(layer_symbs, s)
                 end
             end
-            # @info "mark 5"
             push!(funcs, layer_funcs)
             push!(symbols, layer_symbs)
         end
     end
-
-
-
 
     l = length(funcs[1])
     composition = x -> fill(x, l) .|> funcs[1] |> funcs[2][1] |> funcs[3][1] |> funcs[4][1]
@@ -167,7 +156,8 @@ end
     show_composition(icn)
 Return the composition (weights) of an ICN.
 """
-function show_composition(icn)
+function show_composition(icn)    
+    !_is_viable(icn) && (@warn "not viable"; _weigths!(icn, _generate_weights(icn)))
     symbs = _compose(icn)[2]
     aux = map(s -> _reduce_symbols(s, "+", length(s) > 1), symbs)
     return _reduce_symbols(aux, "∘", false)
@@ -179,7 +169,7 @@ end
 Return a function composed by some of the operations of a given ICN. Can be applied to any vector of variables. If `weights` are given, will assign to `icn`.
 """
 function compose(icn)
-    !any(_weigths(icn)) && _weigths!(icn, _generate_weights(icn))
+    !_is_viable(icn) && (@warn "not viable"; _weigths!(icn, _generate_weights(icn)))
     _compose(icn)[1]
 end
 function compose(icn, weigths)

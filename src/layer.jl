@@ -45,4 +45,4 @@ Return the number of operations selected by `layer_weights` in `layer`.
 """
 _selected_size(layer, layer_weights) = _exclu(layer) ? 1 : sum(layer_weights)
 
-_is_viable(layer::Layer, w) = _exclu(layer) ? _as_int(w) ≤ _length(layer) : any(w)
+_is_viable(layer::Layer, w) = _exclu(layer) ? _as_int(w) < _length(layer) : any(w)

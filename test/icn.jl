@@ -19,5 +19,5 @@ X = csv2space("../data/csv/complete_ad-4-4.csv"; filter = :solutions)
 
 icn = ICN(nvars = 4, dom_size = 4)
 
-CN._optimize(icn, X; pop_size = 100)
+CN._optimize(icn, X; pop_size = 1000)
 
