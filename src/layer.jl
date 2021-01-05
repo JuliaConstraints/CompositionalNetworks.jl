@@ -46,3 +46,26 @@ Return the number of operations selected by `layer_weights` in `layer`.
 _selected_size(layer, layer_weights) = _exclu(layer) ? 1 : sum(layer_weights)
 
 _is_viable(layer::Layer, w) = _exclu(layer) ? _as_int(w) < _length(layer) : any(w)
+
+function _generate_inclusive_operations(predicate, bits)
+    ind = bitrand(bits)
+    while true
+        predicate(ind) && break
+        ind = bitrand(bits)
+    end
+    return ind
+end
+
+function _generate_exclusive_operation(max_op_number)
+    op = rand(1:max_op_number)
+    return _as_bitvector(op, max_op_number)
+end
+
+function _generate_weights(layers)
+    bitvecs = map(l -> _exclu(l) ?
+            _generate_exclusive_operation(_length(l)) :
+            _generate_inclusive_operations(any, _length(l)),
+            layers
+    )
+    return vcat(bitvecs...)
+end

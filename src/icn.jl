@@ -23,11 +23,8 @@ mutable struct ICN
         ag_layer=aggregation_layer(),
         co_layer=comparison_layer(nvars, dom_size, param),
     )
-        l = sum(
-            layer -> _exclu(layer) ? _nbits_exclu(layer) : _length(layer),
-            [tr_layer, ar_layer, ag_layer, co_layer]
-        )
-        new(tr_layer, ar_layer, ag_layer, co_layer, falses(l))
+        w = _generate_weights([tr_layer, ar_layer, ag_layer, co_layer])
+        new(tr_layer, ar_layer, ag_layer, co_layer, w)
     end
 end
 
@@ -55,44 +52,6 @@ Access the current set of weigths of an ICN.
 """
 _weigths(icn) = icn.weigths
 
-"""
-    _weights!(icn, weights)
-Set the weights of an ICN with a `BitVector`.
-"""
-function _weigths!(icn, weigths)
-    @assert length(weigths) == _nbits(icn)
-    icn.weigths = weigths
-end
-
-"""
-    show_layers(icn)
-Return a formated string with each layers in the icn.
-"""
-show_layers(icn) = map(_show_layer, _layers(icn))
-
-function _generate_inclusive_operations(predicate, bits)
-    ind = bitrand(bits)
-    while true
-        predicate(ind) && break
-        ind = bitrand(bits)
-    end
-    return ind
-end
-
-function _generate_exclusive_operation(max_op_number)
-    op = rand(1:max_op_number)
-    return _as_bitvector(op, max_op_number)
-end
-
-function _generate_weights(icn)
-    bitvecs = map(l -> _exclu(l) ?
-            _generate_exclusive_operation(_length(l)) :
-            _generate_inclusive_operations(any, _length(l)),
-            _layers(icn)
-    )
-    return vcat(bitvecs...)
-end
-
 function _is_viable(icn::ICN, weigths)
     _start = 0
     _end = 0
@@ -109,6 +68,24 @@ function _is_viable(icn::ICN, weigths)
 end
 
 _is_viable(icn::ICN) = _is_viable(icn, _weigths(icn))
+
+"""
+    _weights!(icn, weights)
+Set the weights of an ICN with a `BitVector`.
+"""
+function _weigths!(icn, weigths)
+    @assert length(weigths) == _nbits(icn)
+    # @assert _is_viable(icn, weigths)
+    icn.weigths = weigths
+end
+
+"""
+    show_layers(icn)
+Return a formated string with each layers in the icn.
+"""
+show_layers(icn) = map(_show_layer, _layers(icn))
+
+_generate_weights(icn::ICN) = _generate_weights(_layers(icn))
 
 """
     _compose(icn)
@@ -168,8 +145,8 @@ end
     compose(icn, weights)
 Return a function composed by some of the operations of a given ICN. Can be applied to any vector of variables. If `weights` are given, will assign to `icn`.
 """
-function compose(icn)
-    !_is_viable(icn) && (@warn "not viable"; _weigths!(icn, _generate_weights(icn)))
+function compose(icn::ICN)
+    !_is_viable(icn) && (@warn "not viable"; @info icn; _weigths!(icn, _generate_weights(icn)))
     _compose(icn)[1]
 end
 function compose(icn, weigths)
