@@ -70,6 +70,29 @@ Return a formated string with each layers in the icn.
 """
 show_layers(icn) = map(_show_layer, _layers(icn))
 
+function _generate_inclusive_operations(predicate, bits)
+    ind = bitrand(bits)
+    while true
+        predicate(ind) && break
+        ind = bitrand(bits)
+    end
+    return ind
+end
+
+function _generate_exclusive_operation(max_op_number)
+    op = rand(1:max_op_number)
+    return _as_bitvector(op, max_op_number)
+end
+
+function _generate_weights(icn)
+    bitvecs = map(l -> _exclu(l) ?
+            _generate_exclusive_operation(_length(l)) :
+            _generate_inclusive_operations(any, _length(l)),
+            _layers(icn)
+    )
+    return vcat(bitvecs...)
+end
+
 """
     _compose(icn)
 Internal function called by `compose` and `show_composition`.
@@ -137,11 +160,16 @@ end
 
 """
     compose(icn)
-Return a function composed by some of the operations of a given ICN. Can be applied to any vector of variables.
+    compose(icn, weights)
+Return a function composed by some of the operations of a given ICN. Can be applied to any vector of variables. If `weights` are given, will assign to `icn`.
 """
-function compose(icn, weigths = BitVector())
-    !isempty(weigths) && _weigths!(icn, weigths)
+function compose(icn)
+    !any(_weigths(icn)) && _weigths!(icn, _generate_weights(icn))
     _compose(icn)[1]
+end
+function compose(icn, weigths)
+    _weigths!(icn, weigths)
+    compose(icn)
 end
 
 """
