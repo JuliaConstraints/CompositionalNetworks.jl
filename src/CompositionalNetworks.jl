@@ -1,7 +1,7 @@
 module CompositionalNetworks
 
 # Imports
-import Evolutionary: GA, tournament, singlepoint, flip, optimize, minimizer, rouletteinv
+import Evolutionary: GA, tournament, singlepoint, flip, optimize, minimizer, rouletteinv, minimizer
 import Random: bitrand
 import OrderedCollections: LittleDict
 import DataFrames: DataFrame, Not

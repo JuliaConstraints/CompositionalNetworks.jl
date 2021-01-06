@@ -4,9 +4,9 @@ function _generate_population(icn, pop_size)
     return population
 end
 
-function _loss(X, icn, weigths, metric)
+function _loss(X, X_sols, icn, weigths, metric)
     f = compose(icn, weigths)
-    return sum(x -> abs(f(x) - metric(x, X)), X) + regularization(icn)
+    return sum(x -> abs(f(x) - metric(x, X_sols)), X) + regularization(icn)
 end
 
 function _single_point(v1::T, v2::T, icn) where {T <: AbstractVector}
@@ -24,21 +24,22 @@ function _flip(recombinant::T, icn) where {T <: BitVector}
     end
 end
 
-function _optimize(icn, X; ga = GA(), metric = hamming, pop_size = 100)
-    fitness = weigths -> _loss(X, icn, weigths, metric)
+function _optimize!(icn, X, X_sols; ga = GA(), metric = hamming, pop_size = 200)
+    fitness = weigths -> _loss(X, X_sols, icn, weigths, metric)
 
     _viable_single_point = (v1, v2) -> _single_point(v1, v2, icn)
     _viable_flip = v -> _flip(v, icn)
     _icn_ga = GA(
         populationSize = pop_size,
-        crossoverRate = 0.8,
-        epsilon = 0.05,
+        crossoverRate = 0.4,
+        epsilon = 0.03,
         selection = rouletteinv,
         crossover = _viable_single_point,
         mutation = _viable_flip,
+        mutationRate = 0.8
     )
 
     pop = _generate_population(icn, pop_size)
-
-    optimize(fitness, pop, _icn_ga)
+    res = optimize(fitness, pop, _icn_ga)
+    _weigths!(icn, minimizer(res))
 end

@@ -92,7 +92,8 @@ _generate_weights(icn::ICN) = _generate_weights(_layers(icn))
 Internal function called by `compose` and `show_composition`.
 """
 function _compose(icn::ICN)
-    # @info "mark 1"
+    !_is_viable(icn) && (return (_ -> typemax(Float64)), [])
+
     funcs = Vector{Vector{Function}}()
     symbols = Vector{Vector{Symbol}}()
 
@@ -100,7 +101,6 @@ function _compose(icn::ICN)
     _end = 0
 
     for layer in _layers(icn)
-        # @info "mark 2"
         _start = _end + 1
         _end += _exclu(layer) ? _nbits_exclu(layer) : _length(layer)
 
@@ -134,10 +134,9 @@ end
 Return the composition (weights) of an ICN.
 """
 function show_composition(icn)    
-    !_is_viable(icn) && (@warn "not viable"; _weigths!(icn, _generate_weights(icn)))
     symbs = _compose(icn)[2]
-    aux = map(s -> _reduce_symbols(s, "+", length(s) > 1), symbs)
-    return _reduce_symbols(aux, "∘", false)
+    aux = map(s -> _reduce_symbols(s, ", ", length(s) > 1), symbs)
+    return _reduce_symbols(aux, " ∘ ", false)
 end
 
 """
@@ -145,10 +144,7 @@ end
     compose(icn, weights)
 Return a function composed by some of the operations of a given ICN. Can be applied to any vector of variables. If `weights` are given, will assign to `icn`.
 """
-function compose(icn::ICN)
-    !_is_viable(icn) && (@warn "not viable"; @info icn; _weigths!(icn, _generate_weights(icn)))
-    _compose(icn)[1]
-end
+compose(icn::ICN) = _compose(icn)[1]
 function compose(icn, weigths)
     _weigths!(icn, weigths)
     compose(icn)
