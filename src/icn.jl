@@ -23,11 +23,8 @@ mutable struct ICN
         ag_layer=aggregation_layer(),
         co_layer=comparison_layer(nvars, dom_size, param),
     )
-        l = sum(
-            layer -> _exclu(layer) ? _nbits_exclu(layer) : _length(layer),
-            [tr_layer, ar_layer, ag_layer, co_layer]
-        )
-        new(tr_layer, ar_layer, ag_layer, co_layer, falses(l))
+        w = _generate_weights([tr_layer, ar_layer, ag_layer, co_layer])
+        new(tr_layer, ar_layer, ag_layer, co_layer, w)
     end
 end
 
@@ -44,16 +41,58 @@ Return the total number of operations of an ICN.
 _length(icn::ICN) = sum(_length, _layers(icn))
 
 """
+    _nbits(icn)
+Return the expected number of bits of a viable weigth of an ICN.
+"""
+_nbits(icn) = mapreduce(l -> _exclu(l) ? _nbits_exclu(l) : _length(l), +, _layers(icn))
+
+"""
     _weigths(icn)
 Access the current set of weigths of an ICN.
 """
 _weigths(icn) = icn.weigths
 
+function _is_viable(icn::ICN, weigths)
+    _start = 0
+    _end = 0
+
+    for layer in _layers(icn)
+        _start = _end + 1
+        _end += _exclu(layer) ? _nbits_exclu(layer) : _length(layer)
+
+        w = @view weigths[_start:_end]
+
+        !_is_viable(layer, w) && return false
+    end
+    return true
+end
+_is_viable(icn::ICN) = _is_viable(icn, _weigths(icn))
+
 """
-    compose(icn)
-Return a function composed by some of the operations of a given ICN. Can be applied to any vector of variables.
+    _weights!(icn, weights)
+Set the weights of an ICN with a `BitVector`.
 """
-function compose(icn::ICN)
+function _weigths!(icn, weigths)
+    @assert length(weigths) == _nbits(icn)
+    # @assert _is_viable(icn, weigths)
+    icn.weigths = weigths
+end
+
+"""
+    show_layers(icn)
+Return a formated string with each layers in the icn.
+"""
+show_layers(icn) = map(_show_layer, _layers(icn))
+
+_generate_weights(icn::ICN) = _generate_weights(_layers(icn))
+
+"""
+    _compose(icn)
+Internal function called by `compose` and `show_composition`.
+"""
+function _compose(icn::ICN)
+    !_is_viable(icn) && (return (_ -> typemax(Float64)), [])
+
     funcs = Vector{Vector{Function}}()
     symbols = Vector{Vector{Symbol}}()
 
@@ -66,17 +105,12 @@ function compose(icn::ICN)
 
         if _exclu(layer)
             f_id = _as_int(@view _weigths(icn)[_start:_end])
-            f_id ≥ _length(layer) && return ((x...) -> 0.0)
             s = _symbol(layer, f_id + 1)
             push!(funcs, [_functions(layer)[s]])
             push!(symbols, [s])
-
         else
-            !any(@view _weigths(icn)[_start:_end]) && return ((x...) -> 0.0)
-
             layer_funcs = Vector{Function}()
             layer_symbs = Vector{Symbol}()
-
             for (f_id, b) in enumerate(@view _weigths(icn)[_start:_end])
                 if b
                     s = _symbol(layer, f_id)
@@ -90,5 +124,44 @@ function compose(icn::ICN)
     end
 
     l = length(funcs[1])
-    return x -> fill(x, l) .|> funcs[1] |> funcs[2][1] |> funcs[3][1] |> funcs[4][1]
+    composition = x -> fill(x, l) .|> funcs[1] |> funcs[2][1] |> funcs[3][1] |> funcs[4][1]
+    return composition, symbols
+end
+
+"""
+    show_composition(icn)
+Return the composition (weights) of an ICN.
+"""
+function show_composition(icn)    
+    symbs = _compose(icn)[2]
+    aux = map(s -> _reduce_symbols(s, ", ", length(s) > 1), symbs)
+    return _reduce_symbols(aux, " ∘ ", false)
+end
+
+"""
+    compose(icn)
+    compose(icn, weights)
+Return a function composed by some of the operations of a given ICN. Can be applied to any vector of variables. If `weights` are given, will assign to `icn`.
+"""
+compose(icn::ICN) = _compose(icn)[1]
+function compose(icn, weigths)
+    _weigths!(icn, weigths)
+    compose(icn)
+end
+
+"""
+    regularization(icn)
+Return the regularization value of an ICN weights, which is proportional to the normalized number of operations selected in the icn layers.
+"""
+function regularization(icn)
+    Σop = 0
+    _start = 0
+    _end = 0
+    for layer in _layers(icn)
+        l = _length(layer)
+        _start = _end + 1
+        _end += _exclu(layer) ? _nbits_exclu(layer) : l
+        Σop += _selected_size(layer, @view _weigths(icn)[_start:_end])
+    end
+    return Σop / (_length(icn) + 1)
 end

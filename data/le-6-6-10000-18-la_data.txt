@@ -1,8 +1,0 @@
-Constraint: Linear equation.
-6-6-18
-Perform Latin Hypercube sampling.
-Number of solutions: 10000
-Space size: 46656
-Percent solutions: 7.34635
-Percent explored space: 42.8669
-Elapsed time: 18.9726ms
