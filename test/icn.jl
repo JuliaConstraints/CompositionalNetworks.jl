@@ -18,7 +18,7 @@ X_sol = csv2space("../data/csv/complete_ad-4-4.csv"; filter = :solutions)
 @test hamming([1,2,3,3], X_sol) == 1
 
 X = csv2space("../data/csv/complete_ad-4-4.csv")
-icn = ICN(nvars = 4, dom_size = 4)
+icn = ICN(nvars = 4, dom_size = 4, param = 0)
 
 CN._optimize!(icn, X, X_sol)
 @test CN._is_viable(icn)

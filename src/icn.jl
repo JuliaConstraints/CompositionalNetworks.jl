@@ -66,7 +66,6 @@ function _is_viable(icn::ICN, weigths)
     end
     return true
 end
-
 _is_viable(icn::ICN) = _is_viable(icn, _weigths(icn))
 
 """

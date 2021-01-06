@@ -1,11 +1,11 @@
 """
-    _sum(x::V)
+    _ag_sum(x)
 Aggregate through `+` a vector into a single scalar.
 """
 _ag_sum(x) = reduce(+, x)
 
 """
-    _count_positive(x::V)
+    _ag_count_positive(x)
 Count the number of strictly positive elements of `x`.
 """
 _ag_count_positive(x) = count(y -> y > 0.0, x)

@@ -1,38 +1,41 @@
-# doc in transformation.jl
+"""
+    _co_identity(x::Number)
+Identity function. Already defined in Julia as `identity`, specialized for scalars in the `comparison` layer.
+"""
 _co_identity(x) = identity(x)
 
 """
-    _abs_diff_val_param(x::T, param::T)
+    _co_abs_diff_val_param(x, param)
 Return the absolute difference between `x` and `param`.
 """
 _co_abs_diff_val_param(x, param) = abs(x - param)
 
 """
-    _val_minus_param(x::T, param::T)
-    _param_minus_val(x::T, param::T)
+    _co_val_minus_param(x, param)
+    _co_param_minus_val(x, param)
 Return the difference `x - param` (resp. `param - x`) if positive, `0.0` otherwise.
 """
 _co_val_minus_param(x, param) = max(0.0, x - param)
 _co_param_minus_val(x, param) = max(0.0, param - x)
 
 """
-    _euclidian_param(x::T, param::T, dom_size::T2)
-    _euclidian(x::T, dom_size::T2)
-Compute an euclidian norm , possibly weigthed by `param`, on a scalar.
+    _co_euclidian_param(x, param, ds)
+    _co_euclidian(x, ds)
+Compute an euclidian norm with domain size `ds`, possibly weigthed by `param`, on a scalar.
 """
-_co_euclidian_param(x, param, d_size) = x == param ? 0.0 : (1.0 + abs(x - param) \ d_size)
-_co_euclidian(x, d_size) = _co_euclidian_param(x, 0.0, d_size)
+_co_euclidian_param(x, param, ds) = x == param ? 0.0 : (1.0 + abs(x - param) \ ds)
+_co_euclidian(x, ds) = _co_euclidian_param(x, 0.0, ds)
 
 """
-    _abs_diff_val_vars(x::T, nvars::Int)
-Return the absolute difference between `x` and the number of variables.
+    _co_abs_diff_val_vars(x, nvars)
+Return the absolute difference between `x` and the number of variables `nvars`.
 """
 _co_abs_diff_val_vars(x, nvars) = abs(x - nvars)
 
 """
-    _val_minus_vars(x::T, nvars::Int)
-    _vars_minus_val(x::T, nvars::Int)
-Return the difference `x - nvars` (resp. `nvars - x`) if positive, `0.0` otherwise.
+    _co_val_minus_vars(x, nvars)
+    _co_vars_minus_val(x, nvars)
+Return the difference `x - nvars` (resp. `nvars - x`) if positive, `0.0` otherwise, where `nvars` denotes the numbers of variables.
 """
 _co_val_minus_vars(x, nvars) = _co_val_minus_param(x, nvars)
 _co_vars_minus_val(x, nvars) = _co_param_minus_val(x, nvars)

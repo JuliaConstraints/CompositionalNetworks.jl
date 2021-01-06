@@ -1,6 +1,6 @@
 """
-    _sum(x::W) where {T <: Number, V <: AbstractVector{T}, W <: AbstractVector{V}}
-    _prod(x::W) where {T <: Number, V <: AbstractVector{T}, W <: AbstractVector{V}}
+    _ar_sum(x)
+    _ar_prod(x)
 Reduce `k = length(x)` vectors through sum/product to a single vector.
 """
 _ar_sum(x) = reduce((y, z) -> y .+ z, x)
