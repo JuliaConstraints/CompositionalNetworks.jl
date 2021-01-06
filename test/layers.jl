@@ -97,12 +97,12 @@ for (f, results) in funcs_param, (key, vals) in enumerate(data)
 end
 
 # arithmetic layer
-@test CN._sum(map(p -> p.first, data)) == [2, 7, 5, 6, 4]
-@test CN._prod(map(p -> p.first, data)) == [1, 10, 6, 8, 3]
+@test CN._ar_sum(map(p -> p.first, data)) == [2, 7, 5, 6, 4]
+@test CN._ar_prod(map(p -> p.first, data)) == [1, 10, 6, 8, 3]
 
 # aggregation layer
-@test CN._sum(data[1].first) == 15
-@test CN._sum(data[2].first) == 9
+@test CN._ag_sum(data[1].first) == 15
+@test CN._ag_sum(data[2].first) == 9
 
 @test CN._count_positive(data[1].first) == 5
 @test CN._count_positive(data[2].first) == 5

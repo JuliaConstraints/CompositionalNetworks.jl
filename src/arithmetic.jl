@@ -3,12 +3,8 @@
     _prod(x::W) where {T <: Number, V <: AbstractVector{T}, W <: AbstractVector{V}}
 Reduce `k = length(x)` vectors through sum/product to a single vector.
 """
-function _sum(x::W) where {W <: AbstractVector{AbstractVector}}
-    return reduce((y, z) -> y .+ z, x)
-end
-function _prod(x::W) where {T <: Number, V <: AbstractVector{T}, W <: AbstractVector{V}}
-    return reduce((y, z) -> y .* z, x)
-end
+_ar_sum(x) = reduce((y, z) -> y .+ z, x)
+_ar_prod(x) = reduce((y, z) -> y .* z, x)
 
 """
     arithmetic_layer()
@@ -16,8 +12,8 @@ Generate the layer of arithmetic functions of the ICN.
 """
 function arithmetic_layer()
     arithmetics = LittleDict{Symbol, Function}(
-        :sum => _sum,
-        :prod => _prod,
+        :sum => _ar_sum,
+        :prod => _ar_prod,
     )
 
     return Layer(arithmetics, true)
