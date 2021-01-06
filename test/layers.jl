@@ -122,8 +122,8 @@ end
 
 funcs_param = [
     CN._abs_diff_val_param => [2, 5],
-    CN._val_minus_param => [2, 0],
-    CN._param_minus_val => [0, 5],
+    CN._co_val_minus_param => [2, 0],
+    CN._co_param_minus_val => [0, 5],
 ]
 
 for (f, results) in funcs_param, (key, vals) in enumerate(data)

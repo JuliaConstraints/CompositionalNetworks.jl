@@ -12,8 +12,8 @@ _abs_diff_val_param(x::T, param::T) where T <: Number = abs(x - param)
     _param_minus_val(x::T, param::T)
 Return the difference `x - param` (resp. `param - x`) if positive, `0.0` otherwise.
 """
-_val_minus_param(x::T, param::T) where T <: Number = max(0.0, x - param)
-_param_minus_val(x::T, param::T) where T <: Number = max(0.0, param - x)
+_co_val_minus_param(x::T, param::T) where T <: Number = max(0.0, x - param)
+_co_param_minus_val(x::T, param::T) where T <: Number = max(0.0, param - x)
 
 """
     _euclidian_param(x::T, param::T, dom_size::T2)
@@ -41,10 +41,10 @@ end
 Return the difference `x - nvars` (resp. `nvars - x`) if positive, `0.0` otherwise.
 """
 function _val_minus_vars(x::T, nvars::Int) where {T <: Number}
-    return _val_minus_param(x, nvars)
+    return _co_val_minus_param(x, nvars)
 end
 function _vars_minus_val(x::T, nvars::Int) where {T <: Number}
-    return _param_minus_val(x, nvars)
+    return _co_param_minus_val(x, nvars)
 end
 
 """
@@ -63,8 +63,8 @@ function comparison_layer(nvars, dom_size, param = nothing)
     if !isnothing(param)
         comparisons_param = LittleDict{Symbol, Function}(
             :abs_diff_val_param => (x -> _abs_diff_val_param(x, param)),
-            :val_minus_param => (x -> _val_minus_param(x, param)),
-            :param_minus_val => (x -> _param_minus_val(x, param)),
+            :val_minus_param => (x -> _co_val_minus_param(x, param)),
+            :param_minus_val => (x -> _co_param_minus_val(x, param)),
             :euclidian_param => (x -> _euclidian_param(x, param, dom_size)),
         )
         comparisons = LittleDict{Symbol, Function}(union(comparisons, comparisons_param))
