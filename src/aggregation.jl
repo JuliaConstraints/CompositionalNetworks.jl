@@ -2,7 +2,7 @@
     _sum(x::V)
 Aggregate through `+` a vector into a single scalar.
 """
-_sum(x::V) where {T <: Number, V <: AbstractVector{T}} = reduce(+, x)
+_sum(x::V) where {V <: AbstractVector} = reduce(+, x)
 
 """
     _count_positive(x::V)
