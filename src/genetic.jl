@@ -7,11 +7,6 @@ function _generate_population(icn, pop_size)
     foreach(_ -> push!(population, falses(_nbits(icn))), 1:pop_size)
     return population
 end
-# function _generate_population(icn, pop_size)
-#     population = Vector{BitVector}()
-#     foreach(_ -> push!(population, _generate_weights(icn)), 1:pop_size)
-#     return population
-# end
 
 """
     _loss(X, X_sols, icn, weigths, metric)
@@ -23,32 +18,11 @@ function _loss(X, X_sols, icn, weigths, metric)
 end
 
 """
-    _single_point(v1::T, v2::T, icn) where {T <: AbstractVector}
-    _flip(recombinant::T, icn) where {T <: BitVector}
-Meta functions that add individuals a viability check in `Evolutionary.singlepoint` and `Evolutionary.flip`.
-"""
-function _single_point(v1::T, v2::T, icn) where {T <: AbstractVector}
-    while true
-        c1, c2 = singlepoint(v1, v2)
-        _is_viable(icn, c1) && _is_viable(icn, c2) && (return c1, c2)
-    end
-end
-function _flip(recombinant::T, icn) where {T <: BitVector}
-    c = deepcopy(recombinant)
-    while true
-        flip(c)
-        _is_viable(icn, c) && (recombinant = c:break)
-    end
-end
-
-"""
     _optimize!(icn, X, X_sols; metric = hamming, pop_size = 200)
 Optimize and set the weigths of an ICN with a given set of configuration `X` and solutions `X_sols`.
 """
 function _optimize!(icn, X, X_sols; metric=hamming, pop_size=200, iter=100)
     fitness = weigths -> _loss(X, X_sols, icn, weigths, metric)
-    _viable_single_point = (v1, v2) -> _single_point(v1, v2, icn)
-    _viable_flip = v -> _flip(v, icn)
 
     _icn_ga = GA(
         populationSize=pop_size,
