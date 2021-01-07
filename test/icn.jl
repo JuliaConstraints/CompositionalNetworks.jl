@@ -26,4 +26,4 @@ err = compose(icn)
 @test err([1,2,3,3]) > 0.0
 @info show_composition(icn)
 
-CN.optimize(icn, X, X_sol, 10, 100)
+CN.optimize!(icn, X, X_sol, 10, 100)
