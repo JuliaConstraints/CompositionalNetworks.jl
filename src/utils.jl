@@ -68,3 +68,7 @@ function _reduce_symbols(symbols, sep, parenthesis = true)
     str = reduce((x,y) -> "$y$sep$x", symbols)
     return parenthesis ? "[$str]" : str
 end
+
+function _incsert!(d::Dictionary, ind)
+    set!(d, ind, isassigned(d, ind) ? d[ind] + 1 : 1)
+end
