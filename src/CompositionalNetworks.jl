@@ -1,11 +1,12 @@
 module CompositionalNetworks
 
 # Imports
-import Evolutionary: GA, tournament, singlepoint, flip, optimize, minimizer, rouletteinv, minimizer
+import Evolutionary: GA, tournament, singlepoint, flip, optimize, minimizer, Options, summary, trace, rouletteinv
 import Random: bitrand, falses
 import OrderedCollections: LittleDict
 import DataFrames: DataFrame, Not
 import CSV: CSV
+import Dictionaries: Dictionary, set!
 
 # Exports utilities
 export lazy, lazy_param, csv2space

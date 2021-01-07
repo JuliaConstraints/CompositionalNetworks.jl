@@ -1,6 +1,6 @@
 # # Test with manually weighted ICN
 
-icn = ICN(nvars = 4, dom_size = 4, param = 2)
+icn = ICN(nvars=4, dom_size=4, param=2)
 show_layers(icn)
 icn.weigths = vcat(trues(18), falses(6))
 
@@ -14,13 +14,16 @@ v = [1,2,4,3]
 
 ## Test GA
 
-X_sol = csv2space("../data/csv/complete_ad-4-4.csv"; filter = :solutions)
+X_sol = csv2space("../data/csv/complete_ad-4-4.csv"; filter=:solutions)
 @test hamming([1,2,3,3], X_sol) == 1
 
 X = csv2space("../data/csv/complete_ad-4-4.csv")
-icn = ICN(nvars = 4, dom_size = 4, param = 0)
+icn = ICN(nvars=4, dom_size=4)
 
 CN._optimize!(icn, X, X_sol)
 @test CN._is_viable(icn)
 err = compose(icn)
 @test err([1,2,3,3]) > 0.0
+@info show_composition(icn)
+
+CN.optimize!(icn, X, X_sol, 10, 100)

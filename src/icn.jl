@@ -154,6 +154,7 @@ end
 Return the regularization value of an ICN weights, which is proportional to the normalized number of operations selected in the icn layers.
 """
 function regularization(icn)
+    Σmax = 0 
     Σop = 0
     _start = 0
     _end = 0
@@ -161,7 +162,10 @@ function regularization(icn)
         l = _length(layer)
         _start = _end + 1
         _end += _exclu(layer) ? _nbits_exclu(layer) : l
-        Σop += _selected_size(layer, @view _weigths(icn)[_start:_end])
+        if !_exclu(layer)
+            Σop += _selected_size(layer, @view _weigths(icn)[_start:_end])
+            Σmax += _length(layer)
+        end
     end
-    return Σop / (_length(icn) + 1)
+    return Σop / (Σmax + 1)
 end

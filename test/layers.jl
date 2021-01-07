@@ -56,10 +56,12 @@ funcs = Dict(
     ],
 )
 
-for (f, results) in funcs, (key, vals) in enumerate(data)
-    @test f(vals.first) == results[key]
-    foreach(i -> f(i, vals.first), vals.first)
+for (f, results) in funcs
     @info f
+    for (key, vals) in enumerate(data)
+        @test f(vals.first) == results[key]
+        foreach(i -> f(i, vals.first), vals.first)
+    end
 end
 
 # Test transformations with parameter
@@ -90,20 +92,26 @@ funcs_param = Dict(
     ],
 )
 
-for (f, results) in funcs_param, (key, vals) in enumerate(data)
-    @test f(vals.first, vals.second) == results[key]
-    foreach(i -> f(i, vals.first, vals.second), vals.first)
+for (f, results) in funcs_param    
     @info f
+    for (key, vals) in enumerate(data)
+        @test f(vals.first, vals.second) == results[key]
+        foreach(i -> f(i, vals.first, vals.second), vals.first)
+    end
 end
 
 # arithmetic layer
+@info CN._ar_sum
 @test CN._ar_sum(map(p -> p.first, data)) == [2, 7, 5, 6, 4]
+@info CN._ar_prod
 @test CN._ar_prod(map(p -> p.first, data)) == [1, 10, 6, 8, 3]
 
 # aggregation layer
+@info CN._ag_sum
 @test CN._ag_sum(data[1].first) == 15
 @test CN._ag_sum(data[2].first) == 9
 
+@info CN._ag_count_positive
 @test CN._ag_count_positive(data[1].first) == 5
 @test CN._ag_count_positive(data[2].first) == 5
 @test CN._ag_count_positive([1, 0, 1, 0, 1]) == 3
@@ -116,8 +124,11 @@ funcs = [
 ]
 
 # test no param/vars
-for (f, results) in funcs, (key, vals) in enumerate(data)
-    @test f(vals.first) == results[key]
+for (f, results) in funcs
+    @info f
+    for (key, vals) in enumerate(data)
+        @test f(vals.first) == results[key]
+    end
 end
 
 funcs_param = [
@@ -126,8 +137,11 @@ funcs_param = [
     CN._co_param_minus_val => [0, 5],
 ]
 
-for (f, results) in funcs_param, (key, vals) in enumerate(data)
-    @test f(vals.first, vals.second[1]) == results[key]
+for (f, results) in funcs_param
+    @info f
+    for (key, vals) in enumerate(data)
+        @test f(vals.first, vals.second[1]) == results[key]
+    end
 end
 
 funcs_vars = [
@@ -136,23 +150,31 @@ funcs_vars = [
     CN._co_vars_minus_val => [2, 0],
 ]
 
-for (f, results) in funcs_vars, (key, vals) in enumerate(data)
-    @test f(vals.first, vals.second[2]) == results[key]
+for (f, results) in funcs_vars
+    @info f
+    for (key, vals) in enumerate(data)
+        @test f(vals.first, vals.second[2]) == results[key]
+    end
 end
-
 
 funcs_param_dom = [
     CN._co_euclidian_param => [3.5, 2.0],
 ]
 
-for (f, results) in funcs_param_dom, (key, vals) in enumerate(data)
-    @test f(vals.first, vals.second[1], vals.second[2]) ≈ results[key]
+for (f, results) in funcs_param_dom
+    @info f
+    for (key, vals) in enumerate(data)
+        @test f(vals.first, vals.second[1], vals.second[2]) ≈ results[key]
+    end
 end
 
 funcs_dom = [
-    CN._co_euclidian => [8/3, 2.0],
+    CN._co_euclidian => [8 / 3, 2.0],
 ]
 
-for (f, results) in funcs_dom, (key, vals) in enumerate(data)
-    @test f(vals.first, vals.second[2]) ≈ results[key]
+for (f, results) in funcs_dom
+    @info f
+    for (key, vals) in enumerate(data)
+        @test f(vals.first, vals.second[2]) ≈ results[key]
+    end
 end
