@@ -13,7 +13,7 @@ export lazy, lazy_param, csv2space
 export hamming
 
 # Export ICN
-export ICN, compose, show_layers, show_composition
+export ICN, compose, show_layers, show_composition, optimize!, optimize_and_compose
 
 # Include utils
 include("utils.jl")
@@ -32,5 +32,21 @@ include("icn.jl")
 
 # Genetic Algorithm
 include("genetic.jl")
+
+"""
+    optimize_and_compose(;
+        nvars, dom_size, param=nothing, icn=ICN(nvars, dom_size, param),
+        X, X_sols, global_iter=100, local_iter=100, metric=hamming, popSize=200
+    )
+Create an ICN, optimize it, and return its composition.
+"""
+function optimize_and_compose(; nvars, dom_size, param=nothing,
+    X=[], X_sols=[], global_iter=100, local_iter=100, metric=hamming, popSize=200
+)
+    icn = ICN(nvars=nvars, dom_size=dom_size, param=param)
+    optimize!(icn, X, X_sols, global_iter, local_iter; metric=metric, popSize=200)
+    @info show_composition(icn)
+    return compose(icn)
+end
 
 end
