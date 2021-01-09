@@ -7,6 +7,7 @@ import OrderedCollections: LittleDict
 import DataFrames: DataFrame, Not
 import CSV: CSV
 import Dictionaries: Dictionary, set!
+import Base.Iterators: product
 
 # Exports utilities
 export lazy, lazy_param, csv2space
@@ -30,23 +31,8 @@ include("comparison.jl")
 # Include ICN
 include("icn.jl")
 
-# Genetic Algorithm
+# Genetic Algorithm and learning
 include("genetic.jl")
-
-"""
-    optimize_and_compose(;
-        nvars, dom_size, param=nothing, icn=ICN(nvars, dom_size, param),
-        X, X_sols, global_iter=100, local_iter=100, metric=hamming, popSize=200
-    )
-Create an ICN, optimize it, and return its composition.
-"""
-function optimize_and_compose(; nvars, dom_size, param=nothing,
-    X=[], X_sols=[], global_iter=100, local_iter=100, metric=hamming, popSize=200
-)
-    icn = ICN(nvars=nvars, dom_size=dom_size, param=param)
-    optimize!(icn, X, X_sols, global_iter, local_iter; metric=metric, popSize=200)
-    @info show_composition(icn)
-    return compose(icn)
-end
+include("learn.jl")
 
 end

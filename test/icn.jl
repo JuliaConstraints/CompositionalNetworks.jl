@@ -13,8 +13,11 @@ v = [1,2,4,3]
 @test f(v) == 67
 
 ## Test GA
-X_sols = csv2space("../data/csv/complete_ad-4-4.csv"; filter=:solutions)
-@test hamming([1,2,3,3], X_sols) == 1
-X = csv2space("../data/csv/complete_ad-4-4.csv")
-err = optimize_and_compose(nvars=4, dom_size=4, global_iter = 10, X = X, X_sols = X_sols)
+# X_sols = csv2space("../data/csv/complete_ad-4-4.csv"; filter=:solutions)
+# @test hamming([1,2,3,3], X_sols) == 1
+# X = csv2space("../data/csv/complete_ad-4-4.csv")
+# err = optimize_and_compose(X, X_sols, nvars=4, dom_size=4, global_iter = 10)
+# @test err([1,2,3,3]) > 0.0
+
+err = optimize_and_compose(allunique, nvars=4, dom_size=4)
 @test err([1,2,3,3]) > 0.0
