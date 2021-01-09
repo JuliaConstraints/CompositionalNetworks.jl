@@ -6,6 +6,7 @@ import Random: bitrand, falses
 import OrderedCollections: LittleDict
 import Dictionaries: Dictionary, set!
 import Base.Iterators: product
+import ConstraintDomains: _get_domain, _length
 
 # Exports utilities
 export lazy, lazy_param, csv2space

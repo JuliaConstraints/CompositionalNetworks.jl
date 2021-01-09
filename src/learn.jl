@@ -1,9 +1,9 @@
-function _partial_search_space(nvars, domain, concept; sol_number=100)
+function _partial_search_space(domains, concept; sol_number=100)
     solutions = Set{Vector{Int}}()
     non_sltns = Set{Vector{Int}}()
 
     while length(solutions) < 100 || length(non_sltns) < 100 
-        config = rand(1:domain, nvars)
+        config = map(_draw, domains)
         c = concept(config)
         c && length(solutions) < 100 && push!(solutions, config)
         !c && length(non_sltns) < 100 && push!(non_sltns, config)
@@ -11,12 +11,12 @@ function _partial_search_space(nvars, domain, concept; sol_number=100)
     return solutions, non_sltns
 end
 
-function _complete_search_space(nvars, domain, concept)
+function _complete_search_space(domains, concept)
     solutions = Set{Vector{Int}}()
     non_sltns = Set{Vector{Int}}()
 
     message = "Space size for complete search"
-    space_size = domain^nvars
+    space_size = prod(_length, domains)
 
     if space_size < 10^6
         @info message space_size
@@ -24,8 +24,8 @@ function _complete_search_space(nvars, domain, concept)
         @warn message space_size
     end
 
-    configurations = product(ntuple(i -> 1:domain, nvars)...)
-    foreach(c -> (cv = collect(c); push!(concept(cv) ? solutions : non_sltns, cv)), configurations)
+    configurations = product(map(d -> _get_domain(d), domains))
+    foreach(c -> (cv = collect(c...); push!(concept(cv) ? solutions : non_sltns, cv)), configurations)
         
     return solutions, non_sltns
 end
@@ -45,12 +45,13 @@ function learn_compose(X, X_sols; nvars, dom_size, param=nothing,
     return compose(icn)
 end
 
-function explore_learn_compose(concept; nvars, dom_size, param=nothing,
+function explore_learn_compose(concept; domains, param=nothing,
     search=:complete, global_iter=10, local_iter=100, metric=hamming, popSize=200
 )
     if search == :complete
-        X_sols, X = _complete_search_space(nvars, dom_size, concept)
+        X_sols, X = _complete_search_space(domains, concept)
         union!(X, X_sols)
-        return learn_compose(X, X_sols; nvars=nvars, dom_size=dom_size)
+        return learn_compose(X, X_sols;
+            nvars=length(domains), dom_size=maximum(_length, domains))
     end
 end

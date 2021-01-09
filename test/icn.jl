@@ -13,5 +13,6 @@ v = [1,2,4,3]
 @test f(v) == 67
 
 ## Test GA and exploration
-err = explore_learn_compose(allunique, nvars=4, dom_size=4)
+doms = [domain([1,2,3,4]) for i in 1:4]
+err = explore_learn_compose(allunique, domains = doms)
 @test err([1,2,3,3]) > 0.0
