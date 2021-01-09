@@ -37,7 +37,7 @@ end
     )
 Create an ICN, optimize it, and return its composition.
 """
-function opt_compose(X, X_sols; nvars, dom_size, param=nothing,
+function learn_compose(X, X_sols; nvars, dom_size, param=nothing,
     global_iter=10, local_iter=100, metric=hamming, popSize=200)
     icn = ICN(nvars=nvars, dom_size=dom_size, param=param)
     optimize!(icn, X, X_sols, global_iter, local_iter; metric=metric, popSize=200)
@@ -45,12 +45,12 @@ function opt_compose(X, X_sols; nvars, dom_size, param=nothing,
     return compose(icn)
 end
 
-function learn_opt_compose(concept; nvars, dom_size, param=nothing,
+function explore_learn_compose(concept; nvars, dom_size, param=nothing,
     search=:complete, global_iter=10, local_iter=100, metric=hamming, popSize=200
 )
     if search == :complete
         X_sols, X = _complete_search_space(nvars, dom_size, concept)
         union!(X, X_sols)
-        return opt_compose(X, X_sols; nvars=nvars, dom_size = dom_size)
+        return learn_compose(X, X_sols; nvars=nvars, dom_size=dom_size)
     end
 end
