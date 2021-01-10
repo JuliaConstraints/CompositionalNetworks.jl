@@ -5,3 +5,5 @@
 
 _git2_*
 .gitignore
+
+Manifest.toml
