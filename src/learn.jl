@@ -24,8 +24,8 @@ function _complete_search_space(domains, concept)
         @warn message space_size
     end
 
-    configurations = product(map(d -> _get_domain(d), domains))
-    foreach(c -> (cv = collect(c...); push!(concept(cv) ? solutions : non_sltns, cv)), configurations)
+    configurations = product(map(d -> _get_domain(d), domains)...)
+    foreach(c -> (cv = collect(c); push!(concept(cv) ? solutions : non_sltns, cv)), configurations)
         
     return solutions, non_sltns
 end
@@ -50,8 +50,11 @@ function explore_learn_compose(concept; domains, param=nothing,
 )
     if search == :complete
         X_sols, X = _complete_search_space(domains, concept)
+        @info X_sols
         union!(X, X_sols)
+        @info X
         return learn_compose(X, X_sols;
-            nvars=length(domains), dom_size=maximum(_length, domains))
+            nvars=length(domains), dom_size=maximum(_length, domains),
+            local_iter = local_iter, global_iter = global_iter)
     end
 end
