@@ -50,9 +50,7 @@ function explore_learn_compose(concept; domains, param=nothing,
 )
     if search == :complete
         X_sols, X = _complete_search_space(domains, concept)
-        @info X_sols
         union!(X, X_sols)
-        @info X
         return learn_compose(X, X_sols;
             nvars=length(domains), dom_size=maximum(_length, domains),
             local_iter = local_iter, global_iter = global_iter)
