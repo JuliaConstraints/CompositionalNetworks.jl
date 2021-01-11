@@ -53,6 +53,6 @@ function explore_learn_compose(concept; domains, param=nothing,
         union!(X, X_sols)
         return learn_compose(X, X_sols;
             nvars=length(domains), dom_size=maximum(_length, domains),
-            local_iter = local_iter, global_iter = global_iter)
+            local_iter = local_iter, global_iter = global_iter, param = param)
     end
 end

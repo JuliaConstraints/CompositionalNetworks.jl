@@ -6,4 +6,4 @@
 _git2_*
 .gitignore
 
-Manifest.toml
+*Manifest.toml
