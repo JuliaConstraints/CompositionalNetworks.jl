@@ -5,3 +5,6 @@
 
 _git2_*
 .gitignore
+
+*Manifest.toml
+test_dummy.jl

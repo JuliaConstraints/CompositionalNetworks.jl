@@ -129,24 +129,26 @@ function _compose(icn::ICN)
 end
 
 """
-    show_composition(icn)
-Return the composition (weights) of an ICN.
-"""
-function show_composition(icn)    
-    symbs = _compose(icn)[2]
-    aux = map(s -> _reduce_symbols(s, ", ", length(s) > 1), symbs)
-    return _reduce_symbols(aux, " ∘ ", false)
-end
-
-"""
     compose(icn)
     compose(icn, weights)
 Return a function composed by some of the operations of a given ICN. Can be applied to any vector of variables. If `weights` are given, will assign to `icn`.
 """
-compose(icn::ICN) = _compose(icn)[1]
-function compose(icn, weigths)
+function compose(icn::ICN; action = :composition)
+    return action == :symbols ? _compose(icn)[2] : _compose(icn)[1]
+end
+function compose(icn, weigths; action = :composition)
     _weigths!(icn, weigths)
-    compose(icn)
+    compose(icn; action = action)
+end
+
+"""
+    show_composition(icn)
+Return the composition (weights) of an ICN.
+"""
+function show_composition(icn)    
+    symbs = compose(icn, action = :symbols)
+    aux = map(s -> _reduce_symbols(s, ", ", length(s) > 1), symbs)
+    return _reduce_symbols(aux, " ∘ ", false)
 end
 
 """

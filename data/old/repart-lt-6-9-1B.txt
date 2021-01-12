@@ -1,4 +1,0 @@
-Constraint: Less than.
-Number of solutions: 5651347
-Number of samplings: 1000000000
-Estimated percent solutions: 0.565135

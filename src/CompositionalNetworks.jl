@@ -4,16 +4,17 @@ module CompositionalNetworks
 import Evolutionary: GA, tournament, singlepoint, flip, optimize, minimizer, Options, summary, trace, rouletteinv
 import Random: bitrand, falses
 import OrderedCollections: LittleDict
-import DataFrames: DataFrame, Not
-import CSV: CSV
 import Dictionaries: Dictionary, set!
+import Base.Iterators: product
+import ConstraintDomains: _get_domain, _length
 
 # Exports utilities
 export lazy, lazy_param, csv2space
 export hamming
 
 # Export ICN
-export ICN, compose, show_layers, show_composition
+export ICN, compose, show_layers, show_composition, optimize!
+export explore_learn_compose, learn_compose, compose_to_file!
 
 # Include utils
 include("utils.jl")
@@ -30,7 +31,8 @@ include("comparison.jl")
 # Include ICN
 include("icn.jl")
 
-# Genetic Algorithm
+# Genetic Algorithm and learning
 include("genetic.jl")
+include("learn.jl")
 
 end

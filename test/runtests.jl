@@ -1,4 +1,5 @@
 using CompositionalNetworks
+using ConstraintDomains
 using Test
 
 CN = CompositionalNetworks

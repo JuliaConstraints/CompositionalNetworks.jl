@@ -1,8 +1,8 @@
 # # Test with manually weighted ICN
-
 icn = ICN(nvars=4, dom_size=4, param=2)
 show_layers(icn)
 icn.weigths = vcat(trues(18), falses(6))
+@test CN._is_viable(icn)
 
 f = compose(icn)
 @test show_composition(icn) == "identity ∘ sum ∘ sum ∘ [param_minus_val, val_minus_param" *
@@ -12,18 +12,10 @@ f = compose(icn)
 v = [1,2,4,3]
 @test f(v) == 67
 
-## Test GA
-
-X_sol = csv2space("../data/csv/complete_ad-4-4.csv"; filter=:solutions)
-@test hamming([1,2,3,3], X_sol) == 1
-
-X = csv2space("../data/csv/complete_ad-4-4.csv")
-icn = ICN(nvars=4, dom_size=4)
-
-CN._optimize!(icn, X, X_sol)
-@test CN._is_viable(icn)
-err = compose(icn)
+## Test GA and exploration
+doms = [domain([1,2,3,4]) for i in 1:4]
+err = explore_learn_compose(allunique, domains = doms)
 @test err([1,2,3,3]) > 0.0
-@info show_composition(icn)
 
-CN.optimize!(icn, X, X_sol, 10, 100)
+## Test export to file
+compose_to_file!(icn, "all_different", "test_dummy.jl")
