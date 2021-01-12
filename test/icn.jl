@@ -16,3 +16,6 @@ v = [1,2,4,3]
 doms = [domain([1,2,3,4]) for i in 1:4]
 err = explore_learn_compose(allunique, domains = doms)
 @test err([1,2,3,3]) > 0.0
+
+## Test export to file
+compose_to_file!(icn, "_all_different", "../learn/all_different.jl")

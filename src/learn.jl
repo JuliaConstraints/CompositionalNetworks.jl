@@ -56,3 +56,25 @@ function explore_learn_compose(concept; domains, param=nothing,
             local_iter = local_iter, global_iter = global_iter, param = param)
     end
 end
+
+function compose_to_string(symbols, name)
+    @assert length(symbols) == 4 "Length of the decomposition ≠ 4"
+
+    tr = _reduce_symbols(symbols[1], ", ")
+    tr_length = length(symbols[1])
+    ar, ag, co = symbols[2][1], symbols[3][1], symbols[4][1]
+
+    julia_string = """
+    error_$name = x -> fill(x, $tr_length) .|> $tr |> $ar |> $ag |> $co
+    """
+
+    return julia_string
+end
+
+function compose_to_file!(icn, name, path, language = :Julia)
+    language == :Julia # TODO: handle other languages
+    str = 
+    file = open(path,"w")
+    write(file, compose_to_string(_compose(icn)[2], name))
+    close(file)
+end

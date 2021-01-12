@@ -14,7 +14,7 @@ export hamming
 
 # Export ICN
 export ICN, compose, show_layers, show_composition, optimize!
-export explore_learn_compose, learn_compose
+export explore_learn_compose, learn_compose, compose_to_file!
 
 # Include utils
 include("utils.jl")
