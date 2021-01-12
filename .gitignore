@@ -7,4 +7,4 @@ _git2_*
 .gitignore
 
 *Manifest.toml
-learn/*
+test_dummy.jl
