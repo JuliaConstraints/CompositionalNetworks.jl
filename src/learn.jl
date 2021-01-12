@@ -64,15 +64,16 @@ end
 
 function _compose_to_string(symbols, name)
     @assert length(symbols) == 4 "Length of the decomposition ≠ 4"
-
     tr_length = length(symbols[1])
-    tr = _reduce_symbols(symbols[1], ", "; prefix = "_tr_")
-    ar = _reduce_symbols(symbols[2], ", ", false; prefix = "_ar_")
-    ag = _reduce_symbols(symbols[3], ", ", false; prefix = "_ag_")
-    co = _reduce_symbols(symbols[4], ", ", false; prefix = "_co_")
+    
+    const CN = "CompositionalNetworks"
+    tr = _reduce_symbols(symbols[1], ", "; prefix = CN * "_tr_")
+    ar = _reduce_symbols(symbols[2], ", ", false; prefix = CN * "_ar_")
+    ag = _reduce_symbols(symbols[3], ", ", false; prefix = CN * "_ag_")
+    co = _reduce_symbols(symbols[4], ", ", false; prefix = CN * "_co_")
 
     julia_string = """
-    error_$name = x -> fill(x, $tr_length) .|> $tr |> $ar |> $ag |> $co
+    $name = x -> fill(x, $tr_length) .|> $tr |> $ar |> $ag |> $co
     """
 
     return julia_string
