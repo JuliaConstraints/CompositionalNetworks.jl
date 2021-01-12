@@ -65,9 +65,11 @@ end
 function _compose_to_string(symbols, name)
     @assert length(symbols) == 4 "Length of the decomposition ≠ 4"
 
-    tr = _reduce_symbols(symbols[1], ", ")
     tr_length = length(symbols[1])
-    ar, ag, co = symbols[2][1], symbols[3][1], symbols[4][1]
+    tr = _reduce_symbols(symbols[1], ", "; prefix = "_tr_")
+    ar = _reduce_symbols(symbols[2], ", ", false; prefix = "_ar_")
+    ag = _reduce_symbols(symbols[3], ", ", false; prefix = "_ag_")
+    co = _reduce_symbols(symbols[4], ", ", false; prefix = "_co_")
 
     julia_string = """
     error_$name = x -> fill(x, $tr_length) .|> $tr |> $ar |> $ag |> $co

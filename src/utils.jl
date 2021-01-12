@@ -64,8 +64,8 @@ end
     _reduce_symbols(symbols, sep)
 Produce a formatted string that separates the symbols by `sep`. Used internally for `show_composition`.
 """
-function _reduce_symbols(symbols, sep, parenthesis = true)
-    str = reduce((x,y) -> "$y$sep$x", symbols)
+function _reduce_symbols(symbols, sep, parenthesis = true; prefix = "")
+    str = reduce((x,y) -> "$y$sep$x", map(s -> "$prefix$s", symbols))
     return parenthesis ? "[$str]" : str
 end
 
