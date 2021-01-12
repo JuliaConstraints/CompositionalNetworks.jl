@@ -66,7 +66,7 @@ function _compose_to_string(symbols, name)
     @assert length(symbols) == 4 "Length of the decomposition ≠ 4"
     tr_length = length(symbols[1])
     
-    const CN = "CompositionalNetworks"
+    CN = "CompositionalNetworks."
     tr = _reduce_symbols(symbols[1], ", "; prefix = CN * "_tr_")
     ar = _reduce_symbols(symbols[2], ", ", false; prefix = CN * "_ar_")
     ag = _reduce_symbols(symbols[3], ", ", false; prefix = CN * "_ag_")
