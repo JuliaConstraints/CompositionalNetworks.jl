@@ -31,33 +31,38 @@ function _complete_search_space(domains, concept)
 end
 
 """
-    optimize_and_compose(;
+    learn_compose(;
         nvars, dom_size, param=nothing, icn=ICN(nvars, dom_size, param),
         X, X_sols, global_iter=100, local_iter=100, metric=hamming, popSize=200
     )
 Create an ICN, optimize it, and return its composition.
 """
 function learn_compose(X, X_sols; nvars, dom_size, param=nothing,
-    global_iter=10, local_iter=100, metric=hamming, popSize=200)
+    global_iter=10, local_iter=100, metric=hamming, popSize=200,
+    action = :composition
+)
     icn = ICN(nvars=nvars, dom_size=dom_size, param=param)
     optimize!(icn, X, X_sols, global_iter, local_iter; metric=metric, popSize=200)
     @info show_composition(icn)
-    return compose(icn)
+
+    return compose(icn, action = action)
 end
 
 function explore_learn_compose(concept; domains, param=nothing,
-    search=:complete, global_iter=10, local_iter=100, metric=hamming, popSize=200
+    search=:complete, global_iter=10, local_iter=100, metric=hamming, popSize=200,
+    action = :composition,
 )
     if search == :complete
         X_sols, X = _complete_search_space(domains, concept)
         union!(X, X_sols)
         return learn_compose(X, X_sols;
             nvars=length(domains), dom_size=maximum(_length, domains),
-            local_iter = local_iter, global_iter = global_iter, param = param)
+            local_iter = local_iter, global_iter = global_iter, param = param,
+            action = action)
     end
 end
 
-function compose_to_string(symbols, name)
+function _compose_to_string(symbols, name)
     @assert length(symbols) == 4 "Length of the decomposition ≠ 4"
 
     tr = _reduce_symbols(symbols[1], ", ")
@@ -73,8 +78,7 @@ end
 
 function compose_to_file!(icn, name, path, language = :Julia)
     language == :Julia # TODO: handle other languages
-    str = 
     file = open(path,"w")
-    write(file, compose_to_string(_compose(icn)[2], name))
+    write(file, _compose_to_string(compose(icn, action = :symbols), name))
     close(file)
 end
