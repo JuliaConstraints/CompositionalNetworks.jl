@@ -72,7 +72,8 @@ function _compose_to_string(symbols, name)
     co = _reduce_symbols(symbols[4], ", ", false; prefix=CN * "_co_")
 
     julia_string = """
-    $name = x -> fill(x, $tr_length) .|> $tr |> $ar |> $ag |> $co
+    function $name(x; param=nothing, dom_size)
+        fill(x, $tr_length) .|> map(f -> (y -> f(y; param=$param)), $tr) |> $ar |> $ag |> (y -> $co(y; param=$param, dom_size=$dom_size, nvars=$(length(x))))
     """
 
     return julia_string
