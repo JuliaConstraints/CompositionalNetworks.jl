@@ -16,12 +16,12 @@ mutable struct ICN
     comparison::Layer
     weigths::BitVector
 
-    function ICN(; nvars, dom_size,
-        param=nothing,
+    function ICN(;
+        param=false,
         tr_layer=transformation_layer(param),
         ar_layer=arithmetic_layer(),
         ag_layer=aggregation_layer(),
-        co_layer=comparison_layer(nvars, dom_size, param),
+        co_layer=comparison_layer(param),
     )
         w = _generate_weights([tr_layer, ar_layer, ag_layer, co_layer])
         new(tr_layer, ar_layer, ag_layer, co_layer, w)
@@ -91,7 +91,7 @@ _generate_weights(icn::ICN) = _generate_weights(_layers(icn))
 Internal function called by `compose` and `show_composition`.
 """
 function _compose(icn::ICN)
-    !_is_viable(icn) && (return (_ -> typemax(Float64)), [])
+    !_is_viable(icn) && (return ((x; param=nothing, dom_size=0) -> typemax(Float64)), [])
 
     funcs = Vector{Vector{Function}}()
     symbols = Vector{Vector{Symbol}}()
@@ -124,7 +124,7 @@ function _compose(icn::ICN)
     end
 
     l = length(funcs[1])
-    composition = x -> fill(x, l) .|> funcs[1] |> funcs[2][1] |> funcs[3][1] |> funcs[4][1]
+    composition = (x; param=nothing, dom_size) -> fill(x, l) .|> map(f -> (y -> f(y; param=param)), funcs[1]) |> funcs[2][1] |> funcs[3][1] |> (y -> funcs[4][1](y; param=param, dom_size=dom_size, nvars=length(x)))
     return composition, symbols
 end
 
@@ -133,12 +133,12 @@ end
     compose(icn, weights)
 Return a function composed by some of the operations of a given ICN. Can be applied to any vector of variables. If `weights` are given, will assign to `icn`.
 """
-function compose(icn::ICN; action = :composition)
+function compose(icn::ICN; action=:composition)
     return action == :symbols ? _compose(icn)[2] : _compose(icn)[1]
 end
-function compose(icn, weigths; action = :composition)
+function compose(icn, weigths; action=:composition)
     _weigths!(icn, weigths)
-    compose(icn; action = action)
+    compose(icn; action=action)
 end
 
 """
@@ -146,7 +146,7 @@ end
 Return the composition (weights) of an ICN.
 """
 function show_composition(icn)    
-    symbs = compose(icn, action = :symbols)
+    symbs = compose(icn, action=:symbols)
     aux = map(s -> _reduce_symbols(s, ", ", length(s) > 1), symbs)
     return _reduce_symbols(aux, " ∘ ", false)
 end
