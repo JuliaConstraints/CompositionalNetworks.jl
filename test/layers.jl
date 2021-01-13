@@ -95,8 +95,8 @@ funcs_param = Dict(
 for (f, results) in funcs_param    
     @info f
     for (key, vals) in enumerate(data)
-        @test f(vals.first, vals.second) == results[key]
-        foreach(i -> f(i, vals.first, vals.second), vals.first)
+        @test f(vals.first; param=vals.second) == results[key]
+        foreach(i -> f(i, vals.first; param=vals.second), vals.first)
     end
 end
 
@@ -140,7 +140,7 @@ funcs_param = [
 for (f, results) in funcs_param
     @info f
     for (key, vals) in enumerate(data)
-        @test f(vals.first, vals.second[1]) == results[key]
+        @test f(vals.first; param=vals.second[1]) == results[key]
     end
 end
 
@@ -153,7 +153,7 @@ funcs_vars = [
 for (f, results) in funcs_vars
     @info f
     for (key, vals) in enumerate(data)
-        @test f(vals.first, vals.second[2]) == results[key]
+        @test f(vals.first, nvars=vals.second[2]) == results[key]
     end
 end
 
@@ -164,7 +164,7 @@ funcs_param_dom = [
 for (f, results) in funcs_param_dom
     @info f
     for (key, vals) in enumerate(data)
-        @test f(vals.first, vals.second[1], vals.second[2]) ≈ results[key]
+        @test f(vals.first, param=vals.second[1], dom_size=vals.second[2]) ≈ results[key]
     end
 end
 
@@ -175,6 +175,6 @@ funcs_dom = [
 for (f, results) in funcs_dom
     @info f
     for (key, vals) in enumerate(data)
-        @test f(vals.first, vals.second[2]) ≈ results[key]
+        @test f(vals.first, dom_size=vals.second[2]) ≈ results[key]
     end
 end

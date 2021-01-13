@@ -37,12 +37,12 @@ end
     )
 Create an ICN, optimize it, and return its composition.
 """
-function learn_compose(X, X_sols; nvars, dom_size, param=nothing,
+function learn_compose(X, X_sols, dom_size, param=nothing;
     global_iter=10, local_iter=100, metric=hamming, popSize=200,
     action=:composition
 )
-    icn = ICN(nvars=nvars, dom_size=dom_size, param=param)
-    optimize!(icn, X, X_sols, global_iter, local_iter; metric=metric, popSize=200)
+    icn = ICN(param=!isnothing(param))
+    optimize!(icn, X, X_sols, global_iter, local_iter, dom_size, param; metric=metric, popSize=200)
     @info show_composition(icn)
 
     return compose(icn, action=action)
@@ -52,13 +52,12 @@ function explore_learn_compose(concept; domains, param=nothing,
     search=:complete, global_iter=10, local_iter=100, metric=hamming, popSize=200,
     action=:composition,
 )
+    dom_size = maximum(_length, domains)
     if search == :complete
         X_sols, X = _complete_search_space(domains, concept)
         union!(X, X_sols)
-        return learn_compose(X, X_sols;
-            nvars=length(domains), dom_size=maximum(_length, domains),
-            local_iter=local_iter, global_iter=global_iter, param=param,
-            action=action)
+        return learn_compose(X, X_sols, dom_size, param;
+            local_iter=local_iter, global_iter=global_iter, action=action)
     end
 end
 
@@ -67,10 +66,10 @@ function _compose_to_string(symbols, name)
     tr_length = length(symbols[1])
     
     CN = "CompositionalNetworks."
-    tr = _reduce_symbols(symbols[1], ", "; prefix = CN * "_tr_")
-    ar = _reduce_symbols(symbols[2], ", ", false; prefix = CN * "_ar_")
-    ag = _reduce_symbols(symbols[3], ", ", false; prefix = CN * "_ag_")
-    co = _reduce_symbols(symbols[4], ", ", false; prefix = CN * "_co_")
+    tr = _reduce_symbols(symbols[1], ", "; prefix=CN * "_tr_")
+    ar = _reduce_symbols(symbols[2], ", ", false; prefix=CN * "_ar_")
+    ag = _reduce_symbols(symbols[3], ", ", false; prefix=CN * "_ag_")
+    co = _reduce_symbols(symbols[4], ", ", false; prefix=CN * "_co_")
 
     julia_string = """
     $name = x -> fill(x, $tr_length) .|> $tr |> $ar |> $ag |> $co

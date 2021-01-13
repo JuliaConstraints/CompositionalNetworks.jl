@@ -12,17 +12,17 @@ end
     _loss(X, X_sols, icn, weigths, metric)
 Compute the loss of `icn`.
 """
-function _loss(X, X_sols, icn, weigths, metric)
+function _loss(X, X_sols, icn, weigths, metric, dom_size, param)
     f = compose(icn, weigths)
-    return sum(x -> abs(f(x) - metric(x, X_sols)), X) + regularization(icn)
+    return (sum(x -> abs(f(x; param = param, dom_size = dom_size) - metric(x, X_sols)), X) + regularization(icn))
 end
 
 """
     _optimize!(icn, X, X_sols; metric = hamming, pop_size = 200)
 Optimize and set the weigths of an ICN with a given set of configuration `X` and solutions `X_sols`.
 """
-function _optimize!(icn, X, X_sols; metric=hamming, pop_size=200, iter=100)
-    fitness = weigths -> _loss(X, X_sols, icn, weigths, metric)
+function _optimize!(icn, X, X_sols, dom_size, param=nothing; metric=hamming, pop_size=200, iter=100)
+    fitness = weigths -> _loss(X, X_sols, icn, weigths, metric, dom_size, param)
 
     _icn_ga = GA(
         populationSize=pop_size,
@@ -44,12 +44,14 @@ end
 Optimize and set the weigths of an ICN with a given set of configuration `X` and solutions `X_sols`. The best weigths among `global_iter` will be set. 
 """
 
-function optimize!(icn, X, X_sols, global_iter, local_iter; metric=hamming, popSize=100)
+function optimize!(icn, X, X_sols, global_iter, local_iter, dom_size, param=nothing; metric=hamming, popSize=100)
     results = Dictionary{BitVector,Int}()
     @info "Starting optimization of weights"
     for i in 1:global_iter
         @info "Iteration $i"
-        _optimize!(icn, X, X_sols; iter = local_iter, metric = metric, pop_size = popSize)
+        _optimize!(icn, X, X_sols, dom_size, param;
+            iter=local_iter, metric=metric, pop_size=popSize
+        )
         _incsert!(results, _weigths(icn))
     end
     best = rand(findall(x -> x == maximum(results), results))
