@@ -1,8 +1,9 @@
 using CompositionalNetworks
+using ConstraintDomains
 using Documenter
 
 makedocs(;
-    modules=[CompositionalNetworks],
+    modules=[CompositionalNetworks, ConstraintDomains],
     authors="Jean-François Baffier",
     repo="https://github.com/JuliaConstraints/CompositionalNetworks.jl/blob/{commit}{path}#L{line}",
     sitename="CompositionalNetworks.jl",
@@ -13,11 +14,17 @@ makedocs(;
     ),
     pages=[
         "Home" => "index.md",
+        "ICNs" => "icn.md",
         "Layers" => [
             "Transformation" => "transformation.md",
             "Arithmetic" => "arithmetic.md",
             "Aggregation" => "aggregation.md",
             "Comparison" => "comparison.md",
+        ],
+        "Domains" => "domain.md",
+        "Library" => [
+            "public.md",
+            "internal.md",
         ],
     ],
 )
