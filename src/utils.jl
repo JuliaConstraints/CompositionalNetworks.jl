@@ -6,15 +6,16 @@ _map_tr(f, x, p) = ((g, y; param) -> map(i -> g(i, y; param=param), 1:length(y))
 
 """
     lazy(funcs::Function...)
-    lazy_param(funcs::Function...)
-Generate methods extended to a vector instead of one of its components. For `lazy` (resp. `lazy_param`) a function `f` should have the following signature: `f(i::Int, x::V)` (resp. `f(i::Int, x::V, param::T)`).
+Generate methods extended to a vector instead of one of its components. A function `f` should have the following signature: `f(i::Int, x::V; param = nothing)`.
 """
 function lazy(funcs::Function...)
-    foreach(
-        f -> eval(:($f(x; param=nothing) = _map_tr($f, x, param))), map(Symbol, funcs)
-    )
+    foreach(f -> eval(:($f(x; param=nothing) = _map_tr($f, x, param))), map(Symbol, funcs))
 end
 
+"""
+    lazy_param(funcs::Function...)
+Generate methods extended to a vector instead of one of its components. A function `f` should have the following signature: `f(i::Int, x::V; param)`.
+"""
 function lazy_param(funcs::Function...)
     foreach(f -> eval(:($f(x; param) = _map_tr($f, x, param))), map(Symbol, funcs))
 end
@@ -35,19 +36,6 @@ function _as_bitvector(n::Int, max_n::Int=n)
     end
     v
 end
-
-# TODO: memory layout stable bitvector for the general individual
-# function as_bitvector(n::Int)
-#     v = falses(8*sizeof(n))
-#     i = 0
-#     @inbounds while !iszero(n)
-#         tz = trailing_zeros(n)
-#         i += (tz + 1)
-#         v[i] = true
-#         n >>>= (tz + 1)
-#     end
-#     v
-# end
 
 """
     _as_int(v::AbstractVector)
