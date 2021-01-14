@@ -10,7 +10,7 @@ import ConstraintDomains: _get_domain, _length
 
 # Exports utilities
 export lazy, lazy_param, csv2space
-export hamming
+export hamming, regularization
 
 # Export ICN
 export ICN, compose, show_layers, show_composition, optimize!
