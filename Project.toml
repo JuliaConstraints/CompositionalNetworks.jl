@@ -1,7 +1,7 @@
 name = "CompositionalNetworks"
 uuid = "4b67e4b5-442d-4ef5-b760-3f5df3a57537"
 authors = ["Jean-François Baffier"]
-version = "0.1.1"
+version = "0.1.2"
 
 [deps]
 ConstraintDomains = "5800fd60-8556-4464-8d61-84ebf7a0bedb"
