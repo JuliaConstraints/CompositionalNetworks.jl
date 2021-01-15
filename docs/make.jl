@@ -21,8 +21,8 @@ makedocs(;
             "Aggregation" => "aggregation.md",
             "Comparison" => "comparison.md",
         ],
-        "Domains" => [
-            "domain.md",
+        "Dependencies" => [
+            "ConstraintDomains.jl" => "domain.md",
         ],
         "Library" => [
             "public.md",
