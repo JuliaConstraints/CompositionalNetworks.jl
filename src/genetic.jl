@@ -46,14 +46,17 @@ Optimize and set the weigths of an ICN with a given set of configuration `X` and
 
 function optimize!(icn, X, X_sols, global_iter, local_iter, dom_size, param=nothing; metric=hamming, popSize=100)
     results = Dictionary{BitVector,Int}()
-    @info "Starting optimization of weights"
-    for i in 1:global_iter
+    aux_results = Vector{BitVector}(undef, global_iter)
+    @info """Starting optimization of weights$(nthreads() > 1 ? " (multithreaded)" : "")"""
+    @threads for i in 1:global_iter
         @info "Iteration $i"
-        _optimize!(icn, X, X_sols, dom_size, param;
+        aux_icn = deepcopy(icn)
+        _optimize!(aux_icn, X, X_sols, dom_size, param;
             iter=local_iter, metric=metric, pop_size=popSize
         )
-        _incsert!(results, _weigths(icn))
+        aux_results[i] = _weigths(aux_icn)
     end
+    foreach(bv -> _incsert!(results, bv), aux_results)
     best = rand(findall(x -> x == maximum(results), results))
     _weigths!(icn, best)
     @info show_composition(icn) best results
