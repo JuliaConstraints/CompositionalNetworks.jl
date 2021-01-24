@@ -5,8 +5,9 @@ import Evolutionary: GA, tournament, singlepoint, flip, optimize, minimizer, Opt
 import Random: bitrand, falses
 import OrderedCollections: LittleDict
 import Dictionaries: Dictionary, set!
-import Base.Iterators: product
+import Base.Iterators: product, flatten
 import ConstraintDomains: _get_domain, _length
+import Base.Threads: @threads, threadid, nthreads
 
 # Exports utilities
 export lazy, lazy_param, csv2space

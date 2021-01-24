@@ -1,7 +1,7 @@
 name = "CompositionalNetworks"
 uuid = "4b67e4b5-442d-4ef5-b760-3f5df3a57537"
 authors = ["Jean-François Baffier"]
-version = "0.1.3"
+version = "0.1.4"
 
 [deps]
 ConstraintDomains = "5800fd60-8556-4464-8d61-84ebf7a0bedb"
@@ -11,7 +11,7 @@ OrderedCollections = "bac558e1-5e72-5ebc-8fee-abe8a469f55d"
 Random = "9a3f8284-a2c9-5f02-9a11-845980a1fd5c"
 
 [compat]
-ConstraintDomains = "0.1.2"
+ConstraintDomains = "0.1"
 Dictionaries = "0.3"
 Evolutionary = "0.7, 0.8"
 OrderedCollections = "1.3"
