@@ -35,20 +35,20 @@ function _optimize!(icn, X, X_sols, dom_size, param=nothing; metric=hamming, pop
     )
 
     pop = _generate_population(icn, pop_size)
-    res = optimize(fitness, pop, _icn_ga, Options(iterations=iter))
-    _weigths!(icn, minimizer(res))
+    r = Evolutionary.optimize(fitness, pop, _icn_ga, Evolutionary.Options(iterations=iter))
+    _weigths!(icn, Evolutionary.minimizer(r))
 end
 
 """
     optimize!(icn, X, X_sols, global_iter, local_iter; metric=hamming, popSize=100)
-Optimize and set the weigths of an ICN with a given set of configuration `X` and solutions `X_sols`. The best weigths among `global_iter` will be set. 
+Optimize and set the weigths of an ICN with a given set of configuration `X` and solutions `X_sols`. The best weigths among `global_iter` will be set.
 """
-
 function optimize!(icn, X, X_sols, global_iter, local_iter, dom_size, param=nothing; metric=hamming, popSize=100)
     results = Dictionary{BitVector,Int}()
     aux_results = Vector{BitVector}(undef, global_iter)
-    @info """Starting optimization of weights$(nthreads() > 1 ? " (multithreaded)" : "")"""
-    @threads for i in 1:global_iter
+    nt = Base.Threads.nthreads()
+    @info """Starting optimization of weights$(nt > 1 ? " (multithreaded)" : "")"""
+    Base.Threads.@threads for i in 1:global_iter
         @info "Iteration $i"
         aux_icn = deepcopy(icn)
         _optimize!(aux_icn, X, X_sols, dom_size, param;

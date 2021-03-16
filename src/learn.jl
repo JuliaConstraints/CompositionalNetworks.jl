@@ -2,7 +2,7 @@ function _partial_search_space(domains, concept, param=nothing; sol_number=100)
     solutions = Set{Vector{Int}}()
     non_sltns = Set{Vector{Int}}()
 
-    while length(solutions) < 100 || length(non_sltns) < 100 
+    while length(solutions) < 100 || length(non_sltns) < 100
         config = map(_draw, domains)
         c = concept(config; param = param)
         c && length(solutions) < 100 && push!(solutions, config)
@@ -16,7 +16,7 @@ function _complete_search_space(domains, concept, param=nothing)
     non_sltns = Set{Vector{Int}}()
 
     message = "Space size for complete search"
-    space_size = prod(_length, domains)
+    space_size = prod(length, domains)
 
     if space_size < 10^6
         @info message space_size
@@ -26,9 +26,9 @@ function _complete_search_space(domains, concept, param=nothing)
 
     f = isnothing(param) ? ((x; param = p) -> concept(x)) : concept
 
-    configurations = product(map(d -> _get_domain(d), domains)...)
+    configurations = Base.Iterators.product(map(d -> get_domain(d), domains)...)
     foreach(c -> (cv = collect(c); push!(f(cv; param=param) ? solutions : non_sltns, cv)), configurations)
-        
+
     return solutions, non_sltns
 end
 
@@ -54,7 +54,7 @@ function explore_learn_compose(concept; domains, param=nothing,
     search=:complete, global_iter=10, local_iter=100, metric=hamming, popSize=200,
     action=:composition,
 )
-    dom_size = maximum(_length, domains)
+    dom_size = maximum(length, domains)
     if search == :complete
         X_sols, X = _complete_search_space(domains, concept, param)
         union!(X, X_sols)
@@ -66,7 +66,7 @@ end
 function _compose_to_string(symbols, name)
     @assert length(symbols) == 4 "Length of the decomposition ≠ 4"
     tr_length = length(symbols[1])
-    
+
     CN = "CompositionalNetworks."
     tr = _reduce_symbols(symbols[1], ", "; prefix=CN * "_tr_")
     ar = _reduce_symbols(symbols[2], ", ", false; prefix=CN * "_ar_")
@@ -94,7 +94,7 @@ function compose_to_file!(concept, name, path;
     search=:complete, global_iter=10, local_iter=100, metric=hamming, popSize=200
 )
     language == :Julia # TODO: handle other languages
-    
+
     symbols = explore_learn_compose(concept, domains=domains, param=param, search=search,
         global_iter=global_iter, local_iter=local_iter , metric=metric, popSize=popSize,
         action=:symbols)
