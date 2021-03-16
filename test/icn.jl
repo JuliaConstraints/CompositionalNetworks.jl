@@ -2,7 +2,7 @@
 icn = ICN(param=true)
 show_layers(icn)
 icn.weigths = vcat(trues(18), falses(6))
-@test CN._is_viable(icn)
+@test CN.is_viable(icn)
 
 f = compose(icn)
 @test show_composition(icn) == "identity ∘ sum ∘ sum ∘ [param_minus_val, val_minus_param" *

@@ -1,15 +1,15 @@
 """
-    _map_tr(f, x, param)
+    map_tr(f, x, param)
 Return an anonymous function that applies `f` to all elements of `x`, with a parameter `param` (which is set to `nothing` for function with no parameter).
 """
-_map_tr(f, x, p) = ((g, y; param) -> map(i -> g(i, y; param=param), 1:length(y)))(f, x, param=p)
+map_tr(f, x, p) = ((g, y; param) -> map(i -> g(i, y; param=param), 1:length(y)))(f, x, param=p)
 
 """
     lazy(funcs::Function...)
 Generate methods extended to a vector instead of one of its components. A function `f` should have the following signature: `f(i::Int, x::V; param = nothing)`.
 """
 function lazy(funcs::Function...)
-    foreach(f -> eval(:($f(x; param=nothing) = _map_tr($f, x, param))), map(Symbol, funcs))
+    foreach(f -> eval(:($f(x; param=nothing) = map_tr($f, x, param))), map(Symbol, funcs))
 end
 
 """
@@ -17,14 +17,14 @@ end
 Generate methods extended to a vector instead of one of its components. A function `f` should have the following signature: `f(i::Int, x::V; param)`.
 """
 function lazy_param(funcs::Function...)
-    foreach(f -> eval(:($f(x; param) = _map_tr($f, x, param))), map(Symbol, funcs))
+    foreach(f -> eval(:($f(x; param) = map_tr($f, x, param))), map(Symbol, funcs))
 end
 
 """
-    _as_bitvector(n::Int, max_n::Int = n)
+    as_bitvector(n::Int, max_n::Int = n)
 Convert an Int to a BitVector of minimal size (relatively to `max_n`).
 """
-function _as_bitvector(n::Int, max_n::Int=n)
+function as_bitvector(n::Int, max_n::Int=n)
     nm1 = n - 1
     v = falses(ceil(Int, log2(max_n)))
     i = 0
@@ -38,10 +38,10 @@ function _as_bitvector(n::Int, max_n::Int=n)
 end
 
 """
-    _as_int(v::AbstractVector)
+    as_int(v::AbstractVector)
 Convert a `BitVector` into an `Int`.
 """
-function _as_int(v::AbstractVector)
+function as_int(v::AbstractVector)
     n = 0
     for (i, b) in enumerate(v)
         n += b ? 2^(i - 1) : 0
@@ -50,14 +50,14 @@ function _as_int(v::AbstractVector)
 end
 
 """
-    _reduce_symbols(symbols, sep)
+    reduce_symbols(symbols, sep)
 Produce a formatted string that separates the symbols by `sep`. Used internally for `show_composition`.
 """
-function _reduce_symbols(symbols, sep, parenthesis=true; prefix="")
+function reduce_symbols(symbols, sep, parenthesis=true; prefix="")
     str = reduce((x, y) -> "$y$sep$x", map(s -> "$prefix$s", symbols))
     return parenthesis ? "[$str]" : str
 end
 
-function _incsert!(d::Dictionary, ind)
+function incsert!(d::Dictionary, ind)
     set!(d, ind, isassigned(d, ind) ? d[ind] + 1 : 1)
 end

@@ -1,4 +1,4 @@
-function _partial_search_space(domains, concept, param=nothing; sol_number=100)
+function partial_search_space(domains, concept, param=nothing; sol_number=100)
     solutions = Set{Vector{Int}}()
     non_sltns = Set{Vector{Int}}()
 
@@ -11,7 +11,7 @@ function _partial_search_space(domains, concept, param=nothing; sol_number=100)
     return solutions, non_sltns
 end
 
-function _complete_search_space(domains, concept, param=nothing)
+function complete_search_space(domains, concept, param=nothing)
     solutions = Set{Vector{Int}}()
     non_sltns = Set{Vector{Int}}()
 
@@ -56,22 +56,22 @@ function explore_learn_compose(concept; domains, param=nothing,
 )
     dom_size = maximum(length, domains)
     if search == :complete
-        X_sols, X = _complete_search_space(domains, concept, param)
+        X_sols, X = complete_search_space(domains, concept, param)
         union!(X, X_sols)
         return learn_compose(X, X_sols, dom_size, param;
             local_iter=local_iter, global_iter=global_iter, action=action)
     end
 end
 
-function _compose_to_string(symbols, name)
+function compose_to_string(symbols, name)
     @assert length(symbols) == 4 "Length of the decomposition ≠ 4"
     tr_length = length(symbols[1])
 
     CN = "CompositionalNetworks."
-    tr = _reduce_symbols(symbols[1], ", "; prefix=CN * "_tr_")
-    ar = _reduce_symbols(symbols[2], ", ", false; prefix=CN * "_ar_")
-    ag = _reduce_symbols(symbols[3], ", ", false; prefix=CN * "_ag_")
-    co = _reduce_symbols(symbols[4], ", ", false; prefix=CN * "_co_")
+    tr = reduce_symbols(symbols[1], ", "; prefix=CN * "_tr_")
+    ar = reduce_symbols(symbols[2], ", ", false; prefix=CN * "_ar_")
+    ag = reduce_symbols(symbols[3], ", ", false; prefix=CN * "_ag_")
+    co = reduce_symbols(symbols[4], ", ", false; prefix=CN * "_co_")
 
     julia_string = """
     function $name(x; param=nothing, dom_size)
@@ -85,7 +85,7 @@ end
 function compose_to_file!(icn::ICN, name, path, language=:Julia)
     language == :Julia # TODO: handle other languages
     file = open(path, "w")
-    write(file, _compose_to_string(compose(icn, action=:symbols), name))
+    write(file, compose_to_string(compose(icn, action=:symbols), name))
     close(file)
 end
 
@@ -100,6 +100,6 @@ function compose_to_file!(concept, name, path;
         action=:symbols)
 
     file = open(path, "w")
-    write(file, _compose_to_string(symbols, name))
+    write(file, compose_to_string(symbols, name))
     close(file)
 end
