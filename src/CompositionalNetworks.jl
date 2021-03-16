@@ -1,22 +1,25 @@
 module CompositionalNetworks
 
-# Imports
-import Evolutionary: GA, tournament, singlepoint, flip, optimize, minimizer, Options, summary, trace, rouletteinv
-import Random: bitrand, falses
-import OrderedCollections: LittleDict
-import Dictionaries: Dictionary, set!
-import Base.Iterators: product, flatten
-import ConstraintDomains: _get_domain, _length
-import Base.Threads: @threads, threadid, nthreads
+# Usings
+using ConstraintDomains
+using Dictionaries
+using Evolutionary
+using OrderedCollections
+using Random
 
 # Exports utilities
-export lazy, lazy_param, csv2space
-export hamming, regularization
+export csv2space
+export lazy, lazy_param
+export hamming
+export regularization
 
 # Export ICN
-export ICN, compose, show_layers, show_composition, optimize!
-export explore_learn_compose, learn_compose, compose_to_file!
+export ICN
+export optimize!
+export compose, show_composition
+export compose_to_file!, explore_learn_compose, learn_compose
 export transformation_layer, arithmetic_layer, aggregation_layer, comparison_layer
+export show_layers
 
 # Include utils
 include("utils.jl")

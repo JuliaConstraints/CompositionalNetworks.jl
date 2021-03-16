@@ -23,7 +23,7 @@ _exclu(layer) = layer.exclusive
 
 """
     _symbol(layer, i)
-Return the i-th symbols of the operations in a given layer. 
+Return the i-th symbols of the operations in a given layer.
 """
 _symbol(layer, i) = collect(keys(_functions(layer)))[i]
 
@@ -66,15 +66,7 @@ function _generate_inclusive_operations(predicate, bits)
     end
     return ind
 end
-# function _generate_inclusive_operations(predicate, bits)
-#     ind = falses(bits)
-#     s = Set(1:bits)
-#     r = rand(1:bits)
-#     for i in 1:r
-#         ind[pop!(s,rand(s))] = true
-#     end
-#     return ind
-# end
+
 function _generate_exclusive_operation(max_op_number)
     op = rand(1:max_op_number)
     return _as_bitvector(op, max_op_number)
