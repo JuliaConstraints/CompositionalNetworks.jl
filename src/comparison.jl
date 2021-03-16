@@ -1,60 +1,60 @@
 """
-    _co_identity(x)
+    co_identity(x)
 Identity function. Already defined in Julia as `identity`, specialized for scalars in the `comparison` layer.
 """
-_co_identity(x; param=nothing, dom_size=0, nvars=0) = identity(x)
+co_identity(x; param=nothing, dom_size=0, nvars=0) = identity(x)
 
 """
-    _co_abs_diff_val_param(x; param)
+    co_abs_diff_val_param(x; param)
 Return the absolute difference between `x` and `param`.
 """
-_co_abs_diff_val_param(x; param, dom_size=0, nvars=0) = abs(x - param)
+co_abs_diff_val_param(x; param, dom_size=0, nvars=0) = abs(x - param)
 
 """
-    _co_val_minus_param(x; param)
+    co_val_minus_param(x; param)
 Return the difference `x - param` if positive, `0.0` otherwise.
 """
-_co_val_minus_param(x; param, dom_size=0, nvars=0) = max(0.0, x - param)
+co_val_minus_param(x; param, dom_size=0, nvars=0) = max(0.0, x - param)
 
 """
-    _co_param_minus_val(x; param)
+    co_param_minus_val(x; param)
 Return the difference `param - x` if positive, `0.0` otherwise.
 """
-_co_param_minus_val(x; param, dom_size=0, nvars=0) = max(0.0, param - x)
+co_param_minus_val(x; param, dom_size=0, nvars=0) = max(0.0, param - x)
 
 """
-    _co_euclidian_param(x; param, dom_size)
+    co_euclidian_param(x; param, dom_size)
 Compute an euclidian norm with domain size `dom_size`, weigthed by `param`, of a scalar.
 """
-function _co_euclidian_param(x; param, dom_size, nvars=0)
+function co_euclidian_param(x; param, dom_size, nvars=0)
     return x == param ? 0.0 : (1.0 + abs(x - param) \ dom_size)
 end
 
 """
-    _co_euclidian(x; dom_size)
+    co_euclidian(x; dom_size)
 Compute an euclidian norm with domain size `dom_size` of a scalar.
 """
-function _co_euclidian(x; param=nothing, dom_size, nvars=0)
-    return _co_euclidian_param(x; param=0.0, dom_size=dom_size)
+function co_euclidian(x; param=nothing, dom_size, nvars=0)
+    return co_euclidian_param(x; param=0.0, dom_size=dom_size)
 end
 
 """
-    _co_abs_diff_val_vars(x; nvars)
+    co_abs_diff_val_vars(x; nvars)
 Return the absolute difference between `x` and the number of variables `nvars`.
 """
-_co_abs_diff_val_vars(x; param=nothing, dom_size=0, nvars) = abs(x - nvars)
+co_abs_diff_val_vars(x; param=nothing, dom_size=0, nvars) = abs(x - nvars)
 
 """
-    _co_val_minus_vars(x; nvars)
+    co_val_minus_vars(x; nvars)
 Return the difference `x - nvars` if positive, `0.0` otherwise, where `nvars` denotes the numbers of variables.
 """
-_co_val_minus_vars(x; param=nothing, dom_size=0, nvars) = _co_val_minus_param(x; param=nvars)
+co_val_minus_vars(x; param=nothing, dom_size=0, nvars) = co_val_minus_param(x; param=nvars)
 
 """
-    _co_vars_minus_val(x; nvars)
+    co_vars_minus_val(x; nvars)
 Return the difference `nvars - x` if positive, `0.0` otherwise, where `nvars` denotes the numbers of variables.
 """
-_co_vars_minus_val(x; param=nothing, dom_size=0, nvars) = _co_param_minus_val(x; param=nvars)
+co_vars_minus_val(x; param=nothing, dom_size=0, nvars) = co_param_minus_val(x; param=nvars)
 
 """
     comparison_layer(param = false)
@@ -62,19 +62,19 @@ Generate the layer of transformations functions of the ICN. Iff `param` value is
 """
 function comparison_layer(param=false)
     comparisons = LittleDict{Symbol,Function}(
-        :identity => _co_identity,
-        :euclidian => _co_euclidian,
-        :abs_diff_val_vars => _co_abs_diff_val_vars,
-        :val_minus_vars => _co_val_minus_vars,
-        :vars_minus_val => _co_vars_minus_val,
+        :identity => co_identity,
+        :euclidian => co_euclidian,
+        :abs_diff_val_vars => co_abs_diff_val_vars,
+        :val_minus_vars => co_val_minus_vars,
+        :vars_minus_val => co_vars_minus_val,
     )
 
     if param
         comparisons_param = LittleDict{Symbol,Function}(
-            :abs_diff_val_param => _co_abs_diff_val_param,
-            :val_minus_param => _co_val_minus_param,
-            :param_minus_val => _co_param_minus_val,
-            :euclidian_param => _co_euclidian_param,
+            :abs_diff_val_param => co_abs_diff_val_param,
+            :val_minus_param => co_val_minus_param,
+            :param_minus_val => co_param_minus_val,
+            :euclidian_param => co_euclidian_param,
         )
         comparisons = LittleDict{Symbol,Function}(union(comparisons, comparisons_param))
     end

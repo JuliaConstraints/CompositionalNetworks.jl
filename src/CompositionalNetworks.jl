@@ -24,7 +24,7 @@ export show_layers
 # Include utils
 include("utils.jl")
 include("io.jl")
-include("hamming.jl")
+include("metrics.jl")
 
 # Includes layers
 include("layer.jl")
