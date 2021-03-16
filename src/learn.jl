@@ -39,11 +39,7 @@ function complete_search_space(domains, concept, param=nothing)
     message = "Space size for complete search"
     space_size = prod(length, domains)
 
-    if space_size < 10^6
-        @info message space_size
-    else
-        @warn message space_size
-    end
+    space_size < 10^6 ? @info(message, space_size) : @warn(message, space_size)
 
     f = isnothing(param) ? ((x; param = p) -> concept(x)) : concept
 

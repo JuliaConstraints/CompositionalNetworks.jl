@@ -23,7 +23,6 @@ export show_layers
 
 # Include utils
 include("utils.jl")
-include("io.jl")
 include("metrics.jl")
 
 # Includes layers

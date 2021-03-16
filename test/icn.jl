@@ -3,6 +3,7 @@ icn = ICN(param=true)
 show_layers(icn)
 icn.weigths = vcat(trues(18), falses(6))
 @test CN.is_viable(icn)
+@test length(icn) == 31
 
 f = compose(icn)
 @test show_composition(icn) == "identity ∘ sum ∘ sum ∘ [param_minus_val, val_minus_param" *
@@ -11,6 +12,8 @@ f = compose(icn)
 
 v = [1,2,4,3]
 @test f(v; param=2, dom_size=4) == 67
+
+CN.generate_weights(icn)
 
 ## Test GA and exploration
 doms = [domain([1,2,3,4]) for i in 1:4]
