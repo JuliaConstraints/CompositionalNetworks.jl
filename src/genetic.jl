@@ -48,7 +48,7 @@ function optimize!(icn, X, X_sols, global_iter, local_iter, dom_size, param=noth
     aux_results = Vector{BitVector}(undef, global_iter)
     nt = Base.Threads.nthreads()
     @info """Starting optimization of weights$(nt > 1 ? " (multithreaded)" : "")"""
-    Base.Threads.@threads for i in 1:global_iter
+    @qthreads for i in 1:global_iter
         @info "Iteration $i"
         aux_icn = deepcopy(icn)
         _optimize!(aux_icn, X, X_sols, dom_size, param;
