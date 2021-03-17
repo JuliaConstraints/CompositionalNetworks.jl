@@ -106,10 +106,10 @@ function compose_to_string(symbols, name)
     tr_length = length(symbols[1])
 
     CN = "CompositionalNetworks."
-    tr = reduce_symbols(symbols[1], ", "; prefix=CN * "_tr_")
-    ar = reduce_symbols(symbols[2], ", ", false; prefix=CN * "_ar_")
-    ag = reduce_symbols(symbols[3], ", ", false; prefix=CN * "_ag_")
-    co = reduce_symbols(symbols[4], ", ", false; prefix=CN * "_co_")
+    tr = reduce_symbols(symbols[1], ", "; prefix=CN * "tr_")
+    ar = reduce_symbols(symbols[2], ", ", false; prefix=CN * "ar_")
+    ag = reduce_symbols(symbols[3], ", ", false; prefix=CN * "ag_")
+    co = reduce_symbols(symbols[4], ", ", false; prefix=CN * "co_")
 
     julia_string = """
     function $name(x; param=nothing, dom_size)
