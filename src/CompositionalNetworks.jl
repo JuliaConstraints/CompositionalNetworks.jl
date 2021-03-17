@@ -9,7 +9,6 @@ using Random
 using ThreadPools
 
 # Exports utilities
-export csv2space
 export lazy, lazy_param
 export hamming
 export regularization
