@@ -6,6 +6,7 @@ using Dictionaries
 using Evolutionary
 using OrderedCollections
 using Random
+using ThreadPools
 
 # Exports utilities
 export csv2space
