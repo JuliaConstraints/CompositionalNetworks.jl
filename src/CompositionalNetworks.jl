@@ -11,6 +11,8 @@ using ThreadPools
 # Exports utilities
 export lazy, lazy_param
 export hamming
+export minkowski
+export manhattan
 export regularization
 
 # Export ICN
