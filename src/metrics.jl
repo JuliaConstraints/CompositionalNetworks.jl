@@ -12,5 +12,5 @@ minkowski(x, X, p) = mapreduce(y -> sum(abs(x .- y)^p)^(1/p), min, X; init = sum
 """
     manhattan(x, X)
 """
-manhattan(x, X) = minkowski(X, X, 1)
+manhattan(x, X) = minkowski(x, X, 1)
 
