@@ -2,7 +2,7 @@
     ar_sum(x)
 Reduce `k = length(x)` vectors through sum to a single vector.
 """
-ar_sum(x) = reduce((y, z) -> y .+ z, x)
+ar_sum(x) = sum(x)
 
 """
     ar_prod(x)
