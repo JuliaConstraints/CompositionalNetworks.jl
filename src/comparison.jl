@@ -27,7 +27,7 @@ co_param_minus_val(x; param, dom_size=0, nvars=0) = max(0.0, param - x)
 Compute an euclidian norm with domain size `dom_size`, weigthed by `param`, of a scalar.
 """
 function co_euclidian_param(x; param, dom_size, nvars=0)
-    return x == param ? 0.0 : (1.0 + abs(x - param) \ dom_size)
+    return x == param ? 0.0 : (1.0 + abs(x - param) / dom_size)
 end
 
 """

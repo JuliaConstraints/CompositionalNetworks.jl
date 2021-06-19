@@ -9,19 +9,26 @@ using Random
 using ThreadPools
 
 # Exports utilities
-export lazy, lazy_param
 export hamming
-export minkowski
+export lazy
+export lazy_param
 export manhattan
+export minkowski
 export regularization
 
 # Export ICN
 export ICN
+export aggregation_layer
+export arithmetic_layer
+export comparison_layer
+export compose
+export compose_to_file!
+export explore_learn_compose
+export learn_compose
 export optimize!
-export compose, show_composition
-export compose_to_file!, explore_learn_compose, learn_compose
-export transformation_layer, arithmetic_layer, aggregation_layer, comparison_layer
+export show_composition
 export show_layers
+export transformation_layer
 
 # Include utils
 include("utils.jl")

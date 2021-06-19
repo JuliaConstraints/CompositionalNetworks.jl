@@ -2,7 +2,7 @@
     ag_sum(x)
 Aggregate through `+` a vector into a single scalar.
 """
-ag_sum(x) = reduce(+, x)
+ag_sum(x) = sum(x)
 
 """
     ag_count_positive(x)
