@@ -14,3 +14,8 @@ minkowski(x, X, p) = mapreduce(y -> sum(abs(x .- y)^p)^(1/p), min, X; init = sum
 """
 manhattan(x, X) = minkowski(x, X, 1)
 
+"""
+    weigths_bias(x)
+A metric that bias `x` towards operations with a lower bit. Do not affect the main metric.
+"""
+weigths_bias(x) = sum(p -> p[1] * log2(1. + p[2]), enumerate(x)) / length(x)^4

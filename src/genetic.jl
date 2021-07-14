@@ -22,7 +22,7 @@ end
 Optimize and set the weigths of an ICN with a given set of configuration `X` and solutions `X_sols`.
 """
 function _optimize!(icn, X, X_sols, dom_size, param=nothing; metric=hamming, pop_size=200, iter=100)
-    fitness = weigths -> loss(X, X_sols, icn, weigths, metric, dom_size, param)
+    fitness = w -> loss(X, X_sols, icn, w, metric, dom_size, param) + weigths_bias(w)
 
     _icn_ga = GA(
         populationSize=pop_size,
