@@ -10,6 +10,7 @@ Evolutionary = "86b6b26d-c046-49b6-aa0b-5f0f74682bd6"
 OrderedCollections = "bac558e1-5e72-5ebc-8fee-abe8a469f55d"
 Random = "9a3f8284-a2c9-5f02-9a11-845980a1fd5c"
 ThreadPools = "b189fb0b-2eb5-4ed4-bc0c-d34c51242431"
+Unrolled = "9602ed7d-8fef-5bc8-8597-8f21381861e8"
 
 [compat]
 ConstraintDomains = "0.2"
@@ -17,6 +18,7 @@ Dictionaries = "0.3"
 Evolutionary = "0.9"
 OrderedCollections = "1"
 ThreadPools = "2"
+Unrolled = "0.1"
 julia = "1.6"
 
 [extras]

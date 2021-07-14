@@ -111,13 +111,24 @@ function compose_to_string(symbols, name)
     ag = reduce_symbols(symbols[3], ", ", false; prefix=CN * "ag_")
     co = reduce_symbols(symbols[4], ", ", false; prefix=CN * "co_")
 
-    julia_string = """
-    function $name(x; param=nothing, dom_size)
-        fill(x, $tr_length) .|> map(f -> (y -> f(y; param=param)), $tr) |> $ar |> $ag |> (y -> $co(y; param=param, dom_size=dom_size, nvars=length(x)))
+    return if tr_length == 1
+        """
+        function $name(x; X = zeros(length(x), $tr_length), param=nothing, dom_size)
+            x |> (y -> $tr[1](y; param)) |> $ag |> (y -> $co(y; param, dom_size, nvars=length(x)))
+        end
+        """
+    else
+        """
+        function $name(x; X = zeros(length(x), $tr_length), param=nothing, dom_size)
+            fill!(@view(X[1:length(x), :]), 0.0)
+            $(CN)tr_in(Tuple($tr), X, x, param)
+            for i in 1:length(x)
+                X[i,1] = $ar(@view X[i,:])
+            end
+            return $ag(@view X[:, 1]) |> (y -> $co(y; param, dom_size, nvars=length(x)))
+        end
+        """
     end
-    """
-
-    return julia_string
 end
 
 """

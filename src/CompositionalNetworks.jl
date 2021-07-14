@@ -7,6 +7,7 @@ using Evolutionary
 using OrderedCollections
 using Random
 using ThreadPools
+using Unrolled
 
 # Exports utilities
 export hamming
