@@ -61,3 +61,17 @@ end
 function incsert!(d::Dictionary, ind)
     set!(d, ind, isassigned(d, ind) ? d[ind] + 1 : 1)
 end
+
+@unroll function tr_in(tr, X, x, param)
+    @unroll for i in 1:length(tr)
+        X[:,i] = tr[i](x; param)
+    end
+end
+
+# TODO: look for a length limit that make it slow or space-comsuming
+# TODO: handle SMatrix
+# @unroll function ar_in(ar, X, x)
+#     @unroll for i in 1:length(x)
+#         X[i, 1] = ar(@view X[i, :])
+#     end
+# end
