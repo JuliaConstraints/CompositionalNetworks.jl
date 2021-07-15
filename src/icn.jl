@@ -182,3 +182,5 @@ function regularization(icn)
     end
     return Σop / (Σmax + 1)
 end
+
+max_icn_length(icn = ICN(param = true)) = length(icn.transformation)

@@ -14,6 +14,7 @@ export hamming
 export lazy
 export lazy_param
 export manhattan
+export max_icn_length
 export minkowski
 export regularization
 
