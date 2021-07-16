@@ -120,7 +120,7 @@ function compose_to_string(symbols, name)
     else
         """
         function $name(x; X = zeros(length(x), $tr_length), param=nothing, dom_size)
-            fill!(@view(X[1:length(x), :]), 0.0)
+            fill!(@view(X[1:length(x), 1:$tr_length]), 0.0)
             $(CN)tr_in(Tuple($tr), X, x, param)
             for i in 1:length(x)
                 X[i,1] = $ar(@view X[i,:])

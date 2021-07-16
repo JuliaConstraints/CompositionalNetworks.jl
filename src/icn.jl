@@ -128,7 +128,7 @@ function _compose(icn::ICN)
         x |> (y -> funcs[1][1](y; param)) |> funcs[3][1] |>
         (y -> funcs[4][1](y; param, dom_size, nvars=length(x)))
     else
-        fill!(@view(X[1:length(x), :]), 0.0)
+        fill!(@view(X[1:length(x), 1:l]), 0.0)
         tr_in(Tuple(funcs[1]), X, x, param)
         for i in 1:length(x)
             X[i,1] = funcs[2][1](@view X[i,:])
