@@ -164,7 +164,7 @@ funcs_param_dom = [
 for (f, results) in funcs_param_dom
     @info f
     for (key, vals) in enumerate(data)
-        @info "Updated" f(vals.first, param=vals.second[1], dom_size=vals.second[2]) results key
+        # @info "Updated" f(vals.first, param=vals.second[1], dom_size=vals.second[2]) results key
         @test f(vals.first, param=vals.second[1], dom_size=vals.second[2]) ≈ results[key]
     end
 end
@@ -176,7 +176,7 @@ funcs_dom = [
 for (f, results) in funcs_dom
     @info f
     for (key, vals) in enumerate(data)
-        @info "Updated" f(vals.first, dom_size=vals.second[2]) results key
+        # @info "Updated" f(vals.first, dom_size=vals.second[2]) results key
         @test f(vals.first, dom_size=vals.second[2]) ≈ results[key]
     end
 end

@@ -122,18 +122,13 @@ function _compose(icn::ICN)
         end
     end
 
-    l = length(funcs[1])
-
-    composition = (x; X=zeros(length(x), l), param=nothing, dom_size) -> if l == 1
-        x |> (y -> funcs[1][1](y; param)) |> funcs[3][1] |>
-        (y -> funcs[4][1](y; param, dom_size, nvars=length(x)))
-    else
-        fill!(@view(X[1:length(x), 1:l]), 0.0)
+    function composition(x; X=zeros(length(x), length(funcs[1])), param=nothing, dom_size)
         tr_in(Tuple(funcs[1]), X, x, param)
         for i in 1:length(x)
             X[i,1] = funcs[2][1](@view X[i,:])
         end
-        funcs[3][1](@view X[:, 1]) |> (y -> funcs[4][1](y; param, dom_size, nvars=length(x)))
+        funcs[3][1](@view X[:, 1]) |>
+        (y -> funcs[4][1](y; param, dom_size, nvars=length(x)))
     end
 
     return composition, symbols
