@@ -18,6 +18,14 @@ elseif (contains(pwd()[end-20:end], "CompositionalNetworks"))
 end
 
 
+
+fitness = w -> loss(X, X_sols, icn, w, metric, maximum(length, domains), param)
+
+function loss(X, X_sols, icn, weigths, metric, dom_size, param) 
+    f = compose(icn, weigths)
+    return (sum(x -> abs(f(x; param = param, dom_size = dom_size) - metric(x, X_sols)), X))
+end
+
 # for concept in concept_list
 #     for metric in metrics
 concept = concept_list[1]
@@ -28,7 +36,7 @@ metric = metrics[1]
         icn = compose_to_file!(concept, "$(func_name)_$(String(Symbol(metric)))", "$(func_name)_$(String(Symbol(metric))).jl",
                          domains=domains, param=param, global_iter=1, metric=metric)
         X_sols, X = complete_search_space(domains, concept, param)
-        #fitness = w -> loss(X, X_sols, icn, w, metric, dom_size, param)
+        loss_value = fitness(icn.weigths)
 #     end
 # end
 
