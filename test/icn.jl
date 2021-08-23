@@ -22,4 +22,4 @@ compo, _ = explore_learn_compose(domains, allunique)
 @test composition(compo)([1,2,3,3], dom_size = 4) > 0.0
 
 ## Test export to file
-composition_to_file(compo, "test_dummy.jl", "all_different")
+composition_to_file!(compo, "test_dummy.jl", "all_different")

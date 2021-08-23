@@ -64,7 +64,7 @@ function generate(c::Composition, name, ::Val{:Julia})
     return documentation * format_text(output, BlueStyle(), pipe_to_function_call = false)
 end
 
-function composition_to_file(c::Composition, path, name, language =:Julia)
+function composition_to_file!(c::Composition, path, name, language =:Julia)
     output = code(c, language; name)
     write(path, output)
     return nothing

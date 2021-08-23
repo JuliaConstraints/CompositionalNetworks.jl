@@ -90,7 +90,7 @@ function compose_to_file!(
     search_limit=1000,
     solutions_limit=100,
 )
-    compo, _ = explore_learn_compose(
+    compo, icn = explore_learn_compose(
         domains,
         concept,
         param;
@@ -103,5 +103,6 @@ function compose_to_file!(
         solutions_limit,
     )
 
-    return composition_to_file(compo, path, name, language)
+    composition_to_file!(compo, path, name, language)
+    return icn
 end
