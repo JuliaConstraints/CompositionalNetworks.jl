@@ -64,7 +64,7 @@ function learn_compose(X, X_sols, dom_size, param=nothing;
     optimize!(icn, X, X_sols, global_iter, local_iter, dom_size, param; metric=metric, popSize=200)
     @info show_composition(icn)
 
-    return compose(icn, action=action)
+    return icn, compose(icn, action=action)
 end
 
 """
@@ -91,8 +91,9 @@ function explore_learn_compose(concept; domains, param=nothing,
     if search == :complete
         X_sols, X = complete_search_space(domains, concept, param)
         union!(X, X_sols)
-        return learn_compose(X, X_sols, dom_size, param;
+        icn, composition = learn_compose(X, X_sols, dom_size, param;
             local_iter=local_iter, global_iter=global_iter, action=action)
+        return icn, composition
     end
 end
 
@@ -166,11 +167,12 @@ function compose_to_file!(concept, name, path;
 )
     language == :Julia # TODO: handle other languages
 
-    symbols = explore_learn_compose(concept, domains=domains, param=param, search=search,
+    icn, symbols = explore_learn_compose(concept, domains=domains, param=param, search=search,
         global_iter=global_iter, local_iter=local_iter , metric=metric, popSize=popSize,
         action=:symbols)
 
-    file = open(path, "w")
-    write(file, compose_to_string(symbols, name))
-    close(file)
+    # file = open(path, "w")
+    # write(file, compose_to_string(symbols, name))
+    # close(file)
+    return icn
 end
