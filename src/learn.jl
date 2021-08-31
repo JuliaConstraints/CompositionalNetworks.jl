@@ -171,8 +171,8 @@ function compose_to_file!(concept, name, path;
         global_iter=global_iter, local_iter=local_iter , metric=metric, popSize=popSize,
         action=:symbols)
 
-    # file = open(path, "w")
-    # write(file, compose_to_string(symbols, name))
-    # close(file)
+    file = open(path, "w")
+    write(file, compose_to_string(symbols, name))
+    close(file)
     return icn
 end
