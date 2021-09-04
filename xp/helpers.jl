@@ -108,6 +108,7 @@ function compose(icn, weigths; action=:composition)
 end
 
 fitness = w -> loss(X, X_sols, icn, w, metric, maximum(length, domains), param)
+fitness = (w, X, X_sols, icn, metric, param) -> loss(X, X_sols, icn, w, metric, maximum(length, domains), param)
 
 function loss(X, X_sols, icn, weigths, metric, dom_size, param) 
     f = compose(icn, weigths)
