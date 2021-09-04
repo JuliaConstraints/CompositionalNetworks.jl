@@ -1,4 +1,4 @@
 include("../src/metrics.jl")
 
-# metrics = [hamming, manhattan]
-metrics = [hamming]
+metrics = [hamming, manhattan]
+#metrics = [hamming]

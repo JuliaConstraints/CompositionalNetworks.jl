@@ -35,13 +35,14 @@ for concept in concept_list
 
 # concept = concept_list[1]
 # metric = metrics[1]
+        m = metric
         println("$concept-$metric")
-        func_name = "icn$(String(Symbol(concept))[8:end])"
+        func_name = "icn$(String(Symbol(concept))[8:end])_$(String(Symbol(metric)))"
         param = length(iterate(methods(concept))[1].sig.parameters) == 2 ? nothing : rand(dom)
-        path = "$(func_name)_$(String(Symbol(metric))).jl"
+        path = "$(func_name).jl"
         icn = ICN()
-        g_b = @benchmark ($icn = compose_to_file!(concept, "$(func_name)_$(String(Symbol(metric)))", path,
-                         domains=domains, param=param, global_iter=1, metric=metric)) samples = 2
+        g_b = @benchmark ($icn = compose_to_file!(concept, "$($func_name)", path,
+                         domains=domains, param=$param, global_iter=1, metric=$metric)) samples = 2
 
         g_b_time = BenchmarkTools.prettytime(time(g_b))
         g_b_memory = BenchmarkTools.prettymemory(memory(g_b))
