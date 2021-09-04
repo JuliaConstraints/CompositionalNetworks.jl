@@ -58,7 +58,7 @@ for concept in concept_list
         
         benchmarks = []
         for var in union(X_sols, X)
-            push!(benchmarks, @benchmark ef($var, dom_size=length(domains[1])) samples = 2)
+            push!(benchmarks, @benchmark $ef($var, dom_size=length(domains[1])) samples = 2)
         end
         b_time = BenchmarkTools.prettytime(sum(time, benchmarks)/length(benchmarks))
         b_memory = BenchmarkTools.prettymemory(sum(memory, benchmarks)/length(benchmarks))
