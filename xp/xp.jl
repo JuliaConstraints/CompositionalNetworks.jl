@@ -41,7 +41,7 @@ for concept in concept_list
         param = length(iterate(methods(concept))[1].sig.parameters) == 2 ? nothing : rand(dom)
         path = "$(func_name).jl"
         icn = ICN()
-        g_b = @benchmark ($icn = compose_to_file!($concept, "$($func_name)", path,
+        g_b = @benchmark ($icn = compose_to_file!($concept, "$($func_name)", $path,
                          domains=domains, param=$param, global_iter=1, metric=$metric)) samples = 2
 
         g_b_time = BenchmarkTools.prettytime(time(g_b))
