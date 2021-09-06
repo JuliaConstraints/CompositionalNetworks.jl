@@ -21,6 +21,10 @@ concept_less_than_param(x, param) = x[1] ≤ param
 #ordered
 concept_ordered(x) = issorted(x)
 
+#no_overlap
+
+#sum of vars = c
+
 #concept_list = [concept_all_diff]
 concept_list = [concept_all_diff, concept_dist_diff, concept_all_eq, concept_less_than_param, concept_ordered]
 

@@ -4,7 +4,12 @@ using CompositionalNetworks
 using BenchmarkTools
 
 using Distributed
-addprocs()
+
+if nworkers == 1
+    addprocs()
+end
+
+println("N-workers: $(nworkers())")
 
 include("domains.jl")
 include("concepts.jl")
@@ -30,14 +35,15 @@ function write_benchmarks(path, data)
     close(file)
 end
 
-for concept in concept_list
-    for metric in metrics
+#for concept in concept_list
+#    for metric in metrics
 
-# concept = concept_list[1]
-# metric = metrics[1]
+concept = concept_list[1]
+metric = metrics[2]
         m = metric
         println("$concept-$metric")
         func_name = "icn$(String(Symbol(concept))[8:end])_$(String(Symbol(metric)))"
+        # TODO: Fix param value
         param = length(iterate(methods(concept))[1].sig.parameters) == 2 ? nothing : rand(dom)
         path = "$(func_name).jl"
         icn = ICN()
@@ -66,8 +72,8 @@ for concept in concept_list
         write_benchmarks(path, "\n#Use:\n# $b_time ($b_allocs allocation$(b_allocs == 1 ? "" : "s"): $b_memory)")
         write_benchmarks(path, "\n#Loss: $loss_value")
 
-    end
-end
+#    end
+#end
 
 
 #w is weights -> weights(icn)
