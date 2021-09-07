@@ -18,7 +18,7 @@ CN.generate_weights(icn)
 
 ## Test GA and exploration
 domains = [domain([1,2,3,4]) for i in 1:4]
-compo = explore_learn_compose(domains, allunique)
+compo, _ = explore_learn_compose(domains, allunique)
 @test composition(compo)([1,2,3,3], dom_size = 4) > 0.0
 
 ## Test export to file

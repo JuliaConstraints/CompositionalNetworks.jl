@@ -17,7 +17,7 @@ function learn_compose(
 )
     icn = ICN(; param=!isnothing(param))
     optimize!(icn, X, X_sols, global_iter, local_iter, dom_size, param, metric, pop_size)
-    return compose(icn)
+    return compose(icn), icn
 end
 
 """
@@ -90,7 +90,7 @@ function compose_to_file!(
     search_limit=1000,
     solutions_limit=100,
 )
-    compo = explore_learn_compose(
+    compo, _ = explore_learn_compose(
         domains,
         concept,
         param;
