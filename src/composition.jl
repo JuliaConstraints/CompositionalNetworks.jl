@@ -61,7 +61,7 @@ function generate(c::Composition, name, ::Val{:Julia})
             return $ag(@view X[:, 1]) |> (y -> $co(y; param, dom_size, nvars=length(x)))
         end
         """
-    return documentation * output
+    return documentation * format_text(output, BlueStyle(), pipe_to_function_call = false)
 end
 
 function composition_to_file(c::Composition, path, name, language =:Julia)

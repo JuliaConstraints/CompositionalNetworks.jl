@@ -4,6 +4,7 @@ module CompositionalNetworks
 using ConstraintDomains
 using Dictionaries
 using Evolutionary
+using JuliaFormatter
 using OrderedCollections
 using Random
 using ThreadPools
