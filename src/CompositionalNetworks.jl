@@ -9,26 +9,26 @@ using Random
 using ThreadPools
 using Unrolled
 
-# Exports utilities
-export hamming
-export lazy
-export lazy_param
-export manhattan
-export max_icn_length
-export minkowski
-export regularization
-
-# Export ICN
+export Composition
 export ICN
 export aggregation_layer
 export arithmetic_layer
+export code
 export comparison_layer
 export compose
 export compose_to_file!
+export composition
+export composition_to_file
 export explore_learn_compose
+export hamming
+export lazy
+export lazy_param
 export learn_compose
+export manhattan
+export max_icn_length
+export minkowski
 export optimize!
-export show_composition
+export regularization
 export show_layers
 export transformation_layer
 
@@ -45,9 +45,11 @@ include("comparison.jl")
 
 # Include ICN
 include("icn.jl")
+include("composition.jl")
 
 # Genetic Algorithm and learning
 include("genetic.jl")
+include("explore.jl")
 include("learn.jl")
 
 end

@@ -86,6 +86,29 @@ show_layers(icn) = map(show_layer, layers(icn))
 generate_weights(icn::ICN) = generate_weights(layers(icn))
 
 """
+    regularization(icn)
+Return the regularization value of an ICN weights, which is proportional to the normalized number of operations selected in the icn layers.
+"""
+function regularization(icn)
+    Σmax = 0
+    Σop = 0
+    _start = 0
+    _end = 0
+    for layer in layers(icn)
+        l = length(layer)
+        _start = _end + 1
+        _end += exclu(layer) ? nbits_exclu(layer) : l
+        if !exclu(layer)
+            Σop += selected_size(layer, @view weigths(icn)[_start:_end])
+            Σmax += length(layer)
+        end
+    end
+    return Σop / (Σmax + 1)
+end
+
+max_icn_length(icn = ICN(param = true)) = length(icn.transformation)
+
+"""
     _compose(icn)
 Internal function called by `compose` and `show_composition`.
 """
@@ -133,49 +156,3 @@ function _compose(icn::ICN)
 
     return composition, symbols
 end
-
-"""
-    compose(icn)
-    compose(icn, weights)
-Return a function composed by some of the operations of a given ICN. Can be applied to any vector of variables. If `weights` are given, will assign to `icn`.
-"""
-function compose(icn::ICN; action=:composition)
-    return action == :symbols ? _compose(icn)[2] : _compose(icn)[1]
-end
-function compose(icn, weigths; action=:composition)
-    weights!(icn, weigths)
-    compose(icn; action=action)
-end
-
-"""
-    show_composition(icn)
-Return the composition (weights) of an ICN.
-"""
-function show_composition(icn)
-    symbs = compose(icn, action=:symbols)
-    aux = map(s -> reduce_symbols(s, ", ", length(s) > 1), symbs)
-    return reduce_symbols(aux, " ∘ ", false)
-end
-
-"""
-    regularization(icn)
-Return the regularization value of an ICN weights, which is proportional to the normalized number of operations selected in the icn layers.
-"""
-function regularization(icn)
-    Σmax = 0
-    Σop = 0
-    _start = 0
-    _end = 0
-    for layer in layers(icn)
-        l = length(layer)
-        _start = _end + 1
-        _end += exclu(layer) ? nbits_exclu(layer) : l
-        if !exclu(layer)
-            Σop += selected_size(layer, @view weigths(icn)[_start:_end])
-            Σmax += length(layer)
-        end
-    end
-    return Σop / (Σmax + 1)
-end
-
-max_icn_length(icn = ICN(param = true)) = length(icn.transformation)
