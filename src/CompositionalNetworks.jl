@@ -20,6 +20,7 @@ export compose
 export compose_to_file!
 export composition
 export composition_to_file!
+export explore
 export explore_learn_compose
 export hamming
 export lazy

@@ -11,9 +11,11 @@ Beware that if the density of the solutions in the search space is low, `solutio
 - `param`: an optional parameter of the constraint
 - `sol_number`: the required number of solutions (half of the number of configurations), default to `100`
 """
-function explore(domains, concept, param=nothing, search=:flexible; search_limit=1000, solutions_limit=100)
-    σ = sum(domain_size, domains) < search_limit ? :complete : :partial
-    return explore(Val(σ), domains, concept, param, solutions_limit)
+function explore(domains, concept, param=nothing; search=:flexible, search_limit=1000, solutions_limit=100)
+    if search == :flexible
+        search = sum(domain_size, domains) < search_limit ? :complete : :partial
+    end
+    return explore(Val(search), domains, concept, param, solutions_limit)
 end
 
 function explore(::Val{:partial}, domains, concept, param, limit)

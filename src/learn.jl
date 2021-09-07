@@ -49,7 +49,7 @@ function explore_learn_compose(
     solutions_limit=100,
 )
     dom_size = maximum(domain_size, domains)
-    X_sols, X = explore(domains, concept, param, search; search_limit, solutions_limit)
+    X_sols, X = explore(domains, concept, param; search, search_limit, solutions_limit)
     union!(X, X_sols)
     return learn_compose(
         X, X_sols, dom_size, param; local_iter, global_iter, metric, pop_size
