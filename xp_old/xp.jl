@@ -3,13 +3,13 @@ using ConstraintDomains
 using CompositionalNetworks
 using BenchmarkTools
 
-using Distributed
+# using Distributed
 
-if nworkers == 1
-    addprocs()
-end
+# if nworkers == 1
+#     addprocs()
+# end
 
-println("N-workers: $(nworkers())")
+# println("N-workers: $(nworkers())")
 
 include("domains.jl")
 include("concepts.jl")
@@ -53,7 +53,7 @@ metric = metrics[2]
         g_b_time = BenchmarkTools.prettytime(time(g_b))
         g_b_memory = BenchmarkTools.prettymemory(memory(g_b))
         g_b_allocs = allocs(g_b)
-    
+
         write_benchmarks(path, "#Finding composition:\n#$g_b_time ($g_b_allocs allocation$(g_b_allocs == 1 ? "" : "s"): $g_b_memory)")
 
         X_sols, X = complete_search_space(domains, concept, param)
@@ -61,7 +61,7 @@ metric = metrics[2]
         loss_value = fitness(weigths(icn), X, X_sols, icn, metric, param)
         include("compositions/$path")
         ef = getfield(Main, Symbol(path[1:end-3]))
-        
+
         benchmarks = []
         for var in union(X_sols, X)
             push!(benchmarks, @benchmark $ef($var, dom_size=length(domains[1])) samples = 2)
