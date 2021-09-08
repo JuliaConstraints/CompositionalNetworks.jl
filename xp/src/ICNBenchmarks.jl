@@ -4,10 +4,14 @@ module ICNBenchmarks
 using BenchmarkTools
 using CompositionalNetworks
 using ConstraintDomains
-using Constraints: Constraints, Constraint, make_error, usual_constraints
+using Constraints
 using CSV
 using DrWatson
 using Tables
+
+# imports
+import Constraints: make_error
+# import CompositionalNetworks
 
 # constants
 export ALL_PARAMETERS
