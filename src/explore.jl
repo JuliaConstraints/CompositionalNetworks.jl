@@ -11,28 +11,37 @@ Beware that if the density of the solutions in the search space is low, `solutio
 - `param`: an optional parameter of the constraint
 - `sol_number`: the required number of solutions (half of the number of configurations), default to `100`
 """
-function explore(domains, concept, param=nothing; search=:flexible, search_limit=1000, solutions_limit=100)
+function explore(
+    domains,
+    concept,
+    param=nothing;
+    search=:flexible,
+    search_limit=1000,
+    solutions_limit=100,
+)
     if search == :flexible
         search = sum(domain_size, domains) < search_limit ? :complete : :partial
     end
-    return explore(Val(search), domains, concept, param, solutions_limit)
+    return explore(Val(search), domains, concept, param, solutions_limit, search_limit)
 end
 
-function explore(::Val{:partial}, domains, concept, param, limit)
+function explore(::Val{:partial}, domains, concept, param, solutions_limit, search_limit)
     solutions = Set{Vector{Int}}()
     non_sltns = Set{Vector{Int}}()
 
-    while length(solutions) < limit || length(non_sltns) < limit
-        if concept(map(rand, domains); param)
-            length(solutions) < 100 && push!(solutions, config)
-        else
-            length(non_sltns) < 100 && push!(non_sltns, config)
-        end
+    f = isnothing(param) ? ((x; param = p) -> concept(x)) : concept
+
+    for _ in 1:search_limit
+        length(solutions) ≥ solutions_limit && length(non_sltns) ≥ solutions_limit && break
+        config = map(rand, domains)
+        c = f(config; param) ? solutions : non_sltns
+        length(c) < solutions_limit && push!(c, config)
     end
+
     return solutions, non_sltns
 end
 
-function explore(::Val{:complete}, domains, concept, param, ::Int)
+function explore(::Val{:complete}, domains, concept, param, ::Int, ::Int)
     solutions = Set{Vector{Int}}()
     non_sltns = Set{Vector{Int}}()
 

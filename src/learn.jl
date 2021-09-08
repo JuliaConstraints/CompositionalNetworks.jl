@@ -40,6 +40,7 @@ function explore_learn_compose(
     domains,
     concept,
     param=nothing;
+    configurations=explore(domains, concept, param; search, search_limit, solutions_limit),
     global_iter=Threads.nthreads(),
     local_iter=100,
     metric=:hamming,
@@ -49,7 +50,7 @@ function explore_learn_compose(
     solutions_limit=100,
 )
     dom_size = maximum(domain_size, domains)
-    X_sols, X = explore(domains, concept, param; search, search_limit, solutions_limit)
+    X_sols, X = configurations
     union!(X, X_sols)
     return learn_compose(
         X, X_sols, dom_size, param; local_iter, global_iter, metric, pop_size
@@ -79,6 +80,7 @@ function compose_to_file!(
     concept,
     name,
     path;
+    configurations=explore(domains, concept, param; search, search_limit, solutions_limit),
     domains,
     param=nothing,
     global_iter=Threads.nthreads(),
@@ -94,6 +96,7 @@ function compose_to_file!(
         domains,
         concept,
         param;
+        configurations,
         global_iter,
         local_iter,
         metric,
