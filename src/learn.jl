@@ -40,7 +40,6 @@ function explore_learn_compose(
     domains,
     concept,
     param=nothing;
-    configurations=explore(domains, concept, param; search, search_limit, solutions_limit),
     global_iter=Threads.nthreads(),
     local_iter=100,
     metric=:hamming,
@@ -48,6 +47,7 @@ function explore_learn_compose(
     search=:flexible,
     search_limit=1000,
     solutions_limit=100,
+    configurations=explore(domains, concept, param; search, search_limit, solutions_limit),
 )
     dom_size = maximum(domain_size, domains)
     X_sols, X = configurations
