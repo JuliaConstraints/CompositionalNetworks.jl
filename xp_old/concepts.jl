@@ -1,8 +1,8 @@
-# all_diff 
+# all_diff
 concept_all_diff(x) = allunique(x)
 
 #dist_diff
-function concept_dist_diff(x) 
+function concept_dist_diff(x)
     for i in 1:length(x)-3
         if abs(x[i] - x[i+1]) == abs(x[i+2] - x[i+3])
             return false
@@ -22,7 +22,7 @@ concept_less_than_param(x, param) = x[1] ≤ param
 concept_ordered(x) = issorted(x)
 
 #no_overlap (general idea, still need to review it)
-function concept_no_overlap(x, l) 
+function concept_no_overlap(x, l)
     for i in 1:length(x)
         for j in i+1:length(x)-1
             if (x[i]+l[i] > x[j] && x[j]+l[j] > x[i])
@@ -40,4 +40,3 @@ concept_sum_equal_param(x; param) = sum(x) == param
 
 #concept_list = [concept_all_diff]
 concept_list = [concept_all_diff, concept_dist_diff, concept_all_eq, concept_less_than_param, concept_ordered]
-

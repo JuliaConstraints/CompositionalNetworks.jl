@@ -1,3 +1,5 @@
+const BENCHED_CONSTRAINTS = deepcopy(usual_constraints)
+
 const DEFAULT_CONCEPTS = [
     :all_different,
     :all_equal,
