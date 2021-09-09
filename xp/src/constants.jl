@@ -59,3 +59,6 @@ const ALL_PARAMETERS = Dict(
     :language => DEFAULT_LANGUAGES,
     :population => DEFAULT_POPULATIONS,
 )
+
+ALL_PARAMETERS[:search] = [:flexible]
+ALL_PARAMETERS[:domains_size] = 10
