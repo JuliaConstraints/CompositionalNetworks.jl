@@ -23,13 +23,18 @@ using Constraints
 function icn_benchmark_unit(params)
     @info "Running a benchmark unit with" params
 
+    search_space_size = params[:domains_size]^params[:domains_size]
     if params[:search] == :complete
-        params[:domains_size]^params[:domains_size] > params[:complete_search_limit] &&
+        if search_space_size > params[:complete_search_limit]
+            @warn "Unit benchmark aborted (complete) search space is too large" search_space_size params[:complete_search_limit]
             return nothing
+        end
     end
     if params[:search] == :partial
-        params[:domains_size]^params[:domains_size] < params[:partial_search_limit] &&
+        if search_space_size < params[:partial_search_limit]
+            @warn "Unit benchmark aborted (partial) search space is too small" search_space_size params[:partial_search_limit]
             return nothing
+        end
     end
 
     # Generate an appropriate parameter for the concept if relevant
@@ -72,25 +77,14 @@ function icn_benchmark_unit(params)
     )
     compo, icn = bench.value
 
-    # @warn "debug get_index" params domains constraint_concept param metric params[:icn_iterations] params[:generations] params[:population]
-    # b = @benchmark begin
-    #     benched_compo, benched_icn = explore_learn_compose(
-    #         $domains,
-    #         $constraint_concept,
-    #         $param;
-    #         global_iter=$(params[:icn_iterations]),
-    #         local_iter=$(params[:generations]),
-    #         metric=$metric,
-    #         pop_size=$(params[:population]),
-    #         configurations=$(solutions, non_sltns),
-    #     )
-    #     begin
-    #         $(icn = $benched_icn)
-    #         $(compo = $benched_compo)
-    #     end
-    # end samples = 1 evals = 1
+    results = Dict{Symbol,Any}()
+    # Code composition
+    for lang in (params[:language], :maths)
+        push!(results, lang => code(compo, lang))
+    end
+    push!(results, :symbols => symbols(compo))
 
-    @info "Temp results" solutions has_data t.time compo icn bench
+    @info "Temp results" results has_data t.time bench.time
 end
 
 function icn_benchmark(params=ALL_PARAMETERS)

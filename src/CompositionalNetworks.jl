@@ -32,6 +32,7 @@ export minkowski
 export optimize!
 export regularization
 export show_layers
+export symbols
 export transformation_layer
 
 # Include utils
