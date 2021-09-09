@@ -7,7 +7,6 @@ using DrWatson
 # Activate the ICNBenchmarks project
 @quickactivate "ICNBenchmarks"
 
-
 Pkg.instantiate()
 
 # Load common code to all script in ICNBenchmarks
@@ -98,7 +97,13 @@ function icn_benchmark(params=ALL_PARAMETERS)
     mkpath(datadir("compositions"))
 
     # Run all the benchmarks for all the unit configuration from params
-    return foreach(icn_benchmark_unit, dict_list(params))
+    configs = dict_list(params)
+    @warn "Number of benchmark units is $(length(configs))"
+    for (u, c) in enumerate(configs)
+        @info "Starting the $u/$(length(configs)) benchmark unit"
+        icn_benchmark_unit(c)
+    end
+    return
 end
 
 icn_benchmark()

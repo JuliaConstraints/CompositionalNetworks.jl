@@ -4,12 +4,12 @@ const BENCHED_CONSTRAINTS = deepcopy(usual_constraints)
 const DEFAULT_CONCEPTS = [(:all_different, nothing)]
 const DEFAULT_LANGUAGES = [:Julia] # [:Julia, :C, :CPP]
 const DEFAULT_METRICS = [:hamming, :manhattan]
-const DEFAULT_COMPLETE_SEARCH_LIMIT = 2^24 # could be improved with multithreading
-const DEFAULT_PARTIAL_SEARCH_LIMIT = 2^8
+const DEFAULT_COMPLETE_SEARCH_LIMIT = 8^8 # could be improved with multithreading
+const DEFAULT_PARTIAL_SEARCH_LIMIT = 4^4
 const DEFAULT_SAMPLINGS = [100, 1000]
 
 const MINIMUM_DOMAIN_SIZE = 3
-const MAXIMUM_DOMAIN_SIZE = 10
+const MAXIMUM_DOMAIN_SIZE = 10 # NOTE - Check if it is too high
 
 function domains_sizes(;
     min_domain_size=MINIMUM_DOMAIN_SIZE, max_domain_size=MAXIMUM_DOMAIN_SIZE
@@ -19,8 +19,8 @@ end
 
 # Genetic Algorithms default parameters
 const MAXIMUM_TOTAL_ITERATIONS = 15 # order => 2^15 = 32768
-const MINIMUM_ICN_ITERATIONS = 6 # order => 2^6 = 64
-const MINIMUM_GENERATIONS = 4 # order => 2^4 = 16
+const MINIMUM_ICN_ITERATIONS = 5 # order => 2^5= 32
+const MINIMUM_GENERATIONS = 5 # order => 2^5 = 32
 
 function icn_iterations(;
     min_icn_iterations=MINIMUM_ICN_ITERATIONS,
@@ -28,7 +28,7 @@ function icn_iterations(;
     max_total_iterations=MAXIMUM_TOTAL_ITERATIONS,
 )
     maximum_icn_iterations = max_total_iterations - min_generations
-    return [2^i for i in min_icn_iterations:maximum_icn_iterations]
+    return [2^i for i in min_icn_iterations:2:maximum_icn_iterations]
 end
 
 function generations(;
@@ -37,10 +37,10 @@ function generations(;
     max_total_iterations=MAXIMUM_TOTAL_ITERATIONS,
 )
     maximum_generations = max_total_iterations - min_icn_iterations
-    return [2^i for i in min_generations:maximum_generations]
+    return [2^i for i in min_generations:2:maximum_generations]
 end
 
-const DEFAULT_POPULATIONS = [2^i for i in 5:10] # 2^5=32 to 2^10 = 1024
+const DEFAULT_POPULATIONS = [2^i for i in 6:2:10] # 2^5=32 to 2^10 = 1024
 
 # All parameters
 const ALL_PARAMETERS = Dict(
