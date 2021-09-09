@@ -53,9 +53,9 @@ const ALL_PARAMETERS = Dict(
     :search => [:partial, :complete], # :flexible is also an option
 
     # # Learning parameter
-    # :metric => DEFAULT_METRICS,
-    # :generations => generations(),
-    # :icn_iterations => icn_iterations(),
-    # :language => DEFAULT_LANGUAGES,
-    # :population => DEFAULT_POPULATIONS,
+    :metric => DEFAULT_METRICS,
+    :generations => generations(),
+    :icn_iterations => icn_iterations(),
+    :language => DEFAULT_LANGUAGES,
+    :population => DEFAULT_POPULATIONS,
 )

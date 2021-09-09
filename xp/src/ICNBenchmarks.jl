@@ -16,6 +16,9 @@ import Constraints: make_error
 export ALL_PARAMETERS
 export BENCHED_CONSTRAINTS
 
+# structures
+export RandomParameter, RP1 # randome parameter of length 1
+
 # others
 export search_space
 

@@ -8,10 +8,10 @@ using DrWatson
 using ICNBenchmarks
 
 # Load other packages
+using BenchmarkTools
+using CompositionalNetworks
+using ConstraintDomains
 using Constraints
-
-# Ensure the folders for data output exist
-mkpath(datadir("compositions"))
 
 # NOTE - Is write_benchmarks useful?
 # function write_benchmarks(path, data)
@@ -24,29 +24,81 @@ function icn_benchmark_unit(params)
     @info "Running a benchmark unit with" params
 
     if params[:search] == :complete
-        params[:domains_size]^params[:domains_size] > params[:complete_search_limit] && return nothing
+        params[:domains_size]^params[:domains_size] > params[:complete_search_limit] &&
+            return nothing
     end
     if params[:search] == :partial
-        params[:domains_size]^params[:domains_size] < params[:partial_search_limit] && return nothing
+        params[:domains_size]^params[:domains_size] < params[:partial_search_limit] &&
+            return nothing
     end
+
+    # Generate an appropriate parameter for the concept if relevant
+    param = if isnothing(params[:concept][2])
+        nothing
+    elseif params[:concept][2] == 1
+        rand(1:params[:domains_size])
+    else
+        rand(1:params[:domains_size], params[:concept][2])
+    end
+
+    # assign parameters
+    constraint_concept = concept(BENCHED_CONSTRAINTS[params[:concept][1]])
+    metric = params[:metric]
+    domain_size = params[:domains_size]
+    domains = fill(domain(1:domain_size), domain_size)
+    func_name = "icn" * string(constraint_concept)[8:end] * "_" * string(metric)
+    func_path = datadir("compositions", func_name * ".jl")
 
     # Time the data retrieval/generation
     t = @timed search_space(
-        params[:domains_size],
-        concept(BENCHED_CONSTRAINTS[params[:concept][1]]),
-        params[:concept][2];
+        domain_size,
+        constraint_concept,
+        param;
         search=params[:search],
         complete_search_limit=params[:complete_search_limit],
         solutions_limit=params[:sampling],
     )
     solutions, non_sltns, has_data = t.value
 
+    bench = @timed explore_learn_compose(
+        domains,
+        constraint_concept,
+        param;
+        global_iter=params[:icn_iterations],
+        local_iter=params[:generations],
+        metric=metric,
+        pop_size=params[:population],
+        configurations=(solutions, non_sltns),
+    )
+    compo, icn = bench.value
 
+    # @warn "debug get_index" params domains constraint_concept param metric params[:icn_iterations] params[:generations] params[:population]
+    # b = @benchmark begin
+    #     benched_compo, benched_icn = explore_learn_compose(
+    #         $domains,
+    #         $constraint_concept,
+    #         $param;
+    #         global_iter=$(params[:icn_iterations]),
+    #         local_iter=$(params[:generations]),
+    #         metric=$metric,
+    #         pop_size=$(params[:population]),
+    #         configurations=$(solutions, non_sltns),
+    #     )
+    #     begin
+    #         $(icn = $benched_icn)
+    #         $(compo = $benched_compo)
+    #     end
+    # end samples = 1 evals = 1
 
-    @info "Temp results" solutions has_data t.time
+    @info "Temp results" solutions has_data t.time compo icn bench
 end
 
-# Run all the benchmarks for all the unit configuration from ALL_PARAMETERS
-icn_benchmark(params=ALL_PARAMETERS) = foreach(icn_benchmark_unit, dict_list(params))
+function icn_benchmark(params=ALL_PARAMETERS)
+    # Ensure the folders for data output exist
+    mkpath(datadir("compositions"))
+
+    # Run all the benchmarks for all the unit configuration from params
+    return foreach(icn_benchmark_unit, dict_list(params))
+end
 
 icn_benchmark()
