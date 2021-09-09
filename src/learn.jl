@@ -45,9 +45,9 @@ function explore_learn_compose(
     metric=:hamming,
     pop_size=400,
     search=:flexible,
-    search_limit=1000,
+    complete_search_limit=1000,
     solutions_limit=100,
-    configurations=explore(domains, concept, param; search, search_limit, solutions_limit),
+    configurations=explore(domains, concept, param; search, complete_search_limit, solutions_limit),
 )
     dom_size = maximum(domain_size, domains)
     X_sols, X = configurations
