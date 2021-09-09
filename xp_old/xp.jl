@@ -59,7 +59,7 @@ metric = metrics[2]
         g_b_time = BenchmarkTools.prettytime(time(g_b))
         g_b_memory = BenchmarkTools.prettymemory(memory(g_b))
         g_b_allocs = allocs(g_b)
-    
+
         write_benchmarks(path, "#Finding composition:\n#$g_b_time ($g_b_allocs allocation$(g_b_allocs == 1 ? "" : "s"): $g_b_memory)")
 
         X_sols, X = complete_search_space(domains, concept, param)
@@ -68,7 +68,7 @@ metric = metrics[2]
         include("compositions/$path")
         #ef = getfield(Main, Symbol(path[1:end-3])) #function name from generated composition file
         ef = getfield(Main, Symbol(path[1:end-5])) # ... minus n_threads in name
-        
+
         benchmarks = []
         for var in union(X_sols, X)
             push!(benchmarks, @benchmark $ef($var, dom_size=length(domains[1])) samples = 2)

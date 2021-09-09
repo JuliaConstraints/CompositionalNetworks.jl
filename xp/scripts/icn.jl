@@ -23,17 +23,30 @@ mkpath(datadir("compositions"))
 function icn_benchmark_unit(params)
     @info "Running a benchmark unit with" params
 
-    # Retrieve the search space configurations
-    ds = params[:domains_size]
-    c = concept(BENCHED_CONSTRAINTS[params[:concept][1]])
-    p = params[:concept][2]
+    if params[:search] == :complete
+        params[:domains_size]^params[:domains_size] > params[:complete_search_limit] && return nothing
+    end
+    if params[:search] == :partial
+        params[:domains_size]^params[:domains_size] < params[:partial_search_limit] && return nothing
+    end
 
-    solutions, non_sltns = search_space(ds, c, p)
+    # Time the data retrieval/generation
+    t = @timed search_space(
+        params[:domains_size],
+        concept(BENCHED_CONSTRAINTS[params[:concept][1]]),
+        params[:concept][2];
+        search=params[:search],
+        complete_search_limit=params[:complete_search_limit],
+        solutions_limit=params[:sampling],
+    )
+    solutions, non_sltns, has_data = t.value
 
-    @info "Temp results" solutions
+
+
+    @info "Temp results" solutions has_data t.time
 end
 
 # Run all the benchmarks for all the unit configuration from ALL_PARAMETERS
-icn_benchmark(params = ALL_PARAMETERS) = foreach(icn_benchmark_unit, dict_list(params))
+icn_benchmark(params=ALL_PARAMETERS) = foreach(icn_benchmark_unit, dict_list(params))
 
 icn_benchmark()

@@ -4,7 +4,7 @@ function search_space(
     concept,
     param=nothing;
     search=:flexible,
-    search_limit=1000,
+    complete_search_limit=1000,
     solutions_limit=100,
 )
     # Define the domains by on the domain size
@@ -12,7 +12,7 @@ function search_space(
 
     # # Determine if the search is partial or complete
     if search == :flexible
-        search = sum(domain_size, domains) < search_limit ? :complete : :partial
+        search = sum(domain_size, domains) < complete_search_limit ? :complete : :partial
     end
 
     # Define the output folder and make the related path if necessary
@@ -24,17 +24,21 @@ function search_space(
     name_non_sltns = ""
     if search == :complete
         configurations = :solutions
-        name_solutions = savename(@dict concept param dom_size search configurations)
-        configurations = :non_sltns
-        name_non_sltns = savename(@dict concept param dom_size search configurations)
-    else
-        configurations = :solutions
         name_solutions = savename(
-            @dict concept param dom_size search search_limit solutions_limit configurations
+            @dict constraint = Symbol(concept) param dom_size search configurations
         )
         configurations = :non_sltns
         name_non_sltns = savename(
-            @dict concept param dom_size search search_limit solutions_limit configurations
+            @dict constraint = Symbol(concept) param dom_size search configurations
+        )
+    else
+        configurations = :solutions
+        name_solutions = savename(
+            @dict constraint = Symbol(concept) param dom_size search solutions_limit configurations
+        )
+        configurations = :non_sltns
+        name_non_sltns = savename(
+            @dict constraint = Symbol(concept) param dom_size search solutions_limit configurations
         )
     end
     file_solutions = joinpath(output_folder, "$name_solutions.csv")
@@ -55,7 +59,7 @@ function search_space(
     solutions, non_sltns = if has_data
         read_csv_as_set(file_solutions), read_csv_as_set(file_non_sltns)
     else
-        explore(domains, concept, param; search, search_limit, solutions_limit)
+        explore(domains, concept, param; search, solutions_limit)
     end
 
     # Save the data locally if generated on this run
@@ -67,5 +71,5 @@ function search_space(
         end
     end
 
-    return solutions, non_sltns
+    return solutions, non_sltns, has_data
 end

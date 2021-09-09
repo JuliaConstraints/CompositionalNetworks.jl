@@ -16,28 +16,28 @@ function explore(
     concept,
     param=nothing;
     search=:flexible,
-    search_limit=1000,
-    solutions_limit=100,
+    complete_search_limit=10^6,
+    max_samplings=sum(domain_size, domains),
+    solutions_limit=floor(Int, sqrt(max_samplings)),
 )
     if search == :flexible
-        search = sum(domain_size, domains) < search_limit ? :complete : :partial
+        search = sum(domain_size, domains) < complete_search_limit ? :complete : :partial
     end
-    return explore(Val(search), domains, concept, param, solutions_limit, search_limit)
+    return explore(Val(search), domains, concept, param, solutions_limit, max_samplings)
 end
 
-function explore(::Val{:partial}, domains, concept, param, solutions_limit, search_limit)
+function explore(::Val{:partial}, domains, concept, param, solutions_limit, max_samplings)
     solutions = Set{Vector{Int}}()
     non_sltns = Set{Vector{Int}}()
 
     f = isnothing(param) ? ((x; param = p) -> concept(x)) : concept
 
-    for _ in 1:search_limit
+    for _ in 1:max_samplings
         length(solutions) ≥ solutions_limit && length(non_sltns) ≥ solutions_limit && break
         config = map(rand, domains)
         c = f(config; param) ? solutions : non_sltns
         length(c) < solutions_limit && push!(c, config)
     end
-
     return solutions, non_sltns
 end
 
@@ -52,6 +52,5 @@ function explore(::Val{:complete}, domains, concept, param, ::Int, ::Int)
         c -> (cv = collect(c); push!(f(cv; param) ? solutions : non_sltns, cv)),
         configurations,
     )
-
     return solutions, non_sltns
 end
