@@ -4,6 +4,9 @@ using DrWatson
 # Activate the ICNBenchmarks project
 @quickactivate "ICNBenchmarks"
 
+using Pkg
+Pkg.instantiate()
+
 # Load common code to all script in ICNBenchmarks
 using ICNBenchmarks
 
