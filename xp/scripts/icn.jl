@@ -1,10 +1,13 @@
+using Pkg
+Pkg.add("DrWatson")
+
 # Load DrWatson (scientific project manager)
 using DrWatson
 
 # Activate the ICNBenchmarks project
 @quickactivate "ICNBenchmarks"
 
-using Pkg
+
 Pkg.instantiate()
 
 # Load common code to all script in ICNBenchmarks
@@ -83,9 +86,9 @@ function icn_benchmark_unit(params)
     results = Dict{Symbol,Any}()
     # Code composition
     for lang in (params[:language], :maths)
-        push!(results, lang => code(compo, lang))
+        push!(results, lang => CompositionalNetworks.code(compo, lang))
     end
-    push!(results, :symbols => symbols(compo))
+    push!(results, :symbols => CompositionalNetworks.symbols(compo))
 
     @info "Temp results" results has_data t.time bench.time
 end
