@@ -7,7 +7,8 @@ using DrWatson
 # Activate the ICNBenchmarks project
 @quickactivate "ICNBenchmarks"
 
-Pkg.instantiate()
+# Pkg.instantiate()
+# Pkg.update()
 
 # Load common code to all script in ICNBenchmarks
 using ICNBenchmarks
@@ -80,7 +81,7 @@ function icn_benchmark_unit(params)
         pop_size=params[:population],
         configurations=(solutions, non_sltns),
     )
-    compo, icn = bench.value
+    compo, icn, all_compos = bench.value
 
     results = Dict{Symbol,Any}()
     # Code composition
@@ -89,7 +90,7 @@ function icn_benchmark_unit(params)
     end
     push!(results, :symbols => CompositionalNetworks.symbols(compo))
 
-    @info "Temp results" results has_data t.time bench.time
+    @info "Temp results" results has_data t.time bench.time all_compos
 end
 
 function icn_benchmark(params=ALL_PARAMETERS)

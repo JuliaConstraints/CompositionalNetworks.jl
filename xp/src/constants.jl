@@ -19,7 +19,7 @@ end
 
 # Genetic Algorithms default parameters
 const MAXIMUM_TOTAL_ITERATIONS = 15 # order => 2^15 = 32768
-const MINIMUM_ICN_ITERATIONS = 5 # order => 2^5= 32
+const MINIMUM_ICN_ITERATIONS = 4 # order => 2^5= 32
 const MINIMUM_GENERATIONS = 5 # order => 2^5 = 32
 
 function icn_iterations(;

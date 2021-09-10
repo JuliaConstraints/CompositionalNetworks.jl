@@ -16,8 +16,15 @@ function learn_compose(
     pop_size=400,
 )
     icn = ICN(; param=!isnothing(param))
-    optimize!(icn, X, X_sols, global_iter, local_iter, dom_size, param, metric, pop_size)
-    return compose(icn), icn
+    _, weigths = optimize!(
+        icn, X, X_sols, global_iter, local_iter, dom_size, param, metric, pop_size
+    )
+    compositions = Dictionary{Composition, Int}()
+    for (bv, occurences) in pairs(weigths)
+        set!(compositions, compose(deepcopy(icn), bv), occurences)
+    end
+
+    return compose(icn), icn, compositions
 end
 
 """
@@ -47,7 +54,9 @@ function explore_learn_compose(
     search=:flexible,
     complete_search_limit=1000,
     solutions_limit=100,
-    configurations=explore(domains, concept, param; search, complete_search_limit, solutions_limit),
+    configurations=explore(
+        domains, concept, param; search, complete_search_limit, solutions_limit
+    ),
 )
     dom_size = maximum(domain_size, domains)
     X_sols, X = configurations
@@ -92,7 +101,7 @@ function compose_to_file!(
     search_limit=1000,
     solutions_limit=100,
 )
-    compo, icn = explore_learn_compose(
+    compo, icn, _ = explore_learn_compose(
         domains,
         concept,
         param;
