@@ -9,7 +9,7 @@ const DEFAULT_PARTIAL_SEARCH_LIMIT = 4^4
 const DEFAULT_SAMPLINGS = [100, 1000]
 
 const MINIMUM_DOMAIN_SIZE = 3
-const MAXIMUM_DOMAIN_SIZE = 10 # NOTE - Check if it is too high
+const MAXIMUM_DOMAIN_SIZE = 8 # NOTE - Check if it is too high
 
 function domains_sizes(;
     min_domain_size=MINIMUM_DOMAIN_SIZE, max_domain_size=MAXIMUM_DOMAIN_SIZE
@@ -42,6 +42,15 @@ end
 
 const DEFAULT_POPULATIONS = [2^i for i in 6:2:10] # 2^5=32 to 2^10 = 1024
 
+const DEFAULT_LOSS_SAMPLING_THRESHOLD = 2^10
+
+root(n) = x -> round(Int, x^(1 / n))
+constant(n) = _ -> n
+
+const DEFAULT_LOSS_SAMPLER = [
+    nothing, root(2), root(3), constant(DEFAULT_LOSS_SAMPLING_THRESHOLD)
+]
+
 # All parameters
 const ALL_PARAMETERS = Dict(
     # Search parameters
@@ -58,7 +67,9 @@ const ALL_PARAMETERS = Dict(
     :icn_iterations => icn_iterations(),
     :language => DEFAULT_LANGUAGES,
     :population => DEFAULT_POPULATIONS,
+    :loss_sampler => DEFAULT_LOSS_SAMPLER,
+    :loss_sampling_threshold => DEFAULT_LOSS_SAMPLING_THRESHOLD,
 )
 
 # ALL_PARAMETERS[:search] = [:flexible]
-ALL_PARAMETERS[:domains_size] = 8
+# ALL_PARAMETERS[:domains_size] = 8

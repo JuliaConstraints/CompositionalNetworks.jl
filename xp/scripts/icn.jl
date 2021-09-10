@@ -35,11 +35,23 @@ function icn_benchmark_unit(params)
             @warn "Unit benchmark aborted (complete) search space is too large" search_space_size params[:complete_search_limit]
             return nothing
         end
+        if search_space_size > params[:loss_sampling_threshold]
+            if isnothing(params[:loss_sampler])
+                @warn "Unit benchmark aborted (complete) search space is too large, and loss function is deterministically evaluated" search_space_size params[:loss_sampling_threshold] params[:loss_sampler]
+                return nothing
+            end
+        end
     end
     if params[:search] == :partial
         if search_space_size < params[:partial_search_limit]
             @warn "Unit benchmark aborted (partial) search space is too small" search_space_size params[:partial_search_limit]
             return nothing
+        end
+        if search_space_size ≤ params[:loss_sampling_threshold]
+            if !isnothing(params[:loss_sampler])
+                @warn "Unit benchmark aborted (complete) search space is too small, and loss function is stochastically evaluated" search_space_size params[:loss_sampling_threshold] params[:loss_sampler]
+                return nothing
+            end
         end
     end
 
@@ -80,6 +92,7 @@ function icn_benchmark_unit(params)
         metric=metric,
         pop_size=params[:population],
         configurations=(solutions, non_sltns),
+        sampler=params[:loss_sampler],
     )
     compo, icn, all_compos = bench.value
 
@@ -104,7 +117,7 @@ function icn_benchmark(params=ALL_PARAMETERS)
         @info "Starting the $u/$(length(configs)) benchmark unit"
         icn_benchmark_unit(c)
     end
-    return
+    return nothing
 end
 
 icn_benchmark()
