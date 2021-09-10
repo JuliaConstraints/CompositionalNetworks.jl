@@ -12,10 +12,15 @@ end
     loss(X, X_sols, icn, weigths, metric)
 Compute the loss of `icn`.
 """
-function loss(X, X_sols, icn, weigths, metric, dom_size, param)
+function loss(solutions, non_sltns, icn, weigths, metric, dom_size, param; samples=nothing)
     compo = compose(icn, weigths)
     f = composition(compo)
-    σ = sum(x -> abs(f(x; param, dom_size) - metric(x, X_sols)), X) + regularization(icn)
+    X = if isnothing(samples)
+        Iterators.flatten((solutions, non_sltns))
+    else
+        Iterators.flatten((solutions, rand(non_sltns, samples)))
+    end
+    σ = sum(x -> abs(f(x; param, dom_size) - metric(x, solutions)), X) + regularization(icn)
     return σ
 end
 
@@ -23,8 +28,21 @@ end
     _optimize!(icn, X, X_sols; metric = hamming, pop_size = 200)
 Optimize and set the weigths of an ICN with a given set of configuration `X` and solutions `X_sols`.
 """
-function _optimize!(icn, X, X_sols, dom_size, param, metric, pop_size, iterations)
-    fitness = w -> loss(X, X_sols, icn, w, metric, dom_size, param) + weigths_bias(w)
+function _optimize!(
+    icn,
+    solutions,
+    non_sltns,
+    dom_size,
+    param,
+    metric,
+    pop_size,
+    iterations;
+    samples=nothing,
+)
+    fitness =
+        w ->
+            loss(solutions, non_sltns, icn, w, metric, dom_size, param; samples) +
+            weigths_bias(w)
 
     _icn_ga = GA(;
         populationSize=pop_size,
@@ -45,15 +63,38 @@ end
     optimize!(icn, X, X_sols, global_iter, local_iter; metric=hamming, popSize=100)
 Optimize and set the weigths of an ICN with a given set of configuration `X` and solutions `X_sols`. The best weigths among `global_iter` will be set.
 """
-function optimize!(icn, X, X_sols, global_iter, iter, dom_size, param, metric, pop_size)
+function optimize!(
+    icn,
+    solutions,
+    non_sltns,
+    global_iter,
+    iter,
+    dom_size,
+    param,
+    metric,
+    pop_size;
+    sampler=nothing,
+)
     results = Dictionary{BitVector,Int}()
     aux_results = Vector{BitVector}(undef, global_iter)
     nt = Base.Threads.nthreads()
+
     @info """Starting optimization of weights$(nt > 1 ? " (multithreaded)" : "")"""
+    samples = isnothing(sampler) ? nothing : sampler(length(solutions) + length(non_sltns))
     @qthreads for i in 1:global_iter
         @info "Iteration $i"
         aux_icn = deepcopy(icn)
-        _optimize!(aux_icn, X, X_sols, dom_size, param, eval(metric), pop_size, iter)
+        _optimize!(
+            aux_icn,
+            solutions,
+            non_sltns,
+            dom_size,
+            param,
+            eval(metric),
+            pop_size,
+            iter;
+            samples,
+        )
         aux_results[i] = weigths(aux_icn)
     end
     foreach(bv -> incsert!(results, bv), aux_results)

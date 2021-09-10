@@ -6,20 +6,30 @@
 Create an ICN, optimize it, and return its composition.
 """
 function learn_compose(
-    X,
-    X_sols,
+    solutions,
+    non_sltns,
     dom_size,
     param=nothing;
     global_iter=Threads.nthreads(),
     local_iter=100,
     metric=:hamming,
     pop_size=400,
+    sampler=nothing,
 )
     icn = ICN(; param=!isnothing(param))
     _, weigths = optimize!(
-        icn, X, X_sols, global_iter, local_iter, dom_size, param, metric, pop_size
+        icn,
+        solutions,
+        non_sltns,
+        global_iter,
+        local_iter,
+        dom_size,
+        param,
+        metric,
+        pop_size;
+        sampler,
     )
-    compositions = Dictionary{Composition, Int}()
+    compositions = Dictionary{Composition,Int}()
     for (bv, occurences) in pairs(weigths)
         set!(compositions, compose(deepcopy(icn), bv), occurences)
     end
@@ -54,15 +64,23 @@ function explore_learn_compose(
     search=:flexible,
     complete_search_limit=1000,
     solutions_limit=100,
+    sampler=nothing,
     configurations=explore(
         domains, concept, param; search, complete_search_limit, solutions_limit
     ),
 )
     dom_size = maximum(domain_size, domains)
-    X_sols, X = configurations
-    union!(X, X_sols)
+    solutions, non_sltns = configurations
     return learn_compose(
-        X, X_sols, dom_size, param; local_iter, global_iter, metric, pop_size
+        solutions,
+        non_sltns,
+        dom_size,
+        param;
+        local_iter,
+        global_iter,
+        metric,
+        pop_size,
+        sampler,
     )
 end
 
@@ -100,6 +118,7 @@ function compose_to_file!(
     search=:flexible,
     search_limit=1000,
     solutions_limit=100,
+    sampler=nothing,
 )
     compo, icn, _ = explore_learn_compose(
         domains,
@@ -113,6 +132,7 @@ function compose_to_file!(
         search,
         search_limit,
         solutions_limit,
+        sampler,
     )
 
     composition_to_file!(compo, path, name, language)

@@ -4,7 +4,7 @@ const BENCHED_CONSTRAINTS = deepcopy(usual_constraints)
 const DEFAULT_CONCEPTS = [(:all_different, nothing)]
 const DEFAULT_LANGUAGES = [:Julia] # [:Julia, :C, :CPP]
 const DEFAULT_METRICS = [:hamming, :manhattan]
-const DEFAULT_COMPLETE_SEARCH_LIMIT = 8^8 # could be improved with multithreading
+const DEFAULT_COMPLETE_SEARCH_LIMIT = 6^6 # could be improved with multithreading
 const DEFAULT_PARTIAL_SEARCH_LIMIT = 4^4
 const DEFAULT_SAMPLINGS = [100, 1000]
 
@@ -18,9 +18,9 @@ function domains_sizes(;
 end
 
 # Genetic Algorithms default parameters
-const MAXIMUM_TOTAL_ITERATIONS = 15 # order => 2^15 = 32768
+const MAXIMUM_TOTAL_ITERATIONS = 12 # order => 2^15 = 32768
 const MINIMUM_ICN_ITERATIONS = 4 # order => 2^5= 32
-const MINIMUM_GENERATIONS = 5 # order => 2^5 = 32
+const MINIMUM_GENERATIONS = 4 # order => 2^5 = 32
 
 function icn_iterations(;
     min_icn_iterations=MINIMUM_ICN_ITERATIONS,
@@ -60,5 +60,5 @@ const ALL_PARAMETERS = Dict(
     :population => DEFAULT_POPULATIONS,
 )
 
-ALL_PARAMETERS[:search] = [:flexible]
-ALL_PARAMETERS[:domains_size] = 10
+# ALL_PARAMETERS[:search] = [:flexible]
+ALL_PARAMETERS[:domains_size] = 8
