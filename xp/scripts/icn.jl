@@ -1,5 +1,5 @@
 using Pkg
-Pkg.add("DrWatson")
+#Pkg.add("DrWatson")
 
 # Load DrWatson (scientific project manager)
 using DrWatson
