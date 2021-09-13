@@ -5,9 +5,11 @@ using ConstraintDomains
 using Dictionaries
 using Evolutionary
 using JuliaFormatter
+using Memoization
 using OrderedCollections
 using Random
 using ThreadPools
+using ThreadSafeDicts
 using Unrolled
 
 export Composition

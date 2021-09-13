@@ -71,10 +71,8 @@ deps = ["Artifacts", "Libdl"]
 uuid = "e66e0078-7015-5450-92f7-15fbd957f2ae"
 
 [[deps.CompositionalNetworks]]
-deps = ["ConstraintDomains", "Dictionaries", "Evolutionary", "JuliaFormatter", "OrderedCollections", "Random", "ThreadPools", "Unrolled"]
-git-tree-sha1 = "7e797895f3009f18e251ea110da761c6ef304a69"
-repo-rev = "xp"
-repo-url = "https://github.com/JuliaConstraints/CompositionalNetworks.jl.git"
+deps = ["ConstraintDomains", "Dictionaries", "Evolutionary", "JuliaFormatter", "Memoization", "OrderedCollections", "Random", "ThreadPools", "ThreadSafeDicts", "Unrolled"]
+path = "C:\\Users\\jeanf\\.julia\\dev\\CompositionalNetworks"
 uuid = "4b67e4b5-442d-4ef5-b760-3f5df3a57537"
 version = "0.2.7"
 
@@ -285,6 +283,12 @@ uuid = "d6f4376e-aef5-505a-96c1-9c027394607a"
 deps = ["Artifacts", "Libdl"]
 uuid = "c8ffd9c3-330d-5841-b78e-0817d7145fa1"
 
+[[deps.Memoization]]
+deps = ["MacroTools"]
+git-tree-sha1 = "42d48cac95e0fee730ba2fff477adc68c52c65f4"
+uuid = "6fafb56a-5788-4b4e-91ca-c0cea6611c73"
+version = "0.1.13"
+
 [[deps.Mmap]]
 uuid = "a63ad114-7e13-5084-954f-fe012c677804"
 
@@ -445,6 +449,12 @@ deps = ["Printf", "RecipesBase", "Statistics"]
 git-tree-sha1 = "47885d07fc68cf4f0eb7fcb3e2ad74765f91bed8"
 uuid = "b189fb0b-2eb5-4ed4-bc0c-d34c51242431"
 version = "2.0.1"
+
+[[deps.ThreadSafeDicts]]
+deps = ["Distributed"]
+git-tree-sha1 = "f9dd17de65a737450645e568ae050cd75f31ac59"
+uuid = "4239201d-c60e-5e0a-9702-85d713665ba7"
+version = "0.0.6"
 
 [[deps.Tokenize]]
 git-tree-sha1 = "0952c9cee34988092d73a5708780b3917166a0dd"

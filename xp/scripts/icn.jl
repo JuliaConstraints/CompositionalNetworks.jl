@@ -64,6 +64,7 @@ function icn_benchmark_unit(params)
             pop=params[:population],
             sampling=params[:sampling],
             search=string(params[:search]),
+            mem=params[:memoize],
         ),
         "json",
     )
@@ -86,8 +87,8 @@ function icn_benchmark_unit(params)
         metric = params[:metric]
         domain_size = params[:domains_size]
         domains = fill(domain(1:domain_size), domain_size)
-        func_name = "icn" * string(constraint_concept)[8:end] * "_" * string(metric)
-        func_path = datadir("compositions", func_name * ".jl")
+        # func_name = "icn" * string(constraint_concept)[8:end] * "_" * string(metric)
+        # func_path = datadir("compositions", func_name * ".jl")
 
         # Time the data retrieval/generation
         t = @timed search_space(
@@ -110,6 +111,7 @@ function icn_benchmark_unit(params)
             pop_size=params[:population],
             configurations=(solutions, non_sltns),
             sampler=params[:loss_sampler],
+            memoize=params[:memoize],
         )
         _, _, all_compos = bench.value
 

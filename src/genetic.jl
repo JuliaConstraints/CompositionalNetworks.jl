@@ -38,11 +38,13 @@ function _optimize!(
     pop_size,
     iterations;
     samples=nothing,
+    memoize=true,
 )
+    _metric = memoize ? (@memoize Dict memoize_metric(x, X) = metric(x, X)) : metric
+    _bias = memoize ? (@memoize Dict memoize_bias(x) = weigths_bias(x)) : weigths_bias
     fitness =
         w ->
-            loss(solutions, non_sltns, icn, w, metric, dom_size, param; samples) +
-            weigths_bias(w)
+            loss(solutions, non_sltns, icn, w, _metric, dom_size, param; samples) + _bias(w)
 
     _icn_ga = GA(;
         populationSize=pop_size,
@@ -74,6 +76,7 @@ function optimize!(
     metric,
     pop_size;
     sampler=nothing,
+    memoize=true,
 )
     results = Dictionary{BitVector,Int}()
     aux_results = Vector{BitVector}(undef, global_iter)
@@ -94,6 +97,7 @@ function optimize!(
             pop_size,
             iter;
             samples,
+            memoize,
         )
         aux_results[i] = weigths(aux_icn)
     end

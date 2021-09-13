@@ -51,6 +51,8 @@ const DEFAULT_LOSS_SAMPLER = [
     nothing, root(2), root(3), constant(DEFAULT_LOSS_SAMPLING_THRESHOLD)
 ]
 
+const DEFAULT_MEMOIZATION = [true, false]
+
 # All parameters
 const ALL_PARAMETERS = Dict(
     # Search parameters
@@ -69,6 +71,7 @@ const ALL_PARAMETERS = Dict(
     :population => DEFAULT_POPULATIONS,
     :loss_sampler => DEFAULT_LOSS_SAMPLER,
     :loss_sampling_threshold => DEFAULT_LOSS_SAMPLING_THRESHOLD,
+    :memoize => DEFAULT_MEMOIZATION,
 )
 
 # ALL_PARAMETERS[:search] = [:flexible]

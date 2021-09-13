@@ -15,6 +15,7 @@ function learn_compose(
     metric=:hamming,
     pop_size=400,
     sampler=nothing,
+    memoize=true,
 )
     icn = ICN(; param=!isnothing(param))
     _, weigths = optimize!(
@@ -28,6 +29,7 @@ function learn_compose(
         metric,
         pop_size;
         sampler,
+        memoize
     )
     compositions = Dictionary{Composition,Int}()
     for (bv, occurences) in pairs(weigths)
@@ -68,6 +70,7 @@ function explore_learn_compose(
     configurations=explore(
         domains, concept, param; search, complete_search_limit, solutions_limit
     ),
+    memoize=true,
 )
     dom_size = maximum(domain_size, domains)
     solutions, non_sltns = configurations
@@ -81,6 +84,7 @@ function explore_learn_compose(
         metric,
         pop_size,
         sampler,
+        memoize,
     )
 end
 
@@ -119,6 +123,7 @@ function compose_to_file!(
     search_limit=1000,
     solutions_limit=100,
     sampler=nothing,
+    memoize=true,
 )
     compo, icn, _ = explore_learn_compose(
         domains,
@@ -133,6 +138,7 @@ function compose_to_file!(
         search_limit,
         solutions_limit,
         sampler,
+        memoize,
     )
 
     composition_to_file!(compo, path, name, language)
