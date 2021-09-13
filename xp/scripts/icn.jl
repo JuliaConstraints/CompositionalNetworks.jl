@@ -118,7 +118,13 @@ function icn_benchmark_unit(params)
         # Global results
         push!(results, :data => has_data ? :loaded : :explored)
         push!(results, :data_time => t.time)
+        push!(results, :data_bytes => t.bytes)
+        push!(results, :data_gctime => t.gctime)
+        push!(results, :data_gcstats => t.gcstats)
         push!(results, :icn_time => bench.time)
+        push!(results, :icn_bytes => bench.bytes)
+        push!(results, :icn_gctime => bench.gctime)
+        push!(results, :icn_gcstats => bench.gcstats)
         push!(results, :total_time => t.time + bench.time)
         push!(results, :nthreads => Threads.nthreads())
 
@@ -130,7 +136,12 @@ function icn_benchmark_unit(params)
 
             # Code composition
             for lang in (params[:language], :maths)
-                push!(local_results, lang => CompositionalNetworks.code(compo, lang))
+                push!(
+                    local_results,
+                    lang => CompositionalNetworks.code(
+                        compo, lang; name=string(params[:concept][1])
+                    ),
+                )
             end
             push!(local_results, :symbols => CompositionalNetworks.symbols(compo))
 
