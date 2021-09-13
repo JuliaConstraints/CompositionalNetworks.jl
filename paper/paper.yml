@@ -1,0 +1,31 @@
+title: "CompositionalNetworks.jl: a scaling glass-box neural network for combinatorial functions learning"
+keywords:
+  - Julia
+  - Optimization
+  - Constraint Programming
+  - Neural Network
+  - Scaling Learning
+authors:
+  - name: Jean-François \textsc{Baffier}
+    orcid: 0000-0002-8800-6356
+    affiliation: 1
+  - name: Khalil \textsc{Chrit}
+    affiliation: 2
+  - name: Florian \textsc{Richoux}
+    affiliation: 3,4
+  - name: Pedro \textsc{Patinho}
+    affiliation: 2
+  - name: Salvador \textsc{Abreu}
+    orcid: 0000-0002-1613-4631
+    affiliation: 2
+affiliations:
+  - name: IIJ Innovation Institute, Japan
+    index: 1
+  - name: NOVA-LINCS, University of Évora, Portugal
+    index: 2
+  - name: AIST, Japan
+    index: 3
+  - name: JFLI, CNRS, Japan
+    index: 4
+date: 10 September 2021
+bibliography: ref.bib
