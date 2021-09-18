@@ -12,7 +12,8 @@ minkowski(x, X, p) = mapreduce(y -> (sum(abs.(x .- y).^p))^(1/p), min, X; init =
 """
     manhattan(x, X)
 """
-manhattan(x, X) = minkowski(x, X, 1)
+manhattan(x, X) = mapreduce(y -> sum(abs.(x .- y)), min, X; init = typemax(Int))
+# manhattan(x, X) = minkowski(x, X, 1)
 
 """
     weigths_bias(x)
