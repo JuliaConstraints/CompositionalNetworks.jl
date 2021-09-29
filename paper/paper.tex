@@ -1,7 +1,45 @@
-
 % JuliaCon proceedings template
 \documentclass{juliacon}
 \setcounter{page}{1}
+
+\usepackage{xspace}
+
+\usepackage{subcaption}
+
+\usepackage{hyperref}
+
+\hypersetup{colorlinks=true,linkcolor=blue,urlcolor=blue}
+
+\newcommand{\ie}{\emph{i.e.}}
+\newcommand{\cp}{\textsc{CP}\xspace}
+\newcommand{\csp}{\textsc{CSP}\xspace}
+\newcommand{\cop}{\textsc{COP}\xspace}
+\newcommand{\efsp}{\textsc{EFSP}\xspace}
+\newcommand{\efop}{\textsc{EFOP}\xspace}
+\newcommand{\cfn}{\textsc{CFN}\xspace}
+\newcommand{\wcsp}{\textsc{WCSP}\xspace}
+\newcommand{\cbls}{\textsc{CBLS}\xspace}
+\newcommand{\ghost}{\textsc{GHOST}\xspace}
+\newcommand{\cppn}{\textsc{CPPN}\xspace}
+\newcommand{\icn}{\textsc{ICN}\xspace}
+
+\newcommand{\jc}{\href{https://github.com/JuliaConstraints}{JuliaConstraints}\xspace}
+\newcommand{\cdjl}{\href{https://github.com/JuliaConstraints/ConstraintDomains.jl}{ConstraintDomains.jl}\xspace}
+\newcommand{\cnjl}{\href{https://github.com/JuliaConstraints/CompositionalNetworks.jl}{CompositionalNetworks.jl}\xspace}
+\newcommand{\cjl}{\href{https://github.com/JuliaConstraints/Constraints.jl}{Constraints.jl}\xspace}
+\newcommand{\cmjl}{\href{https://github.com/JuliaConstraints/ConstraintModels.jl}{ConstraintModels.jl}\xspace}
+\newcommand{\lssjl}{\href{https://github.com/JuliaConstraints/LocalSearchSolvers.jl}{LocalSearchSolvers.jl}\xspace}
+\newcommand{\cblsjl}{\href{https://github.com/JuliaConstraints/CBLS.jl}{CBLS.jl}\xspace}
+
+
+\newcommand{\cproblem}[3]%
+{\begin{trivlist}
+  \item[]%
+    \textbf{Problem:} \textsc{#1}\\
+    \textit{Input:} #2\\
+    \textit{Question:} #3
+  \end{trivlist}%
+}
 
 \begin{document}
 
@@ -10,531 +48,407 @@
 \maketitle
 
 \begin{abstract}
-
-Interpretable Compositional Networks (ICN), a variant of neural networks, that allows the user to get interpretable results, unlike regular artificial neural networks. An ICN is a glass-box producing functions composition that scale with the size of the input, allowing a learning phase on relatively small spaces. This presentation covers the different Julia packages and paradigms involved, a set of use-case, current limitations, future developments, and hopefully possible collaborations.
-
+  Interpretable Compositional Networks (ICNs) are a neural network variant for combinatorial function learning that allows the user to obtain interpretable results, unlike ordinary artificial neural networks. An ICN outputs a composition of functions that scale with the size of the input, allowing a learning phase on relatively small spaces.
+  \cnjl is a pure Julia package that exploits the language's meta-programming, parallelism and multiple dispatch features to produce learned compositions in mathematical and programming languages such as Julia, C or C++.
 \end{abstract}
-
-\begin{itemize}
-    \item introduction to
-    \begin{itemize}
-        \item CP
-        \item Metaheuristics
-        \item CBLS and EFN
-    \end{itemize}
-    \item Pros of doing things in Julia
-    \item paper organization/content
-\end{itemize}
 
 \section{Introduction}
+\label{sec:introduction}
 
-The \LaTeX{} document preparation system is a special version of the
-\TeX; typesetting program where-in a collection of \TeX; commands
-are added to \LaTeX{} to simplify typesetting. Importantly, it allows
-the author to concentrate on the logical structure of the document
-rather than its visual layout.\vskip 6pt
-Moreover, \LaTeX{} provides a consistent and comprehensive document
-preparation interface. There are simple-to-use commands for
-generating a table of contents, lists of figures and/or tables, and indexes.
-\LaTeX{} can automatically number list entries, equations, figures,
-tables, and footnotes, as well as articles, sections, and subsections.
-Using this numbering system, bibliographic citations, page
-references, and cross references to any other numbered entity (e.g.
-article, section, equation, figure, list entry, etc.) become quite simple
-and straightforward. The use of \LaTeX{} document classes allows
-a simple change of class to transform the appearance of your document.\vskip 6pt
-\LaTeX{} is a powerful tool for managing long and complex documents.
-In particular, partial processing enables long documents to
-be produced article by article without losing sequential information.
-The use of document classes allows a simple change of style
-(or style option) to transform the appearance of your document.
+The discipline of combinatorial optimization consists in finding an optimal configuration of elements within a finite set. Such a set is usually subject to constraints that can be represented by functions that are often highly combinatorial. These constraints are mostly formulated as concepts, boolean functions indicating whether each constraint is respected or not. A solution (sometimes called a satisfactory solution, depending on the domain) is a configuration that respects all the constraints.
 
+Different domains such as operational research, constraint programming, metaheuristics, propose methods to find (satisfactory or optimal) solutions. Among these methods, some can or could benefit from a finer granularity in the evaluation of the impact of each constraint on a given configuration.
 
+In \cite{richoux2020automatic}, we introduced Interpretable Compositional Networks (ICNs), a neural network variant for combinatorial function learning that allows the user to obtain interpretable results, unlike ordinary artificial neural networks. An ICN outputs a composition of functions that scale with the size of the input, allowing a learning phase on relatively small spaces.
 
-\section{The JuliaCon Article Class}
-\label{sec:documentclass}
-%
-The juliacon class file preserves the standard LATEX{} interface such
-that any document that can be produced using the standard LATEX{}
-article class can also be produced with the class file.\vskip 6pt
-It is likely that the make up will change after file submission. For
-this reason, we ask you to ignore details such as slightly long lines,
-page stretching, or figures falling out of synchronization, as these
-details can be dealt with at a later stage.\vskip 6pt
-Use should be made of symbolic references (\verb|\ref| ) in order to
-protect against late changes of order, etc.
+This work, consists in a library that implements ICNs in the Julia programming language \cite{bezanson2017julia}. Although we present a direct application of ICNs in the following subsection, this neural network framework is simple to extend to learn other combinatorial and non-combinatorial functions.
 
-\section{USING THE JuliaCon Article CLASS FILE}
+\subsection{Application to Constraint Programming}
+\label{subsec:cpcontext}
 
-If the file \verb|juliacon.cls|  is not already in the appropriate system directory
-for \LaTeX{} files, either arrange for it to be put there or copy
-it to your working directory. The \verb|juliacon|  document class is implemented
-as a complete class, not a document style option. In order to
-use the \verb|juliacon  document class, replace \verb|article|  by \verb|juliacon|  in the
-\verb|\documentclass|  command at the beginning of your document:
-\vskip 6pt
-\begin{centering}
-    \verb|\documentclass{article}|  \end{centering}
-\vskip 6pt
-replace by
-\vskip 6pt
- \verb|\documentclass{juliacon}|  \vskip 6pt
-In general, the following standard document \verb|style|  options should
-{ \itshape not} be used with the {\footnotesize \itshape article} class file:
-\begin{enumerate}
-\item[(1)] \verb|10pt|,  \verb|11pt|,  \verb|12pt|   ? unavailable;
-\item[(2)] \verb|twoside|  (no associated style file) ? \verb|twoside|  is the default;
-\item[(3)] \verb|fleqn|, \verb|leqno|, \verb|titlepage| ? should not be used;
-\end{enumerate}
+Constraint Satisfaction Problem (\csp) and Constrained Optimization Problem (\cop) are constraint-based problems where constraints can be seen as predicates (\emph{concepts}) allowing or forbidding some combinations of variable assignments.
+Such a formulation corresponds well to the so-called complete solution methods which guarantee an exploration of all solutions. Unfortunately, due to the highly combinatorial nature of some problems, these methods cannot always converge in a reasonable time.
 
-\section{Additional Document Style Options}
-\label{sec:additional_doc}
-%
-The following additional style option is available with the \verb|juliacon|  class file:
-\vskip 6pt
-Please place any additional command definitions at the very start of
-the \LaTeX{} file, before the \verb|\begin{document}|. For example, user-defined
-\verb|\def|  and \verb|\newcommand|   commands that define macros for
-technical expressions should be placed here. Other author-defined
-macros should be kept to a minimum.
-\vskip 6pt
-Commands that differ from the standard \LaTeX{} interface, or that
-are provided in addition to the standard interface, are explained in
-this guide. This guide is not a substitute for the \LaTeX{} manual itself.
-Authors planning to submit their papers in \LaTeX{} are advised to use
-\verb|juliacon.cls|  as early as possible in the creation of their files.
-
-%
-%
-%
-%
-\begin{table*}[t]
-\tabcolsep22pt
-\tbl{If necessary, the tables can be extended both columns.}{
-\begin{tabular}{|l|l|c|c|}\hline
-Label & \multicolumn{1}{c|}{Description}
-& Number of Users &
-Number of Queries\\\hline
-Test 1 & Training Data &
-\smash{\raise-7pt\hbox{70}} & 104\\
-\cline{1-2}\cline{4-4}
-Test 2 & Testing Data I & & 105\\\hline
-Test 3 & Testing Data II & 30 & 119\\\hline
-& Total & 100 & 328\\\hline
-\end{tabular}}
-\label{tab:symbols}
-\begin{tabnote}
-This is an example of table footnote.
-\end{tabnote}
-\end{table*}
-% \begin{figure*}[t]
-% \centerline{\includegraphics[width=11cm]{juliagraphs.png}}
-% \caption{If necessary, the images can be extended both columns.}
-%   \label{fig:sample_image}
-% \end{figure*}
-
-\section{Additional features}
-\label{sec:additional_faci}
-In addition to all the standard \LaTeX{} design elements, the \verb|juliacon|  class file includes the following features:
-In general, once you have used the additional \verb|juliacon.cls| facilities
-in your document, do not process it with a standard \LaTeX{} class
-file.
-
-\subsection{Titles, Author's Name, and Affiliation}
-\label{subsub:title_auth}
-The title of the article, author's name, and affiliation are used at the
-beginning of the article (for the main title). These can be produced
-using the following code:
-
-\begin{verbatim}
-\title{ This is an example of article title} }
-\author{
-   \large 1st Author \\[-3pt]
-   \normalsize 1st author's affiliation  \\[-3pt]
-    \normalsize 1st line of address \\[-3pt]
-    \normalsize 2nd line of address \\[-3pt]
-    \normalsize	1st author's email address \\[-3pt]
-  \and
-   \large 2nd Author \\[-3pt]
-   \normalsize 2nd author's affiliation  \\[-3pt]
-    \normalsize 1st line of address \\[-3pt]
-    \normalsize 2nd line of address \\[-3pt]
-    \normalsize	2nd author's email address \\[-3pt]
-\and
-   \large 3rd Author \\[-3pt]
-   \normalsize 3rd author's affiliation  \\[-3pt]
-    \normalsize 1st line of address \\[-3pt]
-    \normalsize 2nd line of address \\[-3pt]
-    \normalsize	3rd author's email address \\[-3pt]
-}
-\maketitle
-\end{verbatim}
-
-\subsection{Writing Julia code}
-
-A special environment is already defined for Julia code,
-built on top of \textit{listings} and \textit{jlcode}.
-
-\begin{verbatim}
-\begin{lstlisting}[language = Julia]
-using Plots
-
-x = -3.0:0.01:3.0
-y = rand(length(x))
-plot(x, y)
-\end{lstlisting}
-\end{verbatim}
-\begin{lstlisting}[language = Julia]
-using Plots
-
-x = -3.0:0.01:3.0
-y = rand(length(x))
-plot(x, y)
-\end{lstlisting}
-
-
-\subsection{Abstracts, Key words, term etc...}
-\label{subsub:abs_key_etc}
-
-At the beginning of your article, the title should be generated
-in the usual way using the \verb|\maketitle|  command. For genaral tem and keywords use
-\verb|\terms|,
-\verb|\keywords|  commands respectively. The abstract should be enclosed
-within an abstract environment, All these environment
-can be produced using the following code:
-\begin{verbatim}
-\terms{Experimentation, Human Factors}
-
-\keywords{Face animation, image-based modelling...}
-
-\begin{abstract}
-In this paper, we propose a new method for the
-systematic determination of the model's base of
-time varying delay system. This method based on
-the construction of the classification data related
-to the considered system. The number, the orders,
-the time delay and the parameters of the local
-models are generated automatically without any
-knowledge about the full operating range of the
-process. The parametric identification of the local
-models is realized by a new recursive algorithm for
-on line identification of systems with unknown time
-delay. The proposed algorithm allows simultaneous
-estimation of time delay and parameters of
-discrete-time systems. The effectiveness of
-the new method has been illustrated through
-simulation.
-\end{abstract}
-
-\end{verbatim}
-
-\section{Some guidelines}
-\label{sec:some_guide}
-The following notes may help you achieve the best effects with the
-\verb|juliacon|  class file.
-
-\subsection{Sections}
-\label{subsub:sections}
-\LaTeXe{}  provides four levels of section headings and they are all
-defined in the \verb|juliacon|  class file:
-\begin{itemize}
-\item \verb|\section|
-\item \verb|\subsection|
-\item \verb|\subsubsection|
-\item \verb|\paragraph|
-\end{itemize}
-Section headings are automatically converted to allcaps style.
-\subsection{Lists}
-\label{sec:lists}
-%
-The \verb|juliacon|   class file provides unnumbered lists using the
-\verb|unnumlist|  environment for example,
-
-\begin{unnumlist}
-\item First unnumbered item which has no label and is indented from the
-left margin.
-\item Second unnumbered item.
-\item Third unnumbered item.
-\end{unnumlist}
-The unnumbered list which has no label and is indented from the
-left margin. was produced by:
-\begin{verbatim}
-\begin{unnumlist}
-\item First unnumbered item...
-\item Second unnumbered item...
-\item Third unnumbered item...
-\end{unnumlist}
-\end{verbatim}
-
-The \verb|juliacon|  class file also provides hyphen list using the
-\verb|itemize|  environment for example,
-\begin{itemize}
-\item First unnumbered bulleted item which has no label and is indented
-from the left margin.
-\item Second unnumbered bulleted item.
-\item Third unnumbered bulleted item which has no label and is indented
-from the left margin.
-\end{itemize}
-was produced by:
-\begin{verbatim}
-\begin{itemize}
-\item First item...
-\item Second item...
-\item Third item...
-\end{itemize}
-\end{verbatim}
-
-Numbered list is also provided in acmtog class file using the
-enumerate environment for example,
-\begin{enumerate}
-\item The attenuated and diluted stellar radiation.
-\item Scattered radiation, and
-\item Reradiation from other grains.
-\end{enumerate}
-
-was produced by:
-\begin{verbatim}
-\begin{enumerate}
-\item The attenuated...
-\item Scattered radiation, and...
-\item Reradiation from other grains...
-\end{enumerate}
-\end{verbatim}
-\subsection{Illustrations (or figures)}
-\label{subsub:sec_Illus}
-The \verb|juliacon|  class file will cope with most of the positioning of
-your illustrations and you should not normally use the optional positional
-qualifiers on the \verb|figure|  environment that would override
-these decisions.
-\vskip 6pt
-
-%
 \begin{figure}[t]
-\centerline{\includegraphics[width=4cm]{juliagraphs.png}}
-\caption{This is example of the image in a column.}
-	\label{fig:sample_figure}
+  \centerline{\includegraphics[width=5cm]{figs/juliaconstraints.png}}
+  \caption{Logo of the \jc organization on GitHub that hosts, among other things, the \cnjl package.}
+  \label{fig:juliaconstraints}
 \end{figure}
 
-The figure \ref{fig:sample_figure} is taken from the JuliaGraphs
-organization \footnote{https://github.com/JuliaGraphs}.
+On the other hand, Constraint-Based Local Search (\cbls) is a family of metaheuristics in which the neighborhood is constructed on the basis of an \emph{error function}, itself a quantitative representation of how far the current configuration is from an admissible solution. We refer to the corresponding problems as Error Function Satisfaction Problem (\efsp) and Error Function Optimization Problem (\efop). In the case of \cbls, this is computed as a function of the constraints which are not currently satisfied. Error functions may be derived from the constraint satisfaction problem structure, hand-coded, automatically acquired by some machine learning process, or constructed as a combination of these methods. It should be noted that, the best performing systems resort to hand-tuned error functions, as witness~\cite{DBLP:books/sp/18/CodognetMDA18}.
 
-Figure captions should be \emph{below} the figure itself, therefore the
-\verb|\caption|  command should appear after the figure or space left for
-an illustration. For example, Figure 1 is produced using the following
-commands:
+As illustrated by Figure~\ref{fig:landscape}, a well-designed error function helps in converging faster towards better-quality solutions.  It does, however, introduce an additional layer of complexity to the user.
 
-\begin{verbatim}
-\begin{figure}
-\centerline{\includegraphics[width=20pc]{Graphics.eps}}
-\caption{An example of the testing process for a
-binary tree. The globa null hypothesis is tested
-first at level $\alpha$ (a), and the level of
-individual variables is reached last (d). Note
-that individual hypotheses can be tested at
-level $\alpha/4$ and not $\alpha/8$ as one might
-expect at first.}
-\label{sample-figure_2}
+\begin{figure}[t]
+  \centering
+  \subcaptionbox{CSP landscape\label{sfig:csp}}{
+    \includegraphics[width = .95\columnwidth]{figs/csp_landscape_complex_zero_big.png}
+  }
+
+  \subcaptionbox{EFSP landscape\label{sfig:efsp}}{
+    \includegraphics[width = .95\columnwidth]{figs/efsp_landscape_complex_zero_big.png}
+  }\caption{
+    Comparison of a Constraint Satisfaction Problem (CSP) and an Error
+    Function Satisfaction Problem (\efsp) landscapes. The finer scale
+    in the error heuristic of the \efsp leads to a better convergence
+    rate.}\label{fig:landscape}
 \end{figure}
-\end{verbatim}
-Figures can be resized using first and second argument of
-\verb|\includegraphics|   command. First argument is used for modifying
-figure height and the second argument is used for modifying
-figure width respectively.
-\vskip 6pt
-Cross-referencing of figures, tables, and numbered, displayed
-equations using the \verb|\label|  and \verb|\ref|   commands is encouraged.
-For example, in referencing Figure 1 above, we used
-\verb|Figure~\ref{sample-figure}|
 
- \subsection{Tables}
-\label{subsub:sec_Tab}
-The \verb|juliacon|   class file will cope with most of the positioning of
-your tables and you should not normally use the optional positional qualifiers on the table environment which would override these
-decisions. Table captions should be at the top.
-\begin{verbatim}
-\begin{table}
-\tbl{Tuning Set and Testing Set}{
-\begin{tabular}{|l|l|c|c|}\hline
-Label & \multicolumn{1}{c|}{Description}
-& Number of Users &
-Number of Queries\\\hline
-Train70 & Training Data &
-\smash{\raise-7pt\hbox{70}} & 104\\
-\cline{1-2}\cline{4-4}
-Test70 & Testing Data I & & 105\\\hline
-Test30 & Testing Data II & 30 & 119\\\hline
-& Total & 100 & 328\\\hline
-\end{tabular}}
-\end{table}
-\end{verbatim}
+\subsection{Interpretable Compositional Networks (ICN)}
+\label{subsec:icn}
 
-\begin{table}
-\tbl{Tuning Set and Testing Set}{
-\begin{tabular}{|l|l|c|c|}\hline
-Label & \multicolumn{1}{c|}{Description}
-& Number of Users &
-Number of Queries\\\hline
-Test 1 & Training Data &
-\smash{\raise-7pt\hbox{70}} & 104\\
-\cline{1-2}\cline{4-4}
-Test 2 & Testing Data I & & 105\\\hline
-Test 3 & Testing Data II & 30 & 119\\\hline
-& Total & 100 & 328\\\hline
-\end{tabular}}
-\end{table}
-\subsection{Landscaping Pages}
-\label{subsub:landscaping_pages}
-If a table is too wide to fit the standard measure, it may be turned,
-with its caption, to 90 degrees. Landscape tables cannot be produced
-directly using the \verb|juliacon|   class file because \TeX{} itself cannot
-turn the page, and not all device drivers provide such a facility.
-The following procedure can be used to produce such pages.
-\vskip 6pt
-Use the package \verb|rotating|   in your document and change the coding
-from
-\begin{verbatim}
-\begin{table}...\end{table}
-to
-\begin{sidewaystable}...\end{sidewaystable}
-and for figures
-\begin{figure}...\end{figure}
-to
-\begin{sidewaysfigure}...\end{sidewaysfigure}
-\end{verbatim}
+In \cite{richoux2020automatic}, we proposed a neural network inspired by Compositional Pattern-Producing Networks (\cppn) to learn (highly) combinatorial functions as non-linear combinations of elementary operations. \(\cppn\)s~\cite{stanley2007cppn} are themselves a variant of artificial neural networks. While neurons in regular neural networks usually  contain sigmoid-like functions only (such  as ReLU, \ie{} Rectified Linear  Unit), \cppn's neurons can contain many other kinds of functions: sigmoids, Gaussians, trigonometric functions, and linear functions among others.
+\(\cppn\)s are often used to generate 2D or 3D images by applying the function modeled by a \cppn giving each pixel individually as input, instead of considering all pixels at once. This simple trick allows the learned \cppn model to produce images of any resolution.
 
-environments in your document to turn your table on the appropriate
-page of your document. For instance, the following code prints
-a page with the running head, a message half way down and the
-table number towards the bottom.
-\begin{verbatim}
-\begin{sidewaystable}
-\tbl{Landscape table caption to go here.}{...}
-\label{landtab}
-\end{sidewaystable}
-\end{verbatim}
+We propose our variant by taking these two principles from \cppn: having neurons containing one operation among many possible ones, and handling inputs in a size-independent fashion. Due to their interpretable nature, we named our variant \textbf{Interpretable Compositional Networks} (\icn).
 
-\subsection{Double Column Figure and Tables}
-\label{subsub:double_fig_tab}
-For generating the output of figures and tables in double column
-we can use the following coding:
+Although ICNs are not limited to learning function for \efsp/\efop, the original structure was designed to learn compositions weighted in accordance to the hamming metric \cite{richoux2020automatic}. The hamming distance between a configuration and its closest solution is a meaningful indicator of the number of variables needed to be changed. Manhattan and other variants of minkowski comparison are other example of possible metrics.
 
-\begin{enumerate}
-\item For Figures:
-\begin{verbatim}
-\begin{figure*}...\end{figure*}
-\end{verbatim}
-\item For landscape figures:
-\begin{verbatim}
-\begin{sidewaysfigure*}...\end{sidewaysfigure*}
-\end{verbatim}
-\item For Tables:
-\begin{verbatim}
-\begin{table*}...\end{table*}
-\end{verbatim}
-\item For landscape tables:
-\begin{verbatim}
-\begin{sidewaystable*}...\end{sidewaystable*}
-\end{verbatim}
-\end{enumerate}
+An ICN is made of several layers of (possibly exclusive) operations such that the first layers accept a vector as input and the last layer returns a single numerical value. Generally, layers alter there input in three possible ways: \emph{increment}, \emph{decrement}, or \emph{conservation} of the dimension of the input.
 
-\subsection{Typesetting Mathematics}
-\label{subsub:type_math}
-The \verb|juliacon| class file will set displayed mathematics with center to
-the column width, provided that you use the \LaTeXe{} standard of
-open and closed square brackets as delimiters.
-The equation
-\[
-\sum_{i=1}^p \lambda_i = (S)
-\]
+\begin{figure}[t]
+  \centerline{\includegraphics[width=\columnwidth]{figs/model_nn.png}}
+  \caption{Scheme of the basic 4-layers ICN model used in \efsp/\efop. Layers with blue neurons have mutually exclusive operations. the \emph{transformation} layer increases the input dimension, the \emph{arithmetic} and \emph{aggregation} layers reduces it, and the \emph{comparison} layer leaves it untouched. The figure is taken from \cite{richoux2020automatic}.}
+  \label{fig:model_icn}
+\end{figure}
 
-was typeset using the acmtog class file with the commands
+In the context of \efsp/\efop, the output should be non-negative if the constraint is violated and equal to 0 otherwise. As shown by Figure \ref{fig:model_icn}, our \(\icn\)s are
+composed of four layers, each of them having a specific purpose and
+themselves composed of neurons applying  a unique operation each.  All
+neurons  from  a  layer  are  linked to  all  neurons  from  the  next
+layer. The weight on each link is purely binary: its value is either 0
+or 1. This restriction is  crucial to obtain interpretable functions. We refer the reader to \cite{richoux2020automatic} for a more comprehensive definition.
 
-\begin{verbatim}
-\[
-\sum_{i=1}^p \lambda_i = (S)
-\]
-\end{verbatim}
+\subsection{A first C++ library}
+\label{subsec:cplusplus}
 
-For display equations, cross-referencing is encouraged. For example,
-\begin{verbatim}
-\begin{equation}
-(n-1)^{-1} \sum^n_{i=1} (X_i - \overline{X})^2.
-\label{eq:samplevar}
-\end{equation}
-Equation~(\ref{eq:samplevar}) gives the formula for
-sample variance.
-\end{verbatim}
-The following output is generated with the above coding:
-\begin{equation}
-(n-1)^{-1} \sum^n_{i=1} (X_i - \overline{X})^2.
-\label{eq:samplevar}
-\end{equation}
-Equation~(\ref{eq:samplevar}) gives the formula for
-sample variance.
+In \cite{richoux2020automatic} we introduced the concept of ICN and a first implementation for Constraint Programming as a C++ library\footnote{\url{https://github.com/richoux/LearningUtilityFunctions}}. The results were evaluated through the GHOST C++ solver \cite{richoux2016ghost} and serve as a proof of concept that most of the models give scalable functions, and remain fairly effective using incomplete training sets.
+
+As mentioned in Section \ref{sec:xlc}, \cnjl generates code for a direct use in Julia, but also exports usable code for both the GHOST(C++) and AdaptiveSearch (C)\footnote{This feature is a WIP at the moment this article is submitted, but is expected to be completed in the coming weeks.}. The code exported in C++, that is the \emph{operations} of each neuron, is strongly inspired by our C++ library.
+
+\section{The example of the \jc framework}
+\label{sec:juliaconstraints}
+
+The \cnjl package is part of the \jc GitHub organization that proposes a first collection of Julia packages for Constraint-Based Local Search (CBLS), a subfield of Constraint Programming.
+
+The main goal of this framework is to provide a set of high level semi-automatic tools which strike a good compromise between efficiency and ease of modeling.
+
+\subsection{History of \jc}
+\label{subsec:history}
+
+The LocalSearchSolvers.jl package is a Constraint-Based Local Search framework started in Fall 2020 and inspired by other CBLS solvers such as GHOST (C++) and AdaptiveSearch (C) that allows users to tune their own solver.
+
+During the development of LocalSearchSolvers.jl, we decided to split the code and functionality of the original framework into several independent packages for ease of maintenance and in hopes of providing common tools for other constraint programming packages in Julia.
+
+During 2021, these tools were collected into the \jc ecosystem as follows
+\begin{itemize}
+  \item \cdjl: creation of discrete, continuous, and arbitrary domain (beta status)
+  \item \cjl: generation of constraints from a boolean concept or an error function. Also list usual constraints and their properties (beta status)
+  \item \cnjl: stable
+  \item \lssjl: A CBLS framework in Julia with built-in parallel and distributed scalability
+  \item \cblsjl: A MOI/JuMP wrapper for LocalSearchSolvers
+  \item \cmjl: list of CP models for \cblsjl and \lssjl
+\end{itemize}
+
+\begin{figure*}[t]
+  \centerline{\includegraphics[page=1, width=.9\textwidth]{figs/overview.pdf}}
+  \caption{Overview of the Constraint Programming ecosystem in Julia, including \jc. \emph{Front-End} and \emph{Internals} refer to the latest. Note that, at the moment of the writing, \texttt{ConstraintProgrammingExtension.jl}, \texttt{JuCP.jl}, and \texttt{COPInstances.jl} are temporary names.}
+  \label{fig:overview}
+\end{figure*}
+
+The global state of the Constraint Programming ecosystem is presented in Figure \ref{fig:overview}. Beside the CBLS framework of \jc, other solvers are complete search methods, such as ConstraintSolver.jl\footnote{\url{https://github.com/Wikunia/ConstraintSolver.jl}}, CPLEXCP.jl\footnote{\url{https://github.com/dourouc05/CPLEXCP.jl}}, and SeaPearl.jl \cite{chalumeau2021seapearl}.
+
+\subsection{A simple example with \texttt{CBLS.jl}}
+\label{subsec:example}
+
+A Magic Square of order $n$ is composed of $n^2$ distinct values ranging from $1$ to $n^2$ layed out as a square array $X$.  These values need to be arranged such that the sums of each diagonal, row and column be equal to the same value, the magic sum $\Sigma$.
+
+\[ \sum_{j=1}^{n} X_{ij} = \sum_{i=1}^{n} X_{ij} = \sum_{j=1}^{n} X_{ii} = \sum_{j=1}^{n} X_{i,n-i+1} = \frac{n(n^{2}+1)}{2} = \Sigma \]
+
+\begin{figure}[t]
+  \centerline{\includegraphics[page=1]{figs/magicsquare.pdf}}
+  \caption{A solved magic-square of size $3$. The \emph{magic sum} is equal to $15$. Image from Wikipedia's user \textsc{Phidauex}.}
+  \label{fig:magicsquare}
+\end{figure}
+
+In \texttt{ConstraintModels.jl}, we use the following code to generate a magic-square instance.
+
+\begin{lstlisting}[language = Julia]
+# Import CBLS.jl and JuMP.jl
+using CBLS, JuMP
+
+function magic_square(n::Integer)
+model = Model(CBLS.Optimizer)
+N = n^2
+Σ = n * (N + 1) / 2
+@variable(model, 1 <= X[1:n, 1:n] <= N, Int)
+@constraint(model, vec(X) in AllDifferent())
+for i in 1:n
+  @constraint(model, X[i,:] in Linear(Σ))
+  @constraint(model, X[:,i] in Linear(Σ))
+end
+@constraint(model,
+  [X[i,i] for i in 1:n] in Linear(Σ)
+)
+@constraint(model,
+  [X[i,n+1-i] for i in 1:n] in Linear(Σ)
+)
+  return model, X
+end
+
+# Create a magic square instance of size 4x4
+m, X = magic_square(4)
+# Optimize
+optimize!(m)
+# Output values
+@info values.(X)
+\end{lstlisting}
+
+\section{A flexible implementation}
+\label{sec:implementation}
+
+\cnjl extends the work of the first C++ library used in \cite{richoux2020automatic}. As mentioned in Section \ref{subsec:cplusplus}, that library used for prototyping was limited through several aspects: this, this, and that. Obviously, those limitations could have been lifted in the first library. However, we decided to use some features of the Julia language to ease provisioning flexibility and broader features to ICNs.
+
+\paragraph*{Block about Julia} test
+
+\subsection{Layers of operations}
+\label{subsec:layers}
+
+A layer is defined by a non-empty collection of (possibly mutually exclusive) operations. The original ICN is composed of four layers: \emph{transformation} (exclusive), \emph{arithmetic}, \emph{aggregation}, and \emph{comparison}.
+
+\begin{lstlisting}[language = Julia]
+struct Layer
+  functions::LittleDict{Symbol, Function}
+  exclusive::Bool
+end
+\end{lstlisting}
+
+\begin{lstlisting}[language = Julia]
+# Transformation defined for a vector
+tr_identity(x; param=nothing) = identity(x)
+
+# Transformation defined for the index of a vector
+tr_count_eq(i, x; param=nothing) =
+  count(y -> x[i] == y, x) - 1
+tr_count_eq_param(i, x; param) =
+  count(y -> y == x[i] + param, x)
+
+# Generating vectorized versions
+lazy(tr_count_eq)
+lazy_param(tr_count_eq_param)
+\end{lstlisting}
+
+\begin{lstlisting}[language = Julia]
+function transformation_layer(param=false)
+  transformations = LittleDict{Symbol,Function}(
+    :identity => tr_identity,
+    :count_eq => tr_count_eq,
+    # ...
+  )
+  if param
+    tr_param = LittleDict{Symbol, Function}(
+      :count_eq_param => tr_count_eq_param,
+      # ...
+    )
+    transformations = LittleDict(
+      union(transformations, tr_param)
+    )
+  end
+  return Layer(transformations, false)
+end
+\end{lstlisting}
+
+All methods required for the definition of additional layers are all available.
+
+\subsection{Composition}
+\label{subsec:composition}
+
+We store the composition of an ICN in three forms:
+\begin{itemize}
+  \item A collection of \texttt{Symbol}s per layer of the ICN that allows the generation of code as a string
+  \item The Julia object of type \texttt{Function} to apply the composition directly
+\end{itemize}
+
+\begin{lstlisting}[language = Julia]
+struct Composition{F<:Function}
+  code::Dict{Symbol,String}
+  f::F
+  symbols::Vector{Vector{Symbol}}
+end
+\end{lstlisting}
+
+The result output by an ICN is a composition, a mathematical function composed of several basic operations. The \texttt{code} function returns the definition of a composition in either a mathematical or programming language. From \emph{v1.0} of \cnjl, \texttt{code} accepts \texttt{:maths, :Julia, :C, :Cpp} as values for the \emph{lang} key argument.
+
+\begin{lstlisting}[language = Julia]
+function code(
+  c::Composition, lang=:maths;
+  name="composition"
+)
+  return get!(
+    c.code, lang, generate(c, name, Val(lang))
+  )
+end
+\end{lstlisting}
+
+\section{Explore, learn, and compose}
+\label{sec:xlc}
+
+It is far from practical to apply the internals of \cnjl step-by-step. We provide a user-friendly sequence of higher-level actions, \emph{explore}, \emph{learn}, and \emph{compose} that fits most of expected uses of this package.
+
+Each of those actions is semi-automated through default parameters and machine learning over a large collection of benchmarks \cite{baffier2022interpretable}.
+
+\subsection{Exploration}
+
+\begin{lstlisting}[language = Julia]
+function explore(
+  domains,
+  concept,
+  param=nothing;
+  search=:flexible,
+  complete_search_limit=10^6,
+  max_samplings=sum(domain_size, domains),
+  solutions_limit=floor(Int, sqrt(max_samplings)),
+)
+  if search == :flexible
+    search = sum(domain_size, domains) <
+      complete_search_limit ? :complete : :partial
+  end
+  return explore(Val(search), domains, concept,
+    param, solutions_limit, max_samplings
+  )
+end
+\end{lstlisting}
 
 
-\subsection{Enunciations}
-\label{subsub:enunciation}
-The \verb|juliacon|   class file generates the enunciations with the help of
-the following commands:
-\begin{verbatim}
-\begin{theorem}...\end{theorem}
-\begin{strategy}...\end{strategy}
-\begin{property}...\end{property}
-\begin{proposition}...\end{proposition}
-\begin{lemma}...\end{lemma}
-\begin{example}...\end{example}
-\begin{proof}...\end{proof}
-\begin{definition}...\end{definition}
-\begin{algorithm}...\end{algorithm}
-\begin{remark}...\end{remark}
-\end{verbatim}
-The above-mentioned coding can also include optional arguments
-such as
-\begin{verbatim}
-\begin{theorem}[...]. Example for theorem:
-\begin{theorem}[Generalized Poincare Conjecture]
-Four score and seven ... created equal.
-\end{theorem}
-\end{verbatim}
 
-\begin{theorem}[Generalized Poincare Conjecture]
-Four score and seven years ago our fathers brought forth,
-upon this continent, a new nation, conceived in Liberty,
- and dedicated to the proposition that all men are
-created equal.
-\end{theorem}
+\section{Future challenges}
+\label{sec:future}
 
+\begin{itemize}
+  \item Add new operations in existing layers
+  \item Add new layers
+  \item Use reinforcement learning
+  \item Cover more metrics
+  \item Apply ICN to other field than EFN for CBLS solvers
+\end{itemize}
 
-\subsection{Extract}
-\label{subsub:extract}
-Extract environment should be coded within
-\begin{verbatim}
-\begin{extract}..\end{extract}
-\end{verbatim}
+\section{Problems, constraints, and compositions zoo}
+\label{sec:zoo}
 
-\subsection{Balancing column at last page}
-\label{subsub:Balance}
-For balancing the both column length at last page use :
-\begin{verbatim}
-\vadjust{\vfill\pagebreak}
-\end{verbatim}
+The problems modelled, and the compositions extracted in this section are subject to future changes and improvements of the JuMP/JuCP packages. However, the keys ideas are presented here and examples will be updated accordingly within \jc in the future.
 
-%\vadjust{\vfill\pagebreak}
+\subsection{A few combinatorial models}
+\label{subsec:models}
 
-at appropriate place in your \TeX{} file or in bibliography file.
+\begin{lstlisting}[language = Julia]
+function mincut(graph, source, sink, interdiction)
+  m = JuMP.Model(CBLS.Optimizer)
+  n = size(graph, 1)
+  separator = n + 1
 
-\section{Handling references}
-\label{subsub:references}
-References are most easily (and correctly) generated using the
-BIBTEX, which is easily invoked via
-\begin{verbatim}
-\bibliographystyle{juliacon}
-\bibliography{ref}
-\end{verbatim}
-When submitting the document source (.tex) file to external
-parties, the ref.bib file should be sent with it.
-\cite{bezanson2017julia}
+  @variable(m, 0 <= X[1:separator] <= n, Int)
+
+  @constraint(m,
+    [X[source], X[separator], X[sink]] in Ordered()
+  )
+  @constraint(m, X in AllDifferent())
+
+  obj(x...) = o_mincut(graph, x...; interdiction)
+  @objective(m, Min, ScalarFunction(obj))
+
+  return m, X
+end
+\end{lstlisting}
+
+\begin{lstlisting}[language = Julia]
+function golomb(n, L)
+  m = JuMP.Model(CBLS.Optimizer)
+
+  @variable(m, 0 <= X[1:n] <= L, Int)
+
+  @constraint(m, X in AllDifferent())
+  @constraint(m, X in Ordered()) # optional
+
+  # No two pairs have the same length
+  for i in 1:(n - 1), j in (i + 1):n
+    for k in i:(n - 1), l in (k + 1):n
+      (i, j) < (k, l) || continue
+      @constraint(m,
+        [X[i], X[j], X[k], X[l]] in DistDifferent()
+      )
+    end
+  end
+
+  # Add objective
+  @objective(m, Min, ScalarFunction(maximum))
+
+  return m, X
+end
+\end{lstlisting}
+
+\subsection{Constraints and compositions}
+\label{subsec:constraints}
+
+Along with the magic-square model in Section \ref{sec:introduction}, the models in this zoo use the following constraints: \texttt{:all\_different}, \texttt{:dist\_different}, \texttt{:linear}, and \texttt{:ordered}.
+
+The \emph{AllDifferent} constraint ensures that all the values of a given configuration are unique.
+
+\begin{lstlisting}[language = Julia]
+function all_different(x;
+  X = zeros(length(x), 1), param=nothing, dom_size
+)
+  tr_in(Tuple([tr_count_eq_left]), X, x, param)
+  for i in 1:length(x)
+    X[i,1] = ar_sum(@view X[i,:])
+  end
+  return ag_count_positive(@view X[:,1]) |> (
+      y -> co_identity(
+        y; param, dom_size, nvars=length(x)
+      )
+    )
+end
+\end{lstlisting}
+
+\emph{DistDifferent} is constraint ensuring that \(|x[1] - x[2]| \neq |x[3] - x[4]|\) for any vector $x$ of size $4$.
+
+\begin{lstlisting}[language = Julia]
+function dist_different(x)
+  return abs(x[1] - x[2]) != abs(x[3] - x[4])
+end
+\end{lstlisting}
+
+\emph{Linear} (also called \emph{Sum} or \emph{LinearSum} in the literature) Global ensures that the sum of the values of $x$ is equal to a given parameter $param$. Note that this version is a simplification of a linear sum of values with some coefficients.
+
+\begin{lstlisting}[language = Julia]
+function linear(x; param, dom_size)
+  return abs(sum(x) - param) / dom_size
+end
+\end{lstlisting}
+
+\emph{Ordered} is a constraint ensuring that all the values of $x$ are ordered (here in a decreasing order).
+
+\begin{lstlisting}[language = Julia]
+function ordered(x;
+  X = zeros(length(x), 1), param=nothing, dom_size
+)
+  tr_in(
+    Tuple([tr_contiguous_vals_minus]), X, x, param
+  )
+  for i in 1:length(x)
+    X[i,1] = ar_sum(@view X[i,:])
+  end
+  return ag_count_positive(@view X[:,1]) |> (
+      y -> co_identity(
+        y; param, dom_size, nvars=length(x)
+      )
+    )
+end
+\end{lstlisting}
+
+\section{Acknowledgements}
+\label{sec:acknowledgements}
+
+We're grateful to Ricardo \textsc{Rosa} and Pranshu \textsc{Malik} for the logo of \jc presented as Figure \ref{fig:juliaconstraints}.
 
 \input{bib.tex}
 
