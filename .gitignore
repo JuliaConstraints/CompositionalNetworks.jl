@@ -8,3 +8,4 @@ _git2_*
 
 *Manifest.toml
 test_dummy.jl
+.vscode/*
