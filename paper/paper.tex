@@ -533,7 +533,7 @@ end
 
 Along with the magic-square model in Section \ref{sec:introduction}, the models in this zoo use the following constraints: \texttt{:all\_different}, \texttt{:dist\_different}, \texttt{:linear}, and \texttt{:ordered}\footnote{The code provided here will be updated following the results of the benchmark in \cite{baffier2022interpretable}. In particular, for \texttt{:dist\_different} and \texttt{:linear}, the current code is a hand-written function.}.\newline
 
-The \emph{AllDifferent} constraint ensures that all the values of a given configuration are unique.
+The \emph{AllDifferent} constraint ensures that all the values of a given configuration are unique. This constraint is representative of Constraint Programmingand is used in a large amount of models.
 
 \begin{lstlisting}[language = Julia]
 function all_different(x;
