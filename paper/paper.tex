@@ -60,13 +60,13 @@
 \section{Introduction}
 \label{sec:introduction}
 
-The discipline of combinatorial optimization consists in finding an optimal configuration of elements within a finite set. Such a set is usually subject to constraints that can be represented by functions that are often highly combinatorial. These constraints are mostly formulated as concepts, boolean functions indicating whether each constraint is respected or not. A solution (sometimes called a satisfactory solution, depending on the domain) is a configuration that respects all the constraints.
+The discipline of combinatorial optimization consists in finding an optimal configuration of elements within a finite set. Such a set is usually subject to constraints that can be represented by functions that are often highly combinatorial. These constraints are mostly formulated as concepts, boolean functions indicating whether each constraint is respected or not. A solution (sometimes called a satisfying solution, depending on the field) is a configuration that respects all the constraints.
 
 Different domains such as operational research, constraint programming, metaheuristics, propose methods to find (satisfactory or optimal) solutions. Among these methods, some can or could benefit from a finer granularity in the evaluation of the impact of each constraint on a given configuration.
 
 In \cite{richoux2020automatic}, we introduced Interpretable Compositional Networks (ICNs), a neural network variant for combinatorial function learning that allows the user to obtain interpretable results, unlike ordinary artificial neural networks. An ICN outputs a composition of functions that scale with the size of the input, allowing a learning phase on relatively small spaces.
 
-This work, consists in a library that implements ICNs in the Julia programming language \cite{bezanson2017julia}. Although we present a direct application of ICNs in the following subsection, this neural network framework is simple to extend to learn other combinatorial and non-combinatorial functions.
+This work consists in a library that implements ICNs in the Julia programming language \cite{bezanson2017julia}. Although we present a direct application of ICNs in the following subsection, this neural network framework is simple to extend to learn other combinatorial and non-combinatorial functions.
 
 \subsection{Application to Constraint Programming}
 \label{subsec:cpcontext}
@@ -317,7 +317,7 @@ function transformation_layer(param=false)
 end
 \end{lstlisting}
 
-All methods required for the definition of additional layers are all available. An (unweighted) ICN is simply generated from a sequence of layers. After a learning phase using the a genetic algorithm from \texttt{Evolutionary.jl}\footnote{\url{https://github.com/wildart/Evolutionary.jl}}, this ICN can output a composition in various forms.
+All methods required for the definition of additional layers are all available. An (unweighted) ICN is simply generated from a sequence of layers. After a learning phase using a genetic algorithm from \texttt{Evolutionary.jl}\footnote{\url{https://github.com/wildart/Evolutionary.jl}}, this ICN can output a composition in various forms.
 
 \subsection{Composition}
 \label{subsec:composition}
@@ -375,7 +375,7 @@ Finally, loading the package is done by calling:
 using CompositionalNetworks
 \end{lstlisting}
 
-Note that from Julia \texttt{v1.7}, calling \texttt{using} on uninstalled package will prompt the user to install it. Hence, the last command is the only one strictly required.
+Note that from Julia \texttt{v1.7}, calling \texttt{using} on an uninstalled package will prompt the user to install it. Hence, the last command is the only one strictly required.
 
 \subsection{Explore, learn, and compose}
 \label{subsec:xlc}
@@ -533,7 +533,7 @@ end
 
 Along with the magic-square model in Section \ref{sec:introduction}, the models in this zoo use the following constraints: \texttt{:all\_different}, \texttt{:dist\_different}, \texttt{:linear}, and \texttt{:ordered}\footnote{The code provided here will be updated following the results of the benchmark in \cite{baffier2022interpretable}. In particular, for \texttt{:dist\_different} and \texttt{:linear}, the current code is a hand-written function.}.\newline
 
-The \emph{AllDifferent} constraint ensures that all the values of a given configuration are unique. This constraint is representative of Constraint Programmingand is used in a large amount of models.
+The \emph{AllDifferent} constraint ensures that all the values of a given configuration are unique. This constraint is representative of Constraint Programming and is used in a large amount of models.
 
 \begin{lstlisting}[language = Julia]
 function all_different(x;
