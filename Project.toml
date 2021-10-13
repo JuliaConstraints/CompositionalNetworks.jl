@@ -16,7 +16,7 @@ ThreadSafeDicts = "4239201d-c60e-5e0a-9702-85d713665ba7"
 Unrolled = "9602ed7d-8fef-5bc8-8597-8f21381861e8"
 
 [compat]
-ConstraintDomains = "0.2"
+ConstraintDomains = "0.3"
 Dictionaries = "0.3"
 Evolutionary = "0.10"
 JuliaFormatter = "0.16"
