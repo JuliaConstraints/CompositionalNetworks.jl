@@ -3,6 +3,7 @@ module CompositionalNetworks
 # Usings
 using ConstraintDomains
 using Dictionaries
+import Distances
 using Evolutionary
 using JuliaFormatter
 using Memoization
