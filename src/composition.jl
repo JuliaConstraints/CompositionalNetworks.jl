@@ -53,18 +53,16 @@ function generate(c::Composition, name, ::Val{:Julia})
     """
 
     output = """
-        function $name(x; X = zeros(length(x), $tr_length), param=nothing, dom_size)
-            $(CN)tr_in(Tuple($tr), X, x, param)
-            for i in 1:length(x)
-                X[i,1] = $ar(@view X[i,:])
-            end
-            return $ag(@view X[:, 1]) |> (y -> $co(y; param, dom_size, nvars=length(x)))
-        end
-        """
-    return documentation * format_text(output, BlueStyle(), pipe_to_function_call = false)
+    function $name(x; X = zeros(length(x), $tr_length), param=nothing, dom_size)
+        $(CN)tr_in(Tuple($tr), X, x, param)
+        X[:, 1] .= 1:length(x) .|> (i -> $ar(@view X[i, 1:$tr_length]))
+        return $ag(@view X[:, 1]) |> (y -> $co(y; param, dom_size, nvars=length(x)))
+    end
+    """
+    return documentation * format_text(output, BlueStyle(); pipe_to_function_call=false)
 end
 
-function composition_to_file!(c::Composition, path, name, language =:Julia)
+function composition_to_file!(c::Composition, path, name, language=:Julia)
     output = code(c, language; name)
     write(path, output)
     return nothing
