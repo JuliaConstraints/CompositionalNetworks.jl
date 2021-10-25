@@ -11,11 +11,11 @@ function learn_compose(
     dom_size,
     param=nothing;
     global_iter=Threads.nthreads(),
-    local_iter=100,
+    local_iter=64,
     metric=:hamming,
-    pop_size=400,
+    pop_size=64,
     sampler=nothing,
-    memoize=true,
+    memoize=false,
 )
     icn = ICN(; param=!isnothing(param))
     _, weigths = optimize!(
@@ -60,9 +60,9 @@ function explore_learn_compose(
     concept,
     param=nothing;
     global_iter=Threads.nthreads(),
-    local_iter=100,
+    local_iter=64,
     metric=:hamming,
-    pop_size=400,
+    pop_size=64,
     search=:flexible,
     complete_search_limit=1000,
     solutions_limit=100,
@@ -70,7 +70,7 @@ function explore_learn_compose(
     configurations=explore(
         domains, concept, param; search, complete_search_limit, solutions_limit
     ),
-    memoize=true,
+    memoize=false,
 )
     dom_size = maximum(domain_size, domains)
     solutions, non_sltns = configurations
@@ -116,14 +116,14 @@ function compose_to_file!(
     param=nothing,
     global_iter=Threads.nthreads(),
     language=:Julia,
-    local_iter=100,
+    local_iter=64,
     metric=hamming,
-    pop_size=400,
+    pop_size=64,
     search=:flexible,
     search_limit=1000,
     solutions_limit=100,
     sampler=nothing,
-    memoize=true,
+    memoize=false,
 )
     compo, icn, _ = explore_learn_compose(
         domains,

@@ -38,7 +38,7 @@ function _optimize!(
     pop_size,
     iterations;
     samples=nothing,
-    memoize=true,
+    memoize=false,
 )
     _metric = memoize ? (@memoize Dict memoize_metric(x, X) = metric(x, X)) : metric
     _bias = memoize ? (@memoize Dict memoize_bias(x) = weigths_bias(x)) : weigths_bias
@@ -76,7 +76,7 @@ function optimize!(
     metric,
     pop_size;
     sampler=nothing,
-    memoize=true,
+    memoize=false,
 )
     results = Dictionary{BitVector,Int}()
     aux_results = Vector{BitVector}(undef, global_iter)
