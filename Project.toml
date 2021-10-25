@@ -19,6 +19,7 @@ Unrolled = "9602ed7d-8fef-5bc8-8597-8f21381861e8"
 [compat]
 ConstraintDomains = "0.3"
 Dictionaries = "0.3"
+Distances = "0.10"
 Evolutionary = "0.10"
 JuliaFormatter = "0.16"
 Memoization = "0.1"
