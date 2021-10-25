@@ -1,15 +1,30 @@
 """
-    map_tr(f, x, param)
-Return an anonymous function that applies `f` to all elements of `x`, with a parameter `param` (which is set to `nothing` for function with no parameter).
+    map_tr!(f, x, X, param)
+Return an anonymous function that applies `f` to all elements of `x` and store the result in `X`, with a parameter `param` (which is set to `nothing` for function with no parameter).
 """
-map_tr(f, x, p) = ((g, y; param) -> map(i -> g(i, y; param=param), 1:length(y)))(f, x, param=p)
+function map_tr!(f, x, X, p)
+    return ((g, y, Y; param) -> map!(i -> g(i, y; param), Y, 1:length(y)))(f, x, X; param=p)
+end
+function map_tr!(f, x, X)
+    return ((g, y, Y; param) -> map!(i -> g(i, y), Y, 1:length(y)))(f, x, X; param=nothing)
+end
 
 """
     lazy(funcs::Function...)
-Generate methods extended to a vector instead of one of its components. A function `f` should have the following signature: `f(i::Int, x::V; param = nothing)`.
+Generate methods extended to a vector instead of one of its components. A function `f` should have the following signature: `f(i::Int, x::V)`.
 """
 function lazy(funcs::Function...)
-    foreach(f -> eval(:($f(x; param=nothing) = map_tr($f, x, param))), map(Symbol, funcs))
+    for f in Iterators.map(Symbol, funcs)
+        eval(
+            :(
+                function $f(x::V, X; param=nothing) where {V<:AbstractVector}
+                    return map_tr!($f, x, X)
+                end
+            ),
+        )
+        eval(:($f(x; param=nothing) = $f(x, similar(x); param)))
+    end
+    return nothing
 end
 
 """
@@ -17,7 +32,11 @@ end
 Generate methods extended to a vector instead of one of its components. A function `f` should have the following signature: `f(i::Int, x::V; param)`.
 """
 function lazy_param(funcs::Function...)
-    foreach(f -> eval(:($f(x; param) = map_tr($f, x, param))), map(Symbol, funcs))
+    for f in Iterators.map(Symbol, funcs)
+        eval(:($f(x::V, X; param) where {V<:AbstractVector} = map_tr!($f, x, X, param)))
+        eval(:($f(x; param) = $f(x, similar(x); param)))
+    end
+    return nothing
 end
 
 """
@@ -34,7 +53,7 @@ function as_bitvector(n::Int, max_n::Int=n)
         v[i] = true
         nm1 >>>= (tz + 1)
     end
-    v
+    return v
 end
 
 """
@@ -59,11 +78,12 @@ function reduce_symbols(symbols, sep, parenthesis=true; prefix="")
 end
 
 function incsert!(d::Dictionary, ind)
-    set!(d, ind, isassigned(d, ind) ? d[ind] + 1 : 1)
+    return set!(d, ind, isassigned(d, ind) ? d[ind] + 1 : 1)
 end
 
 @unroll function tr_in(tr, X, x, param)
     @unroll for i in 1:length(tr)
-        X[:,i] = tr[i](x; param)
+        tr[i](x, @view(X[:, i]); param)
+        # X[:,i] = tr[i](x; param) # NOTE - former version
     end
 end

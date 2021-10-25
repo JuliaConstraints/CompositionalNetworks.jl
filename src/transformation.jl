@@ -1,36 +1,47 @@
 # Identity
 
 """
-    tr_identity(x)
     tr_identity(i, x)
-Identity function. Already defined in Julia as `identity`, specialized for vectors.
-"""
-tr_identity(x; param=nothing) = identity(x)
-tr_identity(i, x; param=nothing) = identity(i)
+    tr_identity(x)
+    tr_identity(x, X::AbstractVector)
 
+Identity function. Already defined in Julia as `identity`, specialized for vectors.
+When `X` is provided, the result is computed without allocations.
+"""
+tr_identity(i, x) = identity(x[i])
+lazy(tr_identity)
 
 # Count equalities
 
 """
     tr_count_eq(i, x)
     tr_count_eq(x)
+    tr_count_eq(x, X::AbstractVector)
+
 Count the number of elements equal to `x[i]`. Extended method to vector with sig `(x)` are generated.
+When `X` is provided, the result is computed without allocations.
 """
-tr_count_eq(i, x; param=nothing) = count(y -> x[i] == y, x) - 1
+tr_count_eq(i, x) = count(y -> x[i] == y, x) - 1
 
 """
     tr_count_eq_right(i, x)
     tr_count_eq_right(x)
+    tr_count_eq_right(x, X::AbstractVector)
+
 Count the number of elements to the right of and equal to `x[i]`. Extended method to vector with sig `(x)` are generated.
+When `X` is provided, the result is computed without allocations.
 """
-tr_count_eq_right(i, x; param=nothing) = tr_count_eq(1, @view x[i:end])
+tr_count_eq_right(i, x) = tr_count_eq(1, @view x[i:end])
 
 """
     tr_count_eq_left(i, x)
     tr_count_eq_left(x)
+    tr_count_eq_left(x, X::AbstractVector)
+
 Count the number of elements to the left of and equal to `x[i]`. Extended method to vector with sig `(x)` are generated.
+When `X` is provided, the result is computed without allocations.
 """
-tr_count_eq_left(i, x; param=nothing) = tr_count_eq(i, @view x[1:i])
+tr_count_eq_left(i, x) = tr_count_eq(i, @view x[1:i])
 
 # Generating vetorized versions
 lazy(tr_count_eq, tr_count_eq_left, tr_count_eq_right)
@@ -40,44 +51,61 @@ lazy(tr_count_eq, tr_count_eq_left, tr_count_eq_right)
 """
     tr_count_greater(i, x)
     tr_count_greater(x)
+    tr_count_greater(x, X::AbstractVector)
+
 Count the number of elements greater than `x[i]`. Extended method to vector with sig `(x)` are generated.
+When `X` is provided, the result is computed without allocations.
 """
-tr_count_greater(i, x; param=nothing) = count(y -> x[i] < y, x)
+tr_count_greater(i, x) = count(y -> x[i] < y, x)
 
 """
     tr_count_lesser(i, x)
     tr_count_lesser(x)
+    tr_count_lesser(x, X::AbstractVector)
+
 Count the number of elements lesser than `x[i]`. Extended method to vector with sig `(x)` are generated.
+When `X` is provided, the result is computed without allocations.
 """
-tr_count_lesser(i, x; param=nothing) = count(y -> x[i] > y, x)
+tr_count_lesser(i, x) = count(y -> x[i] > y, x)
 
 """
     tr_count_g_left(i, x)
     tr_count_g_left(x)
+    tr_count_g_left(x, X::AbstractVector)
+
 Count the number of elements to the left of and greater than `x[i]`. Extended method to vector with sig `(x)` are generated.
+When `X` is provided, the result is computed without allocations.
 """
-tr_count_g_left(i, x; param=nothing) = tr_count_greater(i, @view x[1:i])
+tr_count_g_left(i, x) = tr_count_greater(i, @view x[1:i])
 
 """
     tr_count_l_left(i, x)
     tr_count_l_left(x)
+    tr_count_l_left(x, X::AbstractVector)
+
 Count the number of elements to the left of and lesser than `x[i]`. Extended method to vector with sig `(x)` are generated.
+When `X` is provided, the result is computed without allocations.
 """
-tr_count_l_left(i, x; param=nothing) = tr_count_lesser(i, @view x[1:i])
+tr_count_l_left(i, x) = tr_count_lesser(i, @view x[1:i])
 
 """
     tr_count_g_right(i, x)
     tr_count_g_right(x)
+    tr_count_g_right(x, X::AbstractVector)
+
 Count the number of elements to the right of and greater than `x[i]`. Extended method to vector with sig `(x)` are generated.
 """
-tr_count_g_right(i, x; param=nothing) = tr_count_greater(1, @view x[i:end])
+tr_count_g_right(i, x) = tr_count_greater(1, @view x[i:end])
 
 """
     tr_count_l_right(i, x)
     tr_count_l_right(x)
+    tr_count_l_right(x, X::AbstractVector)
+
 Count the number of elements to the right of and lesser than `x[i]`. Extended method to vector with sig `(x)` are generated.
+When `X` is provided, the result is computed without allocations.
 """
-tr_count_l_right(i, x; param=nothing) = tr_count_lesser(1, @view x[i:end])
+tr_count_l_right(i, x) = tr_count_lesser(1, @view x[i:end])
 
 # Generating vetorized versions
 lazy(tr_count_greater, tr_count_g_left, tr_count_g_right)
@@ -88,21 +116,30 @@ lazy(tr_count_lesser, tr_count_l_left, tr_count_l_right)
 """
     tr_count_eq_param(i, x; param)
     tr_count_eq_param(x; param)
+    tr_count_eq_param(x, X::AbstractVector; param)
+
 Count the number of elements equal to `x[i] + param`. Extended method to vector with sig `(x, param)` are generated.
+When `X` is provided, the result is computed without allocations.
 """
 tr_count_eq_param(i, x; param) = count(y -> y == x[i] + param, x)
 
 """
     tr_count_l_param(i, x; param)
     tr_count_l_param(x; param)
+    tr_count_l_param(x, X::AbstractVector; param)
+
 Count the number of elements lesser than `x[i] + param`. Extended method to vector with sig `(x, param)` are generated.
+When `X` is provided, the result is computed without allocations.
 """
 tr_count_l_param(i, x; param) = count(y -> y < x[i] + param, x)
 
 """
     tr_count_g_param(i, x; param)
     tr_count_g_param(x; param)
+    tr_count_g_param(x, X::AbstractVector; param)
+
 Count the number of elements greater than `x[i] + param`. Extended method to vector with sig `(x, param)` are generated.
+When `X` is provided, the result is computed without allocations.
 """
 tr_count_g_param(i, x; param) = count(y -> y > x[i] + param, x)
 
@@ -114,7 +151,10 @@ lazy_param(tr_count_eq_param, tr_count_l_param, tr_count_g_param)
 """
     tr_count_bounding_param(i, x; param)
     tr_count_bounding_param(x; param)
+    tr_count_bounding_param(x, X::AbstractVector; param)
+
 Count the number of elements bounded (not strictly) by `x[i]` and `x[i] + param`. An extended method to vector with sig `(x, param)` is generated.
+When `X` is provided, the result is computed without allocations.
 """
 tr_count_bounding_param(i, x; param) = count(y -> x[i] ≤ y ≤ x[i] + param, x)
 
@@ -126,14 +166,20 @@ lazy_param(tr_count_bounding_param)
 """
     tr_val_minus_param(i, x; param)
     tr_val_minus_param(x; param)
+    tr_val_minus_param(x, X::AbstractVector; param)
+
 Return the difference `x[i] - param` if positive, `0.0` otherwise.  Extended method to vector with sig `(x, param)` are generated.
+When `X` is provided, the result is computed without allocations.
 """
 tr_val_minus_param(i, x; param) = max(0, x[i] - param)
 
 """
     tr_param_minus_val(i, x; param)
     tr_param_minus_val(x; param)
+    tr_param_minus_val(x, X::AbstractVector; param)
+
 Return the difference `param - x[i]` if positive, `0.0` otherwise.  Extended method to vector with sig `(x, param)` are generated.
+When `X` is provided, the result is computed without allocations.
 """
 tr_param_minus_val(i, x; param) = max(0, param - x[i])
 
@@ -144,14 +190,20 @@ lazy_param(tr_val_minus_param, tr_param_minus_val)
 """
     tr_contiguous_vals_minus(i, x)
     tr_contiguous_vals_minus(x)
+    tr_contiguous_vals_minus(x, X::AbstractVector)
+
 Return the difference `x[i] - x[i + 1]` if positive, `0.0` otherwise. Extended method to vector with sig `(x)` are generated.
+When `X` is provided, the result is computed without allocations.
 """
 tr_contiguous_vals_minus(i, x; param=nothing) = length(x) == i ? 0 : tr_val_minus_param(i, x; param=x[i + 1])
 
 """
     tr_contiguous_vals_minus_rev(i, x)
     tr_contiguous_vals_minus_rev(x)
+    tr_contiguous_vals_minus_rev(x, X::AbstractVector)
+
 Return the difference `x[i + 1] - x[i]` if positive, `0.0` otherwise. Extended method to vector with sig `(x)` are generated.
+When `X` is provided, the result is computed without allocations.
 """
 function tr_contiguous_vals_minus_rev(i, x; param=nothing)
     return length(x) == i ? 0 : tr_param_minus_val(i, x; param=x[i + 1])
