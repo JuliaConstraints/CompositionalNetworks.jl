@@ -9,22 +9,6 @@ function generate_population(icn, pop_size)
 end
 
 """
-    loss(X, X_sols, icn, weigths, metric)
-Compute the loss of `icn`.
-"""
-function loss(solutions, non_sltns, icn, weigths, metric, dom_size, param; samples=nothing)
-    compo = compose(icn, weigths)
-    f = composition(compo)
-    X = if isnothing(samples)
-        Iterators.flatten((solutions, non_sltns))
-    else
-        Iterators.flatten((solutions, rand(non_sltns, samples)))
-    end
-    σ = sum(x -> abs(f(x; param, dom_size) - metric(x, solutions)), X) + regularization(icn)
-    return σ
-end
-
-"""
     _optimize!(icn, X, X_sols; metric = hamming, pop_size = 200)
 Optimize and set the weigths of an ICN with a given set of configuration `X` and solutions `X_sols`.
 """
@@ -40,11 +24,18 @@ function _optimize!(
     samples=nothing,
     memoize=false,
 )
-    _metric = memoize ? (@memoize Dict memoize_metric(x, X) = metric(x, X)) : metric
-    _bias = memoize ? (@memoize Dict memoize_bias(x) = weigths_bias(x)) : weigths_bias
-    fitness =
-        w ->
-            loss(solutions, non_sltns, icn, w, _metric, dom_size, param; samples) + _bias(w)
+    inplace = zeros(dom_size, max_icn_length())
+    _non_sltns = isnothing(samples) ? non_sltns : rand(non_sltns, samples)
+
+    function fitness(w)
+        compo = compose(icn, w)
+        f = composition(compo)
+        S = Iterators.flatten((solutions, _non_sltns))
+        return sum(x -> abs(f(x; X=inplace, param, dom_size) - metric(x, solutions)), S) +
+               regularization(icn) +
+               weigths_bias(w)
+    end
+    _fitness = memoize ? (@memoize Dict memoize_fitness(w) = fitness(w)) : fitness
 
     _icn_ga = GA(;
         populationSize=pop_size,
@@ -57,7 +48,7 @@ function _optimize!(
     )
 
     pop = generate_population(icn, pop_size)
-    r = Evolutionary.optimize(fitness, pop, _icn_ga, Evolutionary.Options(; iterations))
+    r = Evolutionary.optimize(_fitness, pop, _icn_ga, Evolutionary.Options(; iterations))
     return weights!(icn, Evolutionary.minimizer(r))
 end
 

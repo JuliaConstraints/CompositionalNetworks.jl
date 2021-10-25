@@ -72,7 +72,7 @@ function explore_learn_compose(
     ),
     memoize=false,
 )
-    dom_size = maximum(domain_size, domains)
+    dom_size = maximum(length, domains)
     solutions, non_sltns = configurations
     return learn_compose(
         solutions,

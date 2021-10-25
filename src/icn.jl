@@ -24,7 +24,7 @@ mutable struct ICN
         co_layer=comparison_layer(param),
     )
         w = generate_weights([tr_layer, ar_layer, ag_layer, co_layer])
-        new(tr_layer, ar_layer, ag_layer, co_layer, w)
+        return new(tr_layer, ar_layer, ag_layer, co_layer, w)
     end
 end
 
@@ -75,7 +75,7 @@ Set the weights of an ICN with a `BitVector`.
 function weights!(icn, weigths)
     length(weigths) == nbits(icn) || @warn icn weigths
     @assert length(weigths) == nbits(icn)
-    icn.weigths = weigths
+    return icn.weigths = weigths
 end
 
 """
@@ -107,14 +107,20 @@ function regularization(icn)
     return Σop / (Σmax + 1)
 end
 
-max_icn_length(icn = ICN(param = true)) = length(icn.transformation)
+max_icn_length(icn=ICN(; param=true)) = length(icn.transformation)
 
 """
     _compose(icn)
 Internal function called by `compose` and `show_composition`.
 """
 function _compose(icn::ICN)
-    !is_viable(icn) && (return ((x; param=nothing, dom_size=0) -> typemax(Float64)), [])
+    !is_viable(icn) && (
+        return (
+            (x; X=zeros(length(x), max_icn_length()), param=nothing, dom_size=0) ->
+                typemax(Float64)
+        ),
+        []
+    )
 
     funcs = Vector{Vector{Function}}()
     symbols = Vector{Vector{Symbol}}()
@@ -148,11 +154,10 @@ function _compose(icn::ICN)
 
     function composition(x; X=zeros(length(x), length(funcs[1])), param=nothing, dom_size)
         tr_in(Tuple(funcs[1]), X, x, param)
-        for i in 1:length(x)
-            X[i,1] = funcs[2][1](@view X[i,:])
-        end
-        funcs[3][1](@view X[:, 1]) |>
-        (y -> funcs[4][1](y; param, dom_size, nvars=length(x)))
+        X[:, 1] .= 1:length(x) .|> (i -> funcs[2][1](@view X[i, 1:length(funcs[1])]))
+        return (y -> funcs[4][1](y; param, dom_size, nvars=length(x)))(
+            funcs[3][1](@view X[:, 1])
+        )
     end
 
     return composition, symbols
