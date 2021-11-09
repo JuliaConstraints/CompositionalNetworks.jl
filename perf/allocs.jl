@@ -25,4 +25,7 @@ using ConstraintDomains
 
     # Actual call to PerfChecker
     alloc_check(title, dependencies, targets, pre_alloc, alloc; path=@__DIR__)
+
+    # Generate all the plots based on the targets versions
+    alloc_plot(targets)
 end
