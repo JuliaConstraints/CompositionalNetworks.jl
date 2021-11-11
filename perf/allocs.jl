@@ -15,7 +15,7 @@ using ConstraintDomains
     targets = [CompositionalNetworks]
 
     # Code specific to the package being checked
-    domains = fill(domain([1, 2, 3, 4]), 4)
+    domains = fill(domain([1, 2, 3]), 3)
 
     # Code to trigger precompilation before the alloc check
     pre_alloc() = foreach(_ -> explore_learn_compose(domains, allunique), 1:10)
@@ -24,8 +24,5 @@ using ConstraintDomains
     alloc() = explore_learn_compose(domains, allunique)
 
     # Actual call to PerfChecker
-    alloc_check(title, dependencies, targets, pre_alloc, alloc; path=@__DIR__)
-
-    # Generate all the plots based on the targets versions
-    alloc_plot(targets)
+    alloc_check(title, dependencies, targets, pre_alloc, alloc; path=@__DIR__, threads=10)
 end
