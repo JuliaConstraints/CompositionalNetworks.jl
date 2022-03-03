@@ -42,7 +42,7 @@ function _optimize!(
         crossoverRate=0.8,
         epsilon=0.05,
         selection=tournament(2),
-        crossover=singlepoint,
+        crossover=SPX,
         mutation=flip,
         mutationRate=1.0,
     )
