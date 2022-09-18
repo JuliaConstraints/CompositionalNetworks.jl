@@ -10,26 +10,18 @@ function learn_compose(
     non_sltns,
     dom_size,
     param=nothing;
-    global_iter=Threads.nthreads(),
-    local_iter=64,
     metric=:hamming,
-    pop_size=64,
-    sampler=nothing,
-    memoize=false,
+    optimizer=GeneticOptimizer()
 )
     icn = ICN(; param=!isnothing(param))
     _, weigths = optimize!(
         icn,
         solutions,
         non_sltns,
-        global_iter,
-        local_iter,
         dom_size,
         param,
         metric,
-        pop_size;
-        sampler,
-        memoize
+        optimizer,
     )
     compositions = Dictionary{Composition,Int}()
     for (bv, occurences) in pairs(weigths)
@@ -59,18 +51,14 @@ function explore_learn_compose(
     domains,
     concept,
     param=nothing;
-    global_iter=Threads.nthreads(),
-    local_iter=64,
-    metric=:hamming,
-    pop_size=64,
-    search=:flexible,
     complete_search_limit=1000,
+    search=:flexible,
     solutions_limit=100,
-    sampler=nothing,
     configurations=explore(
         domains, concept, param; search, complete_search_limit, solutions_limit
     ),
-    memoize=false,
+    metric=:hamming,
+    optimizer=GeneticOptimizer(),
 )
     dom_size = maximum(length, domains)
     solutions, non_sltns = configurations
@@ -79,12 +67,8 @@ function explore_learn_compose(
         non_sltns,
         dom_size,
         param;
-        local_iter,
-        global_iter,
         metric,
-        pop_size,
-        sampler,
-        memoize,
+        optimizer,
     )
 end
 
@@ -114,31 +98,23 @@ function compose_to_file!(
     configurations=explore(domains, concept, param; search, search_limit, solutions_limit),
     domains,
     param=nothing,
-    global_iter=Threads.nthreads(),
     language=:Julia,
-    local_iter=64,
-    metric=hamming,
-    pop_size=64,
+    metric=:hamming,
+    optimizer=GeneticOptimizer(),
     search=:flexible,
     search_limit=1000,
     solutions_limit=100,
-    sampler=nothing,
-    memoize=false,
 )
     compo, icn, _ = explore_learn_compose(
         domains,
         concept,
         param;
         configurations,
-        global_iter,
-        local_iter,
         metric,
-        pop_size,
+        optimizer,
         search,
         search_limit,
         solutions_limit,
-        sampler,
-        memoize,
     )
 
     composition_to_file!(compo, path, name, language)
