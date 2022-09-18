@@ -14,7 +14,9 @@ using ThreadSafeDicts
 using Unrolled
 
 export Composition
+export GeneticOptimizer
 export ICN
+
 export aggregation_layer
 export arithmetic_layer
 export code
@@ -54,6 +56,7 @@ include("composition.jl")
 
 # Genetic Algorithm and learning
 include("genetic.jl")
+include("optimizer.jl")
 include("learn.jl")
 
 end
