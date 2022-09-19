@@ -11,7 +11,8 @@ function learn_compose(
     dom_size,
     param=nothing;
     metric=:hamming,
-    optimizer=GeneticOptimizer()
+    optimizer=GeneticOptimizer(),
+    X_test = nothing,
 )
     icn = ICN(; param=!isnothing(param))
     _, weigths = optimize!(
@@ -59,6 +60,7 @@ function explore_learn_compose(
     ),
     metric=:hamming,
     optimizer=GeneticOptimizer(),
+    X_test = nothing,
 )
     dom_size = maximum(length, domains)
     solutions, non_sltns = configurations
@@ -69,6 +71,7 @@ function explore_learn_compose(
         param;
         metric,
         optimizer,
+        X_test,
     )
 end
 
@@ -104,6 +107,7 @@ function compose_to_file!(
     search=:flexible,
     search_limit=1000,
     solutions_limit=100,
+    X_test=nothing,
 )
     compo, icn, _ = explore_learn_compose(
         domains,
@@ -115,6 +119,7 @@ function compose_to_file!(
         search,
         search_limit,
         solutions_limit,
+        X_test,
     )
 
     composition_to_file!(compo, path, name, language)
