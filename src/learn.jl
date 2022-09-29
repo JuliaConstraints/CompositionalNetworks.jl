@@ -50,14 +50,9 @@ Explore a search space, learn a composition from an ICN, and compose an error fu
 """
 function explore_learn_compose(
     domains,
-    concept,
-    param=nothing;
-    complete_search_limit=1000,
-    search=:flexible,
-    solutions_limit=100,
-    configurations=explore(
-        domains, concept, param; search, complete_search_limit, solutions_limit
-    ),
+    concept;
+    param=nothing,
+    configurations=explore(domains, concept; param),
     metric=:hamming,
     optimizer=GeneticOptimizer(),
     X_test = nothing,
@@ -98,30 +93,23 @@ function compose_to_file!(
     concept,
     name,
     path;
-    configurations=explore(domains, concept, param; search, search_limit, solutions_limit),
-    domains,
     param=nothing,
+    configurations=explore(domains, concept; param),
+    domains,
     language=:Julia,
     metric=:hamming,
     optimizer=GeneticOptimizer(),
-    search=:flexible,
-    search_limit=1000,
-    solutions_limit=100,
     X_test=nothing,
 )
     compo, icn, _ = explore_learn_compose(
         domains,
-        concept,
-        param;
+        concept;
         configurations,
         metric,
         optimizer,
-        search,
-        search_limit,
-        solutions_limit,
+        param,
         X_test,
     )
-
     composition_to_file!(compo, path, name, language)
     return icn
 end
