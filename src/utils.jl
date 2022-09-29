@@ -84,6 +84,5 @@ end
 @unroll function tr_in(tr, X, x, param)
     @unroll for i in 1:length(tr)
         tr[i](x, @view(X[:, i]); param)
-        # X[:,i] = tr[i](x; param) # NOTE - former version
     end
 end
