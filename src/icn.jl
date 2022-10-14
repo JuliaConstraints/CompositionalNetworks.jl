@@ -23,7 +23,7 @@ mutable struct ICN
         ag_layer=aggregation_layer(),
         co_layer=comparison_layer(param),
     )
-        w = generate_weights([tr_layer, ar_layer, ag_layer, co_layer])
+        w = generate_weigths([tr_layer, ar_layer, ag_layer, co_layer])
         return new(tr_layer, ar_layer, ag_layer, co_layer, w)
     end
 end
@@ -69,10 +69,10 @@ end
 is_viable(icn::ICN) = is_viable(icn, weigths(icn))
 
 """
-    weights!(icn, weights)
-Set the weights of an ICN with a `BitVector`.
+    weigths!(icn, weigths)
+Set the weigths of an ICN with a `BitVector`.
 """
-function weights!(icn, weigths)
+function weigths!(icn, weigths)
     length(weigths) == nbits(icn) || @warn icn weigths
     @assert length(weigths) == nbits(icn)
     return icn.weigths = weigths
@@ -84,11 +84,11 @@ Return a formated string with each layers in the icn.
 """
 show_layers(icn) = map(show_layer, layers(icn))
 
-generate_weights(icn::ICN) = generate_weights(layers(icn))
+generate_weigths(icn::ICN) = generate_weigths(layers(icn))
 
 """
     regularization(icn)
-Return the regularization value of an ICN weights, which is proportional to the normalized number of operations selected in the icn layers.
+Return the regularization value of an ICN weigths, which is proportional to the normalized number of operations selected in the icn layers.
 """
 function regularization(icn)
     Σmax = 0
