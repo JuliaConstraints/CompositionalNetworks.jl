@@ -44,10 +44,10 @@ Return a string that contains the elements in a layer.
 show_layer(layer) = layer |> functions |> keys |> string
 
 """
-    selected_size(layer, layer_weights)
-Return the number of operations selected by `layer_weights` in `layer`.
+    selected_size(layer, layer_weigths)
+Return the number of operations selected by `layer_weigths` in `layer`.
 """
-selected_size(layer, layer_weights) = exclu(layer) ? 1 : sum(layer_weights)
+selected_size(layer, layer_weigths) = exclu(layer) ? 1 : sum(layer_weigths)
 
 """
     is_viable(layer, w)
@@ -77,11 +77,11 @@ function generate_exclusive_operation(max_op_number)
 end
 
 """
-    generate_weights(layers)
-    generate_weights(icn)
+    generate_weigths(layers)
+    generate_weigths(icn)
 Generate the weigths of a collection of layers or of an ICN.
 """
-function generate_weights(layers)
+function generate_weigths(layers)
     bitvecs = map(l -> exclu(l) ?
             generate_exclusive_operation(length(l)) :
             generate_inclusive_operations(any, length(l)),

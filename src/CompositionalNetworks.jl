@@ -4,17 +4,16 @@ module CompositionalNetworks
 using ConstraintDomains
 using Dictionaries
 import Distances
-using Evolutionary
+# using Evolutionary
 using JuliaFormatter
-using Memoization
+# using Memoization
 using OrderedCollections
 using Random
-using ThreadPools
+# using ThreadPools
 using ThreadSafeDicts
 using Unrolled
 
 export Composition
-export GeneticOptimizer
 export ICN
 
 export aggregation_layer
@@ -27,17 +26,22 @@ export composition
 export composition_to_file!
 export explore_learn_compose
 export hamming
+export incsert!
 export lazy
 export lazy_param
 export learn_compose
 export manhattan
 export max_icn_length
 export minkowski
+export nbits
 export optimize!
 export regularization
 export show_layers
 export symbols
 export transformation_layer
+export weigths
+export weigths!
+export weigths_bias
 
 # Include utils
 include("utils.jl")
@@ -53,10 +57,6 @@ include("comparison.jl")
 # Include ICN
 include("icn.jl")
 include("composition.jl")
-
-# Genetic Algorithm and learning
-include("genetic.jl")
-include("optimizer.jl")
 include("learn.jl")
 
 end

@@ -49,7 +49,7 @@ function _optimize!(
 
     pop = generate_population(icn, pop_size)
     r = Evolutionary.optimize(_fitness, pop, _icn_ga, Evolutionary.Options(; iterations))
-    return weights!(icn, Evolutionary.minimizer(r))
+    return weigths!(icn, Evolutionary.minimizer(r))
 end
 
 """
@@ -73,7 +73,7 @@ function optimize!(
     aux_results = Vector{BitVector}(undef, global_iter)
     nt = Base.Threads.nthreads()
 
-    @info """Starting optimization of weights$(nt > 1 ? " (multithreaded)" : "")"""
+    @info """Starting optimization of weigths$(nt > 1 ? " (multithreaded)" : "")"""
     samples = isnothing(sampler) ? nothing : sampler(length(solutions) + length(non_sltns))
     @qthreads for i in 1:global_iter
         @info "Iteration $i"
@@ -94,6 +94,42 @@ function optimize!(
     end
     foreach(bv -> incsert!(results, bv), aux_results)
     best = rand(findall(x -> x == maximum(results), results))
-    weights!(icn, best)
+    weigths!(icn, best)
     return best, results
+end
+
+struct GeneticOptimizer <: AbstractOptimizer
+    global_iter::Int
+    local_iter::Int
+    memoize::Bool
+    pop_size::Int
+    sampler::Union{Nothing, Function}
+end
+
+function GeneticOptimizer(;
+    global_iter=Threads.nthreads(),
+    local_iter=64,
+    memoize=false,
+    pop_size=64,
+    sampler=nothing,
+)
+    return GeneticOptimizer(global_iter, local_iter, memoize, pop_size, sampler)
+end
+
+function CN.optimize!(
+    icn, solutions, non_sltns, dom_size, param, metric, optimizer::GeneticOptimizer
+)
+    return optimize!(
+        icn,
+        solutions,
+        non_sltns,
+        optimizer.global_iter,
+        optimizer.local_iter,
+        dom_size,
+        param,
+        metric,
+        optimizer.pop_size;
+        optimizer.sampler,
+        optimizer.memoize,
+    )
 end

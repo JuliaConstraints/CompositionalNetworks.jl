@@ -1,3 +1,9 @@
+abstract type AbstractOptimizer end
+
+function optimize!(args...)
+    return nothing
+end
+
 """
     learn_compose(;
         nvars, dom_size, param=nothing, icn=ICN(nvars, dom_size, param),
@@ -54,7 +60,7 @@ function explore_learn_compose(
     param=nothing,
     configurations=explore(domains, concept; param),
     metric=:hamming,
-    optimizer=GeneticOptimizer(),
+    optimizer,
     X_test = nothing,
 )
     dom_size = maximum(length, domains)

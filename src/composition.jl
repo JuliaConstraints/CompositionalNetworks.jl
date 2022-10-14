@@ -16,11 +16,11 @@ composition(c::Composition) = c.f
 symbols(c::Composition) = c.symbols
 
 """
-    compose(icn, weights=nothing)
-Return a function composed by some of the operations of a given ICN. Can be applied to any vector of variables. If `weights` are given, will assign to `icn`.
+    compose(icn, weigths=nothing)
+Return a function composed by some of the operations of a given ICN. Can be applied to any vector of variables. If `weigths` are given, will assign to `icn`.
 """
 function compose(icn::ICN, weigths::BitVector=BitVector())
-    !isempty(weigths) && weights!(icn, weigths)
+    !isempty(weigths) && weigths!(icn, weigths)
     composition, symbols = _compose(icn)
     return Composition(composition, symbols)
 end
