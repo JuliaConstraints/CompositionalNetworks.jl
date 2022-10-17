@@ -17,7 +17,7 @@ function learn_compose(
     dom_size,
     param=nothing;
     metric=:hamming,
-    optimizer=GeneticOptimizer(),
+    optimizer,
     X_test = nothing,
 )
     icn = ICN(; param=!isnothing(param))
@@ -104,7 +104,7 @@ function compose_to_file!(
     domains,
     language=:Julia,
     metric=:hamming,
-    optimizer=GeneticOptimizer(),
+    optimizer,
     X_test=nothing,
 )
     compo, icn, _ = explore_learn_compose(
