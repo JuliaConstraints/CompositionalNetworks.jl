@@ -21,7 +21,7 @@ mutable struct ICN
         tr_layer=transformation_layer(param),
         ar_layer=arithmetic_layer(),
         ag_layer=aggregation_layer(),
-        co_layer=comparison_layer(param),
+        co_layer=comparison_layer(param)
     )
         w = generate_weigths([tr_layer, ar_layer, ag_layer, co_layer])
         return new(tr_layer, ar_layer, ag_layer, co_layer, w)
@@ -154,7 +154,7 @@ function _compose(icn::ICN)
 
     function composition(x; X=zeros(length(x), length(funcs[1])), param=nothing, dom_size)
         tr_in(Tuple(funcs[1]), X, x, param)
-        X[:, 1] .= 1:length(x) .|> (i -> funcs[2][1](@view X[i, 1:length(funcs[1])]))
+        X[1:length(x), 1] .= 1:length(x) .|> (i -> funcs[2][1](@view X[i, 1:length(funcs[1])]))
         return (y -> funcs[4][1](y; param, dom_size, nvars=length(x)))(
             funcs[3][1](@view X[:, 1])
         )

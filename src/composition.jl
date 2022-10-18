@@ -55,7 +55,7 @@ function generate(c::Composition, name, ::Val{:Julia})
     output = """
     function $name(x; X = zeros(length(x), $tr_length), param=nothing, dom_size)
         $(CN)tr_in(Tuple($tr), X, x, param)
-        X[:, 1] .= 1:length(x) .|> (i -> $ar(@view X[i, 1:$tr_length]))
+        X[1:length(x), 1] .= 1:length(x) .|> (i -> $ar(@view X[i, 1:$tr_length]))
         return $ag(@view X[:, 1]) |> (y -> $co(y; param, dom_size, nvars=length(x)))
     end
     """
