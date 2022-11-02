@@ -77,10 +77,6 @@ function reduce_symbols(symbols, sep, parenthesis=true; prefix="")
     return parenthesis ? "[$str]" : str
 end
 
-function incsert!(d::Dictionary, ind)
-    return set!(d, ind, isassigned(d, ind) ? d[ind] + 1 : 1)
-end
-
 @unroll function tr_in(tr, X, x, param)
     @unroll for i in 1:length(tr)
         tr[i](x, @view(X[:, i]); param)

@@ -1,15 +1,13 @@
 module CompositionalNetworks
 
 # Usings
+using ConstraintCommons
 using ConstraintDomains
 using Dictionaries
 import Distances
-# using Evolutionary
 using JuliaFormatter
-# using Memoization
 using OrderedCollections
 using Random
-# using ThreadPools
 using ThreadSafeDicts
 using Unrolled
 
