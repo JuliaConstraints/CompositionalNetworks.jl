@@ -73,7 +73,7 @@ is_viable(icn::ICN) = is_viable(icn, weigths(icn))
 Set the weigths of an ICN with a `BitVector`.
 """
 function weigths!(icn, weigths)
-    length(weigths) == nbits(icn) || @warn icn weigths
+    length(weigths) == nbits(icn) || @warn icn weigths nbits(icn)
     @assert length(weigths) == nbits(icn)
     return icn.weigths = weigths
 end
