@@ -31,9 +31,7 @@ function learn_compose(
         optimizer,
     )
     compositions = Dictionary{Composition,Int}()
-    for (bv, occurences) in pairs(weigths)
-        set!(compositions, compose(deepcopy(icn), bv), occurences)
-    end
+    set!(compositions, compose(deepcopy(icn), weigths), 1)
 
     return compose(icn), icn, compositions
 end
