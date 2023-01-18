@@ -20,7 +20,7 @@ function learn_compose(
     optimizer,
     X_test = nothing,
 )
-    icn = ICN(; param=!isnothing(param))
+    icn = ICN(; param)
     _, weigths = optimize!(
         icn,
         solutions,

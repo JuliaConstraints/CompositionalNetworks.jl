@@ -212,13 +212,11 @@ end
 # Generating vetorized versions
 lazy(tr_contiguous_vals_minus, tr_contiguous_vals_minus_rev)
 
+# Parametric layers
+make_transformations(param::Symbol) = make_transformations(Val(param))
 
-"""
-    transformation_layer(param = false)
-Generate the layer of transformations functions of the ICN. Iff `param` value is true, also includes all the parametric transformations.
-"""
-function transformation_layer(param=false)
-    transformations = LittleDict{Symbol,Function}(
+function make_transformations(::Val{:none})
+    return LittleDict{Symbol,Function}(
         :identity => tr_identity,
         :count_eq => tr_count_eq,
         :count_eq_left => tr_count_eq_left,
@@ -232,18 +230,35 @@ function transformation_layer(param=false)
         :contiguous_vals_minus => tr_contiguous_vals_minus,
         :contiguous_vals_minus_rev => tr_contiguous_vals_minus_rev,
     )
+end
 
-    if param
-        transformations_param = LittleDict{Symbol,Function}(
-            :count_eq_param => tr_count_eq_param,
-            :count_l_param => tr_count_l_param,
-            :count_g_param => tr_count_g_param,
-            :count_bounding_param => tr_count_bounding_param,
-            :val_minus_param => tr_val_minus_param,
-            :param_minus_val => tr_param_minus_val,
-        )
+function make_transformations(::Val{:val})
+    return LittleDict{Symbol,Function}(
+        :count_eq_param => tr_count_eq_param,
+        :count_l_param => tr_count_l_param,
+        :count_g_param => tr_count_g_param,
+        :count_bounding_param => tr_count_bounding_param,
+        :val_minus_param => tr_val_minus_param,
+        :param_minus_val => tr_param_minus_val,
+    )
+end
+
+function make_transformations(::Val)
+    return LittleDict{Symbol,Function}()
+end
+
+
+"""
+    transformation_layer(param = false)
+Generate the layer of transformations functions of the ICN. Iff `param` value is true, also includes all the parametric transformations.
+"""
+function transformation_layer(parameters = Vector{Symbol}())
+    transformations = make_transformations(:none)
+
+    for p in parameters
+        transformations_param = make_transformations(p)
         transformations = LittleDict(union(transformations, transformations_param))
     end
 
-    return Layer(transformations, false)
+    return Layer(false, transformations, parameters)
 end

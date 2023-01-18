@@ -20,5 +20,5 @@ function aggregation_layer()
         :count_positive => ag_count_positive,
     )
 
-    return Layer(aggregations, true)
+    return Layer(true, aggregations, Vector{Symbol}())
 end

@@ -56,28 +56,41 @@ Return the difference `nvars - x` if positive, `0.0` otherwise, where `nvars` de
 """
 co_vars_minus_val(x; param=nothing, dom_size=0, nvars) = co_param_minus_val(x; param=nvars)
 
-"""
-    comparison_layer(param = false)
-Generate the layer of transformations functions of the ICN. Iff `param` value is set, also includes all the parametric comparison with that value. The operations are mutually exclusive, that is only one will be selected.
-"""
-function comparison_layer(param=false)
-    comparisons = LittleDict{Symbol,Function}(
+
+# Parametric layers
+make_comparisons(param::Symbol) = make_comparisons(Val(param))
+
+function make_comparisons(::Val{:none})
+    return LittleDict{Symbol,Function}(
         :identity => co_identity,
         :euclidian => co_euclidian,
         :abs_diff_val_vars => co_abs_diff_val_vars,
         :val_minus_vars => co_val_minus_vars,
         :vars_minus_val => co_vars_minus_val,
     )
+end
 
-    if param
-        comparisons_param = LittleDict{Symbol,Function}(
-            :abs_diff_val_param => co_abs_diff_val_param,
-            :val_minus_param => co_val_minus_param,
-            :param_minus_val => co_param_minus_val,
-            :euclidian_param => co_euclidian_param,
-        )
+function make_comparisons(::Val{:val})
+    return LittleDict{Symbol,Function}(
+        :abs_diff_val_param => co_abs_diff_val_param,
+        :val_minus_param => co_val_minus_param,
+        :param_minus_val => co_param_minus_val,
+        :euclidian_param => co_euclidian_param,
+    )
+end
+
+
+"""
+    comparison_layer(param = false)
+Generate the layer of transformations functions of the ICN. Iff `param` value is set, also includes all the parametric comparison with that value. The operations are mutually exclusive, that is only one will be selected.
+"""
+function comparison_layer(parameters = Vector{Symbol}())
+    comparisons = make_comparisons(:none)
+
+    for p in parameters
+        comparisons_param = make_transformations(p)
         comparisons = LittleDict{Symbol,Function}(union(comparisons, comparisons_param))
     end
 
-    return Layer(comparisons, true)
+    return Layer(true, comparisons, parameters)
 end

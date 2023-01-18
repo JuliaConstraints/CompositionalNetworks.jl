@@ -3,8 +3,9 @@
 A structure to store a `LittleDict` of operations that can be selected during the learning phase of an ICN. If the layer is exclusive, only one operation can be selected at a time.
 """
 struct Layer
-    functions::LittleDict{Symbol, Function}
     exclusive::Bool
+    functions::LittleDict{Symbol, Function}
+    parameters::Vector{Symbol}
 end
 
 """

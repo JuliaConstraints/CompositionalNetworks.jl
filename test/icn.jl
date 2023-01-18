@@ -1,7 +1,13 @@
 # # Test with manually weighted ICN
-icn = ICN(param=true)
+icn = ICN(param=[:val])
 @test max_icn_length() == 18
 show_layers(icn)
+
+length(icn)
+m = map(l -> CN.exclu(l) ? CN.nbits_exclu(l) : length(l), CN.layers(icn))
+
+@info "dde" m length(icn)
+
 icn.weigths = vcat(trues(18), falses(6))
 @test CN.is_viable(icn)
 @test length(icn) == 31

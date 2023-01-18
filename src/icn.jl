@@ -17,7 +17,7 @@ mutable struct ICN
     weigths::BitVector
 
     function ICN(;
-        param=false,
+        param=Vector{Symbol}(),
         tr_layer=transformation_layer(param),
         ar_layer=arithmetic_layer(),
         ag_layer=aggregation_layer(),
@@ -57,6 +57,9 @@ function is_viable(icn::ICN, weigths)
     _end = 0
 
     for layer in layers(icn)
+        @info "Debug" icn functions(icn.aggregation) functions(icn.arithmetic) functions(icn.comparison) functions(icn.transformation) weigths _start _end
+        @info "debug 2" nbits_exclu(icn.aggregation) nbits_exclu(icn.arithmetic) nbits_exclu(icn.comparison) nbits_exclu(icn.transformation)
+        @info "debug 3" exclu(icn.aggregation) exclu(icn.arithmetic) exclu(icn.comparison) exclu(icn.transformation)
         _start = _end + 1
         _end += exclu(layer) ? nbits_exclu(layer) : length(layer)
 
@@ -107,7 +110,7 @@ function regularization(icn)
     return Σop / (Σmax + 1)
 end
 
-max_icn_length(icn=ICN(; param=true)) = length(icn.transformation)
+max_icn_length(icn=ICN(; param=[:val])) = length(icn.transformation)
 
 """
     _compose(icn)
