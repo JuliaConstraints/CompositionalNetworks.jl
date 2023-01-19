@@ -1,7 +1,7 @@
 name = "CompositionalNetworks"
 uuid = "4b67e4b5-442d-4ef5-b760-3f5df3a57537"
 authors = ["Jean-François Baffier"]
-version = "0.5.2"
+version = "0.5.3"
 
 [deps]
 ConstraintCommons = "e37357d9-0691-492f-a822-e5ea6a920954"
