@@ -17,12 +17,12 @@ function _optimize!(
     solutions,
     non_sltns,
     dom_size,
-    param,
     metric,
     pop_size,
     iterations;
     samples=nothing,
     memoize=false,
+    parameters...
 )
     inplace = zeros(dom_size, max_icn_length())
     _non_sltns = isnothing(samples) ? non_sltns : rand(non_sltns, samples)
@@ -31,10 +31,12 @@ function _optimize!(
         compo = compose(icn, w)
         f = composition(compo)
         S = Iterators.flatten((solutions, _non_sltns))
-        return sum(x -> abs(f(x; X=inplace, param, dom_size) - metric(x, solutions)), S) +
-               regularization(icn) +
-               weigths_bias(w)
+        σ = sum(
+            x -> abs(f(x; X=inplace, dom_size, parameters...) - metric(x, solutions)), S
+        )
+        return σ + regularization(icn) + weigths_bias(w)
     end
+
     _fitness = memoize ? (@memoize Dict memoize_fitness(w) = fitness(w)) : fitness
 
     _icn_ga = GA(;
@@ -44,7 +46,7 @@ function _optimize!(
         selection=tournament(2),
         crossover=SPX,
         mutation=flip,
-        mutationRate=1.0,
+        mutationRate=1.0
     )
 
     pop = generate_population(icn, pop_size)
@@ -63,11 +65,11 @@ function optimize!(
     global_iter,
     iter,
     dom_size,
-    param,
     metric,
     pop_size;
     sampler=nothing,
     memoize=false,
+    parameters...
 )
     results = Dictionary{BitVector,Int}()
     aux_results = Vector{BitVector}(undef, global_iter)
@@ -83,12 +85,12 @@ function optimize!(
             solutions,
             non_sltns,
             dom_size,
-            param,
             eval(metric),
             pop_size,
             iter;
             samples,
             memoize,
+            parameters...
         )
         aux_results[i] = weigths(aux_icn)
     end
@@ -103,7 +105,7 @@ struct GeneticOptimizer <: AbstractOptimizer
     local_iter::Int
     memoize::Bool
     pop_size::Int
-    sampler::Union{Nothing, Function}
+    sampler::Union{Nothing,Function}
 end
 
 function GeneticOptimizer(;
@@ -111,13 +113,14 @@ function GeneticOptimizer(;
     local_iter=64,
     memoize=false,
     pop_size=64,
-    sampler=nothing,
+    sampler=nothing
 )
     return GeneticOptimizer(global_iter, local_iter, memoize, pop_size, sampler)
 end
 
 function CN.optimize!(
-    icn, solutions, non_sltns, dom_size, param, metric, optimizer::GeneticOptimizer
+    icn, solutions, non_sltns, dom_size, metric, optimizer::GeneticOptimizer;
+    parameters...
 )
     return optimize!(
         icn,
@@ -126,10 +129,10 @@ function CN.optimize!(
         optimizer.global_iter,
         optimizer.local_iter,
         dom_size,
-        param,
         metric,
         optimizer.pop_size;
         optimizer.sampler,
         optimizer.memoize,
+        parameters...
     )
 end

@@ -20,5 +20,5 @@ function arithmetic_layer()
         :prod => ar_prod,
     )
 
-    return Layer(arithmetics, true)
+    return Layer(true, arithmetics, Vector{Symbol}())
 end
