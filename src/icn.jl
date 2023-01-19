@@ -57,9 +57,6 @@ function is_viable(icn::ICN, weigths)
     _end = 0
 
     for layer in layers(icn)
-        @info "Debug" icn functions(icn.aggregation) functions(icn.arithmetic) functions(icn.comparison) functions(icn.transformation) weigths _start _end
-        @info "debug 2" nbits_exclu(icn.aggregation) nbits_exclu(icn.arithmetic) nbits_exclu(icn.comparison) nbits_exclu(icn.transformation)
-        @info "debug 3" exclu(icn.aggregation) exclu(icn.arithmetic) exclu(icn.comparison) exclu(icn.transformation)
         _start = _end + 1
         _end += exclu(layer) ? nbits_exclu(layer) : length(layer)
 

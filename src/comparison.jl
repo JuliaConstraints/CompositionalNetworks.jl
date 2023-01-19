@@ -88,7 +88,7 @@ function comparison_layer(parameters = Vector{Symbol}())
     comparisons = make_comparisons(:none)
 
     for p in parameters
-        comparisons_param = make_transformations(p)
+        comparisons_param = make_comparisons(p)
         comparisons = LittleDict{Symbol,Function}(union(comparisons, comparisons_param))
     end
 

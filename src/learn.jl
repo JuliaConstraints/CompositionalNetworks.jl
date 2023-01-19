@@ -14,24 +14,27 @@ Create an ICN, optimize it, and return its composition.
 function learn_compose(
     solutions,
     non_sltns,
-    dom_size,
-    param=nothing;
+    dom_size;
     metric=:hamming,
     optimizer,
-    X_test = nothing,
+    X_test=nothing,
+    parameters...
 )
-    icn = ICN(; param)
+    icn = ICN(; parameters...)
     _, weigths = optimize!(
         icn,
         solutions,
         non_sltns,
         dom_size,
-        param,
         metric,
-        optimizer,
+        optimizer;
+        parameters...
     )
     compositions = Dictionary{Composition,Int}()
-    set!(compositions, compose(deepcopy(icn), weigths), 1)
+
+    for (bv, occurences) in pairs(weigths)
+        set!(compositions, compose(deepcopy(icn), bv), occurences)
+    end
 
     return compose(icn), icn, compositions
 end
@@ -55,22 +58,26 @@ Explore a search space, learn a composition from an ICN, and compose an error fu
 function explore_learn_compose(
     domains,
     concept;
-    param=nothing,
-    configurations=explore(domains, concept; param),
+    configurations=nothing,
     metric=:hamming,
     optimizer,
-    X_test = nothing,
+    X_test=nothing,
+    parameters...
 )
+    if isnothing(configurations)
+        configurations = explore(domains, concept; parameters...)
+    end
+
     dom_size = maximum(length, domains)
     solutions, non_sltns = configurations
     return learn_compose(
         solutions,
         non_sltns,
-        dom_size,
-        param;
+        dom_size;
         metric,
         optimizer,
         X_test,
+        parameters...
     )
 end
 
@@ -97,22 +104,26 @@ function compose_to_file!(
     concept,
     name,
     path;
-    param=nothing,
-    configurations=explore(domains, concept; param),
+    configurations=nothing,
     domains,
     language=:Julia,
     metric=:hamming,
     optimizer,
     X_test=nothing,
+    parameters...
 )
+    if isnothing(configurations)
+        configurations = explore(domains, concept; parameters...)
+    end
+
     compo, icn, _ = explore_learn_compose(
         domains,
         concept;
         configurations,
         metric,
         optimizer,
-        param,
         X_test,
+        parameters...
     )
     composition_to_file!(compo, path, name, language)
     return icn
