@@ -8,6 +8,8 @@ import Distances
 using JuliaFormatter
 using OrderedCollections
 using Random
+using TestItemRunner
+using TestItems
 using ThreadSafeDicts
 using Unrolled
 
@@ -47,10 +49,10 @@ include("metrics.jl")
 
 # Includes layers
 include("layer.jl")
-include("transformation.jl")
-include("arithmetic.jl")
-include("aggregation.jl")
-include("comparison.jl")
+include("layers/transformation.jl")
+include("layers/arithmetic.jl")
+include("layers/aggregation.jl")
+include("layers/comparison.jl")
 
 # Include ICN
 include("icn.jl")

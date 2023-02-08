@@ -24,3 +24,4 @@ compo, _ = explore_learn_compose(domains, allunique; optimizer = GeneticOptimize
 
 ## Test export to file
 composition_to_file!(compo, "test_dummy.jl", "all_different")
+rm("test_dummy.jl"; force = true)

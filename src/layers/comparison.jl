@@ -94,3 +94,66 @@ function comparison_layer(parameters = Vector{Symbol}())
 
     return Layer(true, comparisons, parameters)
 end
+
+## SECTION - Test Items
+@testitem "Comparison Layer" tags = [:comparison, :layer] begin
+    CN = CompositionalNetworks
+
+    data = [3 => (1, 5), 5 => (10, 5)]
+
+    funcs = [
+        CN.co_identity => [3, 5],
+    ]
+
+    # test no param/vars
+    for (f, results) in funcs
+        for (key, vals) in enumerate(data)
+            @test f(vals.first) == results[key]
+        end
+    end
+
+    funcs_param = [
+        CN.co_abs_diff_val_param => [2, 5],
+        CN.co_val_minus_param => [2, 0],
+        CN.co_param_minus_val => [0, 5],
+    ]
+
+    for (f, results) in funcs_param
+        for (key, vals) in enumerate(data)
+            @test f(vals.first; param=vals.second[1]) == results[key]
+        end
+    end
+
+    funcs_vars = [
+        CN.co_abs_diff_val_vars => [2, 0],
+        CN.co_val_minus_vars => [0, 0],
+        CN.co_vars_minus_val => [2, 0],
+    ]
+
+    for (f, results) in funcs_vars
+        for (key, vals) in enumerate(data)
+            @test f(vals.first, nvars=vals.second[2]) == results[key]
+        end
+    end
+
+    funcs_param_dom = [
+        CN.co_euclidian_param => [1.4, 2.0],
+    ]
+
+    for (f, results) in funcs_param_dom
+        for (key, vals) in enumerate(data)
+            @test f(vals.first, param=vals.second[1], dom_size=vals.second[2]) ≈ results[key]
+        end
+    end
+
+    funcs_dom = [
+        CN.co_euclidian => [1.6, 2.0],
+    ]
+
+    for (f, results) in funcs_dom
+        for (key, vals) in enumerate(data)
+            @test f(vals.first, dom_size=vals.second[2]) ≈ results[key]
+        end
+    end
+
+end

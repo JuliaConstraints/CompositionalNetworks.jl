@@ -1,7 +1,7 @@
 name = "CompositionalNetworks"
 uuid = "4b67e4b5-442d-4ef5-b760-3f5df3a57537"
 authors = ["Jean-François Baffier"]
-version = "0.5.3"
+version = "0.5.4"
 
 [deps]
 ConstraintCommons = "e37357d9-0691-492f-a822-e5ea6a920954"
@@ -11,6 +11,8 @@ Distances = "b4f34e82-e78d-54a5-968a-f98e89d6e8f7"
 JuliaFormatter = "98e50ef6-434e-11e9-1051-2b60c6c9e899"
 OrderedCollections = "bac558e1-5e72-5ebc-8fee-abe8a469f55d"
 Random = "9a3f8284-a2c9-5f02-9a11-845980a1fd5c"
+TestItemRunner = "f8b46487-2199-4994-9208-9a1283c18c0a"
+TestItems = "1c621080-faea-4a02-84b6-bbd5e436b8fe"
 ThreadSafeDicts = "4239201d-c60e-5e0a-9702-85d713665ba7"
 Unrolled = "9602ed7d-8fef-5bc8-8597-8f21381861e8"
 
@@ -21,6 +23,8 @@ Dictionaries = "0.3"
 Distances = "0.10"
 JuliaFormatter = "0.22, 1"
 OrderedCollections = "1"
+TestItemRunner = "0.2"
+TestItems = "0.1"
 ThreadSafeDicts = "0.1"
 Unrolled = "0.1"
 julia = "1.6"

@@ -262,3 +262,110 @@ function transformation_layer(parameters = Vector{Symbol}())
 
     return Layer(false, transformations, parameters)
 end
+
+## SECTION - Test Items
+@testitem "Arithmetic Layer" tags = [:arithmetic, :layer] begin
+    CN = CompositionalNetworks
+
+    data = [
+        [1, 5, 2, 4, 3] => 2,
+        [1, 2, 3, 2, 1] => 2,
+    ]
+
+    # Test transformations without parameters
+    funcs = Dict(
+        CN.tr_identity => [
+            data[1].first,
+            data[2].first,
+        ],
+        CN.tr_count_eq => [
+            [0, 0, 0, 0, 0],
+            [1, 1, 0, 1, 1],
+        ],
+        CN.tr_count_eq_right => [
+            [0, 0, 0, 0, 0],
+            [1, 1, 0, 0, 0],
+        ],
+        CN.tr_count_eq_left => [
+            [0, 0, 0, 0, 0],
+            [0, 0, 0, 1, 1],
+        ],
+        CN.tr_count_greater => [
+            [4, 0, 3, 1, 2],
+            [3, 1, 0, 1, 3],
+        ],
+        CN.tr_count_lesser => [
+            [0, 4, 1, 3, 2],
+            [0, 2, 4, 2, 0],
+        ],
+        CN.tr_count_g_left => [
+            [0, 0, 1, 1, 2],
+            [0, 0, 0, 1, 3],
+        ],
+        CN.tr_count_l_left => [
+            [0, 1, 1, 2, 2],
+            [0, 1, 2, 1, 0],
+        ],
+        CN.tr_count_g_right => [
+            [4, 0, 2, 0, 0],
+            [3, 1, 0, 0, 0],
+        ],
+        CN.tr_count_l_right => [
+            [0, 3, 0, 1, 0],
+            [0, 1, 2, 1, 0],
+        ],
+        CN.tr_contiguous_vals_minus => [
+            [0, 3, 0, 1, 0],
+            [0, 0, 1, 1, 0],
+        ],
+        CN.tr_contiguous_vals_minus_rev => [
+            [4, 0, 2, 0, 0],
+            [1, 1, 0, 0, 0],
+        ],
+    )
+
+    for (f, results) in funcs
+        @info f
+        for (key, vals) in enumerate(data)
+            @test f(vals.first) == results[key]
+            foreach(i -> f(i, vals.first), vals.first)
+        end
+    end
+
+    # Test transformations with parameter
+    funcs_param = Dict(
+        CN.tr_count_eq_param => [
+            [1, 0, 1, 0, 1],
+            [1, 0, 0, 0, 1],
+        ],
+        CN.tr_count_l_param => [
+            [2, 5, 3, 5, 4],
+            [4, 5, 5, 5, 4],
+        ],
+        CN.tr_count_g_param => [
+            [2, 0, 1, 0, 0],
+            [0, 0, 0, 0, 0],
+        ],
+        CN.tr_count_bounding_param => [
+            [3, 1, 3, 2, 3],
+            [5, 3, 1, 3, 5],
+        ],
+        CN.tr_val_minus_param => [
+            [0, 3, 0, 2, 1],
+            [0, 0, 1, 0, 0],
+        ],
+        CN.tr_param_minus_val => [
+            [1, 0, 0, 0, 0],
+            [1, 0, 0, 0, 1],
+        ],
+    )
+
+    for (f, results) in funcs_param
+        @info f
+        for (key, vals) in enumerate(data)
+            @test f(vals.first; param=vals.second) == results[key]
+            foreach(i -> f(i, vals.first; param=vals.second), vals.first)
+        end
+    end
+
+end
