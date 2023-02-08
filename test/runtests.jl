@@ -1,18 +1,21 @@
-using CompositionalNetworks
-using ConstraintDomains
-using Dictionaries
-using Evolutionary
-using Memoization
-using Test
-using ThreadPools
+using TestItemRunner
+using TestItems
 
-CN = CompositionalNetworks
+@run_package_tests
 
-import CompositionalNetworks: AbstractOptimizer
+@testitem "ICN: genetic algo" tags = [:icn, :genetic] default_imports=false begin
+    using CompositionalNetworks
+    using ConstraintDomains
+    using Dictionaries
+    using Evolutionary
+    using Memoization
+    using Test
+    using ThreadPools
 
-include("genetic.jl")
+    CN = CompositionalNetworks
 
-@testset "CompositionalNetworks.jl" begin
-    include("layers.jl")
+    import CompositionalNetworks: AbstractOptimizer
+
+    include("genetic.jl")
     include("icn.jl")
 end
