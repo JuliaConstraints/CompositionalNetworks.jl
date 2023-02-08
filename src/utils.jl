@@ -77,6 +77,11 @@ function reduce_symbols(symbols, sep, parenthesis=true; prefix="")
     return parenthesis ? "[$str]" : str
 end
 
+"""
+    tr_in(tr, X, x, param)
+
+Application of an operation from the transformation layer. Used to generate more efficient code for all compositions.
+"""
 @unroll function tr_in(tr, X, x, param)
     @unroll for i in 1:length(tr)
         tr[i](x, @view(X[:, i]); param)

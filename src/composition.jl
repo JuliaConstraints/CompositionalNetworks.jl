@@ -1,18 +1,45 @@
+"""
+    struct Composition{F<:Function}
+
+Store the all the information of a composition learned by an ICN.
+"""
 struct Composition{F<:Function}
     code::Dict{Symbol,String}
     f::F
     symbols::Vector{Vector{Symbol}}
 end
 
+"""
+    Composition(f::F, symbols) where {F<:Function}
+
+Construct a `Composition`.
+"""
 function Composition(f::F, symbols) where {F<:Function}
     code = Dict{Symbol,String}()
     return Composition{F}(code, f, symbols)
 end
 
+"""
+    code(c::Composition, lang=:maths; name="composition")
+
+Access the code of a composition `c` in a given language `lang`. The name of the generated method is optional.
+"""
 function code(c::Composition, lang=:maths; name="composition")
     return get!(c.code, lang, generate(c, name, Val(lang)))
 end
+
+"""
+    composition(c::Composition)
+
+Access the actual method of an ICN composition `c`.
+"""
 composition(c::Composition) = c.f
+
+"""
+    symbols(c::Composition)
+
+Output the composition as a layered collection of `Symbol`s.
+"""
 symbols(c::Composition) = c.symbols
 
 """
@@ -25,6 +52,11 @@ function compose(icn::ICN, weigths::BitVector=BitVector())
     return Composition(composition, symbols)
 end
 
+"""
+    generate(c::Composition, name, lang)
+
+Generates the code of `c` in a specific language `lang`.
+"""
 function generate(c::Composition, name, ::Val{:maths})
     aux = map(s -> reduce_symbols(s, ", ", length(s) > 1), symbols(c))
     def = reduce_symbols(aux, " ∘ ", false)
@@ -62,6 +94,11 @@ function generate(c::Composition, name, ::Val{:Julia})
     return documentation * format_text(output, BlueStyle(); pipe_to_function_call=false)
 end
 
+"""
+    composition_to_file!(c::Composition, path, name, language=:Julia)
+
+Write the composition code in a given `language` into a file at `path`.
+"""
 function composition_to_file!(c::Composition, path, name, language=:Julia)
     output = code(c, language; name)
     write(path, output)
