@@ -60,8 +60,7 @@ is_viable(layer::Layer, w) = exclu(layer) ? as_int(w) < length(layer) : any(w)
 
 """
     generate_inclusive_operations(predicate, bits)
-    generate_exclusive_operation(max_op_number)
-Generates the operations (weigths) of a layer with inclusive/exclusive operations.
+Generates the operations (weigths) of a layer with inclusive operations.
 """
 function generate_inclusive_operations(predicate, bits)
     ind = falses(bits)
@@ -72,6 +71,10 @@ function generate_inclusive_operations(predicate, bits)
     return ind
 end
 
+"""
+    generate_exclusive_operation(max_op_number)
+Generates the operations (weigths) of a layer with exclusive operations.
+"""
 function generate_exclusive_operation(max_op_number)
     op = rand(1:max_op_number)
     return as_bitvector(op, max_op_number)
