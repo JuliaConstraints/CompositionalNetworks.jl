@@ -212,7 +212,53 @@ end
 # Generating vetorized versions
 lazy(tr_contiguous_vals_minus, tr_contiguous_vals_minus_rev)
 
-# Parametric layers
+"""
+    make_transformations(param::Symbol)
+
+Generates a dictionary of transformation functions based on the specified parameterization.
+This function facilitates the creation of parametric layers for constraint transformations,
+allowing for flexible and dynamic constraint manipulation according to the needs of different
+constraint programming models.
+
+## Parameters
+- `param::Symbol`: Specifies the type of transformations to generate. It can be `:none` for
+  basic transformations that do not depend on external parameters, or `:val` for transformations that operate with respect to a specific value parameter.
+
+## Returns
+- `LittleDict{Symbol, Function}`: A dictionary mapping transformation names (`Symbol`) to
+  their corresponding functions (`Function`). The functions encapsulate various types of
+  transformations, such as counting, comparison, and contiguous value processing.
+
+## Transformation Types
+- When `param` is `:none`, the following transformations are available:
+  - `:identity`: No transformation is applied.
+  - `:count_eq`, `:count_eq_left`, `:count_eq_right`: Count equalities under different conditions.
+  - `:count_greater`, `:count_lesser`: Count values greater or lesser than a threshold.
+  - `:count_g_left`, `:count_l_left`, `:count_g_right`, `:count_l_right`: Count values with greater or lesser comparisons from different directions.
+  - `:contiguous_vals_minus`, `:contiguous_vals_minus_rev`: Process contiguous values with subtraction in normal and reverse order.
+
+- When `param` is `:val`, the transformations relate to operations involving a parameter value:
+  - `:count_eq_param`, `:count_l_param`, `:count_g_param`: Count equalities or comparisons against a parameter value.
+  - `:count_bounding_param`: Count values bounding a parameter value.
+  - `:val_minus_param`, `:param_minus_val`: Subtract a parameter value from values or vice versa.
+
+The function delegates to a version that uses `Val(param)` for dispatch, ensuring compile-time selection of the appropriate transformation set.
+
+## Examples
+```julia
+# Get basic transformations
+basic_transforms = make_transformations(:none)
+
+# Apply an identity transformation
+identity_result = basic_transforms[:identity](data)
+
+# Get value-based transformations
+val_transforms = make_transformations(:val)
+
+# Apply a count equal to parameter transformation
+count_eq_param_result = val_transforms[:count_eq_param](data, param)
+```
+"""
 make_transformations(param::Symbol) = make_transformations(Val(param))
 
 function make_transformations(::Val{:none})
