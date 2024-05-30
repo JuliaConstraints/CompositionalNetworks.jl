@@ -43,11 +43,11 @@ Output the composition as a layered collection of `Symbol`s.
 symbols(c::Composition) = c.symbols
 
 """
-    compose(icn, weigths=nothing)
-Return a function composed by some of the operations of a given ICN. Can be applied to any vector of variables. If `weigths` are given, will assign to `icn`.
+    compose(icn, weights=nothing)
+Return a function composed by some of the operations of a given ICN. Can be applied to any vector of variables. If `weights` are given, will assign to `icn`.
 """
-function compose(icn::ICN, weigths::BitVector = BitVector())
-    !isempty(weigths) && weigths!(icn, weigths)
+function compose(icn::ICN, weights::BitVector = BitVector())
+    !isempty(weights) && weights!(icn, weights)
     composition, symbols = _compose(icn)
     return Composition(composition, symbols)
 end

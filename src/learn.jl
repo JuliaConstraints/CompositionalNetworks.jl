@@ -21,11 +21,11 @@ function learn_compose(
     parameters...,
 )
     icn = ICN(; parameters...)
-    _, weigths =
+    _, weights =
         optimize!(icn, solutions, non_sltns, dom_size, metric, optimizer; parameters...)
     compositions = Dictionary{Composition,Int}()
 
-    for (bv, occurences) in pairs(weigths)
+    for (bv, occurences) in pairs(weights)
         set!(compositions, compose(deepcopy(icn), bv), occurences)
     end
 

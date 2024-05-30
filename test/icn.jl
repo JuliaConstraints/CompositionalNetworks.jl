@@ -12,16 +12,16 @@
     include("genetic.jl")
 
     # # Test with manually weighted ICN
-    icn = ICN(param=[:val])
+    icn = ICN(param = [:val])
     @test max_icn_length() == 18
     show_layers(icn)
 
-    icn.weigths = vcat(trues(18), falses(6))
+    icn.weights = vcat(trues(18), falses(6))
     @test CompositionalNetworks.is_viable(icn)
     @test length(icn) == 31
 
     compo = compose(icn)
-    @test code(compo; name="test_composition") ==
+    @test code(compo; name = "test_composition") ==
           "test_composition = identity ∘ sum ∘ sum ∘ [param_minus_val, val_minus_param" *
           ", count_bounding_param, count_g_param, count_l_param, count_eq_param," *
           " contiguous_vals_minus_rev, contiguous_vals_minus, count_l_right, count_g_right" *
@@ -29,17 +29,17 @@
           "count_eq_left, count_eq, identity]"
 
     v = [1, 2, 4, 3]
-    @test composition(compo)(v; param=2, dom_size=4) == 67
+    @test composition(compo)(v; param = 2, dom_size = 4) == 67
 
-    CompositionalNetworks.generate_weigths(icn)
+    CompositionalNetworks.generate_weights(icn)
 
     ## Test GA and exploration
     domains = [domain([1, 2, 3, 4]) for i = 1:4]
-    compo, _ = explore_learn_compose(domains, allunique; optimizer=GeneticOptimizer())
-    @test composition(compo)([1, 2, 3, 3], dom_size=4) > 0.0
+    compo, _ = explore_learn_compose(domains, allunique; optimizer = GeneticOptimizer())
+    @test composition(compo)([1, 2, 3, 3], dom_size = 4) > 0.0
 
     ## Test export to file
     composition_to_file!(compo, "test_dummy.jl", "all_different")
-    rm("test_dummy.jl"; force=true)
+    rm("test_dummy.jl"; force = true)
 
 end

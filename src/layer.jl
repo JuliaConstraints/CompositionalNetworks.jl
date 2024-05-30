@@ -45,23 +45,23 @@ Return a string that contains the elements in a layer.
 show_layer(layer) = layer |> functions |> keys |> string
 
 """
-    selected_size(layer, layer_weigths)
-Return the number of operations selected by `layer_weigths` in `layer`.
+    selected_size(layer, layer_weights)
+Return the number of operations selected by `layer_weights` in `layer`.
 """
-selected_size(layer, layer_weigths) = exclu(layer) ? 1 : sum(layer_weigths)
+selected_size(layer, layer_weights) = exclu(layer) ? 1 : sum(layer_weights)
 
 """
     is_viable(layer, w)
     is_viable(icn)
     is_viable(icn, w)
-Assert if a pair of layer/icn and weigths compose a viable pattern. If no weigths are given with an icn, it will check the current internal value.
+Assert if a pair of layer/icn and weights compose a viable pattern. If no weights are given with an icn, it will check the current internal value.
 """
 is_viable(layer::Layer, w) = exclu(layer) ? as_int(w) < length(layer) : any(w)
 
 """
     generate_inclusive_operations(predicate, bits)
     generate_exclusive_operation(max_op_number)
-Generates the operations (weigths) of a layer with inclusive/exclusive operations.
+Generates the operations (weights) of a layer with inclusive/exclusive operations.
 """
 function generate_inclusive_operations(predicate, bits)
     ind = falses(bits)
@@ -78,11 +78,11 @@ function generate_exclusive_operation(max_op_number)
 end
 
 """
-    generate_weigths(layers)
-    generate_weigths(icn)
-Generate the weigths of a collection of layers or of an ICN.
+    generate_weights(layers)
+    generate_weights(icn)
+Generate the weights of a collection of layers or of an ICN.
 """
-function generate_weigths(layers)
+function generate_weights(layers)
     bitvecs = map(
         l ->
             exclu(l) ? generate_exclusive_operation(length(l)) :

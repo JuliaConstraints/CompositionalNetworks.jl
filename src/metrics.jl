@@ -15,7 +15,7 @@ minkowski(x, X, p) = mapreduce(Distances.minkowski(x, y, p), min, X)
 manhattan(x, X) = mapreduce(y -> Distances.cityblock(x, y), min, X)
 
 """
-    weigths_bias(x)
+    weights_bias(x)
 A metric that bias `x` towards operations with a lower bit. Do not affect the main metric.
 """
-weigths_bias(x) = sum(p -> p[1] * log2(1.0 + p[2]), enumerate(x)) / length(x)^4
+weights_bias(x) = sum(p -> p[1] * log2(1.0 + p[2]), enumerate(x)) / length(x)^4
