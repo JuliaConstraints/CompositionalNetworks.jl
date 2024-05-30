@@ -39,9 +39,9 @@ export regularization
 export show_layers
 export symbols
 export transformation_layer
-export weigths
-export weigths!
-export weigths_bias
+export weights
+export weights!
+export weights_bias
 
 # Include utils
 include("utils.jl")
