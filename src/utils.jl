@@ -3,10 +3,20 @@
 Return an anonymous function that applies `f` to all elements of `x` and store the result in `X`, with a parameter `param` (which is set to `nothing` for function with no parameter).
 """
 function map_tr!(f, x, X, p)
-    return ((g, y, Y; param) -> map!(i -> g(i, y; param), Y, 1:length(y)))(f, x, X; param=p)
+    return ((g, y, Y; param) -> map!(i -> g(i, y; param), Y, 1:length(y)))(
+        f,
+        x,
+        X;
+        param = p,
+    )
 end
 function map_tr!(f, x, X)
-    return ((g, y, Y; param) -> map!(i -> g(i, y), Y, 1:length(y)))(f, x, X; param=nothing)
+    return ((g, y, Y; param) -> map!(i -> g(i, y), Y, 1:length(y)))(
+        f,
+        x,
+        X;
+        param = nothing,
+    )
 end
 
 """
@@ -15,14 +25,10 @@ Generate methods extended to a vector instead of one of its components. A functi
 """
 function lazy(funcs::Function...)
     for f in Iterators.map(Symbol, funcs)
-        eval(
-            :(
-                function $f(x::V, X; param=nothing) where {V<:AbstractVector}
-                    return map_tr!($f, x, X)
-                end
-            ),
-        )
-        eval(:($f(x; param=nothing) = $f(x, similar(x); param)))
+        eval(:(function $f(x::V, X; param = nothing) where {V<:AbstractVector}
+            return map_tr!($f, x, X)
+        end))
+        eval(:($f(x; param = nothing) = $f(x, similar(x); param)))
     end
     return nothing
 end
@@ -43,7 +49,7 @@ end
     as_bitvector(n::Int, max_n::Int = n)
 Convert an Int to a BitVector of minimal size (relatively to `max_n`).
 """
-function as_bitvector(n::Int, max_n::Int=n)
+function as_bitvector(n::Int, max_n::Int = n)
     nm1 = n - 1
     v = falses(ceil(Int, log2(max_n)))
     i = 0
@@ -72,7 +78,7 @@ end
     reduce_symbols(symbols, sep)
 Produce a formatted string that separates the symbols by `sep`. Used internally for `show_composition`.
 """
-function reduce_symbols(symbols, sep, parenthesis=true; prefix="")
+function reduce_symbols(symbols, sep, parenthesis = true; prefix = "")
     str = reduce((x, y) -> "$y$sep$x", map(s -> "$prefix$s", symbols))
     return parenthesis ? "[$str]" : str
 end
@@ -83,7 +89,7 @@ end
 Application of an operation from the transformation layer. Used to generate more efficient code for all compositions.
 """
 @unroll function tr_in(tr, X, x, param)
-    @unroll for i in 1:length(tr)
+    @unroll for i = 1:length(tr)
         tr[i](x, @view(X[:, i]); param)
     end
 end

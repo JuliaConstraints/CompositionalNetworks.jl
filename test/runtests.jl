@@ -1,21 +1,9 @@
+using Test
 using TestItemRunner
 using TestItems
 
-@run_package_tests
-
-@testitem "ICN: genetic algo" tags = [:icn, :genetic] default_imports=false begin
-    using CompositionalNetworks
-    using ConstraintDomains
-    using Dictionaries
-    using Evolutionary
-    using Memoization
-    using Test
-    using ThreadPools
-
-    CN = CompositionalNetworks
-
-    import CompositionalNetworks: AbstractOptimizer
-
-    include("genetic.jl")
+@testset "Package tests: CompositionalNetworks" begin
+    include("Aqua.jl")
+    include("TestItemRunner.jl")
     include("icn.jl")
 end
