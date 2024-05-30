@@ -12,7 +12,7 @@ Follows a list of the current non-parametric operations available in any compari
 
 ```@docs
 CompositionalNetworks._co_identity
-CompositionalNetworks._co_euclidian
+CompositionalNetworks._co_euclidean
 CompositionalNetworks._co_abs_diff_val_vars
 CompositionalNetworks._co_val_minus_vars
 CompositionalNetworks._co_vars_minus_val
@@ -26,5 +26,5 @@ And finally a list of the parametric ones.
 CompositionalNetworks._co_abs_diff_val_param
 CompositionalNetworks._co_val_minus_param
 CompositionalNetworks._co_param_minus_val
-CompositionalNetworks._co_euclidian_param
+CompositionalNetworks._co_euclidean_param
 ```

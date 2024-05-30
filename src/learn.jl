@@ -25,8 +25,8 @@ function learn_compose(
         optimize!(icn, solutions, non_sltns, dom_size, metric, optimizer; parameters...)
     compositions = Dictionary{Composition,Int}()
 
-    for (bv, occurences) in pairs(weights)
-        set!(compositions, compose(deepcopy(icn), bv), occurences)
+    for (bv, occurrences) in pairs(weights)
+        set!(compositions, compose(deepcopy(icn), bv), occurrences)
     end
 
     return compose(icn), icn, compositions
@@ -85,7 +85,7 @@ Explore, learn and compose a function and write it to a file.
 - `path`: path of the output file
 # Keywords arguments:
 - `domains`: domains that defines the search space
-- `param`: an optional paramater of the constraint
+- `param`: an optional parameter of the constraint
 - `language`: the language to export to, default to `:julia`
 - `search`: either `:partial` or `:complete` search
 - `global_iter`: number of learning iteration
