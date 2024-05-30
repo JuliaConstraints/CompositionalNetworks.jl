@@ -161,7 +161,7 @@ tr_count_bounding_param(i, x; param) = count(y -> x[i] ≤ y ≤ x[i] + param, x
 # Generating vetorized versions
 lazy_param(tr_count_bounding_param)
 
-# Val/param substractions
+# Val/param subtractions
 
 """
     tr_val_minus_param(i, x; param)
@@ -186,7 +186,7 @@ tr_param_minus_val(i, x; param) = max(0, param - x[i])
 # Generating vetorized versions
 lazy_param(tr_val_minus_param, tr_param_minus_val)
 
-# Continuous values substraction
+# Continuous values subtraction
 """
     tr_contiguous_vals_minus(i, x)
     tr_contiguous_vals_minus(x)
