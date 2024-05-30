@@ -24,7 +24,7 @@ end
 
 Access the code of a composition `c` in a given language `lang`. The name of the generated method is optional.
 """
-function code(c::Composition, lang=:maths; name="composition")
+function code(c::Composition, lang = :maths; name = "composition")
     return get!(c.code, lang, generate(c, name, Val(lang)))
 end
 
@@ -46,7 +46,7 @@ symbols(c::Composition) = c.symbols
     compose(icn, weigths=nothing)
 Return a function composed by some of the operations of a given ICN. Can be applied to any vector of variables. If `weigths` are given, will assign to `icn`.
 """
-function compose(icn::ICN, weigths::BitVector=BitVector())
+function compose(icn::ICN, weigths::BitVector = BitVector())
     !isempty(weigths) && weigths!(icn, weigths)
     composition, symbols = _compose(icn)
     return Composition(composition, symbols)
@@ -69,10 +69,10 @@ function generate(c::Composition, name, ::Val{:Julia})
     tr_length = length(symbs[1])
 
     CN = "CompositionalNetworks."
-    tr = reduce_symbols(symbs[1], ", "; prefix=CN * "tr_")
-    ar = reduce_symbols(symbs[2], ", ", false; prefix=CN * "ar_")
-    ag = reduce_symbols(symbs[3], ", ", false; prefix=CN * "ag_")
-    co = reduce_symbols(symbs[4], ", ", false; prefix=CN * "co_")
+    tr = reduce_symbols(symbs[1], ", "; prefix = CN * "tr_")
+    ar = reduce_symbols(symbs[2], ", ", false; prefix = CN * "ar_")
+    ag = reduce_symbols(symbs[3], ", ", false; prefix = CN * "ag_")
+    co = reduce_symbols(symbs[4], ", ", false; prefix = CN * "co_")
 
     documentation = """\"\"\"
         $name(x; X = zeros(length(x), $tr_length), param=nothing, dom_size)
@@ -91,7 +91,7 @@ function generate(c::Composition, name, ::Val{:Julia})
         return $ag(@view X[:, 1]) |> (y -> $co(y; param, dom_size, nvars=length(x)))
     end
     """
-    return documentation * format_text(output, BlueStyle(); pipe_to_function_call=false)
+    return documentation * format_text(output, BlueStyle(); pipe_to_function_call = false)
 end
 
 """
@@ -99,7 +99,7 @@ end
 
 Write the composition code in a given `language` into a file at `path`.
 """
-function composition_to_file!(c::Composition, path, name, language=:Julia)
+function composition_to_file!(c::Composition, path, name, language = :Julia)
     output = code(c, language; name)
     write(path, output)
     return nothing

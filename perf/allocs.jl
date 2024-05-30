@@ -24,5 +24,13 @@ using ConstraintDomains
     alloc() = explore_learn_compose(domains, allunique)
 
     # Actual call to PerfChecker
-    alloc_check(title, dependencies, targets, pre_alloc, alloc; path=@__DIR__, threads=10)
+    alloc_check(
+        title,
+        dependencies,
+        targets,
+        pre_alloc,
+        alloc;
+        path = @__DIR__,
+        threads = 10,
+    )
 end

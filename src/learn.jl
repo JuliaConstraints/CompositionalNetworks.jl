@@ -15,21 +15,14 @@ function learn_compose(
     solutions,
     non_sltns,
     dom_size;
-    metric=:hamming,
+    metric = :hamming,
     optimizer,
-    X_test=nothing,
-    parameters...
+    X_test = nothing,
+    parameters...,
 )
     icn = ICN(; parameters...)
-    _, weigths = optimize!(
-        icn,
-        solutions,
-        non_sltns,
-        dom_size,
-        metric,
-        optimizer;
-        parameters...
-    )
+    _, weigths =
+        optimize!(icn, solutions, non_sltns, dom_size, metric, optimizer; parameters...)
     compositions = Dictionary{Composition,Int}()
 
     for (bv, occurences) in pairs(weigths)
@@ -58,11 +51,11 @@ Explore a search space, learn a composition from an ICN, and compose an error fu
 function explore_learn_compose(
     domains,
     concept;
-    configurations=nothing,
-    metric=:hamming,
+    configurations = nothing,
+    metric = :hamming,
     optimizer,
-    X_test=nothing,
-    parameters...
+    X_test = nothing,
+    parameters...,
 )
     if isnothing(configurations)
         configurations = explore(domains, concept; parameters...)
@@ -77,7 +70,7 @@ function explore_learn_compose(
         metric,
         optimizer,
         X_test,
-        parameters...
+        parameters...,
     )
 end
 
@@ -104,13 +97,13 @@ function compose_to_file!(
     concept,
     name,
     path;
-    configurations=nothing,
+    configurations = nothing,
     domains,
-    language=:Julia,
-    metric=:hamming,
+    language = :Julia,
+    metric = :hamming,
     optimizer,
-    X_test=nothing,
-    parameters...
+    X_test = nothing,
+    parameters...,
 )
     if isnothing(configurations)
         configurations = explore(domains, concept; parameters...)
@@ -123,7 +116,7 @@ function compose_to_file!(
         metric,
         optimizer,
         X_test,
-        parameters...
+        parameters...,
     )
     composition_to_file!(compo, path, name, language)
     return icn

@@ -22,7 +22,7 @@ function _optimize!(
     iterations;
     samples=nothing,
     memoize=false,
-    parameters...
+    parameters...,
 )
     inplace = zeros(dom_size, max_icn_length())
     _non_sltns = isnothing(samples) ? non_sltns : rand(non_sltns, samples)
@@ -32,7 +32,8 @@ function _optimize!(
         f = composition(compo)
         S = Iterators.flatten((solutions, _non_sltns))
         σ = sum(
-            x -> abs(f(x; X=inplace, dom_size, parameters...) - metric(x, solutions)), S
+            x -> abs(f(x; X=inplace, dom_size, parameters...) - metric(x, solutions)),
+            S,
         )
         return σ + regularization(icn) + weigths_bias(w)
     end
@@ -46,7 +47,7 @@ function _optimize!(
         selection=tournament(2),
         crossover=SPX,
         mutation=flip,
-        mutationRate=1.0
+        mutationRate=1.0,
     )
 
     pop = generate_population(icn, pop_size)
@@ -69,7 +70,7 @@ function optimize!(
     pop_size;
     sampler=nothing,
     memoize=false,
-    parameters...
+    parameters...,
 )
     results = Dictionary{BitVector,Int}()
     aux_results = Vector{BitVector}(undef, global_iter)
@@ -77,7 +78,7 @@ function optimize!(
 
     @info """Starting optimization of weigths$(nt > 1 ? " (multithreaded)" : "")"""
     samples = isnothing(sampler) ? nothing : sampler(length(solutions) + length(non_sltns))
-    @qthreads for i in 1:global_iter
+    @qthreads for i = 1:global_iter
         @info "Iteration $i"
         aux_icn = deepcopy(icn)
         _optimize!(
@@ -90,7 +91,7 @@ function optimize!(
             iter;
             samples,
             memoize,
-            parameters...
+            parameters...,
         )
         aux_results[i] = weigths(aux_icn)
     end
@@ -113,14 +114,19 @@ function GeneticOptimizer(;
     local_iter=64,
     memoize=false,
     pop_size=64,
-    sampler=nothing
+    sampler=nothing,
 )
     return GeneticOptimizer(global_iter, local_iter, memoize, pop_size, sampler)
 end
 
-function CN.optimize!(
-    icn, solutions, non_sltns, dom_size, metric, optimizer::GeneticOptimizer;
-    parameters...
+function CompositionalNetworks.optimize!(
+    icn,
+    solutions,
+    non_sltns,
+    dom_size,
+    metric,
+    optimizer::GeneticOptimizer;
+    parameters...,
 )
     return optimize!(
         icn,
@@ -133,6 +139,6 @@ function CN.optimize!(
         optimizer.pop_size;
         optimizer.sampler,
         optimizer.memoize,
-        parameters...
+        parameters...,
     )
 end
