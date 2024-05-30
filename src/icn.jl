@@ -80,7 +80,7 @@ end
 
 """
     show_layers(icn)
-Return a formated string with each layers in the icn.
+Return a formatted string with each layers in the icn.
 """
 show_layers(icn) = map(show_layer, layers(icn))
 
