@@ -14,16 +14,16 @@ mutable struct ICN
     arithmetic::Layer
     aggregation::Layer
     comparison::Layer
-    weigths::BitVector
+    weights::BitVector
 
     function ICN(;
-        param=Vector{Symbol}(),
-        tr_layer=transformation_layer(param),
-        ar_layer=arithmetic_layer(),
-        ag_layer=aggregation_layer(),
-        co_layer=comparison_layer(param)
+        param = Vector{Symbol}(),
+        tr_layer = transformation_layer(param),
+        ar_layer = arithmetic_layer(),
+        ag_layer = aggregation_layer(),
+        co_layer = comparison_layer(param),
     )
-        w = generate_weigths([tr_layer, ar_layer, ag_layer, co_layer])
+        w = generate_weights([tr_layer, ar_layer, ag_layer, co_layer])
         return new(tr_layer, ar_layer, ag_layer, co_layer, w)
     end
 end
@@ -42,17 +42,17 @@ Base.length(icn::ICN) = sum(length, layers(icn))
 
 """
     nbits(icn)
-Return the expected number of bits of a viable weigth of an ICN.
+Return the expected number of bits of a viable weight of an ICN.
 """
 nbits(icn) = mapreduce(l -> exclu(l) ? nbits_exclu(l) : length(l), +, layers(icn))
 
 """
-    weigths(icn)
-Access the current set of weigths of an ICN.
+    weights(icn)
+Access the current set of weights of an ICN.
 """
-weigths(icn) = icn.weigths
+weights(icn) = icn.weights
 
-function is_viable(icn::ICN, weigths)
+function is_viable(icn::ICN, weights)
     _start = 0
     _end = 0
 
@@ -60,35 +60,35 @@ function is_viable(icn::ICN, weigths)
         _start = _end + 1
         _end += exclu(layer) ? nbits_exclu(layer) : length(layer)
 
-        w = @view weigths[_start:_end]
+        w = @view weights[_start:_end]
 
         !is_viable(layer, w) && return false
     end
     return true
 end
-is_viable(icn::ICN) = is_viable(icn, weigths(icn))
+is_viable(icn::ICN) = is_viable(icn, weights(icn))
 
 """
-    weigths!(icn, weigths)
-Set the weigths of an ICN with a `BitVector`.
+    weights!(icn, weights)
+Set the weights of an ICN with a `BitVector`.
 """
-function weigths!(icn, weigths)
-    length(weigths) == nbits(icn) || @warn icn weigths nbits(icn)
-    @assert length(weigths) == nbits(icn)
-    return icn.weigths = weigths
+function weights!(icn, weights)
+    length(weights) == nbits(icn) || @warn icn weights nbits(icn)
+    @assert length(weights) == nbits(icn)
+    return icn.weights = weights
 end
 
 """
     show_layers(icn)
-Return a formated string with each layers in the icn.
+Return a formatted string with each layers in the icn.
 """
 show_layers(icn) = map(show_layer, layers(icn))
 
-generate_weigths(icn::ICN) = generate_weigths(layers(icn))
+generate_weights(icn::ICN) = generate_weights(layers(icn))
 
 """
     regularization(icn)
-Return the regularization value of an ICN weigths, which is proportional to the normalized number of operations selected in the icn layers.
+Return the regularization value of an ICN weights, which is proportional to the normalized number of operations selected in the icn layers.
 """
 function regularization(icn)
     Σmax = 0
@@ -100,14 +100,14 @@ function regularization(icn)
         _start = _end + 1
         _end += exclu(layer) ? nbits_exclu(layer) : l
         if !exclu(layer)
-            Σop += selected_size(layer, @view weigths(icn)[_start:_end])
+            Σop += selected_size(layer, @view weights(icn)[_start:_end])
             Σmax += length(layer)
         end
     end
     return Σop / (Σmax + 1)
 end
 
-max_icn_length(icn=ICN(; param=[:val])) = length(icn.transformation)
+max_icn_length(icn = ICN(; param = [:val])) = length(icn.transformation)
 
 """
     _compose(icn)
@@ -116,8 +116,7 @@ Internal function called by `compose` and `show_composition`.
 function _compose(icn::ICN)
     !is_viable(icn) && (
         return (
-            (x; X=zeros(length(x), max_icn_length()), param=nothing, dom_size=0) ->
-                typemax(Float64)
+            (x; X = zeros(length(x), max_icn_length()), param = nothing, dom_size = 0) -> typemax(Float64)
         ),
         []
     )
@@ -133,14 +132,14 @@ function _compose(icn::ICN)
         _end += exclu(layer) ? nbits_exclu(layer) : length(layer)
 
         if exclu(layer)
-            f_id = as_int(@view weigths(icn)[_start:_end])
+            f_id = as_int(@view weights(icn)[_start:_end])
             s = symbol(layer, f_id + 1)
             push!(funcs, [functions(layer)[s]])
             push!(symbols, [s])
         else
             layer_funcs = Vector{Function}()
             layer_symbs = Vector{Symbol}()
-            for (f_id, b) in enumerate(@view weigths(icn)[_start:_end])
+            for (f_id, b) in enumerate(@view weights(icn)[_start:_end])
                 if b
                     s = symbol(layer, f_id)
                     push!(layer_funcs, functions(layer)[s])
@@ -152,11 +151,17 @@ function _compose(icn::ICN)
         end
     end
 
-    function composition(x; X=zeros(length(x), length(funcs[1])), param=nothing, dom_size)
+    function composition(
+        x;
+        X = zeros(length(x), length(funcs[1])),
+        param = nothing,
+        dom_size,
+    )
         tr_in(Tuple(funcs[1]), X, x, param)
-        X[1:length(x), 1] .= 1:length(x) .|> (i -> funcs[2][1](@view X[i, 1:length(funcs[1])]))
-        return (y -> funcs[4][1](y; param, dom_size, nvars=length(x)))(
-            funcs[3][1](@view X[:, 1])
+        X[1:length(x), 1] .=
+            1:length(x) .|> (i -> funcs[2][1](@view X[i, 1:length(funcs[1])]))
+        return (y -> funcs[4][1](y; param, dom_size, nvars = length(x)))(
+            funcs[3][1](@view X[:, 1]),
         )
     end
 
