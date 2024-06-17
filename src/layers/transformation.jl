@@ -8,7 +8,7 @@
 Identity function. Already defined in Julia as `identity`, specialized for vectors.
 When `X` is provided, the result is computed without allocations.
 """
-tr_identity(i, x) = identity(x[i])
+tr_identity(i, x; params...) = identity(x[i])
 lazy(tr_identity)
 
 # Count equalities
@@ -21,7 +21,7 @@ lazy(tr_identity)
 Count the number of elements equal to `x[i]`. Extended method to vector with sig `(x)` are generated.
 When `X` is provided, the result is computed without allocations.
 """
-tr_count_eq(i, x) = count(y -> x[i] == y, x) - 1
+tr_count_eq(i, x; params...) = count(y -> x[i] == y, x) - 1
 
 """
     tr_count_eq_right(i, x)
@@ -31,7 +31,7 @@ tr_count_eq(i, x) = count(y -> x[i] == y, x) - 1
 Count the number of elements to the right of and equal to `x[i]`. Extended method to vector with sig `(x)` are generated.
 When `X` is provided, the result is computed without allocations.
 """
-tr_count_eq_right(i, x) = tr_count_eq(1, @view x[i:end])
+tr_count_eq_right(i, x; params...) = tr_count_eq(1, @view x[i:end])
 
 """
     tr_count_eq_left(i, x)
@@ -41,7 +41,7 @@ tr_count_eq_right(i, x) = tr_count_eq(1, @view x[i:end])
 Count the number of elements to the left of and equal to `x[i]`. Extended method to vector with sig `(x)` are generated.
 When `X` is provided, the result is computed without allocations.
 """
-tr_count_eq_left(i, x) = tr_count_eq(i, @view x[1:i])
+tr_count_eq_left(i, x; params...) = tr_count_eq(i, @view x[1:i])
 
 # Generating vetorized versions
 lazy(tr_count_eq, tr_count_eq_left, tr_count_eq_right)
@@ -56,7 +56,7 @@ lazy(tr_count_eq, tr_count_eq_left, tr_count_eq_right)
 Count the number of elements greater than `x[i]`. Extended method to vector with sig `(x)` are generated.
 When `X` is provided, the result is computed without allocations.
 """
-tr_count_greater(i, x) = count(y -> x[i] < y, x)
+tr_count_greater(i, x; params...) = count(y -> x[i] < y, x)
 
 """
     tr_count_lesser(i, x)
@@ -66,7 +66,7 @@ tr_count_greater(i, x) = count(y -> x[i] < y, x)
 Count the number of elements lesser than `x[i]`. Extended method to vector with sig `(x)` are generated.
 When `X` is provided, the result is computed without allocations.
 """
-tr_count_lesser(i, x) = count(y -> x[i] > y, x)
+tr_count_lesser(i, x; params...) = count(y -> x[i] > y, x)
 
 """
     tr_count_g_left(i, x)
@@ -76,7 +76,7 @@ tr_count_lesser(i, x) = count(y -> x[i] > y, x)
 Count the number of elements to the left of and greater than `x[i]`. Extended method to vector with sig `(x)` are generated.
 When `X` is provided, the result is computed without allocations.
 """
-tr_count_g_left(i, x) = tr_count_greater(i, @view x[1:i])
+tr_count_g_left(i, x; params...) = tr_count_greater(i, @view x[1:i])
 
 """
     tr_count_l_left(i, x)
@@ -86,7 +86,7 @@ tr_count_g_left(i, x) = tr_count_greater(i, @view x[1:i])
 Count the number of elements to the left of and lesser than `x[i]`. Extended method to vector with sig `(x)` are generated.
 When `X` is provided, the result is computed without allocations.
 """
-tr_count_l_left(i, x) = tr_count_lesser(i, @view x[1:i])
+tr_count_l_left(i, x; params...) = tr_count_lesser(i, @view x[1:i])
 
 """
     tr_count_g_right(i, x)
@@ -95,7 +95,7 @@ tr_count_l_left(i, x) = tr_count_lesser(i, @view x[1:i])
 
 Count the number of elements to the right of and greater than `x[i]`. Extended method to vector with sig `(x)` are generated.
 """
-tr_count_g_right(i, x) = tr_count_greater(1, @view x[i:end])
+tr_count_g_right(i, x; params...) = tr_count_greater(1, @view x[i:end])
 
 """
     tr_count_l_right(i, x)
@@ -105,113 +105,113 @@ tr_count_g_right(i, x) = tr_count_greater(1, @view x[i:end])
 Count the number of elements to the right of and lesser than `x[i]`. Extended method to vector with sig `(x)` are generated.
 When `X` is provided, the result is computed without allocations.
 """
-tr_count_l_right(i, x) = tr_count_lesser(1, @view x[i:end])
+tr_count_l_right(i, x; params...) = tr_count_lesser(1, @view x[i:end])
 
 # Generating vetorized versions
 lazy(tr_count_greater, tr_count_g_left, tr_count_g_right)
 lazy(tr_count_lesser, tr_count_l_left, tr_count_l_right)
 
-# Count param
+# Count val parameter
 
 """
-    tr_count_eq_param(i, x; param)
-    tr_count_eq_param(x; param)
-    tr_count_eq_param(x, X::AbstractVector; param)
+    tr_count_eq_val(i, x; val)
+    tr_count_eq_val(x; val)
+    tr_count_eq_val(x, X::AbstractVector; val)
 
-Count the number of elements equal to `x[i] + param`. Extended method to vector with sig `(x, param)` are generated.
+Count the number of elements equal to `x[i] + val`. Extended method to vector with sig `(x, val)` are generated.
 When `X` is provided, the result is computed without allocations.
 """
-tr_count_eq_param(i, x; param) = count(y -> y == x[i] + param, x)
+tr_count_eq_val(i, x; val, params...) = count(y -> y == x[i] + val, x)
 
 """
-    tr_count_l_param(i, x; param)
-    tr_count_l_param(x; param)
-    tr_count_l_param(x, X::AbstractVector; param)
+    tr_count_l_val(i, x; val)
+    tr_count_l_val(x; val)
+    tr_count_l_val(x, X::AbstractVector; val)
 
-Count the number of elements lesser than `x[i] + param`. Extended method to vector with sig `(x, param)` are generated.
+Count the number of elements lesser than `x[i] + val`. Extended method to vector with sig `(x, val)` are generated.
 When `X` is provided, the result is computed without allocations.
 """
-tr_count_l_param(i, x; param) = count(y -> y < x[i] + param, x)
+tr_count_l_val(i, x; val, params...) = count(y -> y < x[i] + val, x)
 
 """
-    tr_count_g_param(i, x; param)
-    tr_count_g_param(x; param)
-    tr_count_g_param(x, X::AbstractVector; param)
+    tr_count_g_val(i, x; val)
+    tr_count_g_val(x; val)
+    tr_count_g_val(x, X::AbstractVector; val)
 
-Count the number of elements greater than `x[i] + param`. Extended method to vector with sig `(x, param)` are generated.
+Count the number of elements greater than `x[i] + val`. Extended method to vector with sig `(x, val)` are generated.
 When `X` is provided, the result is computed without allocations.
 """
-tr_count_g_param(i, x; param) = count(y -> y > x[i] + param, x)
+tr_count_g_val(i, x; val, params...) = count(y -> y > x[i] + val, x)
+
+# Generating vectorized versions
+lazy_param(tr_count_eq_val, tr_count_l_val, tr_count_g_val)
+
+# Bounding val parameter
+
+"""
+    tr_count_bounding_val(i, x; val)
+    tr_count_bounding_val(x; val)
+    tr_count_bounding_val(x, X::AbstractVector; val)
+
+Count the number of elements bounded (not strictly) by `x[i]` and `x[i] + val`. An extended method to vector with sig `(x, val)` is generated.
+When `X` is provided, the result is computed without allocations.
+"""
+tr_count_bounding_val(i, x; val, params...) = count(y -> x[i] ≤ y ≤ x[i] + val, x)
+
+# Generating vectorized versions
+lazy_param(tr_count_bounding_val)
+
+# Variable/parameter values subtractions
+
+"""
+    tr_var_minus_val(i, x; val)
+    tr_var_minus_val(x; val)
+    tr_var_minus_val(x, X::AbstractVector; val)
+
+Return the difference `x[i] - val` if positive, `0.0` otherwise.  Extended method to vector with sig `(x, val)` are generated.
+When `X` is provided, the result is computed without allocations.
+"""
+tr_var_minus_val(i, x; val, params...) = max(0, x[i] - val)
+
+"""
+    tr_val_minus_var(i, x; val)
+    tr_val_minus_var(x; val)
+    tr_val_minus_var(x, X::AbstractVector; val)
+
+Return the difference `val - x[i]` if positive, `0.0` otherwise.  Extended method to vector with sig `(x, val)` are generated.
+When `X` is provided, the result is computed without allocations.
+"""
+tr_val_minus_var(i, x; val, params...) = max(0, val - x[i])
 
 # Generating vetorized versions
-lazy_param(tr_count_eq_param, tr_count_l_param, tr_count_g_param)
-
-# Bounding param
-
-"""
-    tr_count_bounding_param(i, x; param)
-    tr_count_bounding_param(x; param)
-    tr_count_bounding_param(x, X::AbstractVector; param)
-
-Count the number of elements bounded (not strictly) by `x[i]` and `x[i] + param`. An extended method to vector with sig `(x, param)` is generated.
-When `X` is provided, the result is computed without allocations.
-"""
-tr_count_bounding_param(i, x; param) = count(y -> x[i] ≤ y ≤ x[i] + param, x)
-
-# Generating vetorized versions
-lazy_param(tr_count_bounding_param)
-
-# Val/param subtractions
-
-"""
-    tr_val_minus_param(i, x; param)
-    tr_val_minus_param(x; param)
-    tr_val_minus_param(x, X::AbstractVector; param)
-
-Return the difference `x[i] - param` if positive, `0.0` otherwise.  Extended method to vector with sig `(x, param)` are generated.
-When `X` is provided, the result is computed without allocations.
-"""
-tr_val_minus_param(i, x; param) = max(0, x[i] - param)
-
-"""
-    tr_param_minus_val(i, x; param)
-    tr_param_minus_val(x; param)
-    tr_param_minus_val(x, X::AbstractVector; param)
-
-Return the difference `param - x[i]` if positive, `0.0` otherwise.  Extended method to vector with sig `(x, param)` are generated.
-When `X` is provided, the result is computed without allocations.
-"""
-tr_param_minus_val(i, x; param) = max(0, param - x[i])
-
-# Generating vetorized versions
-lazy_param(tr_val_minus_param, tr_param_minus_val)
+lazy_param(tr_var_minus_val, tr_val_minus_var)
 
 # Continuous values subtraction
 """
-    tr_contiguous_vals_minus(i, x)
-    tr_contiguous_vals_minus(x)
-    tr_contiguous_vals_minus(x, X::AbstractVector)
+    tr_contiguous_vars_minus(i, x)
+    tr_contiguous_vars_minus(x)
+    tr_contiguous_vars_minus(x, X::AbstractVector)
 
 Return the difference `x[i] - x[i + 1]` if positive, `0.0` otherwise. Extended method to vector with sig `(x)` are generated.
 When `X` is provided, the result is computed without allocations.
 """
-tr_contiguous_vals_minus(i, x; param = nothing) =
-    length(x) == i ? 0 : tr_val_minus_param(i, x; param = x[i+1])
+tr_contiguous_vars_minus(i, x; params...) =
+    length(x) == i ? 0 : tr_var_minus_val(i, x; val=x[i+1])
 
 """
-    tr_contiguous_vals_minus_rev(i, x)
-    tr_contiguous_vals_minus_rev(x)
-    tr_contiguous_vals_minus_rev(x, X::AbstractVector)
+    tr_contiguous_vars_minus_rev(i, x)
+    tr_contiguous_vars_minus_rev(x)
+    tr_contiguous_vars_minus_rev(x, X::AbstractVector)
 
 Return the difference `x[i + 1] - x[i]` if positive, `0.0` otherwise. Extended method to vector with sig `(x)` are generated.
 When `X` is provided, the result is computed without allocations.
 """
-function tr_contiguous_vals_minus_rev(i, x; param = nothing)
-    return length(x) == i ? 0 : tr_param_minus_val(i, x; param = x[i+1])
+function tr_contiguous_vars_minus_rev(i, x; params...)
+    return length(x) == i ? 0 : tr_val_minus_var(i, x; val=x[i+1])
 end
 
 # Generating vetorized versions
-lazy(tr_contiguous_vals_minus, tr_contiguous_vals_minus_rev)
+lazy(tr_contiguous_vars_minus, tr_contiguous_vars_minus_rev)
 
 """
     make_transformations(param::Symbol)
@@ -274,19 +274,19 @@ function make_transformations(::Val{:none})
         :count_l_left => tr_count_l_left,
         :count_g_right => tr_count_g_right,
         :count_l_right => tr_count_l_right,
-        :contiguous_vals_minus => tr_contiguous_vals_minus,
-        :contiguous_vals_minus_rev => tr_contiguous_vals_minus_rev,
+        :contiguous_vars_minus => tr_contiguous_vars_minus,
+        :contiguous_vars_minus_rev => tr_contiguous_vars_minus_rev,
     )
 end
 
 function make_transformations(::Val{:val})
     return LittleDict{Symbol,Function}(
-        :count_eq_param => tr_count_eq_param,
-        :count_l_param => tr_count_l_param,
-        :count_g_param => tr_count_g_param,
-        :count_bounding_param => tr_count_bounding_param,
-        :val_minus_param => tr_val_minus_param,
-        :param_minus_val => tr_param_minus_val,
+        :count_eq_val => tr_count_eq_val,
+        :count_l_val => tr_count_l_val,
+        :count_g_val => tr_count_g_val,
+        :count_bounding_val => tr_count_bounding_val,
+        :var_minus_val => tr_var_minus_val,
+        :val_minus_var => tr_val_minus_var,
     )
 end
 
@@ -296,10 +296,10 @@ end
 
 
 """
-    transformation_layer(param = false)
-Generate the layer of transformations functions of the ICN. Iff `param` value is true, also includes all the parametric transformations.
+    transformation_layer(param = Vector{Symbol}())
+Generate the layer of transformations functions of the ICN. Iff `param` value is non empty, also includes all the related parametric transformations.
 """
-function transformation_layer(parameters = Vector{Symbol}())
+function transformation_layer(parameters=Vector{Symbol}())
     transformations = make_transformations(:none)
 
     for p in parameters
@@ -311,7 +311,7 @@ function transformation_layer(parameters = Vector{Symbol}())
 end
 
 ## SECTION - Test Items
-@testitem "Arithmetic Layer" tags = [:arithmetic, :layer] begin
+@testitem "Transformation Layer" tags = [:transformation, :layer] begin
     CN = CompositionalNetworks
 
     data = [[1, 5, 2, 4, 3] => 2, [1, 2, 3, 2, 1] => 2]
@@ -328,12 +328,11 @@ end
         CN.tr_count_l_left => [[0, 1, 1, 2, 2], [0, 1, 2, 1, 0]],
         CN.tr_count_g_right => [[4, 0, 2, 0, 0], [3, 1, 0, 0, 0]],
         CN.tr_count_l_right => [[0, 3, 0, 1, 0], [0, 1, 2, 1, 0]],
-        CN.tr_contiguous_vals_minus => [[0, 3, 0, 1, 0], [0, 0, 1, 1, 0]],
-        CN.tr_contiguous_vals_minus_rev => [[4, 0, 2, 0, 0], [1, 1, 0, 0, 0]],
+        CN.tr_contiguous_vars_minus => [[0, 3, 0, 1, 0], [0, 0, 1, 1, 0]],
+        CN.tr_contiguous_vars_minus_rev => [[4, 0, 2, 0, 0], [1, 1, 0, 0, 0]],
     )
 
     for (f, results) in funcs
-        @info f
         for (key, vals) in enumerate(data)
             @test f(vals.first) == results[key]
             foreach(i -> f(i, vals.first), vals.first)
@@ -341,20 +340,19 @@ end
     end
 
     # Test transformations with parameter
-    funcs_param = Dict(
-        CN.tr_count_eq_param => [[1, 0, 1, 0, 1], [1, 0, 0, 0, 1]],
-        CN.tr_count_l_param => [[2, 5, 3, 5, 4], [4, 5, 5, 5, 4]],
-        CN.tr_count_g_param => [[2, 0, 1, 0, 0], [0, 0, 0, 0, 0]],
-        CN.tr_count_bounding_param => [[3, 1, 3, 2, 3], [5, 3, 1, 3, 5]],
-        CN.tr_val_minus_param => [[0, 3, 0, 2, 1], [0, 0, 1, 0, 0]],
-        CN.tr_param_minus_val => [[1, 0, 0, 0, 0], [1, 0, 0, 0, 1]],
+    funcs_val = Dict(
+        CN.tr_count_eq_val => [[1, 0, 1, 0, 1], [1, 0, 0, 0, 1]],
+        CN.tr_count_l_val => [[2, 5, 3, 5, 4], [4, 5, 5, 5, 4]],
+        CN.tr_count_g_val => [[2, 0, 1, 0, 0], [0, 0, 0, 0, 0]],
+        CN.tr_count_bounding_val => [[3, 1, 3, 2, 3], [5, 3, 1, 3, 5]],
+        CN.tr_var_minus_val => [[0, 3, 0, 2, 1], [0, 0, 1, 0, 0]],
+        CN.tr_val_minus_var => [[1, 0, 0, 0, 0], [1, 0, 0, 0, 1]],
     )
 
-    for (f, results) in funcs_param
-        @info f
+    for (f, results) in funcs_val
         for (key, vals) in enumerate(data)
-            @test f(vals.first; param = vals.second) == results[key]
-            foreach(i -> f(i, vals.first; param = vals.second), vals.first)
+            @test f(vals.first; val=vals.second) == results[key]
+            foreach(i -> f(i, vals.first; val=vals.second), vals.first)
         end
     end
 
