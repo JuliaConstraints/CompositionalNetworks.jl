@@ -25,7 +25,12 @@ Generate methods extended to a vector instead of one of its components. A functi
 """
 function lazy(funcs::Function...)
     for f in Iterators.map(Symbol, funcs)
-        eval(:($f(x::V, X; params...) where {V<:AbstractVector} = map_tr!($f, x, X; params...)))
+        eval(
+            :(
+                $f(x::V, X; params...) where {V<:AbstractVector} =
+                    map_tr!($f, x, X; params...)
+            ),
+        )
         eval(:($f(x; params...) = $f(x, similar(x); params...)))
     end
     return nothing
@@ -37,7 +42,12 @@ Generate methods extended to a vector instead of one of its components. A functi
 """
 function lazy_param(funcs::Function...)
     for f in Iterators.map(Symbol, funcs)
-        eval(:($f(x::V, X; params...) where {V<:AbstractVector} = map_tr!($f, x, X; params...)))
+        eval(
+            :(
+                $f(x::V, X; params...) where {V<:AbstractVector} =
+                    map_tr!($f, x, X; params...)
+            ),
+        )
         eval(:($f(x; params...) = $f(x, similar(x); params...)))
     end
     return nothing
@@ -47,7 +57,7 @@ end
     as_bitvector(n::Int, max_n::Int = n)
 Convert an Int to a BitVector of minimal size (relatively to `max_n`).
 """
-function as_bitvector(n::Int, max_n::Int=n)
+function as_bitvector(n::Int, max_n::Int = n)
     nm1 = n - 1
     v = falses(ceil(Int, log2(max_n)))
     i = 0
@@ -76,7 +86,7 @@ end
     reduce_symbols(symbols, sep)
 Produce a formatted string that separates the symbols by `sep`. Used internally for `show_composition`.
 """
-function reduce_symbols(symbols, sep, parenthesis=true; prefix="")
+function reduce_symbols(symbols, sep, parenthesis = true; prefix = "")
     str = reduce((x, y) -> "$y$sep$x", map(s -> "$prefix$s", symbols))
     return parenthesis ? "[$str]" : str
 end

@@ -35,7 +35,7 @@ end
 Compute an euclidean norm with domain size `dom_size` of a scalar.
 """
 function co_euclidean(x; dom_size, params...)
-    return co_euclidean_val(x; val=0.0, dom_size)
+    return co_euclidean_val(x; val = 0.0, dom_size)
 end
 
 """
@@ -48,15 +48,13 @@ co_abs_diff_var_vars(x; nvars, params...) = abs(x - nvars)
     co_var_minus_vars(x; nvars)
 Return the difference `x - nvars` if positive, `0.0` otherwise, where `nvars` denotes the numbers of variables.
 """
-co_var_minus_vars(x; nvars, params...) =
-    co_var_minus_val(x; val=nvars)
+co_var_minus_vars(x; nvars, params...) = co_var_minus_val(x; val = nvars)
 
 """
     co_vars_minus_var(x; nvars)
 Return the difference `nvars - x` if positive, `0.0` otherwise, where `nvars` denotes the numbers of variables.
 """
-co_vars_minus_var(x; nvars, params...) =
-    co_val_minus_var(x; val=nvars)
+co_vars_minus_var(x; nvars, params...) = co_val_minus_var(x; val = nvars)
 
 
 # Parametric layers
@@ -86,7 +84,7 @@ end
     comparison_layer(param = false)
 Generate the layer of transformations functions of the ICN. Iff `param` value is set, also includes all the parametric comparison with that value. The operations are mutually exclusive, that is only one will be selected.
 """
-function comparison_layer(parameters=Vector{Symbol}())
+function comparison_layer(parameters = Vector{Symbol}())
     comparisons = make_comparisons(:none)
 
     for p in parameters
@@ -120,7 +118,7 @@ end
 
     for (f, results) in funcs_param
         for (key, vals) in enumerate(data)
-            @test f(vals.first; val=vals.second[1]) == results[key]
+            @test f(vals.first; val = vals.second[1]) == results[key]
         end
     end
 
@@ -132,7 +130,7 @@ end
 
     for (f, results) in funcs_vars
         for (key, vals) in enumerate(data)
-            @test f(vals.first, nvars=vals.second[2]) == results[key]
+            @test f(vals.first, nvars = vals.second[2]) == results[key]
         end
     end
 
@@ -140,7 +138,7 @@ end
 
     for (f, results) in funcs_val_dom
         for (key, vals) in enumerate(data)
-            @test f(vals.first, val=vals.second[1], dom_size=vals.second[2]) ≈
+            @test f(vals.first, val = vals.second[1], dom_size = vals.second[2]) ≈
                   results[key]
         end
     end
@@ -149,7 +147,7 @@ end
 
     for (f, results) in funcs_dom
         for (key, vals) in enumerate(data)
-            @test f(vals.first, dom_size=vals.second[2]) ≈ results[key]
+            @test f(vals.first, dom_size = vals.second[2]) ≈ results[key]
         end
     end
 

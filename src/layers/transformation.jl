@@ -196,7 +196,7 @@ Return the difference `x[i] - x[i + 1]` if positive, `0.0` otherwise. Extended m
 When `X` is provided, the result is computed without allocations.
 """
 tr_contiguous_vars_minus(i, x; params...) =
-    length(x) == i ? 0 : tr_var_minus_val(i, x; val=x[i+1])
+    length(x) == i ? 0 : tr_var_minus_val(i, x; val = x[i+1])
 
 """
     tr_contiguous_vars_minus_rev(i, x)
@@ -207,7 +207,7 @@ Return the difference `x[i + 1] - x[i]` if positive, `0.0` otherwise. Extended m
 When `X` is provided, the result is computed without allocations.
 """
 function tr_contiguous_vars_minus_rev(i, x; params...)
-    return length(x) == i ? 0 : tr_val_minus_var(i, x; val=x[i+1])
+    return length(x) == i ? 0 : tr_val_minus_var(i, x; val = x[i+1])
 end
 
 # Generating vetorized versions
@@ -299,7 +299,7 @@ end
     transformation_layer(param = Vector{Symbol}())
 Generate the layer of transformations functions of the ICN. Iff `param` value is non empty, also includes all the related parametric transformations.
 """
-function transformation_layer(parameters=Vector{Symbol}())
+function transformation_layer(parameters = Vector{Symbol}())
     transformations = make_transformations(:none)
 
     for p in parameters
@@ -351,8 +351,8 @@ end
 
     for (f, results) in funcs_val
         for (key, vals) in enumerate(data)
-            @test f(vals.first; val=vals.second) == results[key]
-            foreach(i -> f(i, vals.first; val=vals.second), vals.first)
+            @test f(vals.first; val = vals.second) == results[key]
+            foreach(i -> f(i, vals.first; val = vals.second), vals.first)
         end
     end
 
