@@ -22,14 +22,14 @@
 
     compo = compose(icn)
     @test code(compo; name = "test_composition") ==
-          "test_composition = identity ∘ sum ∘ sum ∘ [param_minus_val, val_minus_param" *
-          ", count_bounding_param, count_g_param, count_l_param, count_eq_param," *
-          " contiguous_vals_minus_rev, contiguous_vals_minus, count_l_right, count_g_right" *
+          "test_composition = identity ∘ sum ∘ sum ∘ [val_minus_var, var_minus_val" *
+          ", count_bounding_val, count_g_val, count_l_val, count_eq_val," *
+          " contiguous_vars_minus_rev, contiguous_vars_minus, count_l_right, count_g_right" *
           ", count_l_left, count_g_left, count_lesser, count_greater, count_eq_right, " *
           "count_eq_left, count_eq, identity]"
 
     v = [1, 2, 4, 3]
-    @test composition(compo)(v; param = 2, dom_size = 4) == 67
+    @test composition(compo)(v; val = 2, dom_size = 4) == 67
 
     CompositionalNetworks.generate_weights(icn)
 

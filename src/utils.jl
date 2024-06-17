@@ -2,22 +2,22 @@
     map_tr!(f, x, X, param)
 Return an anonymous function that applies `f` to all elements of `x` and store the result in `X`, with a parameter `param` (which is set to `nothing` for function with no parameter).
 """
-function map_tr!(f, x, X, p)
-    return ((g, y, Y; param) -> map!(i -> g(i, y; param), Y, 1:length(y)))(
+function map_tr!(f, x, X; p...)
+    return ((g, y, Y; params...) -> map!(i -> g(i, y; params...), Y, 1:length(y)))(
         f,
         x,
         X;
-        param = p,
+        p...,
     )
 end
-function map_tr!(f, x, X)
-    return ((g, y, Y; param) -> map!(i -> g(i, y), Y, 1:length(y)))(
-        f,
-        x,
-        X;
-        param = nothing,
-    )
-end
+# function map_tr!(f, x, X)
+#     return ((g, y, Y; param) -> map!(i -> g(i, y), Y, 1:length(y)))(
+#         f,
+#         x,
+#         X;
+#         param=nothing,
+#     )
+# end
 
 """
     lazy(funcs::Function...)
@@ -25,10 +25,13 @@ Generate methods extended to a vector instead of one of its components. A functi
 """
 function lazy(funcs::Function...)
     for f in Iterators.map(Symbol, funcs)
-        eval(:(function $f(x::V, X; param = nothing) where {V<:AbstractVector}
-            return map_tr!($f, x, X)
-        end))
-        eval(:($f(x; param = nothing) = $f(x, similar(x); param)))
+        eval(
+            :(
+                $f(x::V, X; params...) where {V<:AbstractVector} =
+                    map_tr!($f, x, X; params...)
+            ),
+        )
+        eval(:($f(x; params...) = $f(x, similar(x); params...)))
     end
     return nothing
 end
@@ -39,8 +42,13 @@ Generate methods extended to a vector instead of one of its components. A functi
 """
 function lazy_param(funcs::Function...)
     for f in Iterators.map(Symbol, funcs)
-        eval(:($f(x::V, X; param) where {V<:AbstractVector} = map_tr!($f, x, X, param)))
-        eval(:($f(x; param) = $f(x, similar(x); param)))
+        eval(
+            :(
+                $f(x::V, X; params...) where {V<:AbstractVector} =
+                    map_tr!($f, x, X; params...)
+            ),
+        )
+        eval(:($f(x; params...) = $f(x, similar(x); params...)))
     end
     return nothing
 end
@@ -88,8 +96,8 @@ end
 
 Application of an operation from the transformation layer. Used to generate more efficient code for all compositions.
 """
-@unroll function tr_in(tr, X, x, param)
+@unroll function tr_in(tr, X, x; params...)
     @unroll for i = 1:length(tr)
-        tr[i](x, @view(X[:, i]); param)
+        tr[i](x, @view(X[:, i]); params...)
     end
 end

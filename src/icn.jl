@@ -151,16 +151,11 @@ function _compose(icn::ICN)
         end
     end
 
-    function composition(
-        x;
-        X = zeros(length(x), length(funcs[1])),
-        param = nothing,
-        dom_size,
-    )
-        tr_in(Tuple(funcs[1]), X, x, param)
+    function composition(x; X = zeros(length(x), length(funcs[1])), dom_size, params...)
+        tr_in(Tuple(funcs[1]), X, x; params...)
         X[1:length(x), 1] .=
             1:length(x) .|> (i -> funcs[2][1](@view X[i, 1:length(funcs[1])]))
-        return (y -> funcs[4][1](y; param, dom_size, nvars = length(x)))(
+        return (y -> funcs[4][1](y; dom_size, nvars = length(x), params...))(
             funcs[3][1](@view X[:, 1]),
         )
     end
