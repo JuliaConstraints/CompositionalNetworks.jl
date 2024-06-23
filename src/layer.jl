@@ -74,7 +74,7 @@ end
 
 """
     generate_exclusive_operation(max_op_number)
-Generates the operations (weigths) of a layer with exclusive operations.
+Generates the operations (weights) of a layer with exclusive operations.
 """
 function generate_exclusive_operation(max_op_number)
     op = rand(1:max_op_number)
