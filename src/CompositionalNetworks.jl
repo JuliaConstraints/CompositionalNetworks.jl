@@ -8,7 +8,6 @@ import Distances
 using JuliaFormatter
 using OrderedCollections
 using Random
-using TestItemRunner
 using TestItems
 using ThreadSafeDicts
 using Unrolled
