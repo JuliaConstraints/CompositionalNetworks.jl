@@ -11,7 +11,7 @@
     )
 
     @testset "Ambiguities: CompositionalNetworks" begin
-        #     Aqua.test_ambiguities(CompositionalNetworks;)
+        Aqua.test_ambiguities(CompositionalNetworks;)
     end
 
     @testset "Piracies: CompositionalNetworks" begin
