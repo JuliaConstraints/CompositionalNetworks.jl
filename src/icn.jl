@@ -1,9 +1,9 @@
 """
-    ICN(; nvars, dom_size, param, transformation, arithmetic, aggregation, comparison)
+    ICN(; nvars, dom_size, val, transformation, arithmetic, aggregation, comparison)
 Construct an Interpretable Compositional Network, with the following arguments:
 - `nvars`: number of variable in the constraint
 - `dom_size: maximum domain size of any variable in the constraint`
-- `param`: optional parameter (default to `nothing`)
+- `val`: optional parameter (default to `nothing`)
 - `transformation`: a transformation layer (optional)
 - `arithmetic`: a arithmetic layer (optional)
 - `aggregation`: a aggregation layer (optional)
@@ -17,11 +17,11 @@ mutable struct ICN
     weights::BitVector
 
     function ICN(;
-        param = Vector{Symbol}(),
-        tr_layer = transformation_layer(param),
+        val = Vector{Symbol}(),
+        tr_layer = transformation_layer(val),
         ar_layer = arithmetic_layer(),
         ag_layer = aggregation_layer(),
-        co_layer = comparison_layer(param),
+        co_layer = comparison_layer(val),
     )
         w = generate_weights([tr_layer, ar_layer, ag_layer, co_layer])
         return new(tr_layer, ar_layer, ag_layer, co_layer, w)
@@ -107,7 +107,7 @@ function regularization(icn)
     return Σop / (Σmax + 1)
 end
 
-max_icn_length(icn = ICN(; param = [:val])) = length(icn.transformation)
+max_icn_length(icn = ICN(; val = [:val])) = length(icn.transformation)
 
 """
     _compose(icn)
@@ -116,7 +116,7 @@ Internal function called by `compose` and `show_composition`.
 function _compose(icn::ICN)
     !is_viable(icn) && (
         return (
-            (x; X = zeros(length(x), max_icn_length()), param = nothing, dom_size = 0) -> typemax(Float64)
+            (x; X = zeros(length(x), max_icn_length()), val = nothing, dom_size = 0) -> typemax(Float64)
         ),
         []
     )
@@ -154,13 +154,13 @@ function _compose(icn::ICN)
     function composition(
         x;
         X = zeros(length(x), length(funcs[1])),
-        param = nothing,
+        val = nothing,
         dom_size,
     )
-        tr_in(Tuple(funcs[1]), X, x, param)
+        tr_in(Tuple(funcs[1]), X, x, val)
         X[1:length(x), 1] .=
             1:length(x) .|> (i -> funcs[2][1](@view X[i, 1:length(funcs[1])]))
-        return (y -> funcs[4][1](y; param, dom_size, nvars = length(x)))(
+        return (y -> funcs[4][1](y; val, dom_size, nvars = length(x)))(
             funcs[3][1](@view X[:, 1]),
         )
     end

@@ -12,7 +12,7 @@
     include("genetic.jl")
 
     # # Test with manually weighted ICN
-    icn = ICN(param = [:val])
+    icn = ICN(val = [:val])
     @test max_icn_length() == 18
     show_layers(icn)
 
