@@ -7,7 +7,7 @@ hamming(x, X) = mapreduce(y -> Distances.hamming(x, y), min, X)
 """
     minkowski(x, X, p)
 """
-minkowski(x, X, p) = mapreduce(Distances.minkowski(x, y, p), min, X)
+minkowski(x, X, p) = mapreduce(y -> Distances.minkowski(x, y, p), min, X)
 
 """
     manhattan(x, X)

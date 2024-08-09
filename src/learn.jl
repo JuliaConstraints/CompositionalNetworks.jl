@@ -1,6 +1,6 @@
 abstract type AbstractOptimizer end
 
-function optimize!(args...)
+function optimize!(args...; kwargs...)
     return nothing
 end
 

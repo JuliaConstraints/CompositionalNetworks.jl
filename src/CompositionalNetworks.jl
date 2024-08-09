@@ -1,16 +1,15 @@
 module CompositionalNetworks
 
-# Usings
-using ConstraintCommons
-using ConstraintDomains
-using Dictionaries
+# imports
+import ConstraintCommons: incsert!
+import ConstraintDomains: explore
+import Dictionaries: Dictionary, set!
 import Distances
-using JuliaFormatter
-using OrderedCollections
-using Random
-using TestItems
-using ThreadSafeDicts
-using Unrolled
+import JuliaFormatter: SciMLStyle, format_text
+import OrderedCollections: LittleDict
+import Random: bitrand
+import TestItems: @testitem
+import Unrolled: @unroll
 
 export Composition
 export ICN

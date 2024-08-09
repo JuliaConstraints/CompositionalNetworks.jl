@@ -12,7 +12,6 @@ JuliaFormatter = "98e50ef6-434e-11e9-1051-2b60c6c9e899"
 OrderedCollections = "bac558e1-5e72-5ebc-8fee-abe8a469f55d"
 Random = "9a3f8284-a2c9-5f02-9a11-845980a1fd5c"
 TestItems = "1c621080-faea-4a02-84b6-bbd5e436b8fe"
-ThreadSafeDicts = "4239201d-c60e-5e0a-9702-85d713665ba7"
 Unrolled = "9602ed7d-8fef-5bc8-8597-8f21381861e8"
 
 [compat]
@@ -23,19 +22,19 @@ Distances = "0.10"
 JuliaFormatter = "1"
 OrderedCollections = "1"
 Random = "1"
-TestItemRunner = "0.2, 1"
 TestItems = "0.1, 1"
-ThreadSafeDicts = "0.1"
 Unrolled = "0.1"
-julia = "1.8"
+julia = "1.9"
 
 [extras]
 Aqua = "4c88cf16-eb10-579e-8560-4a9242c79595"
 Evolutionary = "86b6b26d-c046-49b6-aa0b-5f0f74682bd6"
+ExplicitImports = "7d51a73a-1435-4ff3-83d9-f097790105c7"
+JET = "c3a54625-cd67-489e-a8e7-0a5a0ff4e31b"
 Memoization = "6fafb56a-5788-4b4e-91ca-c0cea6611c73"
 Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
 TestItemRunner = "f8b46487-2199-4994-9208-9a1283c18c0a"
 ThreadPools = "b189fb0b-2eb5-4ed4-bc0c-d34c51242431"
 
 [targets]
-test = ["Aqua", "Evolutionary", "Memoization", "Test", "TestItemRunner", "ThreadPools"]
+test = ["Aqua", "ExplicitImports", "JET", "Evolutionary", "Memoization", "Test", "TestItemRunner", "ThreadPools"]
