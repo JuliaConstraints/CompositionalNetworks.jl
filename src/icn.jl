@@ -133,6 +133,7 @@ function _compose(icn::ICN)
 
         if exclu(layer)
             f_id = as_int(@view weights(icn)[_start:_end])
+            # @warn "debug" f_id _end _start weights(icn) (exclu(layer) ? "nbits_exclu(layer)" : "length(layer)") (@view weights(icn)[_start:_end])
             s = symbol(layer, f_id + 1)
             push!(funcs, [functions(layer)[s]])
             push!(symbols, [s])
