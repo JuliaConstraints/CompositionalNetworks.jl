@@ -17,11 +17,11 @@ mutable struct ICN
     weights::BitVector
 
     function ICN(;
-        param = Vector{Symbol}(),
-        tr_layer = transformation_layer(param),
-        ar_layer = arithmetic_layer(),
-        ag_layer = aggregation_layer(),
-        co_layer = comparison_layer(param),
+        param=Vector{Symbol}(),
+        tr_layer=transformation_layer(param),
+        ar_layer=arithmetic_layer(),
+        ag_layer=aggregation_layer(),
+        co_layer=comparison_layer(param),
     )
         w = generate_weights([tr_layer, ar_layer, ag_layer, co_layer])
         return new(tr_layer, ar_layer, ag_layer, co_layer, w)
@@ -107,7 +107,7 @@ function regularization(icn)
     return Σop / (Σmax + 1)
 end
 
-max_icn_length(icn = ICN(; param = [:val])) = length(icn.transformation)
+max_icn_length(icn=ICN(; param=[:val])) = length(icn.transformation)
 
 """
     _compose(icn)
@@ -116,7 +116,7 @@ Internal function called by `compose` and `show_composition`.
 function _compose(icn::ICN)
     !is_viable(icn) && (
         return (
-            (x; X = zeros(length(x), max_icn_length()), param = nothing, dom_size = 0) -> typemax(Float64)
+            (x; X=zeros(length(x), max_icn_length()), param=nothing, dom_size=0) -> typemax(Float64)
         ),
         []
     )
@@ -133,6 +133,7 @@ function _compose(icn::ICN)
 
         if exclu(layer)
             f_id = as_int(@view weights(icn)[_start:_end])
+            # @warn "debug" f_id _end _start weights(icn) (exclu(layer) ? "nbits_exclu(layer)" : "length(layer)") (@view weights(icn)[_start:_end])
             s = symbol(layer, f_id + 1)
             push!(funcs, [functions(layer)[s]])
             push!(symbols, [s])
@@ -151,11 +152,11 @@ function _compose(icn::ICN)
         end
     end
 
-    function composition(x; X = zeros(length(x), length(funcs[1])), dom_size, params...)
+    function composition(x; X=zeros(length(x), length(funcs[1])), dom_size, params...)
         tr_in(Tuple(funcs[1]), X, x; params...)
         X[1:length(x), 1] .=
             1:length(x) .|> (i -> funcs[2][1](@view X[i, 1:length(funcs[1])]))
-        return (y -> funcs[4][1](y; dom_size, nvars = length(x), params...))(
+        return (y -> funcs[4][1](y; dom_size, nvars=length(x), params...))(
             funcs[3][1](@view X[:, 1]),
         )
     end
