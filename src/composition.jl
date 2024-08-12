@@ -91,7 +91,7 @@ function generate(c::Composition, name, ::Val{:Julia})
         return $ag(@view X[:, 1]) |> (y -> $co(y; dom_size, nvars=length(x), params...))
     end
     """
-    return documentation * format_text(output, BlueStyle(); pipe_to_function_call = false)
+    return documentation * format_text(output, SciMLStyle(); pipe_to_function_call = false)
 end
 
 """

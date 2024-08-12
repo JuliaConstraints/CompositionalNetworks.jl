@@ -30,7 +30,12 @@ exclu(layer) = layer.exclusive
     symbol(layer, i)
 Return the i-th symbols of the operations in a given layer.
 """
-symbol(layer, i) = collect(keys(functions(layer)))[i]
+symbol(layer, i) = begin
+    if i > length(layer)
+        @info layer i functions(layer)
+    end
+    collect(keys(functions(layer)))[i]
+end
 
 """
     nbits_exclu(layer)
