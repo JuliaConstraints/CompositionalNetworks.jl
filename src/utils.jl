@@ -96,6 +96,8 @@ end
 
 Application of an operation from the transformation layer. Used to generate more efficient code for all compositions.
 """
+function tr_in end
+
 @unroll function tr_in(tr, X, x; params...)
     @unroll for i = 1:length(tr)
         tr[i](x, @view(X[:, i]); params...)
