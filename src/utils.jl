@@ -57,7 +57,7 @@ end
     as_bitvector(n::Int, max_n::Int = n)
 Convert an Int to a BitVector of minimal size (relatively to `max_n`).
 """
-function as_bitvector(n::Int, max_n::Int=n)
+function as_bitvector(n::Int, max_n::Int = n)
     nm1 = n - 1
     v = falses(ceil(Int, log2(max_n)))
     i = 0
@@ -86,7 +86,7 @@ end
     reduce_symbols(symbols, sep)
 Produce a formatted string that separates the symbols by `sep`. Used internally for `show_composition`.
 """
-function reduce_symbols(symbols, sep, parenthesis=true; prefix="")
+function reduce_symbols(symbols, sep, parenthesis = true; prefix = "")
     str = reduce((x, y) -> "$y$sep$x", map(s -> "$prefix$s", symbols))
     return parenthesis ? "[$str]" : str
 end
