@@ -58,6 +58,11 @@ co_vars_minus_var(x; nvars, params...) = co_val_minus_var(x; val = nvars)
 
 
 # Parametric layers
+"""
+    make_comparisons(param::Symbol)
+
+Generate the comparison functions for the given parameter.
+"""
 make_comparisons(param::Symbol) = make_comparisons(Val(param))
 
 function make_comparisons(::Val{:none})
