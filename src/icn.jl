@@ -163,3 +163,13 @@ function _compose(icn::ICN)
 
     return composition, symbols
 end
+
+abstract type AbstractICN end
+
+struct ICNNew{S,T} <: AbstractICN where {T <: Union{AbstractICN, Nothing}, S <: Union{AbstractVector{<:AbstractLayer}, Nothing}}
+	weights::BitVector
+	parameters::NamedTuple
+	layers::S
+	connection::Tuple{Vararg{Tuple{Vararg{Int}}}}
+	icn::T
+end
