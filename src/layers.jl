@@ -1,15 +1,20 @@
-import FunctionWrappers.FunctionWrapper
-const FW = FunctionWrapper
-
 abstract type AbstractLayer end
 
 struct LayerCore{N, Q} <: AbstractLayer
 	mutex::Bool
-    fnexprs::NamedTuple{names,T} where {names, T <: Tuple{Vararg{<:Union{Symbol, Expr}}}}
+    fnexprs::NamedTuple{names,T} where {names, T <: Tuple{Vararg{<:Union{Symbol, JLFunction}}}}
 	fn::NamedTuple{names,T} where {names, T <: Tuple{Vararg{Q}}}
 	function LayerCore(name::Symbol, mutex::Bool, Q, fnexprs)
 		@assert Q <: FunctionWrapper
-		new{name, Q}(mutex, fnexprs, map(x -> Q(eval(x)), fnexprs))
+		fnexprs = map(x -> JLFunction(x), fnexprs)
+		for jlexp in fnexprs
+			if isnothing(jlexp.kwargs)
+				jlexp.kwargs = [:(params...)]
+			else
+				push!(jlexp.kwargs, :(params...))
+			end
+		end
+		new{name, Q}(mutex, fnexprs, map(x -> Q(eval(codegen_ast(x))), fnexprs))
 	end
 end
 

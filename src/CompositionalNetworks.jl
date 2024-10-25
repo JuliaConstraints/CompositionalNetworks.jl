@@ -10,6 +10,9 @@ import OrderedCollections: LittleDict
 import Random: bitrand
 import TestItems: @testitem
 import Unrolled: @unroll
+import FunctionWrappers.FunctionWrapper
+const FW = FunctionWrapper
+import ExproniconLite: JLFunction, has_symbol
 
 export Composition
 export ICN

@@ -166,10 +166,56 @@ end
 
 abstract type AbstractICN end
 
+function extract_params(fnexprs::AbstractVector{JLFunction}, parameters::NamedTuple)
+	v = falses(length(fnexprs))
+	keynames = keys(parameters)
+	for i in 1:length(fnexprs)
+		exprs = fnexprs[i].kwargs
+		v[i] = if exprs == [:(params...)]
+			true
+		else
+			flag = falses(length(exprs))
+			for j in 1:length(exprs)-1
+				for k in 1:length(keynames)
+					has_symbol(exprs[j], keynames[k]) && (flag[j] = true)
+				end
+			end
+			!(false in flag)
+		end
+	end
+	return findall(v)
+end
+
 struct ICNNew{S,T} <: AbstractICN where {T <: Union{AbstractICN, Nothing}, S <: Union{AbstractVector{<:AbstractLayer}, Nothing}}
-	weights::BitVector
+	weights::AbstractVector{Bool}
 	parameters::NamedTuple
 	layers::S
 	connection::Tuple{Vararg{Tuple{Vararg{Int}}}}
 	icn::T
+	function ICN(; weights = BitVector[], parameters = (), layers = nothing, connection = ((),), icn = nothing)
+		len = [length(layer.fn) for layer in layers]
+		if isempty(weights)
+			ind_weight = Array{BitVector}(undef, length(len))
+			for (i,layer) in enumerate(layers)
+				l = length(layer.fn)
+				ind_weight[i] = if !layer.mutex
+					BitVector(rand(Bool, l))
+				else
+					b = falses(l)
+					b[rand(1:l)] = true
+					b
+				end
+			end
+			weights = vcat(ind_weight...)
+		end
+		@assert length(weights) === sum(len)
+		consider = Int[]
+		index = 0
+		for (i, layer) in enumerate(layers)
+			parindex = extract_params(layer.fnexprs, parameters)
+			append!(consider, parindex .+ index)
+			index += len[i]
+		end
+		new{typeof(layers), typeof(icn)}(@view(weights[consider]), parameters, layers, connection, icn)
+	end
 end
