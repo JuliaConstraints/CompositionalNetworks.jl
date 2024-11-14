@@ -1,29 +1,41 @@
 abstract type AbstractLayer end
 
-struct LayerCore{N, Q} <: AbstractLayer
+struct LayerCore <: AbstractLayer
+	name::Symbol
 	mutex::Bool
+	argtype::Pair
     fnexprs::NamedTuple{names,T} where {names, T <: Tuple{Vararg{<:Union{Symbol, JLFunction}}}}
-	fn::NamedTuple{names,T} where {names, T <: Tuple{Vararg{Q}}}
-	function LayerCore(name::Symbol, mutex::Bool, Q, fnexprs)
-		@assert Q <: FunctionWrapper
+	fn::NamedTuple{names,T} where {names, T <: Tuple{Vararg{Function}}}
+	function LayerCore(name::Symbol, mutex::Bool, Q::Pair, fnexprs)
 		fnexprs = map(x -> JLFunction(x), fnexprs)
 		for jlexp in fnexprs
+			#=
+			if isnothing(jlexp.rettype)
+				jlexp.rettype = Q[2]
+			end
+			=#
+			for (i, arg) in enumerate(jlexp.args)
+				if arg isa Symbol
+					jlexp.args[i] = Expr(:(::), arg, Q[1][i])
+				end
+			end
 			if isnothing(jlexp.kwargs)
 				jlexp.kwargs = [:(params...)]
 			else
 				push!(jlexp.kwargs, :(params...))
 			end
 		end
-		new{name, Q}(mutex, fnexprs, map(x -> Q(eval(codegen_ast(x))), fnexprs))
+		new(name, mutex, Q, fnexprs, map(x -> eval(codegen_ast(x)), fnexprs))
 	end
 end
+
 
 const Transformation = LayerCore(
 	:Transformation,
 	false,
-	FW{AbstractVector{<:Real}, Tuple{AbstractVector{<:Real}}},
+	(:(AbstractVector{<:Real}),) => AbstractVector{<:Real},
 	(
-		id = :identity,
+		id = :((x) -> identity(x)),
 		count_e_r = :((x) -> map(i -> count(t -> t == x[i], @view(x[i+1:end])), eachindex(x))),
 		count_l_r = :((x) -> map(i -> count(t -> t < x[i], @view(x[i+1:end])), eachindex(x))),
 		count_g_r = :((x) -> map(i -> count(t -> t > x[i], @view(x[i+1:end])), eachindex(x))),
@@ -47,28 +59,33 @@ const Transformation = LayerCore(
 const Arithmetic = LayerCore(
 	:Arithmetic,
 	true,
-	FW{AbstractVector{<:Real}, Tuple{AbstractVector{<:AbstractVector{<:Real}}}},
+	(:(AbstractVector{<:AbstractVector{<:Real}}),) => AbstractVector{Int},
 	(
-		
+		sum = :((x) -> sum(x)),
+		product = :((x) -> reduce(.*, x))
 	)
 )
 
 const Aggregation = LayerCore(
 	:Aggregation,
 	true,
-	FW{<:Real, Tuple{AbstractVector{<:Real}}},
+	(:(AbstractVector{<:Real}),) => T where T <: Real,
 	(
-		
+		sum = :((x) -> sum(x)),
+		count_0 = :((x) -> count(i -> i > 0, x))
 	)
 )
 
 const Comparison = LayerCore(
 	:Comparison,
 	true,
-	FW{<:Real, Tuple{<:Real}},
+	(:(Real),) => Real,
 	(
-		
+		id = :((x) -> identity(x)),
+		abs_param = :((x; param) -> abs(x - param)),
+		max_param_g = :((x; param) -> maximum((0, param - x))),
+		max_param_l = :((x; param) -> maximum((0, x - param))),
 	)
 )
 
-
+# TODO: Add more operations in comparison
