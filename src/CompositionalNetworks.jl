@@ -2,7 +2,7 @@ module CompositionalNetworks
 
 # imports
 import ConstraintCommons: incsert!, extract_parameters
-import ConstraintDomains: explore
+import ConstraintDomains: explore, SetDomain
 import Dictionaries: Dictionary, set!
 import Distances
 import JuliaFormatter: SciMLStyle, format_text
@@ -10,7 +10,7 @@ import OrderedCollections: LittleDict
 import Random: bitrand
 import TestItems: @testitem
 import Unrolled: @unroll
-import ExproniconLite: JLFunction, has_symbol
+import ExproniconLite: JLFunction, has_symbol, codegen_ast
 
 #=
 export Composition
