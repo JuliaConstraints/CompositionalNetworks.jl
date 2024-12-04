@@ -1,7 +1,7 @@
 module CompositionalNetworks
 
 # imports
-import ConstraintCommons: incsert!
+import ConstraintCommons: incsert!, extract_parameters
 import ConstraintDomains: explore
 import Dictionaries: Dictionary, set!
 import Distances
@@ -62,6 +62,10 @@ include("composition.jl")
 include("learn.jl")
 =#
 
+include("learn_and_explore.jl")
+include("configuration.jl")
 include("layers.jl")
 include("icn.jl")
+include("metrics.jl")
+
 end

@@ -10,4 +10,4 @@ end
 
 const Configuration{T} = T where T <: AbstractSolution # alias
 
-const Configurations{N} = NTuple{N, Configuration}
+const Configurations{N} = Set{<:Configuration}

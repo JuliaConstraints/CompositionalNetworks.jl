@@ -1,3 +1,4 @@
+#=
 """
     generate_population(icn, pop_size
 Generate a pôpulation of weights (individuals) for the genetic algorithm weighting `icn`.
@@ -141,4 +142,48 @@ function CompositionalNetworks.optimize!(
         optimizer.memoize,
         parameters...,
     )
+end
+=#
+
+function generate_population(icn, pop_size)
+	population = Vector{BitVector}()
+	foreach(_ -> push!(population, falses(length(icn.weights))), 1:pop_size)
+	return population
+end
+
+function optimize(
+	icn::T,
+	configurations::Configurations,
+	# dom_size,
+	metric_function::Function,
+	population_size,
+	iterations; samples = nothing, memoize = false, parameters...) where T <: AbstractICN
+
+	# @info icn.weights
+	
+	# inplace = zeros(dom_size, 18)
+	solution_iter = solutions(configurations)
+	non_solutions = solutions(configurations; non_solutions=true)
+	solution_vector = [i.x for i in solution_iter]
+	
+	function fitness(w)
+		apply!(icn, w)
+		return sum(
+			x -> abs(evaluate(icn, x; parameters...) - metric_function(x.x, solution_vector)), configurations
+		)
+	end
+
+	_icn_ga = GA(;
+		populationSize = population_size,
+		crossoverRate = 0.8,
+		epsilon = 0.05,
+		selection = tournament(2),
+		crossover = SPX,
+		mutation = flip,
+		mutationRate = 1.0
+	)
+
+	pop = generate_population(icn, population_size)
+	r = Evolutionary.optimize(fitness, pop, _icn_ga, Evolutionary.Options(; iterations))
+	return apply!(icn, Evolutionary.minimizer(r))
 end

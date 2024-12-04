@@ -1,5 +1,6 @@
 abstract type AbstractICN end
 
+#=
 function extract_params(fnexprs, parameters)
 	v = falses(length(fnexprs))
 	keynames = keys(parameters)
@@ -19,6 +20,7 @@ function extract_params(fnexprs, parameters)
 	end
 	return findall(v)
 end
+=#
 
 function check_weights_validity(icn::AbstractICN, weights::AbstractVector{Bool})
     @assert length(weights) === sum(icn.weightlen)
@@ -45,31 +47,34 @@ function apply!(icn::AbstractICN, weights::BitVector)::Union{<:AbstractICN,Nothi
     end
 end
 
-function evaluate(icn::AbstractICN, config::Configuration)
+function evaluate(icn::AbstractICN, config::NonSolution; parameters...)
     input = config.x
-    index = 0
-    ind = icn.weights.indices
-    icn.parameters.num_variables.x = length(config)
-    connected_layers = [icn.layers[i] for i in icn.connection]
-    for (i, layer) in enumerate(connected_layers)
-        off = (1:icn.weightlen[i]) .+ index
-        considerfns = values(layer.fn)[ind[off]]
-        output = if layer.mutex
-            considerfns[findfirst(icn.weights[off])](input)
-        else
-            o = []
-            num_size = 10
-            for j in considerfns[findall(icn.weights[off])]
-                push!(o, j(input))
-            end
-            o
-        end
+    #   @warn icn.weights icn.weightlen
+    weightoffset = 1
+    lengthoff = 0
+    for (i, layer) in enumerate(icn.layers)
+        weightrange = weightoffset:(weightoffset+icn.weightlen[i]-1)
+        considerweights = icn.weights.indices[1][weightrange] .- lengthoff
 
-        index += icn.weightlen[i]
-        input = output
+        # @error considerweights findall(icn.weights[weightrange]) weightrange
+        considerweights = considerweights[findall(icn.weights[weightrange])]
+
+        considerfns = [layer.fn[i] for i in considerweights]
+        # output = nothing
+        # @info layer.name output layer.argtype[1] layer.argtype[2] input considerweights
+        input = layer.mutex ? considerfns[1](input; parameters...) : [j(input; parameters...) for j in considerfns]
+        # @warn input
+        #input = output
+        weightoffset += icn.weightlen[i]
+        lengthoff += length(layer.fn)
     end
-    return output
+    return input
 end
+
+function evaluate(icn::AbstractICN, config::Solution; parameters...)
+    return 0
+end
+
 
 function evaluate(icn::Nothing, config::Configuration)
     return Inf
@@ -80,19 +85,35 @@ end
 
 struct ICN{S,T} <: AbstractICN where {T <: Union{AbstractICN, Nothing}, S <: Union{AbstractVector{<:AbstractLayer}, Nothing}}
 	weights::AbstractVector{Bool}
-	parameters::NamedTuple
+	parmeters::Vector{Symbol}
 	layers::S
-	connection::Union{Tuple{Vararg{Tuple{Vararg{Int}}}}, Tuple{Vararg{Int}}}
+	connection::Vector{UInt32}
 	weightlen::AbstractVector{Int}
 	icn::T
-	function ICN(; weights = BitVector[], parameters = (), layers = [Transformation, Arithmetic, Aggregation, Comparison], connection = (1,2,3,4), icn = nothing)
-		
+	function ICN(;weights = BitVector[], parameters = Symbol[], layers = nothing, connection = UInt32[], icn = nothing)
 		len = [length(layer.fn) for layer in layers]
-		parindexes = [extract_params(layer.fnexprs, parameters) for layer in layers]
+
+		parindexes = Vector{Int}[]
+		for layer in layers
+			lfn = Int[]
+			for (j, fn) in enumerate(layer.fn)
+				par = extract_parameters(fn)
+				if !isempty(par)
+					if intersect(par[1], parameters) == par[1]
+						push!(lfn, j)
+					end
+				else
+					push!(lfn, j)
+				end
+			end
+			push!(parindexes, lfn)
+		end
+		
+		# parindexes = [extract_params(layer.fnexprs, parameters) for layer in layers]
 		weightlen = length.(parindexes)
 		
 		weights = if isempty(weights)
-			ind_weight = Array{BitVector}(undef, length(len))
+			ind_weight = Array{BitVector}(undef, length(layers))
 			# initialization of weights
 			for (i,layer) in enumerate(layers)
 				l = length(layer.fn)
@@ -101,7 +122,6 @@ struct ICN{S,T} <: AbstractICN where {T <: Union{AbstractICN, Nothing}, S <: Uni
 				else
 					b = falses(l)
 					b[rand(parindexes[i])] = true
-					@info b
 					b
 				end
 			end
@@ -120,7 +140,7 @@ struct ICN{S,T} <: AbstractICN where {T <: Union{AbstractICN, Nothing}, S <: Uni
 			####################
 			weights
 		end
-		@warn weights
+		# @warn weights
 		@assert length(weights) === sum(len)
 		index, jindex = 0, 0
 		consider = Array{Int}(undef, sum(length.(parindexes)))
@@ -129,13 +149,14 @@ struct ICN{S,T} <: AbstractICN where {T <: Union{AbstractICN, Nothing}, S <: Uni
 			index += len[i]
 			jindex += length(parindexes[i])
 		end
-		@error consider
+		# @error consider
+		# @info parameters
 		new{typeof(layers), typeof(icn)}(@view(weights[consider]), parameters, layers, connection, weightlen, icn)
 	end
 end
 
-icn(parameters) = ICN(
-	parameters = parameters,
-	layers = [Transformation, Arithmetic, Aggregation, Comparison],
-	connection = (1,2,3,4),
+icn(parameters::Vector{Symbol}) = ICN(
+    parameters=parameters,
+    layers=[Transformation, Arithmetic, Aggregation, Comparison],
+    connection=[1, 2, 3, 4],
 )
