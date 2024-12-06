@@ -1,3 +1,5 @@
+export AbstractICN, check_weights_validity, generate_new_valid_weights, apply!, evaluate, ICN, create_icn
+
 abstract type AbstractICN end
 
 #=
@@ -22,7 +24,7 @@ function extract_params(fnexprs, parameters)
 end
 =#
 
-function check_weights_validity(icn::AbstractICN, weights::AbstractVector{Bool})
+function check_weights_validity(icn::T, weights::AbstractVector{Bool}) where T <: AbstractICN
     @assert length(weights) === sum(icn.weightlen)
     index = 0
     for (i, layer) in enumerate(icn.layers)
@@ -36,6 +38,29 @@ function check_weights_validity(icn::AbstractICN, weights::AbstractVector{Bool})
         index += icn.weightlen[i]
     end
     return true
+end
+
+function generate_new_valid_weights(layers::T, weightlen::Vector{Int}) where T <: AbstractVector{<:AbstractLayer}
+	weights = Array{Bool}(undef, sum(weightlen))
+	offset = 1
+	for (i, layer) in enumerate(layers)
+		index = offset:(offset+weightlen[i]-1)
+		# @info index weightlen[i] weights[offset]
+		weights[index] .= if layer.mutex
+			temp = falses(weightlen[i])
+			temp[rand(1:length(temp))] = true
+			temp
+		else
+			rand(Bool, weightlen[i])
+		end
+		offset += weightlen[i]
+	end
+	return weights
+end
+
+function generate_new_valid_weights!(icn::T) where T <: AbstractICN
+	icn.weights .= generate_new_valid_weights(icn.layers, icn.weightlen)
+	nothing
 end
 
 function apply!(icn::AbstractICN, weights::BitVector)::Union{<:AbstractICN,Nothing}
@@ -85,12 +110,12 @@ end
 
 struct ICN{S,T} <: AbstractICN where {T <: Union{AbstractICN, Nothing}, S <: Union{AbstractVector{<:AbstractLayer}, Nothing}}
 	weights::AbstractVector{Bool}
-	parmeters::Vector{Symbol}
+	parmeters::Set{Symbol}
 	layers::S
 	connection::Vector{UInt32}
 	weightlen::AbstractVector{Int}
 	icn::T
-	function ICN(;weights = BitVector[], parameters = Symbol[], layers = nothing, connection = UInt32[], icn = nothing)
+	function ICN(;weights = BitVector[], parameters = Symbol[], layers = [Transformation, Arithmetic, Aggregation, Comparison], connection = UInt32[1,2,3,4], icn = nothing)
 		len = [length(layer.fn) for layer in layers]
 
 		parindexes = Vector{Int}[]
@@ -111,21 +136,20 @@ struct ICN{S,T} <: AbstractICN where {T <: Union{AbstractICN, Nothing}, S <: Uni
 		
 		# parindexes = [extract_params(layer.fnexprs, parameters) for layer in layers]
 		weightlen = length.(parindexes)
+
+		index, jindex = 0, 0
+		consider = Array{Int}(undef, sum(length.(parindexes)))
+		for (i, layer) in enumerate(layers)
+			consider[(1:length(parindexes[i])) .+ jindex] .= parindexes[i] .+ index
+			index += len[i]
+			jindex += length(parindexes[i])
+		end
 		
 		weights = if isempty(weights)
-			ind_weight = Array{BitVector}(undef, length(layers))
-			# initialization of weights
-			for (i,layer) in enumerate(layers)
-				l = length(layer.fn)
-				ind_weight[i] = if !(layer.mutex)
-					BitVector(rand(Bool, l))
-				else
-					b = falses(l)
-					b[rand(parindexes[i])] = true
-					b
-				end
-			end
-			vcat(ind_weight...)
+			w = falses(sum(len))
+			#@info consider w generate_valid_weights(layers, weightlen)
+			w[consider] .= generate_new_valid_weights(layers, weightlen)
+			w
 		else
 			# Checking the provided weights for if they match mutex or not
 			# TODO: Ask Jefu if this is required or not
@@ -140,23 +164,19 @@ struct ICN{S,T} <: AbstractICN where {T <: Union{AbstractICN, Nothing}, S <: Uni
 			####################
 			weights
 		end
-		# @warn weights
+		# @warn weights weights[consider]
 		@assert length(weights) === sum(len)
-		index, jindex = 0, 0
-		consider = Array{Int}(undef, sum(length.(parindexes)))
-		for (i, layer) in enumerate(layers)
-			consider[(1:length(parindexes[i])) .+ jindex] .= parindexes[i] .+ index
-			index += len[i]
-			jindex += length(parindexes[i])
-		end
+
 		# @error consider
 		# @info parameters
-		new{typeof(layers), typeof(icn)}(@view(weights[consider]), parameters, layers, connection, weightlen, icn)
+		new{typeof(layers), typeof(icn)}(@view(weights[consider]), Set(parameters), layers, connection, weightlen, icn)
 	end
 end
 
-icn(parameters::Vector{Symbol}) = ICN(
+create_icn(icn::ICN, parameters::Vector{Symbol}) = ICN(
+    weights = icn.weights
     parameters=parameters,
-    layers=[Transformation, Arithmetic, Aggregation, Comparison],
-    connection=[1, 2, 3, 4],
+    layers=icn.layers,
+    connection=icn.connection,
+	icn=icn.icn
 )

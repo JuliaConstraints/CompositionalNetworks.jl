@@ -1,3 +1,5 @@
+export AbstractSolution, Solution, NonSolution, Configuration, Configurations, solutions
+
 abstract type AbstractSolution end
 
 struct Solution <: AbstractSolution

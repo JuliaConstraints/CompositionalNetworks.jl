@@ -1,3 +1,5 @@
+export AbstractLayer, Transformation, Aggregation, LayerCore, Arithmetic, Comparison
+
 abstract type AbstractLayer end
 
 struct LayerCore <: AbstractLayer
