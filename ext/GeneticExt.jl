@@ -24,7 +24,7 @@ function CompositionalNetworks.optimize!(
 	configurations::Configurations,
 	# dom_size,
 	metric_function::Function,
-	optimzer_config::GeneticOptimizer; samples = nothing, memoize = false, parameters...) where T <: AbstractICN
+	optimizer_config::GeneticOptimizer; samples = nothing, memoize = false, parameters...) where T <: AbstractICN
 
 	# @info icn.weights
 	
@@ -34,9 +34,9 @@ function CompositionalNetworks.optimize!(
 	solution_vector = [i.x for i in solution_iter]
 	
 	function fitness(w)
-		apply!(icn, w)
+		weights_validity = CompositionalNetworks.apply!(icn, w)
 		return sum(
-			x -> abs(evaluate(icn, x; parameters...) - metric_function(x.x, solution_vector)), configurations
+			x -> abs(evaluate(icn, x; weights_validity, parameters...) - metric_function(x.x, solution_vector)), configurations
 		)
 	end
 
@@ -51,8 +51,8 @@ function CompositionalNetworks.optimize!(
 	)
 
 	pop = generate_population(icn, optimizer_config.pop_size)
-	r = Evolutionary.optimize(fitness, pop, _icn_ga, Evolutionary.Options(; optimizer_config.local_iters))
-	return apply!(icn, Evolutionary.minimizer(r))
+	r = Evolutionary.optimize(fitness, pop, _icn_ga, Evolutionary.Options(; iterations=optimizer_config.local_iter))
+	return CompositionalNetworks.apply!(icn, Evolutionary.minimizer(r))
 end
 
 end

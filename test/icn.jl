@@ -53,5 +53,5 @@
 
     config_test = generate_configurations(allunique, [domain([1, 2, 3]), domain([9, 10, 11, 12]), domain([4, 5, 6, 7])])
     
-    optimize(test_icn, config_test, hamming, 64, 64)
+    @info optimize(test_icn, config_test, hamming, 64, 64)
 end

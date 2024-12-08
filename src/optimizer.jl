@@ -10,4 +10,6 @@ struct GeneticOptimizer <: AbstractOptimizer
     sampler::Union{Nothing,Function}
 end
 
-function optimize! end
+function optimize!(icn, configurations, metric_function, optimizer_config; parameters...)
+    error("No backend loaded")
+end

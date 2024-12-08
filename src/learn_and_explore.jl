@@ -19,7 +19,7 @@ function explore_learn(
     end
 
     dom_size = maximum(length, domains)
-    num_variables = length(configurations[1].x)
+    num_variables = length(rand(configurations).x)
     return optimize!(
         icn,
         configurations,

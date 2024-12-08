@@ -24,21 +24,24 @@ function extract_params(fnexprs, parameters)
 end
 =#
 
-function check_weights_validity(icn::T, weights::AbstractVector{Bool}) where T <: AbstractICN
-    @assert length(weights) === sum(icn.weightlen)
-    index = 0
-    for (i, layer) in enumerate(icn.layers)
-        if layer.mutex
-            sum = 0
-            for j in weights[(1:icn.weightlen[i]).+index]
-                sum += j
-                sum > 1 && return false
-            end
-        end
-        index += icn.weightlen[i]
-    end
-    return true
-end
+	function check_weights_validity(icn::AbstractICN, weights::AbstractVector{Bool})
+		@assert length(weights) === sum(icn.weightlen)
+		offset = 1
+		for (i, layer) in enumerate(icn.layers)
+			index = offset:(offset+icn.weightlen[i]-1)
+			
+			flag = if layer.mutex
+				sum(icn.weights[index]) == 1
+			else
+				sum(icn.weights[index]) >= 1
+			end
+			if !flag
+				return false
+			end
+			offset += icn.weightlen[i]
+		end
+		return true
+	end
 
 function generate_new_valid_weights(layers::T, weightlen::Vector{Int}) where T <: AbstractVector{<:AbstractLayer}
 	weights = Array{Bool}(undef, sum(weightlen))
@@ -63,47 +66,48 @@ function generate_new_valid_weights!(icn::T) where T <: AbstractICN
 	nothing
 end
 
-function apply!(icn::AbstractICN, weights::BitVector)::Union{<:AbstractICN,Nothing}
-    icn.weights .= weights
-    return if check_weights_validity(icn, weights)
-        icn
-    else
-        nothing
-    end
-end
+	function apply!(icn::AbstractICN, weights::BitVector)::Bool
+		icn.weights .= weights
+		return check_weights_validity(icn, weights)
+	end
 
-function evaluate(icn::AbstractICN, config::NonSolution; parameters...)
-    input = config.x
-    #   @warn icn.weights icn.weightlen
-    weightoffset = 1
-    lengthoff = 0
-    for (i, layer) in enumerate(icn.layers)
-        weightrange = weightoffset:(weightoffset+icn.weightlen[i]-1)
-        considerweights = icn.weights.indices[1][weightrange] .- lengthoff
-
-        # @error considerweights findall(icn.weights[weightrange]) weightrange
-        considerweights = considerweights[findall(icn.weights[weightrange])]
-
-        considerfns = [layer.fn[i] for i in considerweights]
-        # output = nothing
-        # @info layer.name output layer.argtype[1] layer.argtype[2] input considerweights
-        input = layer.mutex ? considerfns[1](input; parameters...) : [j(input; parameters...) for j in considerfns]
-        # @warn input
-        #input = output
-        weightoffset += icn.weightlen[i]
-        lengthoff += length(layer.fn)
-    end
-    return input
-end
+	function evaluate(icn::AbstractICN, config::NonSolution; weights_validity = true, parameters...)
+		if weights_validity
+			input = config.x
+			# @warn icn.weights icn.weightlen
+			weightoffset = 1
+			lengthoff = 0
+			for (i, layer) in enumerate(icn.layers)
+				weightrange = weightoffset:(weightoffset+icn.weightlen[i]-1)
+				considerweights = icn.weights.indices[1][weightrange] .- lengthoff
+	
+				# @error considerweights findall(icn.weights[weightrange]) weightrange
+				considerweights = considerweights[findall(icn.weights[weightrange])]
+				
+				considerfns = [layer.fn[i] for i in considerweights]
+				output = nothing
+				# @info layer.name output layer.argtype[1] layer.argtype[2] input considerweights layer.mutex considerfns
+				input = layer.mutex ? considerfns[1](input; parameters...) : [j(input; parameters...) for j in considerfns]
+				# @warn "What?" input
+				#input = output
+				weightoffset += icn.weightlen[i]
+				lengthoff += length(layer.fn)
+			end
+			return Float64(input)
+		else
+			return Inf
+		end
+	end
 
 function evaluate(icn::AbstractICN, config::Solution; parameters...)
     return 0
 end
 
-
+#=
 function evaluate(icn::Nothing, config::Configuration)
     return Inf
 end
+=#
 
 (icn::AbstractICN)(weights::BitVector) = apply!(icn, weights)
 (icn::Union{Nothing,AbstractICN})(config::Configuration) = evaluate(icn, config)
@@ -174,7 +178,7 @@ struct ICN{S,T} <: AbstractICN where {T <: Union{AbstractICN, Nothing}, S <: Uni
 end
 
 create_icn(icn::ICN, parameters::Vector{Symbol}) = ICN(
-    weights = icn.weights
+    weights = icn.weights,
     parameters=parameters,
     layers=icn.layers,
     connection=icn.connection,

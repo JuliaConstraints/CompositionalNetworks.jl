@@ -31,7 +31,6 @@ struct LayerCore <: AbstractLayer
 	end
 end
 
-
 const Transformation = LayerCore(
 	:Transformation,
 	false,
@@ -44,13 +43,13 @@ const Transformation = LayerCore(
 		count_e_l = :((x) -> map(i -> count(t -> t == x[i], @view(x[1:i-1])), eachindex(x))),
 		count_l_l = :((x) -> map(i -> count(t -> t < x[i], @view(x[1:i-1])), eachindex(x))),
 		count_g_l = :((x) -> map(i -> count(t -> t > x[i], @view(x[1:i-1])), eachindex(x))),
-		count_e_val = :((x; val = 0) -> map(i -> count(t -> t == i + val, x), x)),
-		count_l_val = :((x; val = 0) -> map(i -> count(t -> t < i + val, x), x)),
-		count_g_val = :((x; val = 0) -> map(i -> count(t -> t > i + val, x))),
+		count_e_val = :((x; val = 0) -> map(i -> count(t -> t == (i + val), x), x)),
+		count_l_val = :((x; val = 0) -> map(i -> count(t -> t < (i + val), x), x)),
+		count_g_val = :((x; val = 0) -> map(i -> count(t -> t > (i + val), x), x)),
 		max_val_pos = :((x; val = 0) -> map(i -> max(0, i - val), x)),
 		max_val_neg = :((x; val = 0) -> map(i -> max(0, val - i), x)),
-		max_pos = :((x) -> map(i -> max(0, x[i] - x[i+1]), eachindex(x))),
-		max_neg = :((x) -> map(i -> max(0, x[i+1] - x[i]), eachindex(x))),
+		max_pos = :((x) -> map(i -> i == length(x) ? 0 : max(0, x[i] - x[i+1]), eachindex(x[1:end]))),
+		max_neg = :((x) -> map(i -> i == length(x) ? 0 : max(0, x[i+1] - x[i]), eachindex(x[1:end]))),
 		count_e = :((x) -> map(i -> count(t -> t == i, x), x)),
 		count_l = :((x) -> map(i -> count(t -> t < i, x), x)),
 		count_g = :((x) -> map(i -> count(t -> t > i, x), x)),
@@ -84,9 +83,9 @@ const Comparison = LayerCore(
 	(:(Real),) => Real,
 	(
 		id = :((x) -> identity(x)),
-		abs_param = :((x; param) -> abs(x - param)),
-		max_param_g = :((x; param) -> maximum((0, param - x))),
-		max_param_l = :((x; param) -> maximum((0, x - param))),
+		abs_param = :((x; val) -> abs(x - val)),
+		max_param_g = :((x; val) -> maximum((0, val - x))),
+		max_param_l = :((x; val) -> maximum((0, x - val))),
 	)
 )
 
