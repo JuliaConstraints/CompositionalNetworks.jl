@@ -7,7 +7,7 @@ using Test
 using TestItemRunner
 
 @testset "Package tests: ConstraintCommons" begin
-#    include("Aqua.jl")
+   include("Aqua.jl")
 #    include("ExplicitImports.jl")
 #    include("JET.jl")
 #    include("TestItemRunner.jl")
