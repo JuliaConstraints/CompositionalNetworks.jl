@@ -37,23 +37,23 @@ const Transformation = LayerCore(
 	(:(AbstractVector{<:Real}),) => AbstractVector{<:Real},
 	(
 		id = :((x) -> identity(x)),
-		count_e_r = :((x) -> map(i -> count(t -> t == x[i], @view(x[i+1:end])), eachindex(x))),
-		count_l_r = :((x) -> map(i -> count(t -> t < x[i], @view(x[i+1:end])), eachindex(x))),
-		count_g_r = :((x) -> map(i -> count(t -> t > x[i], @view(x[i+1:end])), eachindex(x))),
-		count_e_l = :((x) -> map(i -> count(t -> t == x[i], @view(x[1:i-1])), eachindex(x))),
-		count_l_l = :((x) -> map(i -> count(t -> t < x[i], @view(x[1:i-1])), eachindex(x))),
-		count_g_l = :((x) -> map(i -> count(t -> t > x[i], @view(x[1:i-1])), eachindex(x))),
-		count_e_val = :((x; val = 0) -> map(i -> count(t -> t == (i + val), x), x)),
-		count_l_val = :((x; val = 0) -> map(i -> count(t -> t < (i + val), x), x)),
-		count_g_val = :((x; val = 0) -> map(i -> count(t -> t > (i + val), x), x)),
-		max_val_pos = :((x; val = 0) -> map(i -> max(0, i - val), x)),
-		max_val_neg = :((x; val = 0) -> map(i -> max(0, val - i), x)),
-		max_pos = :((x) -> map(i -> i == length(x) ? 0 : max(0, x[i] - x[i+1]), eachindex(x[1:end]))),
-		max_neg = :((x) -> map(i -> i == length(x) ? 0 : max(0, x[i+1] - x[i]), eachindex(x[1:end]))),
-		count_e = :((x) -> map(i -> count(t -> t == i, x), x)),
-		count_l = :((x) -> map(i -> count(t -> t < i, x), x)),
-		count_g = :((x) -> map(i -> count(t -> t > i, x), x)),
-		count_ge_le_val = :((x; val = 0) -> map(i -> count(t -> t >= i && t <= i + val, x), x))
+		count_equal_right = :((x) -> map(i -> count(t -> t == x[i], @view(x[i+1:end])), eachindex(x))),
+		count_less_right = :((x) -> map(i -> count(t -> t < x[i], @view(x[i+1:end])), eachindex(x))),
+		count_great_right = :((x) -> map(i -> count(t -> t > x[i], @view(x[i+1:end])), eachindex(x))),
+		count_equal_left = :((x) -> map(i -> count(t -> t == x[i], @view(x[1:i-1])), eachindex(x))),
+		count_less_left = :((x) -> map(i -> count(t -> t < x[i], @view(x[1:i-1])), eachindex(x))),
+		count_great_left = :((x) -> map(i -> count(t -> t > x[i], @view(x[1:i-1])), eachindex(x))),
+		count_equal_val = :((x; val = 0) -> map(i -> count(t -> t == (i + val), x), x)),
+		count_less_val = :((x; val = 0) -> map(i -> count(t -> t < (i + val), x), x)),
+		count_great_val = :((x; val = 0) -> map(i -> count(t -> t > (i + val), x), x)),
+		var_minus_val = :((x; val = 0) -> map(i -> max(0, i - val), x)),
+		val_minus_var = :((x; val = 0) -> map(i -> max(0, val - i), x)),
+		contiguous_vars_minus = :((x) -> map(i -> i == length(x) ? 0 : max(0, x[i] - x[i+1]), eachindex(x[1:end]))),
+		contiguous_vars_minus_rev = :((x) -> map(i -> i == length(x) ? 0 : max(0, x[i+1] - x[i]), eachindex(x[1:end]))),
+		count_equal = :((x) -> map(i -> count(t -> t == i, x), x)),
+		count_less = :((x) -> map(i -> count(t -> t < i, x), x)),
+		count_great = :((x) -> map(i -> count(t -> t > i, x), x)),
+		count_bounding_val = :((x; val = 0) -> map(i -> count(t -> t >= i && t <= i + val, x), x))
 	)
 )
 
@@ -73,7 +73,7 @@ const Aggregation = LayerCore(
 	(:(AbstractVector{<:Real}),) => T where T <: Real,
 	(
 		sum = :((x) -> sum(x)),
-		count_0 = :((x) -> count(i -> i > 0, x))
+		count_positive = :((x) -> count(i -> i > 0, x))
 	)
 )
 
@@ -83,9 +83,9 @@ const Comparison = LayerCore(
 	(:(Real),) => Real,
 	(
 		id = :((x) -> identity(x)),
-		abs_param = :((x; val) -> abs(x - val)),
-		max_param_g = :((x; val) -> maximum((0, val - x))),
-		max_param_l = :((x; val) -> maximum((0, x - val))),
+		abs_val = :((x; val) -> abs(x - val)),
+		val_minus_var = :((x; val) -> maximum((0, val - x))),
+		var_minus_val = :((x; val) -> maximum((0, x - val))),
 	)
 )
 
