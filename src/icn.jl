@@ -110,7 +110,7 @@ end
 =#
 
 (icn::AbstractICN)(weights::BitVector) = apply!(icn, weights)
-(icn::Union{Nothing,AbstractICN})(config::Configuration) = evaluate(icn, config)
+(icn::AbstractICN)(config::Configuration) = evaluate(icn, config)
 
 struct ICN{S,T} <: AbstractICN where {T<:Union{AbstractICN,Nothing},S<:Union{AbstractVector{<:AbstractLayer},Nothing}}
     weights::AbstractVector{Bool}
