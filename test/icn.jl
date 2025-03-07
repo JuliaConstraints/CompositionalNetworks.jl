@@ -51,7 +51,18 @@
         connection=[1, 2, 3, 4],
     )
 
-    config_test = generate_configurations(allunique, [domain([1, 2, 3]), domain([9, 10, 11, 12]), domain([4, 5, 6, 7])])
-    
-    @info optimize(test_icn, config_test, hamming, 64, 64)
+    function allunique_val(x; val)
+        for i in 1:(length(x)-1)
+            for j in (i+1):length(x)
+                if x[i] == x[j]
+                    if i != val
+                        return false
+                    end
+                end
+            end
+        end
+        return true
+    end
+
+    @test CompositionalNetworks.explore_learn([domain([1, 2, 3, 4]) for i in 1:4], allunique_val, GeneticOptimizer(), icn=test_icn, val=3)
 end
