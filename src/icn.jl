@@ -102,8 +102,29 @@ end
 function evaluate(icns::Vector{<:AbstractICN}, config::NonSolution; weights_validity=trues(length(icns)), parameters...)
     evaluation_output = Array{Float64}(undef, length(icns))
     for (i, icn) in enumerate(icns)
-        @info weights_validity[i], parameters, icn.parameters
+        # @info weights_validity[i], parameters, icn.parameters
         evaluation_output[i] = evaluate(icn, config; weights_validity=weights_validity[i], parameters...)
+    end
+    return sum(evaluation_output) / length(evaluation_output)
+end
+
+function evaluate(icn_validity::Pair{AbstractICN,Bool}, config; parameters...)
+    evaluate(icn_validity[1], config; weights_validity=icn_validity[2], parameters...)
+end
+
+function evaluate(icns::Vector{Pair{<:AbstractICN,Bool}}, config; parameters...)
+    evaluation_output = Array{Float64}(undef, length(icns))
+    vals = if haskey(parameters, :vals)
+        parameters[:vals]
+    else
+        nothing
+    end
+    param = Base.structdiff((; parameters...,), NamedTuple{(:vals,)})
+    params = [(val=i, param...) for i in vals]
+
+    for (i, icn_validity) in enumerate(icns)
+        # @info weights_validity[i], parameters, icn.parameters
+        evaluation_output[i] = evaluate(icn_validity[1], config; weights_validity=icn_validity[2], params[i]...)
     end
     return sum(evaluation_output) / length(evaluation_output)
 end
