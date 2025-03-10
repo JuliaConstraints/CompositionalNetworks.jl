@@ -64,5 +64,25 @@
         return true
     end
 
-    @test CompositionalNetworks.explore_learn([domain([1, 2, 3, 4]) for i in 1:4], allunique_val, GeneticOptimizer(), icn=test_icn, val=3)
+    function gele_vals(x; vals)
+        for i in x
+            if i > vals[2]
+                return false
+            elseif i < vals[1]
+                return false
+            end
+        end
+        return true
+    end
+
+    @test CompositionalNetworks.explore_learn([domain([1, 2, 3, 4]) for i in 1:4], allunique_val, GeneticOptimizer(), icn=test_icn, val=3)[2]
+
+    new_test_icn = ICN(;
+        parameters=[:vals],
+        layers=[Transformation, Arithmetic, Aggregation, Comparison],
+        connection=[1, 2, 3, 4],
+    )
+
+    x, y = CompositionalNetworks.explore_learn([domain([1, 2, 3, 4]) for i in 1:4], gele_vals, GeneticOptimizer(), icn=new_test_icn, vals=[2, 5])
+    @test x[2] == y[2] == true
 end
