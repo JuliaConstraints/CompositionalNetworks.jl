@@ -62,11 +62,11 @@ include("composition.jl")
 include("learn.jl")
 =#
 
+include("layers.jl")
+include("configuration.jl")
+include("icn.jl")
 include("optimizer.jl")
 include("learn_and_explore.jl")
-include("configuration.jl")
-include("layers.jl")
-include("icn.jl")
 include("metrics.jl")
 
 end

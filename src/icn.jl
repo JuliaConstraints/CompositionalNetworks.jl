@@ -99,6 +99,15 @@ function evaluate(icn::AbstractICN, config::NonSolution; weights_validity=true, 
     end
 end
 
+function evaluate(icns::Vector{<:AbstractICN}, config::NonSolution; weights_validity=trues(length(icns)), parameters...)
+    evaluation_output = Array{Float64}(undef, length(icns))
+    for (i, icn) in enumerate(icns)
+        @info weights_validity[i], parameters, icn.parameters
+        evaluation_output[i] = evaluate(icn, config; weights_validity=weights_validity[i], parameters...)
+    end
+    return sum(evaluation_output) / length(evaluation_output)
+end
+
 function evaluate(icn::AbstractICN, config::Solution; parameters...)
     return 0
 end
@@ -114,7 +123,7 @@ end
 
 struct ICN{S,T} <: AbstractICN where {T<:Union{AbstractICN,Nothing},S<:Union{AbstractVector{<:AbstractLayer},Nothing}}
     weights::AbstractVector{Bool}
-    parmeters::Set{Symbol}
+    parameters::Set{Symbol}
     layers::S
     connection::Vector{UInt32}
     weightlen::AbstractVector{Int}
