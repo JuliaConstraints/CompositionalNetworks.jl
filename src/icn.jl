@@ -71,7 +71,7 @@ function apply!(icn::AbstractICN, weights::BitVector)::Bool
     return check_weights_validity(icn, weights)
 end
 
-function evaluate(icn::AbstractICN, config::NonSolution; weights_validity=true, parameters...)
+function evaluate(icn::AbstractICN, config::Configuration; weights_validity=true, parameters...)
     if weights_validity
         input = config.x
         # @warn icn.weights icn.weightlen
@@ -99,7 +99,7 @@ function evaluate(icn::AbstractICN, config::NonSolution; weights_validity=true, 
     end
 end
 
-function evaluate(icns::Vector{<:AbstractICN}, config::NonSolution; weights_validity=trues(length(icns)), parameters...)
+function evaluate(icns::Vector{<:AbstractICN}, config::Configuration; weights_validity=trues(length(icns)), parameters...)
     evaluation_output = Array{Float64}(undef, length(icns))
     for (i, icn) in enumerate(icns)
         # @info weights_validity[i], parameters, icn.parameters
@@ -108,11 +108,11 @@ function evaluate(icns::Vector{<:AbstractICN}, config::NonSolution; weights_vali
     return sum(evaluation_output) / length(evaluation_output)
 end
 
-function evaluate(icn_validity::Pair{AbstractICN,Bool}, config; parameters...)
-    evaluate(icn_validity[1], config; weights_validity=icn_validity[2], parameters...)
+function evaluate(icn_validity::Pair{<:AbstractICN,Bool}, config::Configuration; parameters...)
+    evaluate(icn_validity[1], config; weights_validity=icn_validity[2], icn_validity[1].constants..., parameters...)
 end
 
-function evaluate(icns::Vector{Pair{<:AbstractICN,Bool}}, config; parameters...)
+function evaluate(icns::Vector{Pair{<:AbstractICN,Bool}}, config::Configuration; parameters...)
     evaluation_output = Array{Float64}(undef, length(icns))
     vals = if haskey(parameters, :vals)
         parameters[:vals]
@@ -124,13 +124,9 @@ function evaluate(icns::Vector{Pair{<:AbstractICN,Bool}}, config; parameters...)
 
     for (i, icn_validity) in enumerate(icns)
         # @info weights_validity[i], parameters, icn.parameters
-        evaluation_output[i] = evaluate(icn_validity[1], config; weights_validity=icn_validity[2], params[i]...)
+        evaluation_output[i] = evaluate(icn_validity[1], config; weights_validity=icn_validity[2], icn_validity[1].constants..., params[i]...)
     end
     return sum(evaluation_output) / length(evaluation_output)
-end
-
-function evaluate(icn::AbstractICN, config::Solution; parameters...)
-    return 0
 end
 
 #=
@@ -142,21 +138,21 @@ end
 (icn::AbstractICN)(weights::BitVector) = apply!(icn, weights)
 (icn::AbstractICN)(config::Configuration) = evaluate(icn, config)
 
-struct ICN{S,T} <: AbstractICN where {T<:Union{AbstractICN,Nothing},S<:Union{AbstractVector{<:AbstractLayer},Nothing}}
+struct ICN{S} <: AbstractICN where {S<:Union{AbstractVector{<:AbstractLayer},Nothing}}
     weights::AbstractVector{Bool}
     parameters::Set{Symbol}
     layers::S
     connection::Vector{UInt32}
     weightlen::AbstractVector{Int}
-    icn::T
-    function ICN(; weights=BitVector[], parameters=Symbol[], layers=[Transformation, Arithmetic, Aggregation, Comparison], connection=UInt32[1, 2, 3, 4], icn=nothing)
+    constants::Dict
+    function ICN(; weights=BitVector[], parameters=Symbol[], layers=[Transformation, Arithmetic, Aggregation, Comparison], connection=UInt32[1, 2, 3, 4], constants=Dict())
         len = [length(layer.fn) for layer in layers]
 
         parindexes = Vector{Int}[]
         for layer in layers
             lfn = Int[]
             for (j, fn) in enumerate(layer.fn)
-                par = extract_parameters(fn)
+                par = extract_parameters(fn, parameters=append!(copy(USUAL_CONSTRAINT_PARAMETERS), [:numvars, :dom_size]))
                 if !isempty(par)
                     if intersect(par[1], parameters) == par[1]
                         push!(lfn, j)
@@ -203,8 +199,22 @@ struct ICN{S,T} <: AbstractICN where {T<:Union{AbstractICN,Nothing},S<:Union{Abs
 
         # @error consider
         # @info parameters
-        new{typeof(layers),typeof(icn)}(@view(weights[consider]), Set(parameters), layers, connection, weightlen, icn)
+        new{typeof(layers)}(@view(weights[consider]), Set(parameters), layers, connection, weightlen, constants)
     end
+end
+
+function regularization(icn::AbstractICN)
+    max_op = 0
+    op = 0
+    start = 1
+    for (i, layer) in enumerate(icn.layers)
+        if !layer.mutex
+            op += length(findall(icn.weights[start:start+icn.weightlen[i]]))
+            max_op += length(icn.weightlen[i])
+        end
+        start += icn.weightlen[i]
+    end
+    return op / (max_op + 1)
 end
 
 create_icn(icn::ICN, parameters::Vector{Symbol}) = ICN(
@@ -212,5 +222,4 @@ create_icn(icn::ICN, parameters::Vector{Symbol}) = ICN(
     parameters=parameters,
     layers=icn.layers,
     connection=icn.connection,
-    icn=icn.icn
 )

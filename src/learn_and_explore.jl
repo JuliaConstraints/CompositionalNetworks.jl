@@ -32,12 +32,12 @@ function explore_learn(
                 configurations = generate_configurations(concept_new, domains; params[i]...)
             end
 
-            dom_size = maximum(length, domains)
-            num_variables = length(rand(configurations).x)
+            icn.constants[:dom_size] = maximum(length, domains)
+            icn.constants[:numvars] = length(rand(configurations).x)
 
             deep_icn = deepcopy(new_icn)
 
-            push!(p, optimize!(deep_icn, configurations, metric_function, optimizer_config; num_variables=num_variables, dom_size=dom_size, params[i]...))
+            push!(p, optimize!(deep_icn, configurations, metric_function, optimizer_config; icn.constants..., params[i]...))
         end
         return p
     else
@@ -45,9 +45,9 @@ function explore_learn(
             configurations = generate_configurations(concept, domains; parameters...)
         end
 
-        dom_size = maximum(length, domains)
-        num_variables = length(rand(configurations).x)
+        icn.constants[:dom_size] = maximum(length, domains)
+        icn.constants[:numvars] = length(rand(configurations).x)
 
-        return optimize!(icn, configurations, metric_function, optimizer_config; num_variables=num_variables, dom_size=dom_size, parameters...)
+        return optimize!(icn, configurations, metric_function, optimizer_config; icn.constants..., parameters...)
     end
 end

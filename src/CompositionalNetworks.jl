@@ -1,7 +1,7 @@
 module CompositionalNetworks
 
 # imports
-import ConstraintCommons: incsert!, extract_parameters
+import ConstraintCommons: incsert!, extract_parameters, USUAL_CONSTRAINT_PARAMETERS
 import ConstraintDomains: explore, SetDomain
 import Dictionaries: Dictionary, set!
 import Distances

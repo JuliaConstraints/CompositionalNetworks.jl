@@ -55,7 +55,7 @@
         for i in 1:(length(x)-1)
             for j in (i+1):length(x)
                 if x[i] == x[j]
-                    if i != val
+                    if x[i] != val
                         return false
                     end
                 end
@@ -66,9 +66,7 @@
 
     function gele_vals(x; vals)
         for i in x
-            if i > vals[2]
-                return false
-            elseif i < vals[1]
+            if i > vals[2] && i < vals[1]
                 return false
             end
         end
