@@ -152,7 +152,7 @@ struct ICN{S} <: AbstractICN where {S<:Union{AbstractVector{<:AbstractLayer},Not
         for layer in layers
             lfn = Int[]
             for (j, fn) in enumerate(layer.fn)
-                par = extract_parameters(fn, parameters=append!(copy(USUAL_CONSTRAINT_PARAMETERS), [:numvars, :dom_size]))
+                par = extract_parameters(fn, parameters=append!(copy(USUAL_CONSTRAINT_PARAMETERS), [:numvars, :dom_size, :op_filter, :filter_val]))
                 if !isempty(par)
                     if intersect(par[1], parameters) == par[1]
                         push!(lfn, j)
@@ -209,8 +209,8 @@ function regularization(icn::AbstractICN)
     start = 1
     for (i, layer) in enumerate(icn.layers)
         if !layer.mutex
-            op += length(findall(icn.weights[start:start+icn.weightlen[i]]))
-            max_op += length(icn.weightlen[i])
+            op += length(findall(icn.weights[start:(start+icn.weightlen[i]-1)]))
+            max_op += icn.weightlen[i]
         end
         start += icn.weightlen[i]
     end
