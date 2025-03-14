@@ -36,8 +36,8 @@ function CompositionalNetworks.optimize!(
     function fitness(w)
         weights_validity = CompositionalNetworks.apply!(icn, w)
         return sum(
-            x -> abs(evaluate(icn, x; weights_validity=weights_validity, parameters...) - metric_function(x.x, solution_vector)), configurations
-        ) + CompositionalNetworks.weights_bias(w)# + CompositionalNetworks.regularization(icn)
+                   x -> abs(evaluate(icn, x; weights_validity=weights_validity, parameters...) - metric_function(x.x, solution_vector)), configurations
+               ) + CompositionalNetworks.weights_bias(w) + CompositionalNetworks.regularization(icn)
     end
 
     _icn_ga = GA(;
