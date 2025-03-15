@@ -1,5 +1,3 @@
-export AbstractICN, check_weights_validity, generate_new_valid_weights, apply!, evaluate, ICN, create_icn
-
 abstract type AbstractICN end
 
 #=

@@ -1,68 +1,35 @@
 module CompositionalNetworks
 
-# imports
+# SECTION - Imports
 import ConstraintCommons: incsert!, extract_parameters, USUAL_CONSTRAINT_PARAMETERS
 import ConstraintDomains: explore, SetDomain
 import Dictionaries: Dictionary, set!
 import Distances
+import ExproniconLite: JLFunction, has_symbol, codegen_ast
 import JuliaFormatter: SciMLStyle, format_text
 import OrderedCollections: LittleDict
 import Random: bitrand
 import TestItems: @testitem
 import Unrolled: @unroll
-import ExproniconLite: JLFunction, has_symbol, codegen_ast
 
-#=
-export Composition
-export ICN
+# SECTION - Exports
+export hamming, minkowski, manhattan, weights_bias
+export AbstractOptimizer, GeneticOptimizer, optimize!
+export generate_configurations, explore_learn
+export AbstractLayer, Transformation, Aggregation, LayerCore, Arithmetic, Comparison, SimpleFilter
+export AbstractSolution, Solution, NonSolution, Configuration, Configurations, solutions
+export AbstractICN, check_weights_validity, generate_new_valid_weights, apply!, evaluate, ICN, create_icn
 
-export aggregation_layer
-export arithmetic_layer
-export code
-export comparison_layer
-export compose
-export compose_to_file!
-export composition
-export composition_to_file!
-export explore_learn_compose
-export hamming
-export incsert!
-export lazy
-export lazy_param
-export learn_compose
-export manhattan
-export max_icn_length
-export minkowski
-export nbits
-export optimize!
-export regularization
-export show_layers
-export symbols
-export transformation_layer
-export weights
-export weights!
-export weights_bias
-=#
-
-#=
-# Include utils
-include("utils.jl")
-include("metrics.jl")
-
-# Includes layers
+# SECTION - Includes
+# layers
 include("layer.jl")
-include("layers/transformation.jl")
-include("layers/arithmetic.jl")
 include("layers/aggregation.jl")
+include("layers/arithmetic.jl")
 include("layers/comparison.jl")
+include("layers/simple_filter.jl")
+include("layers/transformation.jl")
 
-# Include ICN
-include("icn.jl")
-include("composition.jl")
-include("learn.jl")
-=#
-
-include("layers.jl")
+# optimization
 include("configuration.jl")
 include("icn.jl")
 include("optimizer.jl")

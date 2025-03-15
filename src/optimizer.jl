@@ -1,5 +1,3 @@
-export AbstractOptimizer, GeneticOptimizer, optimize!
-
 abstract type AbstractOptimizer end
 
 struct GeneticOptimizer <: AbstractOptimizer

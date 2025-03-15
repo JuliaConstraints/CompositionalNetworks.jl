@@ -10,7 +10,7 @@ using TestItemRunner
     include("Aqua.jl")
     include("ExplicitImports.jl")
     include("JET.jl")
-    #    include("TestItemRunner.jl")
+    include("TestItemRunner.jl")
 
     include("icn.jl")
 end

@@ -1,5 +1,3 @@
-export generate_configurations, explore_learn
-
 function generate_configurations(concept::Function, domains::Vector{<:SetDomain}; parameters...)::Configurations
     output = explore(domains, concept; parameters...)
     Set([Solution.(output[1])..., NonSolution.(output[2])...])
