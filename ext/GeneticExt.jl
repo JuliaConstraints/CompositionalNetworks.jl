@@ -1,7 +1,9 @@
 module GeneticExt
 
-using CompositionalNetworks
-using Evolutionary
+import CompositionalNetworks: CompositionalNetworks, AbstractICN, Configurations
+import CompositionalNetworks: GeneticOptimizer, apply!, weights_bias, regularization
+import CompositionalNetworks: evaluate, solutions
+import Evolutionary: Evolutionary, tournament, SPX, flip, GA
 
 function CompositionalNetworks.GeneticOptimizer(;
     global_iter=Threads.nthreads(),
@@ -34,10 +36,10 @@ function CompositionalNetworks.optimize!(
     solution_vector = [i.x for i in solution_iter]
 
     function fitness(w)
-        weights_validity = CompositionalNetworks.apply!(icn, w)
+        weights_validity = apply!(icn, w)
         return sum(
                    x -> abs(evaluate(icn, x; weights_validity=weights_validity, parameters...) - metric_function(x.x, solution_vector)), configurations
-               ) + CompositionalNetworks.weights_bias(w) + CompositionalNetworks.regularization(icn)
+               ) + weights_bias(w) + regularization(icn)
     end
 
     _icn_ga = GA(;
@@ -52,7 +54,7 @@ function CompositionalNetworks.optimize!(
 
     pop = generate_population(icn, optimizer_config.pop_size)
     r = Evolutionary.optimize(fitness, pop, _icn_ga, Evolutionary.Options(; iterations=optimizer_config.local_iter))
-    validity = CompositionalNetworks.apply!(icn, Evolutionary.minimizer(r))
+    validity = apply!(icn, Evolutionary.minimizer(r))
     return icn => validity
 end
 
