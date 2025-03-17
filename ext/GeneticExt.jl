@@ -45,11 +45,11 @@ function CompositionalNetworks.optimize!(
     _icn_ga = GA(;
         populationSize=optimizer_config.pop_size,
         crossoverRate=0.8,
-        epsilon=0.05,
-        selection=tournament(2),
+        epsilon=0.001,
+        selection=tournament(5),
         crossover=SPX,
         mutation=flip,
-        mutationRate=1.0
+        mutationRate=20.0
     )
 
     pop = generate_population(icn, optimizer_config.pop_size)

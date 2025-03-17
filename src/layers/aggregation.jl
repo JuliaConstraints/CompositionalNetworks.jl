@@ -4,7 +4,9 @@ const Aggregation = LayerCore(
     (:(AbstractVector{<:Real}),) => T where {T<:Real},
     (
         sum=:((x) -> sum(x)),
-        count_positive=:((x) -> count(i -> i > 0, x))
+        count_positive=:((x) -> count(i -> i > 0, x)),
+        maximum=:((x) -> maximum(x)),
+        minimum=:((x) -> minimum(x))
     )
 )
 

@@ -12,7 +12,7 @@ function explore_learn(
     metric_function=hamming,
     parameters...,
 ) where {T<:AbstractOptimizer}
-
+    #=
     if :vals in icn.parameters && haskey(parameters, :vals)
         vals = parameters[:vals]
         param = Base.structdiff((; parameters...,), NamedTuple{(:vals,)})
@@ -23,7 +23,7 @@ function explore_learn(
         push!(new_icn.parameters, :val)
 
         p = Pair{<:AbstractICN,Bool}[]
-        for i in 1:length(params)
+        Threads.@threads for i in 1:length(params)
 
             if isnothing(configurations)
                 concept_new = ((x; parames...) -> concept(x; vals=(f = y -> (z = copy(y); z[i] = parames[:val]; z); f(vals)), param...))
@@ -39,13 +39,14 @@ function explore_learn(
         end
         return p
     else
-        if isnothing(configurations)
-            configurations = generate_configurations(concept, domains; parameters...)
-        end
-
-        icn.constants[:dom_size] = maximum(length, domains)
-        icn.constants[:numvars] = length(rand(configurations).x)
-
-        return optimize!(icn, configurations, metric_function, optimizer_config; icn.constants..., parameters...)
+    =#
+    if isnothing(configurations)
+        configurations = generate_configurations(concept, domains; parameters...)
     end
+
+    icn.constants[:dom_size] = maximum(length, domains)
+    icn.constants[:numvars] = length(rand(configurations).x)
+
+    return optimize!(icn, configurations, metric_function, optimizer_config; icn.constants..., parameters...)
+    # end
 end

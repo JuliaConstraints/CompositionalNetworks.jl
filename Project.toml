@@ -17,11 +17,14 @@ Unrolled = "9602ed7d-8fef-5bc8-8597-8f21381861e8"
 
 [weakdeps]
 Evolutionary = "86b6b26d-c046-49b6-aa0b-5f0f74682bd6"
+LocalSearchSolvers = "2b10edaa-728d-4283-ac71-07e312d6ccf3"
 
 [extensions]
 GeneticExt = "Evolutionary"
+LocalSearchSolversExt = "LocalSearchSolvers"
 
 [compat]
+LocalSearchSolvers = "0.4"
 Evolutionary = "0.11"
 ConstraintCommons = "0.2"
 ConstraintDomains = "0.3"
@@ -38,6 +41,7 @@ julia = "1.10"
 [extras]
 Aqua = "4c88cf16-eb10-579e-8560-4a9242c79595"
 Evolutionary = "86b6b26d-c046-49b6-aa0b-5f0f74682bd6"
+LocalSearchSolvers = "2b10edaa-728d-4283-ac71-07e312d6ccf3"
 ExplicitImports = "7d51a73a-1435-4ff3-83d9-f097790105c7"
 JET = "c3a54625-cd67-489e-a8e7-0a5a0ff4e31b"
 Memoization = "6fafb56a-5788-4b4e-91ca-c0cea6611c73"
@@ -46,4 +50,4 @@ TestItemRunner = "f8b46487-2199-4994-9208-9a1283c18c0a"
 ThreadPools = "b189fb0b-2eb5-4ed4-bc0c-d34c51242431"
 
 [targets]
-test = ["Aqua", "ExplicitImports", "JET", "Evolutionary", "Memoization", "Test", "TestItemRunner", "ThreadPools"]
+test = ["Aqua", "ExplicitImports", "JET", "Evolutionary", "LocalSearchSolvers", "Memoization", "Test", "TestItemRunner", "ThreadPools"]

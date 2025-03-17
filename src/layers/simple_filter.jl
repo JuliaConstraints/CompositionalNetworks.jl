@@ -11,5 +11,8 @@ const SimpleFilter = LayerCore(
         filter_le_val=:((x; val) -> filter(t -> t <= val, x)),
         filter_ne_val=:((x; val) -> filter(t -> t != val, x)),
         filter_op_val=:((x; val, op_filter) -> filter(t -> op_filter(t, val), x)),
+        filter_equal_vals=:((x; vals) -> filter(t -> t in vals, x)),
+        filter_ne_vals=:((x; vals) -> filter(t -> !(t in vals), x)),
+        filter_op_vals=:((x; vals, op_filter) -> filter(t -> op_filter(t, vals), x)),
     )
 )

@@ -20,7 +20,9 @@ const Transformation = LayerCore(
         count_equal=:((x) -> map(i -> count(t -> t == i, x), x)),
         count_less=:((x) -> map(i -> count(t -> t < i, x), x)),
         count_great=:((x) -> map(i -> count(t -> t > i, x), x)),
-        count_bounding_val=:((x; val) -> map(i -> count(t -> t >= i && t <= i + val, x), x))
+        count_bounding_val=:((x; val) -> map(i -> count(t -> t >= i && t <= i + val, x), x)),
+        var_minus_vals=:((x; vals) -> map(i -> max(0, (i .- vals)...), x)),
+        vals_minus_var=:((x; vals) -> map(i -> max(0, (vals .- i)...), x)),
     )
 )
 

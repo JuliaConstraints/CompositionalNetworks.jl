@@ -4,6 +4,9 @@ function optimize!(icn, configurations, metric_function, optimizer_config; param
     error("No backend loaded")
 end
 
+struct LocalSearchOptimizer <: AbstractOptimizer
+    options
+end
 
 # SECTION - GeneticOptimizer Extension
 struct GeneticOptimizer <: AbstractOptimizer
@@ -13,6 +16,7 @@ struct GeneticOptimizer <: AbstractOptimizer
     pop_size::Int
     sampler::Union{Nothing,Function}
 end
+
 
 @testitem "GeneticOptimizer" tags = [:extension] default_imports = false begin
     import CompositionalNetworks: Transformation, Arithmetic, Aggregation, Comparison, ICN

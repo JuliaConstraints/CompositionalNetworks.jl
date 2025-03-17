@@ -8,10 +8,15 @@ const Comparison = LayerCore(
         val_minus_var=:((x; val) -> maximum((0, val - x))),
         var_minus_val=:((x; val) -> maximum((0, x - val))),
         euclidean_val=:((x; val, dom_size) -> x == val ? 0 : (1 + (abs(x - val) / dom_size))),
+        euclidean_val_op=:((x; op, val, dom_size) -> op(x, val) ? 0 : (1 + (abs(x - val) / dom_size))),
         euclidean=:((x; dom_size) -> x == 0 ? 0 : (1 + (x / dom_size))),
+        euclidean_op=:((x; op, dom_size) -> op(x, 0) ? 0 : (1 + (x / dom_size))),
         var_minus_numvars=:((x; numvars) -> abs(x - numvars)),
         max_numvars_minus_var=:((x; numvars) -> maximum((0, numvars - x))),
-        max_var_minus_numvars=:((x; numvars) -> maximum((numvars - x, 0)))
+        max_var_minus_numvars=:((x; numvars) -> maximum((numvars - x, 0))),
+        #        val_minus_var=:((x; vals) -> maximum((0, (vals .- x)...))),
+        #        var_minus_val=:((x; vals) -> maximum((0, (x .- vals)...))),
+        #        euclidean_val=:((x; vals, dom_size) -> x in vals ? 0 : (1 + (abs((length(vals) * x) - sum(vals)) / dom_size))),
     )
 )
 

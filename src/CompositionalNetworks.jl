@@ -14,7 +14,7 @@ import Unrolled: @unroll
 
 # SECTION - Exports
 export hamming, minkowski, manhattan, weights_bias
-export AbstractOptimizer, GeneticOptimizer, optimize!
+export AbstractOptimizer, GeneticOptimizer, LocalSearchOptimizer, optimize!
 export generate_configurations, explore_learn
 export AbstractLayer, Transformation, Aggregation, LayerCore, Arithmetic, Comparison, SimpleFilter
 export AbstractSolution, Solution, NonSolution, Configuration, Configurations, solutions
