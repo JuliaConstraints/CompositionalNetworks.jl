@@ -15,14 +15,14 @@ end
 
 
 @testitem "GeneticOptimizer" tags = [:extension] default_imports = false begin
-    import CompositionalNetworks: Transformation, Arithmetic, Aggregation, Comparison, ICN
+    import CompositionalNetworks: Transformation, Arithmetic, Aggregation, Comparison, ICN, SimpleFilter
     import CompositionalNetworks: GeneticOptimizer, explore_learn
     import ConstraintDomains: domain
     import Evolutionary
     import Test: @test
 
     test_icn = ICN(;
-        parameters=[:val],
+        parameters=[:dom_size, :numvars, :val],
         layers=[Transformation, Arithmetic, Aggregation, Comparison],
         connection=[1, 2, 3, 4],
     )
@@ -40,10 +40,14 @@ end
         return true
     end
 
-    function gele_vals(x; vals)
-        for i in x
-            if i > vals[2] && i < vals[1]
-                return false
+    function allunique_vals(x; vals)
+        for i in 1:(length(x)-1)
+            for j in (i+1):length(x)
+                if x[i] == x[j]
+                    if !(x[i] in vals)
+                        return false
+                    end
+                end
             end
         end
         return true
@@ -52,13 +56,12 @@ end
     @test explore_learn([domain([1, 2, 3, 4]) for i in 1:4], allunique_val, GeneticOptimizer(), icn=test_icn, val=3)[2]
 
     new_test_icn = ICN(;
-        parameters=[:vals],
-        layers=[Transformation, Arithmetic, Aggregation, Comparison],
-        connection=[1, 2, 3, 4],
+        parameters=[:dom_size, :numvars, :vals],
+        layers=[SimpleFilter, Transformation, Arithmetic, Aggregation, Comparison],
+        connection=[1, 2, 3, 4, 5],
     )
 
-    x, y = explore_learn([domain([1, 2, 3, 4]) for i in 1:4], gele_vals, GeneticOptimizer(), icn=new_test_icn, vals=[2, 5])
-    @test x[2] == y[2] == true
+    @test explore_learn([domain([1, 2, 3, 4]) for i in 1:4], allunique_vals, GeneticOptimizer(), icn=new_test_icn, vals=[3,4])[2]
 end
 
 # SECTION - CBLSOptimizer Extension
