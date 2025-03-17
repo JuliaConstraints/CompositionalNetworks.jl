@@ -221,3 +221,6 @@ create_icn(icn::ICN, parameters::Vector{Symbol}) = ICN(
     layers=icn.layers,
     connection=icn.connection,
 )
+
+#FIXME - This is a temporary fix
+max_icn_length(args...; kargs...) = 42

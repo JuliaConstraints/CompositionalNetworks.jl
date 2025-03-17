@@ -11,7 +11,8 @@ function CompositionalNetworks.LocalSearchOptimizer(; options::LocalSearchSolver
 end
 
 function mutually_exclusive(layer_weights, w)
-    x = length(w)
+    l = layer_weights |> length
+    x = w |> length
     return iszero(x) ? 1.0 : max(0.0, x - l)
 end
 
