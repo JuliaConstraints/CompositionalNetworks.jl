@@ -13,8 +13,9 @@ const Comparison = LayerCore(
         euclidean_op=:((x; op, dom_size) -> op(x, 0) ? 0 : (1 + (x / dom_size))),
         var_minus_numvars=:((x; numvars) -> abs(x - numvars)),
         max_numvars_minus_var=:((x; numvars) -> maximum((0, numvars - x))),
-        max_var_minus_numvars=:((x; numvars) -> maximum((numvars - x, 0))),
-        #        val_minus_var=:((x; vals) -> maximum((0, (vals .- x)...))),
+        max_var_minus_numvars=:((x; numvars) -> maximum((x - numvars, 0))),
+        vals_minus_var_gele=:((x; vals) -> length(vals) != 2 ? typemax(eltype(x)) : (vals[1] <= x <= vals[2] ? 0 : minimum((abs(x - vals[1]), abs(x - vals[2]))))),
+        vals_minus_var_gl=:((x; vals) -> length(vals) != 2 ? typemax(eltype(x)) : (vals[1] < x < vals[2] ? 0 : minimum((abs(x - vals[1]), abs(x - vals[2]))))),
         #        var_minus_val=:((x; vals) -> maximum((0, (x .- vals)...))),
         #        euclidean_val=:((x; vals, dom_size) -> x in vals ? 0 : (1 + (abs((length(vals) * x) - sum(vals)) / dom_size))),
     )

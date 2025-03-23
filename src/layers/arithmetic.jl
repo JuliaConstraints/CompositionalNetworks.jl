@@ -1,7 +1,7 @@
 const Arithmetic = LayerCore(
     :Arithmetic,
     true,
-    (:(AbstractVector{<:AbstractVector{<:Real}}),) => AbstractVector{Int},
+    (:(AbstractVector{<:AbstractVector{<:Real}}),) => AbstractVector{<:Real},
     (
         sum=:((x) -> sum(x)),
         product=:((x) -> reduce(.*, x))

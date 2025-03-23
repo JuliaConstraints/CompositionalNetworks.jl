@@ -5,6 +5,7 @@ const Aggregation = LayerCore(
     (
         sum=:((x) -> sum(x)),
         count_positive=:((x) -> count(i -> i > 0, x)),
+        count_op_val=:((x; val, op) -> count(i -> op(i, val), x)),
         maximum=:((x) -> isempty(x) ? typemax(eltype(x)) : maximum(x)),
         minimum=:((x) -> isempty(x) ? typemax(eltype(x)) : minimum(x)),
     )

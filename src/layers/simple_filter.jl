@@ -4,6 +4,9 @@ const SimpleFilter = LayerCore(
     (:(AbstractVector{<:Real}),) => AbstractVector{<:Real},
     (
         id=:((x) -> identity(x)),
+        filter_unique=:((x) -> unique(x)),
+        filter_elem=:((x; id) -> [x[id]]),
+        filter_id=:((x; id) -> [x[id], 0 < x[id] <= length(x) ? -x[x[id]] : typemax(eltype(x))]),
         filter_equal_val=:((x; val) -> filter(t -> t == val, x)),
         filter_ge_val=:((x; val) -> filter(t -> t >= val, x)),
         filter_great_val=:((x; val) -> filter(t -> t > val, x)),
