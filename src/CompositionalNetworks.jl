@@ -19,6 +19,7 @@ export generate_configurations, explore_learn
 export AbstractLayer, Transformation, Aggregation, LayerCore, Arithmetic, Comparison, SimpleFilter, PairedMap
 export AbstractSolution, Solution, NonSolution, Configuration, Configurations, solutions
 export AbstractICN, check_weights_validity, generate_new_valid_weights, apply!, evaluate, ICN, create_icn
+export compose
 
 # SECTION - Includes
 # layers
