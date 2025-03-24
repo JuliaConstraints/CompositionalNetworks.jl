@@ -4,7 +4,7 @@ const Arithmetic = LayerCore(
     (:(AbstractVector{<:AbstractVector{<:Real}}),) => AbstractVector{<:Real},
     (
         sum=:((x) -> sum(x)),
-        product=:((x) -> reduce(.*, x))
+        product=:((x) -> reduce((t...) -> broadcast(*, t...), x))
     )
 )
 

@@ -6,7 +6,7 @@ Example usage:
 compose(ICN(), name = :hopefullyworkingfunction)
 ```
 """
-function compose(icn::AbstractICN; name::Symbol=gensym(), jlfun=true, fname="")
+function compose(icn::AbstractICN; name::Symbol=gensym(), jlfun=true, fname="", dbg=false)
     f = JLFunction()
     f.name = name
     f.args = [:x]
@@ -23,6 +23,9 @@ function compose(icn::AbstractICN; name::Symbol=gensym(), jlfun=true, fname="")
             temp = xtuple([layer.fnexprs[k].body for k in j]...)
             push!(fns, :($(layer.name) = x = $(temp) |> collect))
         end
+        if dbg
+            push!(fns, :(@info($(string(layer.name)), $(layer.name))))
+        end
         _start += length(layer.fn)
     end
     f.body = Expr(:block, push!(fns, :(return x))...)
@@ -31,9 +34,5 @@ function compose(icn::AbstractICN; name::Symbol=gensym(), jlfun=true, fname="")
             write(fio, sprint_expr(f))
         end
     end
-    return if jlfun
-        f
-    else
-        codegen_ast(f)
-    end
+    return (eval(codegen_ast(f)), jlfun ? f : codegen_ast(f))
 end
