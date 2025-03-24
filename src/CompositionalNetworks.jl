@@ -5,7 +5,7 @@ import ConstraintCommons: incsert!, extract_parameters, USUAL_CONSTRAINT_PARAMET
 import ConstraintDomains: explore, SetDomain
 import Dictionaries: Dictionary, set!
 import Distances
-import ExproniconLite: JLFunction, has_symbol, codegen_ast, xtuple, print_expr
+import ExproniconLite: JLFunction, has_symbol, codegen_ast, xtuple, sprint_expr
 import JuliaFormatter: SciMLStyle, format_text
 import OrderedCollections: LittleDict
 import Random: bitrand

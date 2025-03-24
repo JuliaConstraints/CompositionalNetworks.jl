@@ -27,13 +27,9 @@ function compose(icn::AbstractICN; name::Symbol=gensym(), jlfun=true, fname="")
     end
     f.body = Expr(:block, push!(fns, :(return x))...)
     if !isempty(fname)
-        iob = IOBuffer()
-        print_expr(iob, f)
-
-        open(fname, "w") do f
-            write(f, take!(iob))
+        open(fname, "w") do fio
+            write(fio, sprint_expr(f))
         end
-        close(iob)
     end
     return if jlfun
         f
