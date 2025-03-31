@@ -2,7 +2,7 @@ module CompositionalNetworks
 
 # SECTION - Imports
 import ConstraintCommons: incsert!, extract_parameters, USUAL_CONSTRAINT_PARAMETERS
-import ConstraintDomains: explore, SetDomain
+import ConstraintDomains: explore, DiscreteDomain, domain_size
 import Dictionaries: Dictionary, set!
 import Distances
 import ExproniconLite: JLFunction, has_symbol, codegen_ast, xtuple, sprint_expr

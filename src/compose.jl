@@ -10,7 +10,7 @@ function compose(icn::AbstractICN; name::Symbol=gensym(), jlfun=true, fname="", 
     f = JLFunction()
     f.name = name
     f.args = [:x]
-    f.kwargs = append!(collect(icn.parameters), collect(keys(icn.constants)))
+    f.kwargs = collect(icn.parameters)
 
     fns = []
     _start = 1
