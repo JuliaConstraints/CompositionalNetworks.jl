@@ -51,9 +51,14 @@ function CompositionalNetworks.optimize!(
 
     function fitness(w)
         weights_validity = apply!(icn, w)
-        return sum(
-                   x -> abs(evaluate(icn, x; weights_validity=weights_validity, parameters...) - metric_function(x.x, solution_vector)), configurations
-               ) + weights_bias(w) + regularization(icn)
+
+        s = if metric_function isa Function
+            metric_function(icn, configurations, solution_vector; weights_validity=weights_validity, parameters...)
+        else
+            minimum(met -> met(icn, configurations, solution_vector; weights_validity=weights_validity, parameters...), metric_function)
+        end
+
+        return s + weights_bias(w) + regularization(icn)
     end
 
     objective!(m, fitness)

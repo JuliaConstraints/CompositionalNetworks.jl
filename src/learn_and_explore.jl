@@ -9,7 +9,7 @@ function explore_learn(
     optimizer_config::T;
     icn=ICN(; parameters=[:dom_size, :num_variables]),
     configurations=nothing,
-    metric_function=hamming,
+    metric_function=[hamming, manhattan],
     parameters...,
 ) where {T<:AbstractOptimizer}
     #=
