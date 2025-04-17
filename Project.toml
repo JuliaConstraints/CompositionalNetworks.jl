@@ -15,7 +15,7 @@ TestItems = "1c621080-faea-4a02-84b6-bbd5e436b8fe"
 Unrolled = "9602ed7d-8fef-5bc8-8597-8f21381861e8"
 
 [compat]
-ConstraintCommons = "0.2"
+ConstraintCommons = "0.2, 0.3"
 ConstraintDomains = "0.3"
 Dictionaries = "0.4"
 Distances = "0.10"
