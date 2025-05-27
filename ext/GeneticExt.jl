@@ -8,7 +8,7 @@ import Evolutionary: Evolutionary, tournament, SPX, flip, GA
 function CompositionalNetworks.GeneticOptimizer(;
     global_iter=Threads.nthreads(),
     # local_iter=64,
-    local_iter=100,
+    local_iter=400,
     memoize=false,
     #pop_size=64,
     pop_size=100,
