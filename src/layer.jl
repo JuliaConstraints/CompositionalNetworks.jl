@@ -1,5 +1,7 @@
 abstract type AbstractLayer end
 
+# const AbstractLayerInput{T, N} = Union{AbstractVector{T}, NTuple{T, N}} # consider this in the future
+
 struct LayerCore <: AbstractLayer
     name::Symbol
     mutex::Bool

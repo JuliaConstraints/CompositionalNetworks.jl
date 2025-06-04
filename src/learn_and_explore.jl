@@ -4,7 +4,7 @@ function generate_configurations(
         parameters...
 )::Configurations
     output = explore(domains, concept; parameters...)
-    Set([Solution.(output[1])..., NonSolution.(output[2])...])
+    Set([Solution.(collect.(output[1]))..., NonSolution.(collect.(output[2]))...])
 end
 
 function explore_learn(
