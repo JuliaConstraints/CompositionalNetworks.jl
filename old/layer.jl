@@ -4,7 +4,7 @@ A structure to store a `LittleDict` of operations that can be selected during th
 """
 struct Layer
     exclusive::Bool
-    functions::LittleDict{Symbol,Function}
+    functions::LittleDict{Symbol, Function}
     parameters::Vector{Symbol}
 end
 
@@ -93,10 +93,9 @@ Generate the weights of a collection of layers or of an ICN.
 """
 function generate_weights(layers)
     bitvecs = map(
-        l ->
-            exclu(l) ? generate_exclusive_operation(length(l)) :
-            generate_inclusive_operations(any, length(l)),
-        layers,
+        l -> exclu(l) ? generate_exclusive_operation(length(l)) :
+             generate_inclusive_operations(any, length(l)),
+        layers
     )
     return vcat(bitvecs...)
 end

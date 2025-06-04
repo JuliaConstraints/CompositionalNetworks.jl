@@ -1,15 +1,17 @@
 abstract type AbstractSolution end
 
 struct Solution <: AbstractSolution
-    x
+    x::Any
 end
 
 struct NonSolution <: AbstractSolution
-    x
+    x::Any
 end
 
-const Configuration{T} = T where T<:AbstractSolution # alias
+const Configuration{T} = T where {T <: AbstractSolution} # alias
 
 const Configurations{N} = Set{<:Configuration}
 
-solutions(x::Configurations; non_solutions=false) = Iterators.filter(r -> isa(r, ifelse(non_solutions, NonSolution, Solution)), x)
+function solutions(x::Configurations; non_solutions = false)
+    Iterators.filter(r -> isa(r, ifelse(non_solutions, NonSolution, Solution)), x)
+end

@@ -1,17 +1,21 @@
-function generate_configurations(concept::Function, domains::Vector{<:DiscreteDomain}; parameters...)::Configurations
+function generate_configurations(
+        concept::Function,
+        domains::Vector{<:DiscreteDomain};
+        parameters...
+)::Configurations
     output = explore(domains, concept; parameters...)
     Set([Solution.(output[1])..., NonSolution.(output[2])...])
 end
 
 function explore_learn(
-    domains::Vector{<:DiscreteDomain},
-    concept::Function,
-    optimizer_config::T;
-    icn=ICN(; parameters=[:dom_size, :num_variables]),
-    configurations=nothing,
-    metric_function=[hamming, manhattan],
-    parameters...,
-) where {T<:AbstractOptimizer}
+        domains::Vector{<:DiscreteDomain},
+        concept::Function,
+        optimizer_config::T;
+        icn = ICN(; parameters = [:dom_size, :num_variables]),
+        configurations = nothing,
+        metric_function = [hamming, manhattan],
+        parameters...
+) where {T <: AbstractOptimizer}
     #=
     if :vals in icn.parameters && haskey(parameters, :vals)
         vals = parameters[:vals]
@@ -47,6 +51,13 @@ function explore_learn(
     icn.constants[:dom_size] = maximum(length, domains)
     icn.constants[:numvars] = length(domains)
 
-    return optimize!(icn, configurations, metric_function, optimizer_config; icn.constants..., parameters...)
+    return optimize!(
+        icn,
+        configurations,
+        metric_function,
+        optimizer_config;
+        icn.constants...,
+        parameters...
+    )
     # end
 end

@@ -10,10 +10,13 @@ import CompositionalNetworks: CompositionalNetworks, AbstractICN, Configurations
 import CompositionalNetworks: JuMPOptimizer, apply!, weights_bias, regularization
 import CompositionalNetworks: evaluate, solutions
 
-function CompositionalNetworks.optimize!(icn::T,
-    configurations::Configurations,
-    metric_function::Union{Function,Vector{Function}},
-    optimizer_config::JuMPOptimizer; parameters...) where {T<:AbstractICN}
+function CompositionalNetworks.optimize!(
+        icn::T,
+        configurations::Configurations,
+        metric_function::Union{Function, Vector{Function}},
+        optimizer_config::JuMPOptimizer;
+        parameters...
+) where {T <: AbstractICN}
     # Create model
     m = Model()
 
@@ -21,12 +24,15 @@ function CompositionalNetworks.optimize!(icn::T,
     nl_solver = optimizer_with_attributes(Ipopt.Optimizer, "print_level" => 0)
     mip_solver = optimizer_with_attributes(Gurobi.Optimizer, "OutputFlag" => 0)
 
-    set_optimizer(m, optimizer_with_attributes(
-        Juniper.Optimizer,
-        "nl_solver" => nl_solver,
-        "mip_solver" => mip_solver,
-        "log_levels" => []
-    ))
+    set_optimizer(
+        m,
+        optimizer_with_attributes(
+            Juniper.Optimizer,
+            "nl_solver" => nl_solver,
+            "mip_solver" => mip_solver,
+            "log_levels" => []
+        )
+    )
 
     n = length(icn.weights)
 
@@ -60,9 +66,24 @@ function CompositionalNetworks.optimize!(icn::T,
         weights_validity = apply!(icn, w_bits)
 
         s = if metric_function isa Function
-            metric_function(icn, configurations, solution_vector; weights_validity=weights_validity, parameters...)
+            metric_function(
+                icn,
+                configurations,
+                solution_vector;
+                weights_validity = weights_validity,
+                parameters...
+            )
         else
-            minimum(met -> met(icn, configurations, solution_vector; weights_validity=weights_validity, parameters...), metric_function)
+            minimum(
+                met -> met(
+                    icn,
+                    configurations,
+                    solution_vector;
+                    weights_validity = weights_validity,
+                    parameters...
+                ),
+                metric_function
+            )
         end
         return s + weights_bias(w_bits) + regularization(icn)
     end
@@ -86,4 +107,3 @@ function CompositionalNetworks.optimize!(icn::T,
 end
 
 end
-

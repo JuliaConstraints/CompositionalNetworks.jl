@@ -7,7 +7,7 @@ function map_tr!(f, x, X; p...)
         f,
         x,
         X;
-        p...,
+        p...
     )
 end
 # function map_tr!(f, x, X)
@@ -27,9 +27,10 @@ function lazy(funcs::Function...)
     for f in Iterators.map(Symbol, funcs)
         eval(
             :(
-                $f(x::V, X; params...) where {V<:AbstractVector} =
-                    map_tr!($f, x, X; params...)
-            ),
+            function $f(x::V, X; params...) where {V <: AbstractVector}
+            map_tr!($f, x, X; params...)
+        end
+        ),
         )
         eval(:($f(x; params...) = $f(x, similar(x); params...)))
     end
@@ -44,9 +45,10 @@ function lazy_param(funcs::Function...)
     for f in Iterators.map(Symbol, funcs)
         eval(
             :(
-                $f(x::V, X; params...) where {V<:AbstractVector} =
-                    map_tr!($f, x, X; params...)
-            ),
+            function $f(x::V, X; params...) where {V <: AbstractVector}
+            map_tr!($f, x, X; params...)
+        end
+        ),
         )
         eval(:($f(x; params...) = $f(x, similar(x); params...)))
     end
@@ -99,7 +101,7 @@ Application of an operation from the transformation layer. Used to generate more
 function tr_in end
 
 @unroll function tr_in(tr, X, x; params...)
-    @unroll for i = 1:length(tr)
+    @unroll for i in 1:length(tr)
         tr[i](x, @view(X[:, i]); params...)
     end
 end

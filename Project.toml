@@ -17,15 +17,15 @@ Unrolled = "9602ed7d-8fef-5bc8-8597-8f21381861e8"
 
 [weakdeps]
 Evolutionary = "86b6b26d-c046-49b6-aa0b-5f0f74682bd6"
-LocalSearchSolvers = "2b10edaa-728d-4283-ac71-07e312d6ccf3"
-JuMP = "4076af6c-e467-56ae-b986-b466b2749572"
-Juniper = "2ddba703-00a4-53a7-87a5-e8b9971dde84"
-Ipopt = "b6b21f68-93f8-5de0-b562-5493be1d77c9"
-Gurobi = "2e9cd046-0924-5485-92f1-d5272153d98b"
+# LocalSearchSolvers = "2b10edaa-728d-4283-ac71-07e312d6ccf3"
+# JuMP = "4076af6c-e467-56ae-b986-b466b2749572"
+# Juniper = "2ddba703-00a4-53a7-87a5-e8b9971dde84"
+# Ipopt = "b6b21f68-93f8-5de0-b562-5493be1d77c9"
+# Gurobi = "2e9cd046-0924-5485-92f1-d5272153d98b"
 
 [extensions]
 GeneticExt = "Evolutionary"
-LocalSearchSolversExt = "LocalSearchSolvers"
+# LocalSearchSolversExt = "LocalSearchSolvers"
 # JuMPExt = ["JuMP", "Juniper", "Ipopt", "Gurobi"]
 
 [compat]
@@ -50,7 +50,7 @@ julia = "1.10"
 [extras]
 Aqua = "4c88cf16-eb10-579e-8560-4a9242c79595"
 Evolutionary = "86b6b26d-c046-49b6-aa0b-5f0f74682bd6"
-LocalSearchSolvers = "2b10edaa-728d-4283-ac71-07e312d6ccf3"
+# LocalSearchSolvers = "2b10edaa-728d-4283-ac71-07e312d6ccf3"
 # JuMP = "4076af6c-e467-56ae-b986-b466b2749572"
 # Juniper = "2ddba703-00a4-53a7-87a5-e8b9971dde84"
 # Ipopt = "b6b21f68-93f8-5de0-b562-5493be1d77c9"
@@ -68,7 +68,7 @@ test = [
     "ExplicitImports",
     "JET",
     "Evolutionary",
-    "LocalSearchSolvers",
+    # "LocalSearchSolvers",
     "Memoization",
     "Test",
     "TestItemRunner",

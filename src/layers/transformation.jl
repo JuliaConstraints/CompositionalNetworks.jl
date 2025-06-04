@@ -3,26 +3,50 @@ const Transformation = LayerCore(
     false,
     (:(AbstractVector{<:Real}),) => AbstractVector{<:Real},
     (
-        id=:((x) -> identity(x)),
-        count_equal_right=:((x) -> map(i -> count(t -> t == x[i], @view(x[i+1:end])), eachindex(x))),
-        count_less_right=:((x) -> map(i -> count(t -> t < x[i], @view(x[i+1:end])), eachindex(x))),
-        count_great_right=:((x) -> map(i -> count(t -> t > x[i], @view(x[i+1:end])), eachindex(x))),
-        count_equal_left=:((x) -> map(i -> count(t -> t == x[i], @view(x[1:i-1])), eachindex(x))),
-        count_less_left=:((x) -> map(i -> count(t -> t < x[i], @view(x[1:i-1])), eachindex(x))),
-        count_great_left=:((x) -> map(i -> count(t -> t > x[i], @view(x[1:i-1])), eachindex(x))),
-        count_equal_val=:((x; val) -> map(i -> count(t -> t == (i + val), x), x)),
-        count_less_val=:((x; val) -> map(i -> count(t -> t < (i + val), x), x)),
-        count_great_val=:((x; val) -> map(i -> count(t -> t > (i + val), x), x)),
-        var_minus_val=:((x; val) -> map(i -> max(0, i - val), x)),
-        val_minus_var=:((x; val) -> map(i -> max(0, val - i), x)),
-        contiguous_vars_minus=:((x) -> map(i -> i == length(x) ? 0 : max(0, x[i] - x[i+1]), eachindex(x[1:end]))),
-        contiguous_vars_minus_rev=:((x) -> map(i -> i == length(x) ? 0 : max(0, x[i+1] - x[i]), eachindex(x[1:end]))),
-        count_equal=:((x) -> map(i -> count(t -> t == i, x), x)),
-        count_less=:((x) -> map(i -> count(t -> t < i, x), x)),
-        count_great=:((x) -> map(i -> count(t -> t > i, x), x)),
-        count_bounding_val=:((x; val) -> map(i -> count(t -> t >= i && t <= i + val, x), x)),
-        var_minus_vals=:((x; vals) -> map(i -> max(0, (i .- vals)...), x)),
-        vals_minus_var=:((x; vals) -> map(i -> max(0, (vals .- i)...), x)),
+        id = :((x) -> identity(x)),
+        count_equal_right = :(
+            (x) -> map(i -> count(t -> t == x[i], @view(x[(i + 1):end])), eachindex(x))
+        ),
+        count_less_right = :(
+            (x) -> map(i -> count(t -> t < x[i], @view(x[(i + 1):end])), eachindex(x))
+        ),
+        count_great_right = :(
+            (x) -> map(i -> count(t -> t > x[i], @view(x[(i + 1):end])), eachindex(x))
+        ),
+        count_equal_left = :(
+            (x) -> map(i -> count(t -> t == x[i], @view(x[1:(i - 1)])), eachindex(x))
+        ),
+        count_less_left = :(
+            (x) -> map(i -> count(t -> t < x[i], @view(x[1:(i - 1)])), eachindex(x))
+        ),
+        count_great_left = :(
+            (x) -> map(i -> count(t -> t > x[i], @view(x[1:(i - 1)])), eachindex(x))
+        ),
+        count_equal_val = :((x; val) -> map(i -> count(t -> t == (i + val), x), x)),
+        count_less_val = :((x; val) -> map(i -> count(t -> t < (i + val), x), x)),
+        count_great_val = :((x; val) -> map(i -> count(t -> t > (i + val), x), x)),
+        var_minus_val = :((x; val) -> map(i -> max(0, i - val), x)),
+        val_minus_var = :((x; val) -> map(i -> max(0, val - i), x)),
+        contiguous_vars_minus = :(
+            (x) -> map(
+            i -> i == length(x) ? 0 : max(0, x[i] - x[i + 1]),
+            eachindex(x[1:end])
+        )
+        ),
+        contiguous_vars_minus_rev = :(
+            (x) -> map(
+            i -> i == length(x) ? 0 : max(0, x[i + 1] - x[i]),
+            eachindex(x[1:end])
+        )
+        ),
+        count_equal = :((x) -> map(i -> count(t -> t == i, x), x)),
+        count_less = :((x) -> map(i -> count(t -> t < i, x), x)),
+        count_great = :((x) -> map(i -> count(t -> t > i, x), x)),
+        count_bounding_val = :(
+            (x; val) -> map(i -> count(t -> t >= i && t <= i + val, x), x)
+        ),
+        var_minus_vals = :((x; vals) -> map(i -> max(0, (i .- vals)...), x)),
+        vals_minus_var = :((x; vals) -> map(i -> max(0, (vals .- i)...), x))
     )
 )
 

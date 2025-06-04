@@ -3,26 +3,39 @@ const Comparison = LayerCore(
     true,
     (:(Real),) => Real,
     (
-        id=:((x) -> identity(x)),
-        abs_val=:((x; val) -> abs(x - val)),
-        val_minus_var=:((x; val) -> maximum((0, val - x))),
-        var_minus_val=:((x; val) -> maximum((0, x - val))),
-        euclidean_val=:((x; val, dom_size) -> x == val ? 0 : (1 + (abs(x - val) / dom_size))),
-        euclidean_val_op=:((x; op, val, dom_size) -> op(x, val) ? 0 : (1 + (abs(x - val) / dom_size))),
-        euclidean=:((x; dom_size) -> x == 0 ? 0 : (1 + (x / dom_size))),
-        euclidean_op=:((x; op, dom_size) -> op(x, 0) ? 0 : (1 + (x / dom_size))),
-        var_minus_numvars=:((x; numvars) -> abs(x - numvars)),
-        max_numvars_minus_var=:((x; numvars) -> maximum((0, numvars - x))),
-        max_var_minus_numvars=:((x; numvars) -> maximum((x - numvars, 0))),
-        vals_minus_var_gele=:((x; vals) -> length(vals) != 2 ? typemax(eltype(x)) : (vals[1] <= x <= vals[2] ? 0 : minimum((abs(x - vals[1]), abs(x - vals[2]))))),
-        vals_minus_var_gl=:((x; vals) -> length(vals) != 2 ? typemax(eltype(x)) : (vals[1] < x < vals[2] ? 0 : minimum((abs(x - vals[1]), abs(x - vals[2]))))),
-        #        var_minus_val=:((x; vals) -> maximum((0, (x .- vals)...))),
-        #        euclidean_val=:((x; vals, dom_size) -> x in vals ? 0 : (1 + (abs((length(vals) * x) - sum(vals)) / dom_size))),
+        id = :((x) -> identity(x)),
+        abs_val = :((x; val) -> abs(x - val)),
+        val_minus_var = :((x; val) -> maximum((0, val - x))),
+        var_minus_val = :((x; val) -> maximum((0, x - val))),
+        euclidean_val = :(
+            (x; val, dom_size) -> x == val ? 0 : (1 + (abs(x - val) / dom_size))
+        ),
+        euclidean_val_op = :(
+            (x; op, val, dom_size) -> op(x, val) ? 0 : (1 + (abs(x - val) / dom_size))
+        ),
+        euclidean = :((x; dom_size) -> x == 0 ? 0 : (1 + (x / dom_size))),
+        euclidean_op = :((x; op, dom_size) -> op(x, 0) ? 0 : (1 + (x / dom_size))),
+        var_minus_numvars = :((x; numvars) -> abs(x - numvars)),
+        max_numvars_minus_var = :((x; numvars) -> maximum((0, numvars - x))),
+        max_var_minus_numvars = :((x; numvars) -> maximum((x - numvars, 0))),
+        vals_minus_var_gele = :(
+            (x;
+        vals) -> length(vals) != 2 ? typemax(eltype(x)) :
+                 (
+            vals[1] <= x <= vals[2] ? 0 :
+            minimum((abs(x - vals[1]), abs(x - vals[2])))
+        )
+        ),
+        vals_minus_var_gl = :(
+            (x;
+        vals) -> length(vals) != 2 ? typemax(eltype(x)) :
+                 (vals[1] < x < vals[2] ? 0 :
+                  minimum((abs(x - vals[1]), abs(x - vals[2]))))
+        )        #        var_minus_val=:((x; vals) -> maximum((0, (x .- vals)...))),        #        euclidean_val=:((x; vals, dom_size) -> x in vals ? 0 : (1 + (abs((length(vals) * x) - sum(vals)) / dom_size))),
     )
 )
 
 # TODO: Add more operations in comparison
-
 
 # SECTION - Docstrings to put back/update
 """

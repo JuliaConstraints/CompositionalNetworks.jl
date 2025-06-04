@@ -12,18 +12,19 @@ end
 Create an ICN, optimize it, and return its composition.
 """
 function learn_compose(
-    solutions,
-    non_sltns,
-    dom_size;
-    metric = :hamming,
-    optimizer,
-    X_test = nothing,
-    parameters...,
+        solutions,
+        non_sltns,
+        dom_size;
+        metric = :hamming,
+        optimizer,
+        X_test = nothing,
+        parameters...
 )
     icn = ICN(; parameters...)
-    _, weights =
-        optimize!(icn, solutions, non_sltns, dom_size, metric, optimizer; parameters...)
-    compositions = Dictionary{Composition,Int}()
+    _,
+    weights = optimize!(
+        icn, solutions, non_sltns, dom_size, metric, optimizer; parameters...)
+    compositions = Dictionary{Composition, Int}()
 
     for (bv, occurrences) in pairs(weights)
         set!(compositions, compose(deepcopy(icn), bv), occurrences)
@@ -49,13 +50,13 @@ Explore a search space, learn a composition from an ICN, and compose an error fu
 - `action`: either `:symbols` to have a description of the composition or `:composition` to have the composed function itself
 """
 function explore_learn_compose(
-    domains,
-    concept;
-    configurations = nothing,
-    metric = :hamming,
-    optimizer,
-    X_test = nothing,
-    parameters...,
+        domains,
+        concept;
+        configurations = nothing,
+        metric = :hamming,
+        optimizer,
+        X_test = nothing,
+        parameters...
 )
     if isnothing(configurations)
         configurations = explore(domains, concept; parameters...)
@@ -70,7 +71,7 @@ function explore_learn_compose(
         metric,
         optimizer,
         X_test,
-        parameters...,
+        parameters...
     )
 end
 
@@ -94,29 +95,30 @@ Explore, learn and compose a function and write it to a file.
 - `popSize`: size of the population in the genetic algorithm
 """
 function compose_to_file!(
-    concept,
-    name,
-    path;
-    configurations = nothing,
-    domains,
-    language = :Julia,
-    metric = :hamming,
-    optimizer,
-    X_test = nothing,
-    parameters...,
+        concept,
+        name,
+        path;
+        configurations = nothing,
+        domains,
+        language = :Julia,
+        metric = :hamming,
+        optimizer,
+        X_test = nothing,
+        parameters...
 )
     if isnothing(configurations)
         configurations = explore(domains, concept; parameters...)
     end
 
-    compo, icn, _ = explore_learn_compose(
+    compo, icn,
+    _ = explore_learn_compose(
         domains,
         concept;
         configurations,
         metric,
         optimizer,
         X_test,
-        parameters...,
+        parameters...
     )
     composition_to_file!(compo, path, name, language)
     return icn
