@@ -11,6 +11,4 @@ using TestItemRunner
     include("ExplicitImports.jl")
     include("JET.jl")
     include("TestItemRunner.jl")
-
-    include("icn.jl")
 end

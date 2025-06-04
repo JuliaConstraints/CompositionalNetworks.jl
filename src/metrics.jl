@@ -4,6 +4,18 @@ Compute the hamming distance of `x` over a collection of solutions `X`, i.e. the
 """
 hamming(x, X) = mapreduce(y -> Distances.hamming(x, y), min, X)
 
+function hamming(
+        icn::AbstractICN,
+        configurations::Configurations,
+        solution_vector;
+        parameters...
+)
+    sum(
+        x -> abs(evaluate(icn, x; parameters...) - hamming(x.x, solution_vector)),
+        configurations
+    )
+end
+
 """
     minkowski(x, X, p)
 """
@@ -13,6 +25,18 @@ minkowski(x, X, p) = mapreduce(y -> Distances.minkowski(x, y, p), min, X)
     manhattan(x, X)
 """
 manhattan(x, X) = mapreduce(y -> Distances.cityblock(x, y), min, X)
+
+function manhattan(
+        icn::AbstractICN,
+        configurations::Configurations,
+        solution_vector;
+        parameters...
+)
+    sum(
+        x -> abs(evaluate(icn, x; parameters...) - manhattan(x.x, solution_vector)),
+        configurations
+    ) / (get(icn.constants, :dom_size, 2) - 1)
+end
 
 """
     weights_bias(x)
