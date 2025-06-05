@@ -25,7 +25,7 @@ parameter_specific_operations(x; X = nothing) = 0.0
 function CompositionalNetworks.optimize!(
         icn::T,
         configurations::Configurations,
-        metric_function::Function,
+        metric_function::Union{Function, Vector{Function}},
         optimizer_config::LocalSearchOptimizer;
         parameters...
 ) where {T <: AbstractICN}
