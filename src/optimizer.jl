@@ -22,7 +22,7 @@ end
     import Evolutionary
     import Test: @test
 
-    test_icn=ICN(;
+    test_icn = ICN(;
         parameters = [:dom_size, :numvars, :val],
         layers = [Transformation, Arithmetic, Aggregation, Comparison],
         connection = [1, 2, 3, 4]
@@ -31,8 +31,8 @@ end
     function allunique_val(x; val)
         for i in 1:(length(x) - 1)
             for j in (i + 1):length(x)
-                if x[i]==x[j]
-                    if x[i]!=val
+                if x[i] == x[j]
+                    if x[i] != val
                         return false
                     end
                 end
@@ -44,7 +44,7 @@ end
     function allunique_vals(x; vals)
         for i in 1:(length(x) - 1)
             for j in (i + 1):length(x)
-                if x[i]==x[j]
+                if x[i] == x[j]
                     if !(x[i] in vals)
                         return false
                     end
@@ -62,7 +62,7 @@ end
         val = 3
     )[2]
 
-    new_test_icn=ICN(;
+    new_test_icn = ICN(;
         parameters = [:dom_size, :numvars, :vals],
         layers = [SimpleFilter, Transformation, Arithmetic, Aggregation, Comparison],
         connection = [1, 2, 3, 4, 5]
@@ -82,56 +82,54 @@ struct LocalSearchOptimizer <: AbstractOptimizer
     options::Any
 end
 
-#FIXME - Broken for compatibility reasons until LocalSearchSolvers updates its compat entries
-# @testitem "LocalSearchOptimizer" tags = [:extension] default_imports = false begin
-#     import CompositionalNetworks: Transformation, Arithmetic, Aggregation, SimpleFilter
-#     import CompositionalNetworks: LocalSearchOptimizer, explore_learn, Comparison, ICN
-#     import ConstraintDomains: domain
-#     import LocalSearchSolvers
-#     import Test: @test
+@testitem "LocalSearchOptimizer" tags=[:extension] default_imports=false begin
+    import CompositionalNetworks: Transformation, Arithmetic, Aggregation, SimpleFilter
+    import CompositionalNetworks: LocalSearchOptimizer, explore_learn, Comparison, ICN
+    import ConstraintDomains: domain
+    import LocalSearchSolvers
+    import Test: @test
 
-#     test_icn = ICN(;
-#         parameters=[:dom_size, :numvars, :val],
-#         layers=[Transformation, Arithmetic, Aggregation, Comparison],
-#         connection=[1, 2, 3, 4],
-#     )
+    test_icn = ICN(;
+        parameters = [:dom_size, :numvars, :val],
+        layers = [Transformation, Arithmetic, Aggregation, Comparison],
+        connection = [1, 2, 3, 4]
+    )
 
-#     function allunique_val(x; val)
-#         for i in 1:(length(x)-1)
-#             for j in (i+1):length(x)
-#                 if x[i] == x[j]
-#                     if x[i] != val
-#                         return false
-#                     end
-#                 end
-#             end
-#         end
-#         return true
-#     end
+    function allunique_val(x; val)
+        for i in 1:(length(x) - 1)
+            for j in (i + 1):length(x)
+                if x[i] == x[j]
+                    if x[i] != val
+                        return false
+                    end
+                end
+            end
+        end
+        return true
+    end
 
-#     function allunique_vals(x; vals)
-#         for i in 1:(length(x)-1)
-#             for j in (i+1):length(x)
-#                 if x[i] == x[j]
-#                     if !(x[i] in vals)
-#                         return false
-#                     end
-#                 end
-#             end
-#         end
-#         return true
-#     end
+    function allunique_vals(x; vals)
+        for i in 1:(length(x) - 1)
+            for j in (i + 1):length(x)
+                if x[i] == x[j]
+                    if !(x[i] in vals)
+                        return false
+                    end
+                end
+            end
+        end
+        return true
+    end
 
-#     @test explore_learn([domain([1, 2, 3, 4]) for i in 1:4], allunique_val, LocalSearchOptimizer(), icn=test_icn, val=3)[2]
+    @test explore_learn([domain([1, 2, 3, 4]) for i in 1:4], allunique_val,
+        LocalSearchOptimizer(), icn = test_icn, val = 3)[2]
 
-#     new_test_icn = ICN(;
-#         parameters=[:dom_size, :numvars, :vals],
-#         layers=[SimpleFilter, Transformation, Arithmetic, Aggregation, Comparison],
-#         connection=[1, 2, 3, 4, 5],
-#     )
+    new_test_icn = ICN(;
+        parameters = [:dom_size, :numvars, :vals],
+        layers = [SimpleFilter, Transformation, Arithmetic, Aggregation, Comparison],
+        connection = [1, 2, 3, 4, 5]
+    )
 
-#     @test explore_learn([domain([1, 2, 3, 4]) for i in 1:4], allunique_vals, LocalSearchOptimizer(), icn=new_test_icn, vals=[3, 4])[2]
-# end
-
-struct JuMPOptimizer <: AbstractOptimizer
+    @test explore_learn([domain([1, 2, 3, 4]) for i in 1:4], allunique_vals,
+        LocalSearchOptimizer(), icn = new_test_icn, vals = [3, 4])[2]
 end
