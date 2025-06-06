@@ -8,6 +8,10 @@ struct NonSolution <: AbstractSolution
     x::Any
 end
 
+struct UnknownSolution <: AbstractSolution
+    x::Any
+end
+
 const Configuration{T} = T where {T <: AbstractSolution} # alias
 
 const Configurations{N} = Set{<:Configuration}

@@ -77,6 +77,15 @@ end
     )[2]
 end
 
+# SECTION - Metaheuristics Extension
+struct MetaheuristicsOptimizer <: AbstractOptimizer
+    maxiters::Int64
+    maxtime::Float64
+    backend
+    bounds
+    extra_functions::Dict{Symbol, Function}
+end
+
 # SECTION - CBLSOptimizer Extension
 struct LocalSearchOptimizer <: AbstractOptimizer
     options::Any
