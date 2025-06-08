@@ -81,9 +81,53 @@ end
 struct MetaheuristicsOptimizer <: AbstractOptimizer
     maxiters::Int64
     maxtime::Float64
-    backend
-    bounds
+    backend::Any
+    bounds::Any
     extra_functions::Dict{Symbol, Function}
+end
+
+@testitem "Metaheuristics" tags=[:extension] default_imports=false begin
+    import CompositionalNetworks:
+                                  Transformation, Arithmetic, Aggregation, Comparison, ICN,
+                                  SimpleFilter
+    import CompositionalNetworks: GeneticOptimizer, explore_learn
+    import ConstraintDomains: domain
+    import Metaheuristics
+    import Test: @test
+
+    test_icn = ICN(;
+        parameters = [:dom_size, :numvars, :val],
+        layers = [Transformation, Arithmetic, Aggregation, Comparison],
+        connection = [1, 2, 3, 4]
+    )
+
+    function allunique_val(x; val)
+        for i in 1:(length(x) - 1)
+            for j in (i + 1):length(x)
+                if x[i] == x[j]
+                    if x[i] != val
+                        return false
+                    end
+                end
+            end
+        end
+        return true
+    end
+
+    function allunique_vals(x; vals)
+        for i in 1:(length(x) - 1)
+            for j in (i + 1):length(x)
+                if x[i] == x[j]
+                    if !(x[i] in vals)
+                        return false
+                    end
+                end
+            end
+        end
+        return true
+    end
+
+    #TODO - Add tests @VarLad
 end
 
 # SECTION - CBLSOptimizer Extension
