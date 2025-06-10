@@ -97,7 +97,7 @@ end
 
     test_icn = ICN(;
         parameters = [:dom_size, :numvars, :val],
-        layers = [Transformation, Arithmetic, Aggregation, Comparison],
+        layers = [SimpleFilter, Transformation, Arithmetic, Aggregation, Comparison],
         connection = [1, 2, 3, 4]
     )
 
@@ -127,7 +127,14 @@ end
         return true
     end
 
-    #TODO - Add tests @VarLad
+    @test explore_learn(
+        [domain([1, 2, 3, 4]) for i in 1:4],
+        allunique_val,
+        MetaheuristicsOptimizer(GA()), # use whatever optimizer here as provided by Metaheuristics.jl, I'm using GA
+        icn = test_icn,
+        val = 3
+    )[2]
+
 end
 
 # SECTION - CBLSOptimizer Extension
