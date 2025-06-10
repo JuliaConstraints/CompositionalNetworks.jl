@@ -130,7 +130,7 @@ function CompositionalNetworks.optimize!(
 
     bounds = if isnothing(bounds)
         if optimizer_config.backend isa Metaheuristics.Algorithm{<:GA}
-            BitSpacedArray(length(icn.weights))
+            BitArraySpace(length(icn.weights))
         end
     else
         optimizer_config.bounds
