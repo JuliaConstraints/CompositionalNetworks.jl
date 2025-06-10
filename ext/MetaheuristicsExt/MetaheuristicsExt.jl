@@ -138,7 +138,7 @@ function CompositionalNetworks.optimize!(
 
     r = Metaheuristics.optimize(
         fitness,
-        optimizer_config.bounds,
+        bounds,
         optimizer_config.backend
     )
     validity = apply!(icn, Metaheuristics.minimizer(r))
