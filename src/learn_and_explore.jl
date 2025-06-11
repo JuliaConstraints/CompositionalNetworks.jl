@@ -48,7 +48,8 @@ function explore_learn(
         configurations = generate_configurations(concept, domains; parameters...)
     end
 
-    icn.constants[:dom_size] = maximum(length, domains)
+    icn.constants[:dom_size] = maximum(
+        x -> maximum(x.domain) - minimum(x.domain) + 1, domains)
     icn.constants[:numvars] = length(domains)
 
     return optimize!(

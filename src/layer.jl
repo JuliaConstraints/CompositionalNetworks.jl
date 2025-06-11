@@ -7,7 +7,7 @@ struct LayerCore <: AbstractLayer
     mutex::Bool
     argtype::Pair
     fnexprs::NamedTuple{
-        names, T} where {names, T <: Tuple{Vararg{<:Union{Symbol, JLFunction}}}}
+        names, T} where {names, T <: Tuple{Vararg{Union{Symbol, JLFunction}}}}
     fn::NamedTuple{names, T} where {names, T <: Tuple{Vararg{Function}}}
     function LayerCore(name::Symbol, mutex::Bool, Q::Pair, fnexprs)
         fnexprs = map(x -> JLFunction(x), fnexprs)

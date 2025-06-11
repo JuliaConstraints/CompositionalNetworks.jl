@@ -77,6 +77,65 @@ end
     )[2]
 end
 
+# SECTION - Metaheuristics Extension
+struct MetaheuristicsOptimizer <: AbstractOptimizer
+    maxiters::Int64
+    maxtime::Float64
+    backend::Any
+    bounds::Any
+    extra_functions::Dict{Symbol, Function}
+end
+
+@testitem "Metaheuristics" tags=[:extension] default_imports=false begin
+    import CompositionalNetworks:
+                                  Transformation, Arithmetic, Aggregation, Comparison, ICN,
+                                  SimpleFilter
+    import CompositionalNetworks: MetaheuristicsOptimizer, explore_learn
+    import ConstraintDomains: domain
+    import Metaheuristics: GA
+    import Test: @test
+
+    test_icn = ICN(;
+        parameters = [:dom_size, :numvars, :val],
+        layers = [SimpleFilter, Transformation, Arithmetic, Aggregation, Comparison],
+        connection = [1, 2, 3, 4]
+    )
+
+    function allunique_val(x; val)
+        for i in 1:(length(x) - 1)
+            for j in (i + 1):length(x)
+                if x[i] == x[j]
+                    if x[i] != val
+                        return false
+                    end
+                end
+            end
+        end
+        return true
+    end
+
+    function allunique_vals(x; vals)
+        for i in 1:(length(x) - 1)
+            for j in (i + 1):length(x)
+                if x[i] == x[j]
+                    if !(x[i] in vals)
+                        return false
+                    end
+                end
+            end
+        end
+        return true
+    end
+
+    @test explore_learn(
+        [domain([1, 2, 3, 4]) for i in 1:4],
+        allunique_val,
+        MetaheuristicsOptimizer(GA()), # use whatever optimizer here as provided by Metaheuristics.jl, I'm using GA
+        icn = test_icn,
+        val = 3
+    )[2]
+end
+
 # SECTION - CBLSOptimizer Extension
 struct LocalSearchOptimizer <: AbstractOptimizer
     options::Any

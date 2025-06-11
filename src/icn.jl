@@ -67,7 +67,7 @@ function generate_new_valid_weights!(icn::T) where {T <: AbstractICN}
     nothing
 end
 
-function apply!(icn::AbstractICN, weights::BitVector)::Bool
+function apply!(icn::AbstractICN, weights::AbstractVector{Bool})::Bool
     icn.weights .= weights
     return check_weights_validity(icn, weights)
 end
@@ -104,6 +104,16 @@ function evaluate(
     else
         return Inf
     end
+end
+
+function evaluate(
+        icn::AbstractICN,
+        config::AbstractVector;
+        weights_validity = true,
+        parameters...
+)
+    evaluate(
+        icn, UnknownSolution(config); weights_validity = weights_validity, parameters...)
 end
 
 function evaluate(
@@ -168,7 +178,7 @@ function evaluate(icn::Nothing, config::Configuration)
 end
 =#
 
-(icn::AbstractICN)(weights::BitVector) = apply!(icn, weights)
+(icn::AbstractICN)(weights::AbstractVector{Bool}) = apply!(icn, weights)
 (icn::AbstractICN)(config::Configuration) = evaluate(icn, config)
 
 struct ICN{S} <: AbstractICN where {S <: Union{AbstractVector{<:AbstractLayer}, Nothing}}
@@ -179,7 +189,7 @@ struct ICN{S} <: AbstractICN where {S <: Union{AbstractVector{<:AbstractLayer}, 
     weightlen::AbstractVector{Int}
     constants::Dict
     function ICN(;
-            weights = BitVector[],
+            weights = AbstractVector{Bool}[],
             parameters = Symbol[],
             layers = [Transformation, Arithmetic, Aggregation, Comparison],
             connection = UInt32[1, 2, 3, 4],
