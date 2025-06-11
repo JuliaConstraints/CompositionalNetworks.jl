@@ -90,9 +90,9 @@ end
     import CompositionalNetworks:
                                   Transformation, Arithmetic, Aggregation, Comparison, ICN,
                                   SimpleFilter
-    import CompositionalNetworks: GeneticOptimizer, explore_learn
+    import CompositionalNetworks: MetaheuristicsOptimizer, explore_learn
     import ConstraintDomains: domain
-    import Metaheuristics
+    import Metaheuristics: GA
     import Test: @test
 
     test_icn = ICN(;
@@ -134,7 +134,6 @@ end
         icn = test_icn,
         val = 3
     )[2]
-
 end
 
 # SECTION - CBLSOptimizer Extension

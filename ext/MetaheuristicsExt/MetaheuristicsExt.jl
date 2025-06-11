@@ -23,14 +23,12 @@ function CompositionalNetworks.MetaheuristicsOptimizer(backend;
         extra_functions = Dict(),
         bounds = nothing
 )
-
     if backend isa Metaheuristics.Algorithm{<:GA}
         extra_functions[:generate_population] = generate_population
     end
 
     return MetaheuristicsOptimizer(maxiters, maxtime, backend, bounds, extra_functions)
 end
-
 
 function CompositionalNetworks.optimize!(
         icn::T,
@@ -111,7 +109,6 @@ function CompositionalNetworks.optimize!(
 
         return a + b + c
     end
-
 
     #=
     _icn_ga = GA(;

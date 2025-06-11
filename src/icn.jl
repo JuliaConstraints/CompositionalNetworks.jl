@@ -106,12 +106,15 @@ function evaluate(
     end
 end
 
-evaluate(
+function evaluate(
         icn::AbstractICN,
         config::AbstractVector;
         weights_validity = true,
         parameters...
-) = evaluate(icn, UnknownSolution(config); weights_validity = weights_validity, parameters...)
+)
+    evaluate(
+        icn, UnknownSolution(config); weights_validity = weights_validity, parameters...)
+end
 
 function evaluate(
         icns::Vector{<:AbstractICN},
@@ -186,11 +189,11 @@ struct ICN{S} <: AbstractICN where {S <: Union{AbstractVector{<:AbstractLayer}, 
     weightlen::AbstractVector{Int}
     constants::Dict
     function ICN(;
-        weights = AbstractVector{Bool}[],
-        parameters = Symbol[],
-        layers = [Transformation, Arithmetic, Aggregation, Comparison],
-        connection = UInt32[1, 2, 3, 4],
-        constants = Dict()
+            weights = AbstractVector{Bool}[],
+            parameters = Symbol[],
+            layers = [Transformation, Arithmetic, Aggregation, Comparison],
+            connection = UInt32[1, 2, 3, 4],
+            constants = Dict()
     )
         len = [length(layer.fn) for layer in layers]
 
