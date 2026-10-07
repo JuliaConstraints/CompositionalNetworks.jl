@@ -1,7 +1,7 @@
 name = "CompositionalNetworks"
 uuid = "4b67e4b5-442d-4ef5-b760-3f5df3a57537"
 authors = ["Jean-François Baffier"]
-version = "0.6.1"
+version = "0.6.2"
 
 [deps]
 ConstraintCommons = "e37357d9-0691-492f-a822-e5ea6a920954"
@@ -25,11 +25,11 @@ JuMPExactExt = "JuMP"
 LocalSearchSolversExt = "LocalSearchSolvers"
 
 [compat]
-LocalSearchSolvers = "0.4"
+LocalSearchSolvers = "0.4.11"
 Evolutionary = "0.11, 0.12"
 JuMP = "1"
-ConstraintCommons = "0.3"
-ConstraintDomains = "0.4"
+ConstraintCommons = "0.3.1"
+ConstraintDomains = "0.4.1"
 Dictionaries = "0.4"
 Distances = "0.10"
 ExproniconLite = "0.10"
@@ -37,6 +37,8 @@ JuliaFormatter = "2"
 JET = "0.9, 0.10, 0.11, 0.12"
 OrderedCollections = "1, 2"
 Random = "1"
+Serialization = "1"
+TOML = "1"
 TestItems = "1"
 julia = "1.12"
 
@@ -49,6 +51,8 @@ LocalSearchSolvers = "2b10edaa-728d-4283-ac71-07e312d6ccf3"
 ExplicitImports = "7d51a73a-1435-4ff3-83d9-f097790105c7"
 JET = "c3a54625-cd67-489e-a8e7-0a5a0ff4e31b"
 Memoization = "6fafb56a-5788-4b4e-91ca-c0cea6611c73"
+Serialization = "9e88b42a-f829-5b0c-bbe9-9e923198166b"
+TOML = "fa267f1f-6049-4f14-aa54-33bafae1ed76"
 Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
 TestItemRunner = "f8b46487-2199-4994-9208-9a1283c18c0a"
 ThreadPools = "b189fb0b-2eb5-4ed4-bc0c-d34c51242431"
@@ -63,6 +67,8 @@ test = [
     "JuMP",
     "LocalSearchSolvers",
     "Memoization",
+    "Serialization",
+    "TOML",
     "Test",
     "TestItemRunner",
     "ThreadPools",
