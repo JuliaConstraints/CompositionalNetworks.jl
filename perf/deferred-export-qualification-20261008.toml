@@ -1,0 +1,1200 @@
+recorded_utc = "2026-10-08T23:06:18.356"
+environment = "Temporary comparison environment copied integrated V3 Project/Manifest bytes and changed only the CN development path in Manifest. No Pkg installation, resolution or solver execution. Actual loaded CN and frozen CC paths checked. Shared source, bank and original environment fingerprints unchanged before/after every lifecycle."
+cc_frozen_dependency_commit = "1707636e0145e00c6b3098f25e3e41c61de38136"
+route_scope = "Actual load_backend(:icn) via invokelatest, without SnoopCompile/Core or BenchmarkTools loaded, after immutable route-module bootstrap; W4/W2/W52 compiled and cached. Loaded-profiler absence asserted in the final three matched processes."
+export_contract = "All four paths, both jlfun modes, AbstractString subtype filenames, identical printer text, independent evaluator/readback agreement, invalid-directory SystemError, unchanged weights and input."
+cn_qualification_parent_commit = "00b31933ff00a33c911b5a142623cd62ab36a618"
+julia_threads = 2
+ownership = "Exact bank; positive, negative, zero and mixed scalar condition checks; W2 equality and W52 strict ordering checks. Cached pure immutable zero-field functions shared; input/residual/witness and every route-workspace buffer private. No training."
+cpu_affinity = [4, 6]
+sparse_scope = "Actual first prepare_backend(:icn_fused) via invokelatest after loading SnoopCompile and Reproduction.jl; original scoring and Reproduction sources. Immediately repeated cache retrieval. Separate uninstrumented memory processes in baseline/current/current/baseline order."
+cn_baseline_commit = "46192ea8ecde5ad8029c61f05c737984f370c52d"
+cause = "Cold inference entered the optional non-specializing export helper even when no file was requested, and inferred TranscodingStreams.open plus ExproniconLite printers. Invokelatest prevents that inference before a requested export executes."
+rejected_experiment = "Memory-only direct construction of the function AST gave 672477048 bytes versus 672133600 baseline and was rejected; no source change retained."
+blas_threads = 1
+change = "Defer optional source export through Base.invokelatest in all four compose paths. Generated function AST, selected operations, exact witness bank and hot scoring kernels unchanged."
+runtime = "1.13.1"
+gc_threads = 1
+bank_sha256 = "4df0b409d303d1b666a2d0aba3367c1dc08a2b380da109e50dee83b042b8ea90"
+source_sha256 = "261f1e08ac500d60ee5f5c48f748e79f47f3b8d9f2ea22b4aab6f7d3fe66d8a5"
+timing_limitations = "Other night jobs active; operational timings only, not controlled speedup/scaling evidence. Instrumented inference and plain memory/GC measured in separate fresh processes. Stored CodeInstance inference/LLVM counters can include historical work and tree-inclusive sums overlap; do not interpret aggregates as elapsed time or speed ratios."
+
+[kernel_diagnostics]
+recorded_utc = "2026-10-08T23:03:01.567"
+case_sha256 = "a1018f1a99d5fe569447d3b73de20a63b67265261e27acf6b6aef0a53f89776a"
+cpu_affinity = [4, 6]
+project = "/home/azzaare/.julia/dev/JuliaConstraintsPerfNightICN/diagnostics"
+analyzer_cases = 4
+threads = 2
+blas_threads = 1
+operation_scope = "Two-element learned W2 directional count; unchanged generated scoring kernel; measured callback excludes grammar recovery and source export."
+runtime = "1.13.1"
+gc_threads = 1
+collector_cases = 6
+bank_sha256 = "4df0b409d303d1b666a2d0aba3367c1dc08a2b380da109e50dee83b042b8ea90"
+
+    [[kernel_diagnostics.collectors]]
+    correctness = "passed"
+    status = "complete"
+    collector = "benchmark"
+    implementation = "compiled"
+    scenario = "learned-equality-pair"
+
+        [kernel_diagnostics.collectors."julia.wall.time"]
+        samples = 5
+        minimum = 2.6e-8
+        maximum = 5.66e-7
+
+        [kernel_diagnostics.collectors."julia.alloc.count"]
+        samples = 5
+        minimum = 0
+        maximum = 0
+
+        [kernel_diagnostics.collectors."julia.alloc.bytes"]
+        samples = 5
+        minimum = 0
+        maximum = 0
+    [[kernel_diagnostics.collectors]]
+    correctness = "passed"
+    status = "complete"
+    collector = "chairmark"
+    implementation = "compiled"
+    scenario = "learned-equality-pair"
+
+        [kernel_diagnostics.collectors."julia.wall.time"]
+        samples = 5
+        minimum = 2.7e-8
+        maximum = 4.42e-7
+
+        [kernel_diagnostics.collectors."julia.alloc.count"]
+        samples = 5
+        minimum = 0.0
+        maximum = 0.0
+
+        [kernel_diagnostics.collectors."julia.alloc.bytes"]
+        samples = 5
+        minimum = 0.0
+        maximum = 0.0
+    [[kernel_diagnostics.collectors]]
+    correctness = "passed"
+    status = "complete"
+    collector = "profile"
+    implementation = "compiled"
+    scenario = "learned-equality-pair"
+    [[kernel_diagnostics.collectors]]
+    correctness = "passed"
+    status = "complete"
+    collector = "profile_alloc"
+    implementation = "compiled"
+    scenario = "learned-equality-pair"
+    [[kernel_diagnostics.collectors]]
+    correctness = "passed"
+    status = "complete"
+    collector = "benchmark"
+    implementation = "original-square"
+    scenario = "learned-equality-pair"
+
+        [kernel_diagnostics.collectors."julia.wall.time"]
+        samples = 5
+        minimum = 2.9e-8
+        maximum = 6.38e-7
+
+        [kernel_diagnostics.collectors."julia.alloc.count"]
+        samples = 5
+        minimum = 0
+        maximum = 0
+
+        [kernel_diagnostics.collectors."julia.alloc.bytes"]
+        samples = 5
+        minimum = 0
+        maximum = 0
+    [[kernel_diagnostics.collectors]]
+    correctness = "passed"
+    status = "complete"
+    collector = "chairmark"
+    implementation = "original-square"
+    scenario = "learned-equality-pair"
+
+        [kernel_diagnostics.collectors."julia.wall.time"]
+        samples = 5
+        minimum = 3.4e-8
+        maximum = 7.440000000000001e-7
+
+        [kernel_diagnostics.collectors."julia.alloc.count"]
+        samples = 5
+        minimum = 0.0
+        maximum = 0.0
+
+        [kernel_diagnostics.collectors."julia.alloc.bytes"]
+        samples = 5
+        minimum = 0.0
+        maximum = 0.0
+
+    [[kernel_diagnostics.diagnostics]]
+    measurements = ""
+    correctness = "passed"
+    summary = ""
+    status = "complete"
+    tool_version = "0.12.3"
+    analysis_scope = "operation specialized for prepared state type; synchronization excluded"
+    tool = "jet"
+    findings = []
+    message = ""
+    [[kernel_diagnostics.diagnostics]]
+    measurements = ""
+    correctness = "passed"
+    summary = ""
+    status = "complete"
+    tool_version = "0.2.6"
+    analysis_scope = "static operation specialization; tool exception-path defaults; not a universal allocation guarantee"
+    tool = "alloccheck"
+    findings = []
+    message = ""
+    [[kernel_diagnostics.diagnostics]]
+    correctness = "passed"
+    summary = "5 operations: 0.0 ms in GC, 0 allocated bytes in total. Diagnostic counters are process-wide."
+    status = "complete"
+    tool_version = ""
+    analysis_scope = "warmed operation and synchronization; fresh state; preparation, verification and cleanup excluded"
+    tool = "gc"
+    findings = []
+    message = ""
+
+        [[kernel_diagnostics.diagnostics.measurements.samples]]
+        full_sweep = 0
+        operation_seconds = 1.019e-6
+        lock_conflicts = 0
+        malloc = 0
+        gc_seconds = 0.0
+        bigalloc = 0
+        poolalloc = 0
+        compile_time = 0.0
+        allocated_bytes = 0
+        recompile_time = 0.0
+        realloc = 0
+        pause = 0
+        [[kernel_diagnostics.diagnostics.measurements.samples]]
+        full_sweep = 0
+        operation_seconds = 4.8e-8
+        lock_conflicts = 0
+        malloc = 0
+        gc_seconds = 0.0
+        bigalloc = 0
+        poolalloc = 0
+        compile_time = 0.0
+        allocated_bytes = 0
+        recompile_time = 0.0
+        realloc = 0
+        pause = 0
+        [[kernel_diagnostics.diagnostics.measurements.samples]]
+        full_sweep = 0
+        operation_seconds = 3.9e-8
+        lock_conflicts = 0
+        malloc = 0
+        gc_seconds = 0.0
+        bigalloc = 0
+        poolalloc = 0
+        compile_time = 0.0
+        allocated_bytes = 0
+        recompile_time = 0.0
+        realloc = 0
+        pause = 0
+        [[kernel_diagnostics.diagnostics.measurements.samples]]
+        full_sweep = 0
+        operation_seconds = 3.7e-8
+        lock_conflicts = 0
+        malloc = 0
+        gc_seconds = 0.0
+        bigalloc = 0
+        poolalloc = 0
+        compile_time = 0.0
+        allocated_bytes = 0
+        recompile_time = 0.0
+        realloc = 0
+        pause = 0
+        [[kernel_diagnostics.diagnostics.measurements.samples]]
+        full_sweep = 0
+        operation_seconds = 3.8e-8
+        lock_conflicts = 0
+        malloc = 0
+        gc_seconds = 0.0
+        bigalloc = 0
+        poolalloc = 0
+        compile_time = 0.0
+        allocated_bytes = 0
+        recompile_time = 0.0
+        realloc = 0
+        pause = 0
+    [[kernel_diagnostics.diagnostics]]
+    correctness = "passed"
+    summary = "5 operations: reachable state changed by 0 to 0 bytes. Growth may be intended output or a cache; it does not establish a leak."
+    status = "complete"
+    tool_version = ""
+    analysis_scope = ""
+    tool = "memory"
+    findings = []
+    message = ""
+
+        [[kernel_diagnostics.diagnostics.measurements.samples]]
+        state_before_bytes = 64
+        state_after_bytes = 64
+        state_and_result_bytes = 72
+
+            [kernel_diagnostics.diagnostics.measurements.samples.process_before]
+            provider = "linux-proc-status+smaps-rollup"
+            schema_version = "perfchecker-process-memory/1"
+            timestamp_ns = 0x188e84b46f52
+            private_bytes = 0x14fb9000
+            peak_rss_bytes = 0x20905000
+            rss_bytes = 0x2079f000
+            status = "observed"
+            message = ""
+            pid = 204163
+
+            [kernel_diagnostics.diagnostics.measurements.samples.process_after]
+            provider = "linux-proc-status+smaps-rollup"
+            schema_version = "perfchecker-process-memory/1"
+            timestamp_ns = 0x188e875575e8
+            private_bytes = 0x14fba000
+            peak_rss_bytes = 0x20905000
+            rss_bytes = 0x20810000
+            status = "observed"
+            message = ""
+            pid = 204163
+        [[kernel_diagnostics.diagnostics.measurements.samples]]
+        state_before_bytes = 64
+        state_after_bytes = 64
+        state_and_result_bytes = 72
+
+            [kernel_diagnostics.diagnostics.measurements.samples.process_before]
+            provider = "linux-proc-status+smaps-rollup"
+            schema_version = "perfchecker-process-memory/1"
+            timestamp_ns = 0x188e8931b9de
+            private_bytes = 0x14fbc000
+            peak_rss_bytes = 0x20905000
+            rss_bytes = 0x20812000
+            status = "observed"
+            message = ""
+            pid = 204163
+
+            [kernel_diagnostics.diagnostics.measurements.samples.process_after]
+            provider = "linux-proc-status+smaps-rollup"
+            schema_version = "perfchecker-process-memory/1"
+            timestamp_ns = 0x188e8978b9f1
+            private_bytes = 0x14fbc000
+            peak_rss_bytes = 0x20905000
+            rss_bytes = 0x20812000
+            status = "observed"
+            message = ""
+            pid = 204163
+        [[kernel_diagnostics.diagnostics.measurements.samples]]
+        state_before_bytes = 64
+        state_after_bytes = 64
+        state_and_result_bytes = 72
+
+            [kernel_diagnostics.diagnostics.measurements.samples.process_before]
+            provider = "linux-proc-status+smaps-rollup"
+            schema_version = "perfchecker-process-memory/1"
+            timestamp_ns = 0x188e89bd79fe
+            private_bytes = 0x14fbc000
+            peak_rss_bytes = 0x20905000
+            rss_bytes = 0x20812000
+            status = "observed"
+            message = ""
+            pid = 204163
+
+            [kernel_diagnostics.diagnostics.measurements.samples.process_after]
+            provider = "linux-proc-status+smaps-rollup"
+            schema_version = "perfchecker-process-memory/1"
+            timestamp_ns = 0x188e8a00c0c2
+            private_bytes = 0x14fbc000
+            peak_rss_bytes = 0x20905000
+            rss_bytes = 0x20812000
+            status = "observed"
+            message = ""
+            pid = 204163
+        [[kernel_diagnostics.diagnostics.measurements.samples]]
+        state_before_bytes = 64
+        state_after_bytes = 64
+        state_and_result_bytes = 72
+
+            [kernel_diagnostics.diagnostics.measurements.samples.process_before]
+            provider = "linux-proc-status+smaps-rollup"
+            schema_version = "perfchecker-process-memory/1"
+            timestamp_ns = 0x188e8a426045
+            private_bytes = 0x14fbc000
+            peak_rss_bytes = 0x20905000
+            rss_bytes = 0x20812000
+            status = "observed"
+            message = ""
+            pid = 204163
+
+            [kernel_diagnostics.diagnostics.measurements.samples.process_after]
+            provider = "linux-proc-status+smaps-rollup"
+            schema_version = "perfchecker-process-memory/1"
+            timestamp_ns = 0x188e8a840e9f
+            private_bytes = 0x14fbc000
+            peak_rss_bytes = 0x20905000
+            rss_bytes = 0x20812000
+            status = "observed"
+            message = ""
+            pid = 204163
+        [[kernel_diagnostics.diagnostics.measurements.samples]]
+        state_before_bytes = 64
+        state_after_bytes = 64
+        state_and_result_bytes = 72
+
+            [kernel_diagnostics.diagnostics.measurements.samples.process_before]
+            provider = "linux-proc-status+smaps-rollup"
+            schema_version = "perfchecker-process-memory/1"
+            timestamp_ns = 0x188e8ac59923
+            private_bytes = 0x14fbc000
+            peak_rss_bytes = 0x20905000
+            rss_bytes = 0x20812000
+            status = "observed"
+            message = ""
+            pid = 204163
+
+            [kernel_diagnostics.diagnostics.measurements.samples.process_after]
+            provider = "linux-proc-status+smaps-rollup"
+            schema_version = "perfchecker-process-memory/1"
+            timestamp_ns = 0x188e8b06bac3
+            private_bytes = 0x14fbc000
+            peak_rss_bytes = 0x20905000
+            rss_bytes = 0x20812000
+            status = "observed"
+            message = ""
+            pid = 204163
+
+[candidate_inference]
+recorded_utc = "2026-10-08T23:00:58.772"
+scope = "First actual prepare_backend(:icn_fused) after loading SnoopCompile and Reproduction.jl in a fresh process; warm retrieval follows immediately. No scenario factory precedes the cold call. No training or native solver execution."
+decoder_checks = "Exact bank; equality target zero on positive, negative, zero and mixed-sign inputs; one immutable zero-field pure decoder shared; distinct input/residual buffers; problem workspaces remain lazily uninitialized."
+julia_threads = 2
+cpu_affinity = [4, 6]
+cn_reference_commit = "46192ea8ecde5ad8029c61f05c737984f370c52d"
+cc_commit = "1707636e0145e00c6b3098f25e3e41c61de38136"
+project = "/tmp/icn-deferred-export-qualification-77FtQh"
+blas_threads = 1
+mode = "inference"
+variant = "deferred-export"
+runtime = "1.13.1"
+gc_threads = 1
+limitations = "Inference timing includes Ref assignment and invokelatest bookkeeping. Inference/LLVM aggregates sum unique code instances and may not cover all lifecycle work; inclusive tree sums overlap and are not elapsed time. Compiler counters use Float16 storage. Memory/GC are measured in a separate fresh process without Snoop instrumentation. Operational measurements with other night jobs active."
+
+    [candidate_inference.fingerprints]
+    manifest = "94a31a9aa63d03ffc154577030bfaa5d6327d014dd07f5705b3bbf5b6815aff0"
+    integrated_project = "7347b66bc4e6eaaf3393198faebfac15611bc1bb150dcd5c87e845c73fd6b21d"
+    cn_compose = "261f1e08ac500d60ee5f5c48f748e79f47f3b8d9f2ea22b4aab6f7d3fe66d8a5"
+    project = "7347b66bc4e6eaaf3393198faebfac15611bc1bb150dcd5c87e845c73fd6b21d"
+    bank = "4df0b409d303d1b666a2d0aba3367c1dc08a2b380da109e50dee83b042b8ea90"
+    scoring = "42238a307fa43a06f3837e844e46fb158dbc64ee6705e7ce18f1651441b8f434"
+    reproduction = "fedcedc41733536fb07e8d1bd05f1d5a5021b36e4ee972397c61f8ae1352f332"
+    integrated_manifest = "0ca5338888e453a9eee7e77170f0e37c94566ecaf9b42420d22143428bc1f19a"
+
+    [candidate_inference.measurements]
+    cold_instrumented_seconds = 2.386126302
+    warm_instrumented_seconds = 6.2087e-5
+
+        [candidate_inference.measurements.cold]
+        summed_exclusive_inference_seconds = 0.7882096767425537
+        tree_inclusive_seconds_with_overlap = 8.170628130435944
+        summed_llvm_seconds = 1.521834373474121
+        flattened_frames = 2127
+        method_groups = 648
+        remaining_source_groups = 52
+        unique_specializations = 2107
+        unique_code_instances = 2127
+        source_groups = 68
+
+            [[candidate_inference.measurements.cold.top_methods]]
+            method = "#_compose_inplace#804"
+            source = "/home/azzaare/.julia/dev/JuliaConstraintsPerfNightICN/CompositionalNetworks/src/compose.jl"
+            line = 173
+            llvm_seconds = 0.11322021484375
+            inference_seconds = 0.0067291259765625
+            module = "CompositionalNetworks"
+            code_instances = 1
+            specializations = 1
+            [[candidate_inference.measurements.cold.top_methods]]
+            method = "iterate"
+            source = "generator.jl"
+            line = 43
+            llvm_seconds = 0.00475311279296875
+            inference_seconds = 0.10275888442993164
+            module = "Base"
+            code_instances = 26
+            specializations = 26
+            [[candidate_inference.measurements.cold.top_methods]]
+            method = "_"
+            source = "/home/azzaare/.julia/dev/JuliaConstraintsPerfNightICN/CompositionalNetworks/src/icn.jl"
+            line = 1038
+            llvm_seconds = 0.07757568359375
+            inference_seconds = 0.0214385986328125
+            module = "CompositionalNetworks"
+            code_instances = 1
+            specializations = 1
+            [[candidate_inference.measurements.cold.top_methods]]
+            method = "_index_relation_kernel"
+            source = "/home/azzaare/.julia/dev/JuliaConstraintsPerfNightICN/CompositionalNetworks/src/compose.jl"
+            line = 80
+            llvm_seconds = 0.08428955078125
+            inference_seconds = 0.00972747802734375
+            module = "CompositionalNetworks"
+            code_instances = 1
+            specializations = 1
+            [[candidate_inference.measurements.cold.top_methods]]
+            method = "_specialized_compilation_plan"
+            source = "/home/azzaare/.julia/dev/JuliaConstraintsPerfNightICN/CompositionalNetworks/src/compose.jl"
+            line = 1242
+            llvm_seconds = 0.08013916015625
+            inference_seconds = 0.01120758056640625
+            module = "CompositionalNetworks"
+            code_instances = 1
+            specializations = 1
+            [[candidate_inference.measurements.cold.top_methods]]
+            method = "#bank_decoder##2"
+            source = "/home/azzaare/Gits/Benchmarks-night-sparse-guide/Hexaly/src/Scoring.jl"
+            line = 51
+            llvm_seconds = 0.0277252197265625
+            inference_seconds = 0.061798095703125
+            module = "Main.HexalyReproduction.ReproductionScoring"
+            code_instances = 1
+            specializations = 1
+            [[candidate_inference.measurements.cold.top_methods]]
+            method = "_selected_layer_names"
+            source = "/home/azzaare/.julia/dev/JuliaConstraintsPerfNightICN/CompositionalNetworks/src/icn.jl"
+            line = 14
+            llvm_seconds = 0.06470108032226562
+            inference_seconds = 0.0062514543533325195
+            module = "CompositionalNetworks"
+            code_instances = 14
+            specializations = 14
+            [[candidate_inference.measurements.cold.top_methods]]
+            method = "generate_new_valid_weights"
+            source = "/home/azzaare/.julia/dev/JuliaConstraintsPerfNightICN/CompositionalNetworks/src/icn.jl"
+            line = 107
+            llvm_seconds = 0.04559326171875
+            inference_seconds = 0.01479339599609375
+            module = "CompositionalNetworks"
+            code_instances = 1
+            specializations = 1
+            [[candidate_inference.measurements.cold.top_methods]]
+            method = "_pipeline_shape_valid"
+            source = "/home/azzaare/.julia/dev/JuliaConstraintsPerfNightICN/CompositionalNetworks/src/icn.jl"
+            line = 44
+            llvm_seconds = 0.044525146484375
+            inference_seconds = 0.008081436157226562
+            module = "CompositionalNetworks"
+            code_instances = 3
+            specializations = 3
+            [[candidate_inference.measurements.cold.top_methods]]
+            method = "#_compose_specialized#835"
+            source = "/home/azzaare/.julia/dev/JuliaConstraintsPerfNightICN/CompositionalNetworks/src/compose.jl"
+            line = 1321
+            llvm_seconds = 0.040618896484375
+            inference_seconds = 0.00926971435546875
+            module = "CompositionalNetworks"
+            code_instances = 1
+            specializations = 1
+            [[candidate_inference.measurements.cold.top_methods]]
+            method = "grow_to!"
+            source = "array.jl"
+            line = 921
+            llvm_seconds = 0.04453277587890625
+            inference_seconds = 0.003064870834350586
+            module = "Base"
+            code_instances = 7
+            specializations = 7
+            [[candidate_inference.measurements.cold.top_methods]]
+            method = "_growend_internal!"
+            source = "array.jl"
+            line = 1158
+            llvm_seconds = 0.039886474609375
+            inference_seconds = 0.0025038719177246094
+            module = "Base"
+            code_instances = 4
+            specializations = 4
+            [[candidate_inference.measurements.cold.top_methods]]
+            method = "#compose#792"
+            source = "/home/azzaare/.julia/dev/JuliaConstraintsPerfNightICN/CompositionalNetworks/src/compose.jl"
+            line = 9
+            llvm_seconds = 0.0283355712890625
+            inference_seconds = 0.01213836669921875
+            module = "CompositionalNetworks"
+            code_instances = 1
+            specializations = 1
+            [[candidate_inference.measurements.cold.top_methods]]
+            method = "deepcopy_internal"
+            source = "deepcopy.jl"
+            line = 128
+            llvm_seconds = 0.033100128173828125
+            inference_seconds = 0.007237911224365234
+            module = "Base"
+            code_instances = 7
+            specializations = 7
+            [[candidate_inference.measurements.cold.top_methods]]
+            method = "iterate"
+            source = "iterators.jl"
+            line = 201
+            llvm_seconds = 0.023235321044921875
+            inference_seconds = 0.016359329223632812
+            module = "Base.Iterators"
+            code_instances = 26
+            specializations = 26
+            [[candidate_inference.measurements.cold.top_methods]]
+            method = "deepcopy_internal"
+            source = "deepcopy.jl"
+            line = 137
+            llvm_seconds = 0.036128997802734375
+            inference_seconds = 0.0029544830322265625
+            module = "Base"
+            code_instances = 7
+            specializations = 7
+            [[candidate_inference.measurements.cold.top_methods]]
+            method = "_ordered_layers"
+            source = "/home/azzaare/.julia/dev/JuliaConstraintsPerfNightICN/CompositionalNetworks/src/icn.jl"
+            line = 772
+            llvm_seconds = 0.0287628173828125
+            inference_seconds = 0.0092620849609375
+            module = "CompositionalNetworks"
+            code_instances = 1
+            specializations = 1
+            [[candidate_inference.measurements.cold.top_methods]]
+            method = "collect"
+            source = "array.jl"
+            line = 821
+            llvm_seconds = 0.02910614013671875
+            inference_seconds = 0.007900476455688477
+            module = "Base"
+            code_instances = 10
+            specializations = 10
+            [[candidate_inference.measurements.cold.top_methods]]
+            method = "materialize!"
+            source = "broadcast.jl"
+            line = 906
+            llvm_seconds = 0.031646728515625
+            inference_seconds = 0.0027559995651245117
+            module = "Base.Broadcast"
+            code_instances = 8
+            specializations = 8
+            [[candidate_inference.measurements.cold.top_methods]]
+            method = "deepcopy_internal"
+            source = "deepcopy.jl"
+            line = 149
+            llvm_seconds = 0.02813720703125
+            inference_seconds = 0.0038633346557617188
+            module = "Base"
+            code_instances = 3
+            specializations = 3
+
+            [[candidate_inference.measurements.cold.top_sources]]
+            source = "/home/azzaare/.julia/dev/JuliaConstraintsPerfNightICN/CompositionalNetworks/src/compose.jl"
+            llvm_seconds = 0.3719158172607422
+            inference_seconds = 0.06707149744033813
+            module = "CompositionalNetworks"
+            code_instances = 16
+            specializations = 16
+            [[candidate_inference.measurements.cold.top_sources]]
+            source = "/home/azzaare/.julia/dev/JuliaConstraintsPerfNightICN/CompositionalNetworks/src/icn.jl"
+            llvm_seconds = 0.3425579071044922
+            inference_seconds = 0.08548176288604736
+            module = "CompositionalNetworks"
+            code_instances = 55
+            specializations = 55
+            [[candidate_inference.measurements.cold.top_sources]]
+            source = "array.jl"
+            llvm_seconds = 0.2178506851196289
+            inference_seconds = 0.05614829063415527
+            module = "Base"
+            code_instances = 144
+            specializations = 143
+            [[candidate_inference.measurements.cold.top_sources]]
+            source = "deepcopy.jl"
+            llvm_seconds = 0.10828208923339844
+            inference_seconds = 0.0316997766494751
+            module = "Base"
+            code_instances = 46
+            specializations = 46
+            [[candidate_inference.measurements.cold.top_sources]]
+            source = "broadcast.jl"
+            llvm_seconds = 0.035712242126464844
+            inference_seconds = 0.09425985813140869
+            module = "Base.Broadcast"
+            code_instances = 395
+            specializations = 394
+            [[candidate_inference.measurements.cold.top_sources]]
+            source = "iterators.jl"
+            llvm_seconds = 0.06659984588623047
+            inference_seconds = 0.05660402774810791
+            module = "Base.Iterators"
+            code_instances = 178
+            specializations = 178
+            [[candidate_inference.measurements.cold.top_sources]]
+            source = "generator.jl"
+            llvm_seconds = 0.018289566040039062
+            inference_seconds = 0.10459703207015991
+            module = "Base"
+            code_instances = 68
+            specializations = 68
+            [[candidate_inference.measurements.cold.top_sources]]
+            source = "/home/azzaare/Gits/Benchmarks-night-sparse-guide/Hexaly/src/Scoring.jl"
+            llvm_seconds = 0.03652381896972656
+            inference_seconds = 0.06440389156341553
+            module = "Main.HexalyReproduction.ReproductionScoring"
+            code_instances = 7
+            specializations = 7
+            [[candidate_inference.measurements.cold.top_sources]]
+            source = "sort.jl"
+            llvm_seconds = 0.061931610107421875
+            inference_seconds = 0.012847423553466797
+            module = "Base.Sort"
+            code_instances = 30
+            specializations = 30
+            [[candidate_inference.measurements.cold.top_sources]]
+            source = "essentials.jl"
+            llvm_seconds = 0.02359771728515625
+            inference_seconds = 0.04244518280029297
+            module = "Base"
+            code_instances = 108
+            specializations = 108
+            [[candidate_inference.measurements.cold.top_sources]]
+            source = "abstractarray.jl"
+            llvm_seconds = 0.03985595703125
+            inference_seconds = 0.025302588939666748
+            module = "Base"
+            code_instances = 164
+            specializations = 149
+            [[candidate_inference.measurements.cold.top_sources]]
+            source = "/home/azzaare/.julia/dev/JuliaConstraintsPerfNightICN/CompositionalNetworks/src/composition_ir.jl"
+            llvm_seconds = 0.039234161376953125
+            inference_seconds = 0.006218314170837402
+            module = "CompositionalNetworks"
+            code_instances = 11
+            specializations = 11
+            [[candidate_inference.measurements.cold.top_sources]]
+            source = "Base_compiler.jl"
+            llvm_seconds = 0.019672393798828125
+            inference_seconds = 0.006051182746887207
+            module = "Base"
+            code_instances = 121
+            specializations = 121
+            [[candidate_inference.measurements.cold.top_sources]]
+            source = "/cache/build/builder-amdci4-8/julialang/julia-ci/usr/share/julia/stdlib/v1.13/Random/src/XoshiroSimd.jl"
+            llvm_seconds = 0.015148162841796875
+            inference_seconds = 0.007774829864501953
+            module = "Random.XoshiroSimd"
+            code_instances = 8
+            specializations = 8
+            [[candidate_inference.measurements.cold.top_sources]]
+            source = "namedtuple.jl"
+            llvm_seconds = 0.0194244384765625
+            inference_seconds = 0.0025748014450073242
+            module = "Base"
+            code_instances = 37
+            specializations = 37
+            [[candidate_inference.measurements.cold.top_sources]]
+            source = "iddict.jl"
+            llvm_seconds = 0.0
+            inference_seconds = 0.02036452293395996
+            module = "Base"
+            code_instances = 100
+            specializations = 100
+
+            [candidate_inference.measurements.cold.remaining_sources_aggregate]
+            llvm_seconds = 0.10523796081542969
+            inference_seconds = 0.10436469316482544
+            code_instances = 639
+            specializations = 636
+
+            [[candidate_inference.measurements.cold.scorer_methods]]
+            method = "#bank_decoder##2"
+            source = "/home/azzaare/Gits/Benchmarks-night-sparse-guide/Hexaly/src/Scoring.jl"
+            line = 51
+            llvm_seconds = 0.0277252197265625
+            inference_seconds = 0.061798095703125
+            module = "Main.HexalyReproduction.ReproductionScoring"
+            code_instances = 1
+            specializations = 1
+            [[candidate_inference.measurements.cold.scorer_methods]]
+            method = "#prepare_backend#5"
+            source = "/home/azzaare/Gits/Benchmarks-night-sparse-guide/Hexaly/src/Scoring.jl"
+            line = 67
+            llvm_seconds = 0.006412506103515625
+            inference_seconds = 0.00119781494140625
+            module = "Main.HexalyReproduction.ReproductionScoring"
+            code_instances = 1
+            specializations = 1
+            [[candidate_inference.measurements.cold.scorer_methods]]
+            method = "prepare_backend"
+            source = "/home/azzaare/Gits/Benchmarks-night-sparse-guide/Hexaly/src/Scoring.jl"
+            line = 67
+            llvm_seconds = 0.0023860931396484375
+            inference_seconds = 0.0003883838653564453
+            module = "Main.HexalyReproduction.ReproductionScoring"
+            code_instances = 1
+            specializations = 1
+            [[candidate_inference.measurements.cold.scorer_methods]]
+            method = "#bank_decoder##0"
+            source = "/home/azzaare/Gits/Benchmarks-night-sparse-guide/Hexaly/src/Scoring.jl"
+            line = 50
+            llvm_seconds = 0.0
+            inference_seconds = 0.00048160552978515625
+            module = "Main.HexalyReproduction.ReproductionScoring"
+            code_instances = 1
+            specializations = 1
+            [[candidate_inference.measurements.cold.scorer_methods]]
+            method = "bank_decoder"
+            source = "/home/azzaare/Gits/Benchmarks-night-sparse-guide/Hexaly/src/Scoring.jl"
+            line = 47
+            llvm_seconds = 0.0
+            inference_seconds = 0.0004699230194091797
+            module = "Main.HexalyReproduction.ReproductionScoring"
+            code_instances = 1
+            specializations = 1
+            [[candidate_inference.measurements.cold.scorer_methods]]
+            method = "Backend"
+            source = "/home/azzaare/Gits/Benchmarks-night-sparse-guide/Hexaly/src/Scoring.jl"
+            line = 34
+            llvm_seconds = 0.0
+            inference_seconds = 6.80685043334961e-5
+            module = "Main.HexalyReproduction.ReproductionScoring"
+            code_instances = 2
+            specializations = 2
+
+        [candidate_inference.measurements.warm]
+        summed_exclusive_inference_seconds = 1.4185905456542969e-5
+        tree_inclusive_seconds_with_overlap = 1.537799835205078e-5
+        summed_llvm_seconds = 0.0
+        flattened_frames = 1
+        method_groups = 1
+        remaining_source_groups = 0
+        unique_specializations = 1
+        unique_code_instances = 1
+        source_groups = 1
+        scorer_methods = []
+
+            [[candidate_inference.measurements.warm.top_methods]]
+            method = "ROOT"
+            source = "../usr/share/julia/Compiler/src/typeinfer.jl"
+            line = 66
+            llvm_seconds = 0.0
+            inference_seconds = 1.4185905456542969e-5
+            module = "Base.Compiler.Timings"
+            code_instances = 1
+            specializations = 1
+
+            [[candidate_inference.measurements.warm.top_sources]]
+            source = "../usr/share/julia/Compiler/src/typeinfer.jl"
+            llvm_seconds = 0.0
+            inference_seconds = 1.4185905456542969e-5
+            module = "Base.Compiler.Timings"
+            code_instances = 1
+            specializations = 1
+
+            [candidate_inference.measurements.warm.remaining_sources_aggregate]
+            llvm_seconds = 0
+            inference_seconds = 0
+            code_instances = 0
+            specializations = 0
+
+[tests]
+owned_dependencies = "Tests resolved through the owned diagnostics environment; learning and extension test items excluded."
+frozen_dependency_export_assertions = 62
+standalone_evaluator_arithmetic_assertions = 4872
+filter = "!extension && filename not in view_learning.jl,composed_learning.jl"
+permitted_package_assertions = 31683
+frozen_dependency_export_environment = "/tmp/icn-deferred-export-qualification-77FtQh"
+
+[baseline_inference_reference]
+warm_code_instances = 1
+file = "sparse-cold-bank-qualification-20261008.toml"
+cold_code_instances = 2476
+sha256 = "d03c6e4c1dbc330d2872c4b3821dde92184d9d7514c7b0a08e75c5407bdedfe4"
+cold_specializations = 2456
+
+[[route_memory]]
+variant = "baseline"
+sequence = 1
+
+    [route_memory.cold]
+    gc_seconds = 0.301666202
+    recompile_seconds = 0.0
+    seconds = 3.050057791
+    bytes = 793215184
+    compile_seconds = 3.042963232
+
+        [route_memory.cold.gc_counters]
+        bigalloc = 98
+        realloc = 0
+        freecall = 19063
+        total_time = 301666202
+        full_sweep = 2
+        allocd = 793215184
+        poolalloc = 12339098
+        pause = 6
+        malloc = 20558
+
+    [route_memory.fingerprints]
+    manifest = "0ca5338888e453a9eee7e77170f0e37c94566ecaf9b42420d22143428bc1f19a"
+    meta_repair = "d170b3eb82ab6dc3559b55cbdb6206457d48f816e21a1f513bd1cb319d1f2868"
+    cn_compose = "af889d030f78affacfb7915906312bee09c1bfdef743779a77fc2448cc7919ac"
+    project = "7347b66bc4e6eaaf3393198faebfac15611bc1bb150dcd5c87e845c73fd6b21d"
+    bank = "4df0b409d303d1b666a2d0aba3367c1dc08a2b380da109e50dee83b042b8ea90"
+    scoring = "5fb75fc59065359161fad934019b06940c5ec68b8b033eb320227d541a0a5212"
+
+    [route_memory.warm]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 5.7149e-5
+    bytes = 7568
+    compile_seconds = 0.0
+
+        [route_memory.warm.gc_counters]
+        bigalloc = 1
+        realloc = 0
+        freecall = 0
+        total_time = 0
+        full_sweep = 0
+        allocd = 7568
+        poolalloc = 41
+        pause = 0
+        malloc = 0
+[[route_memory]]
+variant = "deferred-export"
+sequence = 2
+
+    [route_memory.cold]
+    gc_seconds = 0.188789296
+    recompile_seconds = 0.0
+    seconds = 2.672207882
+    bytes = 444385800
+    compile_seconds = 2.665210843
+
+        [route_memory.cold.gc_counters]
+        bigalloc = 84
+        realloc = 0
+        freecall = 9654
+        total_time = 188789296
+        full_sweep = 1
+        allocd = 444385800
+        poolalloc = 7928365
+        pause = 4
+        malloc = 8553
+
+    [route_memory.fingerprints]
+    manifest = "94a31a9aa63d03ffc154577030bfaa5d6327d014dd07f5705b3bbf5b6815aff0"
+    meta_repair = "d170b3eb82ab6dc3559b55cbdb6206457d48f816e21a1f513bd1cb319d1f2868"
+    cn_compose = "261f1e08ac500d60ee5f5c48f748e79f47f3b8d9f2ea22b4aab6f7d3fe66d8a5"
+    project = "7347b66bc4e6eaaf3393198faebfac15611bc1bb150dcd5c87e845c73fd6b21d"
+    bank = "4df0b409d303d1b666a2d0aba3367c1dc08a2b380da109e50dee83b042b8ea90"
+    scoring = "5fb75fc59065359161fad934019b06940c5ec68b8b033eb320227d541a0a5212"
+
+    [route_memory.warm]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 5.774e-5
+    bytes = 7568
+    compile_seconds = 0.0
+
+        [route_memory.warm.gc_counters]
+        bigalloc = 1
+        realloc = 0
+        freecall = 0
+        total_time = 0
+        full_sweep = 0
+        allocd = 7568
+        poolalloc = 41
+        pause = 0
+        malloc = 0
+[[route_memory]]
+variant = "deferred-export"
+sequence = 3
+
+    [route_memory.cold]
+    gc_seconds = 0.162315719
+    recompile_seconds = 0.0
+    seconds = 2.591458623
+    bytes = 444113712
+    compile_seconds = 2.584644012
+
+        [route_memory.cold.gc_counters]
+        bigalloc = 83
+        realloc = 0
+        freecall = 9046
+        total_time = 162315719
+        full_sweep = 1
+        allocd = 444113712
+        poolalloc = 7928378
+        pause = 4
+        malloc = 8550
+
+    [route_memory.fingerprints]
+    manifest = "94a31a9aa63d03ffc154577030bfaa5d6327d014dd07f5705b3bbf5b6815aff0"
+    meta_repair = "d170b3eb82ab6dc3559b55cbdb6206457d48f816e21a1f513bd1cb319d1f2868"
+    cn_compose = "261f1e08ac500d60ee5f5c48f748e79f47f3b8d9f2ea22b4aab6f7d3fe66d8a5"
+    project = "7347b66bc4e6eaaf3393198faebfac15611bc1bb150dcd5c87e845c73fd6b21d"
+    bank = "4df0b409d303d1b666a2d0aba3367c1dc08a2b380da109e50dee83b042b8ea90"
+    scoring = "5fb75fc59065359161fad934019b06940c5ec68b8b033eb320227d541a0a5212"
+
+    [route_memory.warm]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 5.5796e-5
+    bytes = 7568
+    compile_seconds = 0.0
+
+        [route_memory.warm.gc_counters]
+        bigalloc = 1
+        realloc = 0
+        freecall = 0
+        total_time = 0
+        full_sweep = 0
+        allocd = 7568
+        poolalloc = 41
+        pause = 0
+        malloc = 0
+[[route_memory]]
+variant = "baseline"
+sequence = 4
+
+    [route_memory.cold]
+    gc_seconds = 0.260733486
+    recompile_seconds = 0.0
+    seconds = 2.870181975
+    bytes = 793477912
+    compile_seconds = 2.86367169
+
+        [route_memory.cold.gc_counters]
+        bigalloc = 99
+        realloc = 0
+        freecall = 18348
+        total_time = 260733486
+        full_sweep = 2
+        allocd = 793477912
+        poolalloc = 12339072
+        pause = 6
+        malloc = 20559
+
+    [route_memory.fingerprints]
+    manifest = "0ca5338888e453a9eee7e77170f0e37c94566ecaf9b42420d22143428bc1f19a"
+    meta_repair = "d170b3eb82ab6dc3559b55cbdb6206457d48f816e21a1f513bd1cb319d1f2868"
+    cn_compose = "af889d030f78affacfb7915906312bee09c1bfdef743779a77fc2448cc7919ac"
+    project = "7347b66bc4e6eaaf3393198faebfac15611bc1bb150dcd5c87e845c73fd6b21d"
+    bank = "4df0b409d303d1b666a2d0aba3367c1dc08a2b380da109e50dee83b042b8ea90"
+    scoring = "5fb75fc59065359161fad934019b06940c5ec68b8b033eb320227d541a0a5212"
+
+    [route_memory.warm]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    seconds = 6.3594e-5
+    bytes = 7568
+    compile_seconds = 0.0
+
+        [route_memory.warm.gc_counters]
+        bigalloc = 1
+        realloc = 0
+        freecall = 0
+        total_time = 0
+        full_sweep = 0
+        allocd = 7568
+        poolalloc = 41
+        pause = 0
+        malloc = 0
+
+[[sparse_memory]]
+variant = "baseline"
+sequence = 1
+
+    [sparse_memory.cold]
+    gc_seconds = 0.249724643
+    recompile_seconds = 0.0
+    uninstrumented_lifecycle_seconds = 2.756630571
+    compile_seconds = 2.751690754
+    allocated_bytes = 672133088
+
+        [sparse_memory.cold.gc_counters]
+        bigalloc = 92
+        realloc = 0
+        freecall = 14174
+        total_time = 249724643
+        full_sweep = 2
+        allocd = 672133088
+        poolalloc = 10229229
+        pause = 5
+        malloc = 17574
+
+    [sparse_memory.fingerprints]
+    manifest = "0ca5338888e453a9eee7e77170f0e37c94566ecaf9b42420d22143428bc1f19a"
+    integrated_project = "7347b66bc4e6eaaf3393198faebfac15611bc1bb150dcd5c87e845c73fd6b21d"
+    cn_compose = "af889d030f78affacfb7915906312bee09c1bfdef743779a77fc2448cc7919ac"
+    project = "7347b66bc4e6eaaf3393198faebfac15611bc1bb150dcd5c87e845c73fd6b21d"
+    bank = "4df0b409d303d1b666a2d0aba3367c1dc08a2b380da109e50dee83b042b8ea90"
+    scoring = "42238a307fa43a06f3837e844e46fb158dbc64ee6705e7ce18f1651441b8f434"
+    reproduction = "fedcedc41733536fb07e8d1bd05f1d5a5021b36e4ee972397c61f8ae1352f332"
+    integrated_manifest = "0ca5338888e453a9eee7e77170f0e37c94566ecaf9b42420d22143428bc1f19a"
+
+    [sparse_memory.warm]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    uninstrumented_lifecycle_seconds = 5.7511e-5
+    compile_seconds = 0.0
+    allocated_bytes = 7664
+
+        [sparse_memory.warm.gc_counters]
+        bigalloc = 1
+        realloc = 0
+        freecall = 0
+        total_time = 0
+        full_sweep = 0
+        allocd = 7664
+        poolalloc = 35
+        pause = 0
+        malloc = 0
+[[sparse_memory]]
+variant = "deferred-export"
+sequence = 2
+
+    [sparse_memory.cold]
+    gc_seconds = 0.05006259
+    recompile_seconds = 0.0
+    uninstrumented_lifecycle_seconds = 2.246337409
+    compile_seconds = 2.241517988
+    allocated_bytes = 326145360
+
+        [sparse_memory.cold.gc_counters]
+        bigalloc = 76
+        realloc = 0
+        freecall = 5074
+        total_time = 50062590
+        full_sweep = 0
+        allocd = 326145360
+        poolalloc = 5864794
+        pause = 2
+        malloc = 5708
+
+    [sparse_memory.fingerprints]
+    manifest = "94a31a9aa63d03ffc154577030bfaa5d6327d014dd07f5705b3bbf5b6815aff0"
+    integrated_project = "7347b66bc4e6eaaf3393198faebfac15611bc1bb150dcd5c87e845c73fd6b21d"
+    cn_compose = "261f1e08ac500d60ee5f5c48f748e79f47f3b8d9f2ea22b4aab6f7d3fe66d8a5"
+    project = "7347b66bc4e6eaaf3393198faebfac15611bc1bb150dcd5c87e845c73fd6b21d"
+    bank = "4df0b409d303d1b666a2d0aba3367c1dc08a2b380da109e50dee83b042b8ea90"
+    scoring = "42238a307fa43a06f3837e844e46fb158dbc64ee6705e7ce18f1651441b8f434"
+    reproduction = "fedcedc41733536fb07e8d1bd05f1d5a5021b36e4ee972397c61f8ae1352f332"
+    integrated_manifest = "0ca5338888e453a9eee7e77170f0e37c94566ecaf9b42420d22143428bc1f19a"
+
+    [sparse_memory.warm]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    uninstrumented_lifecycle_seconds = 5.9109e-5
+    compile_seconds = 0.0
+    allocated_bytes = 7664
+
+        [sparse_memory.warm.gc_counters]
+        bigalloc = 1
+        realloc = 0
+        freecall = 0
+        total_time = 0
+        full_sweep = 0
+        allocd = 7664
+        poolalloc = 35
+        pause = 0
+        malloc = 0
+[[sparse_memory]]
+variant = "deferred-export"
+sequence = 3
+
+    [sparse_memory.cold]
+    gc_seconds = 0.136677133
+    recompile_seconds = 0.0
+    uninstrumented_lifecycle_seconds = 2.271236494
+    compile_seconds = 2.266468149
+    allocated_bytes = 328779976
+
+        [sparse_memory.cold.gc_counters]
+        bigalloc = 76
+        realloc = 0
+        freecall = 6397
+        total_time = 136677133
+        full_sweep = 1
+        allocd = 328779976
+        poolalloc = 5917921
+        pause = 3
+        malloc = 5729
+
+    [sparse_memory.fingerprints]
+    manifest = "94a31a9aa63d03ffc154577030bfaa5d6327d014dd07f5705b3bbf5b6815aff0"
+    integrated_project = "7347b66bc4e6eaaf3393198faebfac15611bc1bb150dcd5c87e845c73fd6b21d"
+    cn_compose = "261f1e08ac500d60ee5f5c48f748e79f47f3b8d9f2ea22b4aab6f7d3fe66d8a5"
+    project = "7347b66bc4e6eaaf3393198faebfac15611bc1bb150dcd5c87e845c73fd6b21d"
+    bank = "4df0b409d303d1b666a2d0aba3367c1dc08a2b380da109e50dee83b042b8ea90"
+    scoring = "42238a307fa43a06f3837e844e46fb158dbc64ee6705e7ce18f1651441b8f434"
+    reproduction = "fedcedc41733536fb07e8d1bd05f1d5a5021b36e4ee972397c61f8ae1352f332"
+    integrated_manifest = "0ca5338888e453a9eee7e77170f0e37c94566ecaf9b42420d22143428bc1f19a"
+
+    [sparse_memory.warm]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    uninstrumented_lifecycle_seconds = 5.1279e-5
+    compile_seconds = 0.0
+    allocated_bytes = 7664
+
+        [sparse_memory.warm.gc_counters]
+        bigalloc = 1
+        realloc = 0
+        freecall = 0
+        total_time = 0
+        full_sweep = 0
+        allocd = 7664
+        poolalloc = 35
+        pause = 0
+        malloc = 0
+[[sparse_memory]]
+variant = "baseline"
+sequence = 4
+
+    [sparse_memory.cold]
+    gc_seconds = 0.319991959
+    recompile_seconds = 0.0
+    uninstrumented_lifecycle_seconds = 2.870704559
+    compile_seconds = 2.866017604
+    allocated_bytes = 672133792
+
+        [sparse_memory.cold.gc_counters]
+        bigalloc = 92
+        realloc = 0
+        freecall = 16347
+        total_time = 319991959
+        full_sweep = 2
+        allocd = 672133792
+        poolalloc = 10229244
+        pause = 5
+        malloc = 17574
+
+    [sparse_memory.fingerprints]
+    manifest = "0ca5338888e453a9eee7e77170f0e37c94566ecaf9b42420d22143428bc1f19a"
+    integrated_project = "7347b66bc4e6eaaf3393198faebfac15611bc1bb150dcd5c87e845c73fd6b21d"
+    cn_compose = "af889d030f78affacfb7915906312bee09c1bfdef743779a77fc2448cc7919ac"
+    project = "7347b66bc4e6eaaf3393198faebfac15611bc1bb150dcd5c87e845c73fd6b21d"
+    bank = "4df0b409d303d1b666a2d0aba3367c1dc08a2b380da109e50dee83b042b8ea90"
+    scoring = "42238a307fa43a06f3837e844e46fb158dbc64ee6705e7ce18f1651441b8f434"
+    reproduction = "fedcedc41733536fb07e8d1bd05f1d5a5021b36e4ee972397c61f8ae1352f332"
+    integrated_manifest = "0ca5338888e453a9eee7e77170f0e37c94566ecaf9b42420d22143428bc1f19a"
+
+    [sparse_memory.warm]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    uninstrumented_lifecycle_seconds = 7.0886e-5
+    compile_seconds = 0.0
+    allocated_bytes = 7664
+
+        [sparse_memory.warm.gc_counters]
+        bigalloc = 1
+        realloc = 0
+        freecall = 0
+        total_time = 0
+        full_sweep = 0
+        allocd = 7664
+        poolalloc = 35
+        pause = 0
+        malloc = 0

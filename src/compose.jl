@@ -57,13 +57,14 @@ function compose(
     end
     f.body = Expr(:block, push!(fns, :(return x))...)
     if !isempty(fname)
-        _write_composition_source(fname, f)
+        Base.invokelatest(_write_composition_source, fname, f)
     end
     return (eval(codegen_ast(f)), jlfun ? f : codegen_ast(f))
 end
 
-# Export formatting is needed only when a caller requests a source file. Keep
-# its printer inference out of ordinary decoder generation in every path.
+# Export formatting is needed only when a caller requests a source file. A
+# deferred call also keeps printer inference out of ordinary decoder generation
+# when inference cannot prove that the optional filename is empty.
 Base.@nospecializeinfer Base.@noinline function _write_composition_source(
         Base.@nospecialize(fname), Base.@nospecialize(f))
     open(fname, "w") do io
@@ -146,7 +147,7 @@ function _compose_index_relation(icn::AbstractICN, kernel;
     generated = codegen_ast(f)
     dbg && @info "fused indexed relation composition" generated
     if !isempty(fname)
-        _write_composition_source(fname, f)
+        Base.invokelatest(_write_composition_source, fname, f)
     end
     return eval(generated), jlfun ? f : generated
 end
@@ -283,7 +284,7 @@ function _compose_inplace(icn::AbstractICN; name, jlfun, fname, dbg)
     generated = codegen_ast(f)
     dbg && @info "in-place composition" generated
     if !isempty(fname)
-        _write_composition_source(fname, f)
+        Base.invokelatest(_write_composition_source, fname, f)
     end
     return eval(generated), jlfun ? f : generated
 end
@@ -1357,7 +1358,7 @@ function _compose_specialized(icn::AbstractICN; name, jlfun, fname, dbg)
     generated = codegen_ast(f)
     dbg && @info "specialized composition" generated
     if !isempty(fname)
-        _write_composition_source(fname, f)
+        Base.invokelatest(_write_composition_source, fname, f)
     end
     return eval(generated), jlfun ? f : generated
 end
