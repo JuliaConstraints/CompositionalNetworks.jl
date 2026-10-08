@@ -575,8 +575,13 @@ function _aggregate_pairwise_sum(::Val{operations}, x; parameters...) where {ope
     # Directional counts are zero outside their strict index triangle. The
     # operation tuple is part of the compiled decoder's type, so this choice
     # does not add a branch to each pair or retain a mutable learning network.
+    # A two-element directional count has exactly one active pair.
     if indices isa AbstractUnitRange{<:Integer} && all(operation -> operation in
             (:count_equal_left, :count_less_left, :count_great_left), operations)
+        if length(indices) == 2
+            return @inbounds 0 + _pairwise_counts(
+                operations, x, last(indices), first(indices); parameters...)
+        end
         @inbounds for i in indices
             # Do not form first_index - 1 at an integer limit.
             i == first(indices) && continue
@@ -586,6 +591,10 @@ function _aggregate_pairwise_sum(::Val{operations}, x; parameters...) where {ope
         end
     elseif indices isa AbstractUnitRange{<:Integer} && all(operation -> operation in
             (:count_equal_right, :count_less_right, :count_great_right), operations)
+        if length(indices) == 2
+            return @inbounds 0 + _pairwise_counts(
+                operations, x, first(indices), last(indices); parameters...)
+        end
         @inbounds for i in indices
             # Do not form last_index + 1 at an integer limit.
             i == last(indices) && continue

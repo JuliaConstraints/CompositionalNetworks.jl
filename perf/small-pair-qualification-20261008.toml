@@ -1,0 +1,515 @@
+recorded_utc = "2026-10-08T21:14:46.955"
+case_sha256 = "a1018f1a99d5fe569447d3b73de20a63b67265261e27acf6b6aef0a53f89776a"
+contract = "Exactly one active pair for a two-element directional count. Atomic helpers and accumulator promotion preserved. Mixed and generic index paths retain their original square or triangle traversal."
+julia_threads = 2
+cpu_affinity = [4, 6]
+package_assertions = 31621
+timing_qualification = "Operational same-input measurements on CPUs 4,6 while other tasks were active. No controlled scaling claim. Factory and oracle excluded from scored operation."
+blas_threads = 1
+remaining_findings = "Existing test-extra compat omissions from Aqua retained; no metadata changes in this increment."
+runtime = "1.13.1"
+gc_threads = 1
+bank_sha256 = "4df0b409d303d1b666a2d0aba3367c1dc08a2b380da109e50dee83b042b8ea90"
+source_sha256 = "762cadda81d3308f0abe047fd0bab4510d643e4e6ac657307d2abe1156b9ba5f"
+
+[[collectors]]
+correctness = "passed"
+status = "complete"
+collector = "benchmark"
+implementation = "compiled"
+scenario = "learned-equality-pair"
+
+    [collectors."julia.wall.time"]
+    samples = 5
+    minimum = 2.7e-8
+    maximum = 7.72e-7
+
+    [collectors."julia.alloc.count"]
+    samples = 5
+    minimum = 0
+    maximum = 0
+
+    [collectors."julia.alloc.bytes"]
+    samples = 5
+    minimum = 0
+    maximum = 0
+[[collectors]]
+correctness = "passed"
+status = "complete"
+collector = "chairmark"
+implementation = "compiled"
+scenario = "learned-equality-pair"
+
+    [collectors."julia.wall.time"]
+    samples = 5
+    minimum = 3.1e-8
+    maximum = 4.1000000000000004e-7
+
+    [collectors."julia.alloc.count"]
+    samples = 5
+    minimum = 0.0
+    maximum = 0.0
+
+    [collectors."julia.alloc.bytes"]
+    samples = 5
+    minimum = 0.0
+    maximum = 0.0
+[[collectors]]
+correctness = "passed"
+status = "complete"
+collector = "profile"
+implementation = "compiled"
+scenario = "learned-equality-pair"
+[[collectors]]
+correctness = "passed"
+status = "complete"
+collector = "profile_alloc"
+implementation = "compiled"
+scenario = "learned-equality-pair"
+[[collectors]]
+correctness = "passed"
+status = "complete"
+collector = "benchmark"
+implementation = "original-square"
+scenario = "learned-equality-pair"
+
+    [collectors."julia.wall.time"]
+    samples = 5
+    minimum = 3.1e-8
+    maximum = 4.99e-7
+
+    [collectors."julia.alloc.count"]
+    samples = 5
+    minimum = 0
+    maximum = 0
+
+    [collectors."julia.alloc.bytes"]
+    samples = 5
+    minimum = 0
+    maximum = 0
+[[collectors]]
+correctness = "passed"
+status = "complete"
+collector = "chairmark"
+implementation = "original-square"
+scenario = "learned-equality-pair"
+
+    [collectors."julia.wall.time"]
+    samples = 5
+    minimum = 3.4e-8
+    maximum = 3.7e-7
+
+    [collectors."julia.alloc.count"]
+    samples = 5
+    minimum = 0.0
+    maximum = 0.0
+
+    [collectors."julia.alloc.bytes"]
+    samples = 5
+    minimum = 0.0
+    maximum = 0.0
+[[collectors]]
+correctness = "passed"
+status = "complete"
+collector = "benchmark"
+implementation = "compiled"
+scenario = "learned-order-pair"
+
+    [collectors."julia.wall.time"]
+    samples = 5
+    minimum = 2.7e-8
+    maximum = 6.49e-7
+
+    [collectors."julia.alloc.count"]
+    samples = 5
+    minimum = 0
+    maximum = 0
+
+    [collectors."julia.alloc.bytes"]
+    samples = 5
+    minimum = 0
+    maximum = 0
+[[collectors]]
+correctness = "passed"
+status = "complete"
+collector = "chairmark"
+implementation = "compiled"
+scenario = "learned-order-pair"
+
+    [collectors."julia.wall.time"]
+    samples = 5
+    minimum = 2.8000000000000003e-8
+    maximum = 3.51e-7
+
+    [collectors."julia.alloc.count"]
+    samples = 5
+    minimum = 0.0
+    maximum = 0.0
+
+    [collectors."julia.alloc.bytes"]
+    samples = 5
+    minimum = 0.0
+    maximum = 0.0
+[[collectors]]
+correctness = "passed"
+status = "complete"
+collector = "profile"
+implementation = "compiled"
+scenario = "learned-order-pair"
+[[collectors]]
+correctness = "passed"
+status = "complete"
+collector = "profile_alloc"
+implementation = "compiled"
+scenario = "learned-order-pair"
+[[collectors]]
+correctness = "passed"
+status = "complete"
+collector = "benchmark"
+implementation = "original-square"
+scenario = "learned-order-pair"
+
+    [collectors."julia.wall.time"]
+    samples = 5
+    minimum = 3.3e-8
+    maximum = 8.82e-7
+
+    [collectors."julia.alloc.count"]
+    samples = 5
+    minimum = 0
+    maximum = 0
+
+    [collectors."julia.alloc.bytes"]
+    samples = 5
+    minimum = 0
+    maximum = 0
+[[collectors]]
+correctness = "passed"
+status = "complete"
+collector = "chairmark"
+implementation = "original-square"
+scenario = "learned-order-pair"
+
+    [collectors."julia.wall.time"]
+    samples = 5
+    minimum = 3.4e-8
+    maximum = 4.18e-7
+
+    [collectors."julia.alloc.count"]
+    samples = 5
+    minimum = 0.0
+    maximum = 0.0
+
+    [collectors."julia.alloc.bytes"]
+    samples = 5
+    minimum = 0.0
+    maximum = 0.0
+[[collectors]]
+correctness = "passed"
+status = "complete"
+collector = "benchmark"
+implementation = "compiled"
+scenario = "learned-pair-counts"
+
+    [collectors."julia.wall.time"]
+    samples = 5
+    minimum = 5.8435e-5
+    maximum = 6.3558e-5
+
+    [collectors."julia.alloc.count"]
+    samples = 5
+    minimum = 0
+    maximum = 0
+
+    [collectors."julia.alloc.bytes"]
+    samples = 5
+    minimum = 0
+    maximum = 0
+[[collectors]]
+correctness = "passed"
+status = "complete"
+collector = "chairmark"
+implementation = "compiled"
+scenario = "learned-pair-counts"
+
+    [collectors."julia.wall.time"]
+    samples = 5
+    minimum = 5.7219e-5
+    maximum = 6.329400000000001e-5
+
+    [collectors."julia.alloc.count"]
+    samples = 5
+    minimum = 0.0
+    maximum = 0.0
+
+    [collectors."julia.alloc.bytes"]
+    samples = 5
+    minimum = 0.0
+    maximum = 0.0
+[[collectors]]
+correctness = "passed"
+status = "complete"
+collector = "profile"
+implementation = "compiled"
+scenario = "learned-pair-counts"
+[[collectors]]
+correctness = "passed"
+status = "complete"
+collector = "profile_alloc"
+implementation = "compiled"
+scenario = "learned-pair-counts"
+[[collectors]]
+correctness = "passed"
+status = "complete"
+collector = "benchmark"
+implementation = "original-square"
+scenario = "learned-pair-counts"
+
+    [collectors."julia.wall.time"]
+    samples = 5
+    minimum = 0.000280536
+    maximum = 0.00028776
+
+    [collectors."julia.alloc.count"]
+    samples = 5
+    minimum = 0
+    maximum = 0
+
+    [collectors."julia.alloc.bytes"]
+    samples = 5
+    minimum = 0
+    maximum = 0
+[[collectors]]
+correctness = "passed"
+status = "complete"
+collector = "chairmark"
+implementation = "original-square"
+scenario = "learned-pair-counts"
+
+    [collectors."julia.wall.time"]
+    samples = 5
+    minimum = 0.000283407
+    maximum = 0.000288764
+
+    [collectors."julia.alloc.count"]
+    samples = 5
+    minimum = 0.0
+    maximum = 0.0
+
+    [collectors."julia.alloc.bytes"]
+    samples = 5
+    minimum = 0.0
+    maximum = 0.0
+
+[[diagnostics]]
+measurements = ""
+correctness = "passed"
+summary = ""
+status = "complete"
+tool_version = "0.12.3"
+analysis_scope = "operation specialized for prepared state type; synchronization excluded"
+tool = "jet"
+findings = []
+[[diagnostics]]
+measurements = ""
+correctness = "passed"
+summary = ""
+status = "complete"
+tool_version = "0.2.6"
+analysis_scope = "static operation specialization; tool exception-path defaults; not a universal allocation guarantee"
+tool = "alloccheck"
+findings = []
+[[diagnostics]]
+correctness = "passed"
+summary = ""
+status = "complete"
+tool_version = "3.2.9"
+analysis_scope = "first complete scenario lifecycle in diagnostic process"
+tool = "snoopcompile"
+
+    [diagnostics.measurements]
+    inference_seconds = 1.537799835205078e-5
+
+    [[diagnostics.findings]]
+    severity = "warning"
+    rule_id = "compilation.inference"
+    message = "InferenceTimingNode: 0.000014/0.000015 on Base.Compiler.Timings.ROOT() with 0 direct children"
+
+        [diagnostics.findings.evidence]
+        inference_seconds = 1.537799835205078e-5
+
+        [diagnostics.findings.location]
+        line = 0
+        file = ""
+[[diagnostics]]
+correctness = "passed"
+summary = ""
+status = "complete"
+tool_version = ""
+analysis_scope = ""
+tool = "latency"
+findings = []
+
+    [diagnostics.measurements]
+    first_case_seconds = 0.058271201
+    load_seconds = 4.441734829
+    warm_case_seconds = 3.71e-6
+[[diagnostics]]
+correctness = "passed"
+summary = "5 operations: 0.0 ms in GC, 0 allocated bytes in total. Diagnostic counters are process-wide."
+status = "complete"
+tool_version = ""
+analysis_scope = "warmed operation and synchronization; fresh state; preparation, verification and cleanup excluded"
+tool = "gc"
+findings = []
+
+    [diagnostics.measurements.sample_summary.full_sweep]
+    samples = 5
+    minimum = 0
+    maximum = 0
+
+    [diagnostics.measurements.sample_summary.operation_seconds]
+    samples = 5
+    minimum = 3.4e-8
+    maximum = 4.52e-7
+
+    [diagnostics.measurements.sample_summary.lock_conflicts]
+    samples = 5
+    minimum = 0
+    maximum = 0
+
+    [diagnostics.measurements.sample_summary.malloc]
+    samples = 5
+    minimum = 0
+    maximum = 0
+
+    [diagnostics.measurements.sample_summary.gc_seconds]
+    samples = 5
+    minimum = 0.0
+    maximum = 0.0
+
+    [diagnostics.measurements.sample_summary.bigalloc]
+    samples = 5
+    minimum = 0
+    maximum = 0
+
+    [diagnostics.measurements.sample_summary.poolalloc]
+    samples = 5
+    minimum = 0
+    maximum = 0
+
+    [diagnostics.measurements.sample_summary.compile_time]
+    samples = 5
+    minimum = 0.0
+    maximum = 0.0
+
+    [diagnostics.measurements.sample_summary.allocated_bytes]
+    samples = 5
+    minimum = 0
+    maximum = 0
+
+    [diagnostics.measurements.sample_summary.recompile_time]
+    samples = 5
+    minimum = 0.0
+    maximum = 0.0
+
+    [diagnostics.measurements.sample_summary.realloc]
+    samples = 5
+    minimum = 0
+    maximum = 0
+
+    [diagnostics.measurements.sample_summary.pause]
+    samples = 5
+    minimum = 0
+    maximum = 0
+[[diagnostics]]
+correctness = "passed"
+summary = "5 operations: reachable state changed by 0 to 0 bytes. Growth may be intended output or a cache; it does not establish a leak."
+status = "complete"
+tool_version = ""
+analysis_scope = ""
+tool = "memory"
+findings = []
+
+    [diagnostics.measurements.sample_summary.state_before_bytes]
+    samples = 5
+    minimum = 64
+    maximum = 64
+
+    [diagnostics.measurements.sample_summary.state_after_bytes]
+    samples = 5
+    minimum = 64
+    maximum = 64
+
+    [diagnostics.measurements.sample_summary.state_and_result_bytes]
+    samples = 5
+    minimum = 72
+    maximum = 72
+[[diagnostics]]
+correctness = "passed"
+summary = "5 operations: 0 observed lock conflicts. Counts do not measure waiting duration."
+status = "complete"
+tool_version = ""
+analysis_scope = ""
+tool = "locks"
+findings = []
+
+    [diagnostics.measurements.sample_summary.full_sweep]
+    samples = 5
+    minimum = 0
+    maximum = 0
+
+    [diagnostics.measurements.sample_summary.operation_seconds]
+    samples = 5
+    minimum = 4.7e-8
+    maximum = 7.16e-7
+
+    [diagnostics.measurements.sample_summary.lock_conflicts]
+    samples = 5
+    minimum = 0
+    maximum = 0
+
+    [diagnostics.measurements.sample_summary.malloc]
+    samples = 5
+    minimum = 0
+    maximum = 0
+
+    [diagnostics.measurements.sample_summary.gc_seconds]
+    samples = 5
+    minimum = 0.0
+    maximum = 0.0
+
+    [diagnostics.measurements.sample_summary.bigalloc]
+    samples = 5
+    minimum = 0
+    maximum = 0
+
+    [diagnostics.measurements.sample_summary.poolalloc]
+    samples = 5
+    minimum = 0
+    maximum = 0
+
+    [diagnostics.measurements.sample_summary.compile_time]
+    samples = 5
+    minimum = 0.0
+    maximum = 0.0
+
+    [diagnostics.measurements.sample_summary.allocated_bytes]
+    samples = 5
+    minimum = 0
+    maximum = 0
+
+    [diagnostics.measurements.sample_summary.recompile_time]
+    samples = 5
+    minimum = 0.0
+    maximum = 0.0
+
+    [diagnostics.measurements.sample_summary.realloc]
+    samples = 5
+    minimum = 0
+    maximum = 0
+
+    [diagnostics.measurements.sample_summary.pause]
+    samples = 5
+    minimum = 0
+    maximum = 0

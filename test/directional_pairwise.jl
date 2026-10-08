@@ -59,10 +59,23 @@
               reference(cartesian, operations)
         @test CN._aggregate_pairwise_sum(Val(operations), (2, 1, 2, 3)) ==
               reference((2, 1, 2, 3), operations)
+        for a in (NaN, Inf, -Inf, 0.0, -0.0, 1.0, 1.0),
+                b in (NaN, Inf, -Inf, 0.0, -0.0, 1.0, 1.0)
+            pair = [a, b]
+            @test CN._aggregate_pairwise_sum(Val(operations), pair) ==
+                  reference(pair, operations)
+            @test CN._aggregate_pairwise_sum(Val(operations), view(pair, :)) ==
+                  reference(pair, operations)
+        end
         for origin in (typemin(Int), typemax(Int) - 2)
             extreme = ExtremeAxisVector([2, 1, 2], origin)
             @test CN._aggregate_pairwise_sum(Val(operations), extreme) ==
                   reference(extreme, operations)
+        end
+        for origin in (typemin(Int), typemax(Int) - 1)
+            pair = ExtremeAxisVector([2, 1], origin)
+            @test CN._aggregate_pairwise_sum(Val(operations), pair) ==
+                  reference(pair, operations)
         end
     end
 
@@ -89,5 +102,10 @@
             return @allocated compiled(values)
         end
         @test Base.invokelatest(allocations, compiled, values) == 0
+        for pair in ([1, 2], [2, 1], [1, 1], [NaN, 1.0], [-0.0, 0.0])
+            @test Base.invokelatest(compiled, pair) == reference(pair, operations)
+            @test CN.evaluate(network, CN.Solution(pair)) == reference(pair, operations)
+            @test Base.invokelatest(allocations, compiled, pair) == 0
+        end
     end
 end

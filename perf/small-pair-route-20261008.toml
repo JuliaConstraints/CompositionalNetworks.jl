@@ -1,0 +1,336 @@
+recorded_utc = "2026-10-08T21:15:34.789"
+workload = "Complete paired customer-successor layouts on original LC101, LC1_4_1, LC1_10_1 inputs. Deliberately exceeds allowed fleet. Every scored field matches buffered direct scorer; independent original validator reports exactly fleet."
+baseline_commit = "af258e2508a10dbbc23d0b2208251dde491a68b5"
+evaluation_arithmetic_assertions = 4872
+julia_threads = 2
+cpu_affinity = [4, 6]
+package_assertions = 31621
+tiny_collector_limit = "Shared collectors use evals=1 and include callback overhead. Their tiny timings and short CPU profiles establish successful execution and allocations, not a nanosecond speed ratio."
+timing_qualification = "Operational minimum-of-200 same-input samples in sequential baseline/current/current/baseline fresh Julia processes, two brackets. Other tasks were active; no controlled scaling or solver throughput claim."
+blas_threads = 1
+runtime = "1.13.1"
+gc_threads = 1
+authentic_route_assertions = 30209
+bank_sha256 = "4df0b409d303d1b666a2d0aba3367c1dc08a2b380da109e50dee83b042b8ea90"
+source_sha256 = "762cadda81d3308f0abe047fd0bab4510d643e4e6ac657307d2abe1156b9ba5f"
+
+[[measurements]]
+bank_sha256 = "4df0b409d303d1b666a2d0aba3367c1dc08a2b380da109e50dee83b042b8ea90"
+sequence = 1
+mode = "baseline"
+routing_source_sha256 = "5fb75fc59065359161fad934019b06940c5ec68b8b033eb320227d541a0a5212"
+phase = "in-memory"
+
+    [[measurements.rows]]
+    allocations = 0
+    bytes = 0
+    distance = 3353.273989692375
+    original_errors = ["fleet"]
+    original_valid = false
+    customers = 106
+    vehicles = 53
+    instance = "lc101.txt"
+    minimum_ns = 1916.0
+    error = 28.0
+    [[measurements.rows]]
+    allocations = 0
+    bytes = 0
+    distance = 34653.21658084654
+    original_errors = ["fleet"]
+    original_valid = false
+    customers = 422
+    vehicles = 211
+    instance = "lc1_4_1.txt"
+    minimum_ns = 7363.0
+    error = 111.0
+    [[measurements.rows]]
+    allocations = 0
+    bytes = 0
+    distance = 215630.16927270315
+    original_errors = ["fleet"]
+    original_valid = false
+    customers = 1054
+    vehicles = 527
+    instance = "lc1_10_1.txt"
+    minimum_ns = 18489.0
+    error = 277.0
+[[measurements]]
+bank_sha256 = "4df0b409d303d1b666a2d0aba3367c1dc08a2b380da109e50dee83b042b8ea90"
+sequence = 2
+mode = "small-pair"
+routing_source_sha256 = "5fb75fc59065359161fad934019b06940c5ec68b8b033eb320227d541a0a5212"
+phase = "in-memory"
+
+    [[measurements.rows]]
+    allocations = 0
+    bytes = 0
+    distance = 3353.273989692375
+    original_errors = ["fleet"]
+    original_valid = false
+    customers = 106
+    vehicles = 53
+    instance = "lc101.txt"
+    minimum_ns = 1765.0
+    error = 28.0
+    [[measurements.rows]]
+    allocations = 0
+    bytes = 0
+    distance = 34653.21658084654
+    original_errors = ["fleet"]
+    original_valid = false
+    customers = 422
+    vehicles = 211
+    instance = "lc1_4_1.txt"
+    minimum_ns = 6886.0
+    error = 111.0
+    [[measurements.rows]]
+    allocations = 0
+    bytes = 0
+    distance = 215630.16927270315
+    original_errors = ["fleet"]
+    original_valid = false
+    customers = 1054
+    vehicles = 527
+    instance = "lc1_10_1.txt"
+    minimum_ns = 17310.0
+    error = 277.0
+[[measurements]]
+bank_sha256 = "4df0b409d303d1b666a2d0aba3367c1dc08a2b380da109e50dee83b042b8ea90"
+sequence = 3
+mode = "small-pair"
+routing_source_sha256 = "5fb75fc59065359161fad934019b06940c5ec68b8b033eb320227d541a0a5212"
+phase = "in-memory"
+
+    [[measurements.rows]]
+    allocations = 0
+    bytes = 0
+    distance = 3353.273989692375
+    original_errors = ["fleet"]
+    original_valid = false
+    customers = 106
+    vehicles = 53
+    instance = "lc101.txt"
+    minimum_ns = 1761.0
+    error = 28.0
+    [[measurements.rows]]
+    allocations = 0
+    bytes = 0
+    distance = 34653.21658084654
+    original_errors = ["fleet"]
+    original_valid = false
+    customers = 422
+    vehicles = 211
+    instance = "lc1_4_1.txt"
+    minimum_ns = 6860.0
+    error = 111.0
+    [[measurements.rows]]
+    allocations = 0
+    bytes = 0
+    distance = 215630.16927270315
+    original_errors = ["fleet"]
+    original_valid = false
+    customers = 1054
+    vehicles = 527
+    instance = "lc1_10_1.txt"
+    minimum_ns = 17269.0
+    error = 277.0
+[[measurements]]
+bank_sha256 = "4df0b409d303d1b666a2d0aba3367c1dc08a2b380da109e50dee83b042b8ea90"
+sequence = 4
+mode = "baseline"
+routing_source_sha256 = "5fb75fc59065359161fad934019b06940c5ec68b8b033eb320227d541a0a5212"
+phase = "in-memory"
+
+    [[measurements.rows]]
+    allocations = 0
+    bytes = 0
+    distance = 3353.273989692375
+    original_errors = ["fleet"]
+    original_valid = false
+    customers = 106
+    vehicles = 53
+    instance = "lc101.txt"
+    minimum_ns = 2050.0
+    error = 28.0
+    [[measurements.rows]]
+    allocations = 0
+    bytes = 0
+    distance = 34653.21658084654
+    original_errors = ["fleet"]
+    original_valid = false
+    customers = 422
+    vehicles = 211
+    instance = "lc1_4_1.txt"
+    minimum_ns = 8256.0
+    error = 111.0
+    [[measurements.rows]]
+    allocations = 0
+    bytes = 0
+    distance = 215630.16927270315
+    original_errors = ["fleet"]
+    original_valid = false
+    customers = 1054
+    vehicles = 527
+    instance = "lc1_10_1.txt"
+    minimum_ns = 20251.0
+    error = 277.0
+[[measurements]]
+bank_sha256 = "4df0b409d303d1b666a2d0aba3367c1dc08a2b380da109e50dee83b042b8ea90"
+sequence = 1
+mode = "baseline"
+routing_source_sha256 = "5fb75fc59065359161fad934019b06940c5ec68b8b033eb320227d541a0a5212"
+phase = "source-implemented"
+
+    [[measurements.rows]]
+    allocations = 0
+    bytes = 0
+    distance = 3353.273989692375
+    original_errors = ["fleet"]
+    original_valid = false
+    customers = 106
+    vehicles = 53
+    instance = "lc101.txt"
+    minimum_ns = 1896.0
+    error = 28.0
+    [[measurements.rows]]
+    allocations = 0
+    bytes = 0
+    distance = 34653.21658084654
+    original_errors = ["fleet"]
+    original_valid = false
+    customers = 422
+    vehicles = 211
+    instance = "lc1_4_1.txt"
+    minimum_ns = 7363.0
+    error = 111.0
+    [[measurements.rows]]
+    allocations = 0
+    bytes = 0
+    distance = 215630.16927270315
+    original_errors = ["fleet"]
+    original_valid = false
+    customers = 1054
+    vehicles = 527
+    instance = "lc1_10_1.txt"
+    minimum_ns = 18468.0
+    error = 277.0
+[[measurements]]
+bank_sha256 = "4df0b409d303d1b666a2d0aba3367c1dc08a2b380da109e50dee83b042b8ea90"
+sequence = 2
+mode = "current"
+routing_source_sha256 = "5fb75fc59065359161fad934019b06940c5ec68b8b033eb320227d541a0a5212"
+phase = "source-implemented"
+
+    [[measurements.rows]]
+    allocations = 0
+    bytes = 0
+    distance = 3353.273989692375
+    original_errors = ["fleet"]
+    original_valid = false
+    customers = 106
+    vehicles = 53
+    instance = "lc101.txt"
+    minimum_ns = 1732.0
+    error = 28.0
+    [[measurements.rows]]
+    allocations = 0
+    bytes = 0
+    distance = 34653.21658084654
+    original_errors = ["fleet"]
+    original_valid = false
+    customers = 422
+    vehicles = 211
+    instance = "lc1_4_1.txt"
+    minimum_ns = 6743.0
+    error = 111.0
+    [[measurements.rows]]
+    allocations = 0
+    bytes = 0
+    distance = 215630.16927270315
+    original_errors = ["fleet"]
+    original_valid = false
+    customers = 1054
+    vehicles = 527
+    instance = "lc1_10_1.txt"
+    minimum_ns = 16957.0
+    error = 277.0
+[[measurements]]
+bank_sha256 = "4df0b409d303d1b666a2d0aba3367c1dc08a2b380da109e50dee83b042b8ea90"
+sequence = 3
+mode = "current"
+routing_source_sha256 = "5fb75fc59065359161fad934019b06940c5ec68b8b033eb320227d541a0a5212"
+phase = "source-implemented"
+
+    [[measurements.rows]]
+    allocations = 0
+    bytes = 0
+    distance = 3353.273989692375
+    original_errors = ["fleet"]
+    original_valid = false
+    customers = 106
+    vehicles = 53
+    instance = "lc101.txt"
+    minimum_ns = 1726.0
+    error = 28.0
+    [[measurements.rows]]
+    allocations = 0
+    bytes = 0
+    distance = 34653.21658084654
+    original_errors = ["fleet"]
+    original_valid = false
+    customers = 422
+    vehicles = 211
+    instance = "lc1_4_1.txt"
+    minimum_ns = 7007.0
+    error = 111.0
+    [[measurements.rows]]
+    allocations = 0
+    bytes = 0
+    distance = 215630.16927270315
+    original_errors = ["fleet"]
+    original_valid = false
+    customers = 1054
+    vehicles = 527
+    instance = "lc1_10_1.txt"
+    minimum_ns = 17245.0
+    error = 277.0
+[[measurements]]
+bank_sha256 = "4df0b409d303d1b666a2d0aba3367c1dc08a2b380da109e50dee83b042b8ea90"
+sequence = 4
+mode = "baseline"
+routing_source_sha256 = "5fb75fc59065359161fad934019b06940c5ec68b8b033eb320227d541a0a5212"
+phase = "source-implemented"
+
+    [[measurements.rows]]
+    allocations = 0
+    bytes = 0
+    distance = 3353.273989692375
+    original_errors = ["fleet"]
+    original_valid = false
+    customers = 106
+    vehicles = 53
+    instance = "lc101.txt"
+    minimum_ns = 2134.0
+    error = 28.0
+    [[measurements.rows]]
+    allocations = 0
+    bytes = 0
+    distance = 34653.21658084654
+    original_errors = ["fleet"]
+    original_valid = false
+    customers = 422
+    vehicles = 211
+    instance = "lc1_4_1.txt"
+    minimum_ns = 8598.0
+    error = 111.0
+    [[measurements.rows]]
+    allocations = 0
+    bytes = 0
+    distance = 215630.16927270315
+    original_errors = ["fleet"]
+    original_valid = false
+    customers = 1054
+    vehicles = 527
+    instance = "lc1_10_1.txt"
+    minimum_ns = 20765.0
+    error = 277.0
