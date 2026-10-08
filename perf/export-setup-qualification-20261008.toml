@@ -1,0 +1,316 @@
+recorded_utc = "2026-10-08T21:24:07.159"
+case_sha256 = "a1018f1a99d5fe569447d3b73de20a63b67265261e27acf6b6aef0a53f89776a"
+rejected_experiments = "Reducing specialization in the in-place composition function alone slightly slowed cold loading. Outlining only that function's export path had previously shown no gain. The retained change outlines exports in all four dispatch paths."
+baseline_commit = "d64154d04555a1c0a42f89e8896ae518b43c710c"
+contract = "All four composition paths share a non-specializing, non-inlined optional export helper. Exported text equals the original printer output; exported functions match the independent evaluator. Both jlfun modes, AbstractString filenames, invalid directory errors, input and weights ownership are checked."
+julia_threads = 2
+cpu_affinity = [4, 6]
+cache_contract = "Cache hits reuse all three pure decoder functions, allocate private lane workspaces, retain no mutable learning network, and trigger zero compilation."
+package_assertions = 31683
+timing_qualification = "Operational @timed complete authentic load_backend(:icn) in sequential fresh baseline/current/current/baseline processes. CN import and authentic-module bootstrap excluded. Other tasks active; no controlled scaling claim."
+blas_threads = 1
+inference_qualification = "Fresh SnoopCompile observations exclude LLVM in frame fields. Tree sums contain overlapping callee-inclusive times and are not elapsed time. Instrumentation and macro placement affect captured inference; ordinary @timed cold measurements establish latency."
+runtime = "1.13.1"
+gc_threads = 1
+bank_sha256 = "4df0b409d303d1b666a2d0aba3367c1dc08a2b380da109e50dee83b042b8ea90"
+export_assertions = 62
+source_sha256 = "af889d030f78affacfb7915906312bee09c1bfdef743779a77fc2448cc7919ac"
+scoring_source_sha256 = "762cadda81d3308f0abe047fd0bab4510d643e4e6ac657307d2abe1156b9ba5f"
+
+[[measurements]]
+cold_compile_seconds = 3.627776769
+cached_bytes = 7520
+cold_bytes = 389389112
+bank_sha256 = "4df0b409d303d1b666a2d0aba3367c1dc08a2b380da109e50dee83b042b8ea90"
+cold_seconds = 3.636599486
+cached_seconds = 4.7659e-5
+cached_compile_seconds = 0.0
+sequence = 1
+mode = "baseline"
+phase = "no-specialization"
+[[measurements]]
+cold_compile_seconds = 3.708453087
+cached_bytes = 7520
+cold_bytes = 388888144
+bank_sha256 = "4df0b409d303d1b666a2d0aba3367c1dc08a2b380da109e50dee83b042b8ea90"
+cold_seconds = 3.718275909
+cached_seconds = 4.847e-5
+cached_compile_seconds = 0.0
+sequence = 2
+mode = "nospecialize-compose"
+phase = "no-specialization"
+[[measurements]]
+cold_compile_seconds = 3.735831681
+cached_bytes = 7520
+cold_bytes = 389020432
+bank_sha256 = "4df0b409d303d1b666a2d0aba3367c1dc08a2b380da109e50dee83b042b8ea90"
+cold_seconds = 3.745628673
+cached_seconds = 5.1624e-5
+cached_compile_seconds = 0.0
+sequence = 3
+mode = "nospecialize-compose"
+phase = "no-specialization"
+[[measurements]]
+cold_compile_seconds = 3.678545429
+cached_bytes = 7520
+cold_bytes = 389387824
+bank_sha256 = "4df0b409d303d1b666a2d0aba3367c1dc08a2b380da109e50dee83b042b8ea90"
+cold_seconds = 3.687706117
+cached_seconds = 4.7813e-5
+cached_compile_seconds = 0.0
+sequence = 4
+mode = "baseline"
+phase = "no-specialization"
+[[measurements]]
+cold_compile_seconds = 3.671525359
+cached_bytes = 7520
+cold_bytes = 389521464
+bank_sha256 = "4df0b409d303d1b666a2d0aba3367c1dc08a2b380da109e50dee83b042b8ea90"
+cold_seconds = 3.680779622
+cached_seconds = 4.954e-5
+cached_compile_seconds = 0.0
+sequence = 1
+mode = "baseline"
+phase = "in-memory-all-exports"
+[[measurements]]
+cold_compile_seconds = 2.350195923
+cached_bytes = 7520
+cold_bytes = 236442136
+bank_sha256 = "4df0b409d303d1b666a2d0aba3367c1dc08a2b380da109e50dee83b042b8ea90"
+cold_seconds = 2.359190404
+cached_seconds = 4.9755e-5
+cached_compile_seconds = 0.0
+sequence = 2
+mode = "outlined-all-exports"
+phase = "in-memory-all-exports"
+[[measurements]]
+cold_compile_seconds = 2.401731322
+cached_bytes = 7520
+cold_bytes = 236443552
+bank_sha256 = "4df0b409d303d1b666a2d0aba3367c1dc08a2b380da109e50dee83b042b8ea90"
+cold_seconds = 2.411349261
+cached_seconds = 5.3848e-5
+cached_compile_seconds = 0.0
+sequence = 3
+mode = "outlined-all-exports"
+phase = "in-memory-all-exports"
+[[measurements]]
+cold_compile_seconds = 3.670007313
+cached_bytes = 7520
+cold_bytes = 389388824
+bank_sha256 = "4df0b409d303d1b666a2d0aba3367c1dc08a2b380da109e50dee83b042b8ea90"
+cold_seconds = 3.679171721
+cached_seconds = 6.4629e-5
+cached_compile_seconds = 0.0
+sequence = 4
+mode = "baseline"
+phase = "in-memory-all-exports"
+[[measurements]]
+cold_compile_seconds = 3.771833606
+cached_bytes = 7520
+cold_bytes = 389388960
+bank_sha256 = "4df0b409d303d1b666a2d0aba3367c1dc08a2b380da109e50dee83b042b8ea90"
+cold_seconds = 3.781209811
+cached_seconds = 5.025e-5
+cached_compile_seconds = 0.0
+sequence = 1
+mode = "baseline"
+phase = "implemented-all-exports"
+[[measurements]]
+cold_compile_seconds = 2.464491228
+cached_bytes = 7520
+cold_bytes = 236385016
+bank_sha256 = "4df0b409d303d1b666a2d0aba3367c1dc08a2b380da109e50dee83b042b8ea90"
+cold_seconds = 2.474736393
+cached_seconds = 4.7601e-5
+cached_compile_seconds = 0.0
+sequence = 2
+mode = "current"
+phase = "implemented-all-exports"
+[[measurements]]
+cold_compile_seconds = 2.310515001
+cached_bytes = 7520
+cold_bytes = 236384440
+bank_sha256 = "4df0b409d303d1b666a2d0aba3367c1dc08a2b380da109e50dee83b042b8ea90"
+cold_seconds = 2.3198194
+cached_seconds = 4.6329e-5
+cached_compile_seconds = 0.0
+sequence = 3
+mode = "current"
+phase = "implemented-all-exports"
+[[measurements]]
+cold_compile_seconds = 3.635493103
+cached_bytes = 7520
+cold_bytes = 389524456
+bank_sha256 = "4df0b409d303d1b666a2d0aba3367c1dc08a2b380da109e50dee83b042b8ea90"
+cold_seconds = 3.644635128
+cached_seconds = 5.1202e-5
+cached_compile_seconds = 0.0
+sequence = 4
+mode = "baseline"
+phase = "implemented-all-exports"
+
+[[inference]]
+instrumented_lifecycle_seconds = 3.54744157
+summed_exclusive_inference_seconds = 0.26941031217575073
+tree_sum_inclusive_seconds = 0.8273683190345764
+frames = 985
+mode = "baseline"
+
+    [[inference.top]]
+    method = "methods"
+    line = 1555
+    module = "Base"
+    inclusive_seconds = 0.018890380859375
+    file = "runtime_internals.jl"
+    exclusive_seconds = 0.0186614990234375
+    [[inference.top]]
+    method = "#decode_bank##0"
+    line = 68
+    module = "Main.ICNScoring"
+    inclusive_seconds = 0.00972747802734375
+    file = "/home/azzaare/Gits/Benchmarks-night-routing/LiLim/src/ICNScoring.jl"
+    exclusive_seconds = 0.00972747802734375
+    [[inference.top]]
+    method = "#compose#1135"
+    line = 1
+    module = "CompositionalNetworks"
+    inclusive_seconds = 0.00457763671875
+    file = "none"
+    exclusive_seconds = 0.00428009033203125
+    [[inference.top]]
+    method = "iterate"
+    line = 292
+    module = "Base.Iterators"
+    inclusive_seconds = 0.003284454345703125
+    file = "iterators.jl"
+    exclusive_seconds = 0.0028018951416015625
+    [[inference.top]]
+    method = "_pipeline_shape_valid"
+    line = 44
+    module = "CompositionalNetworks"
+    inclusive_seconds = 0.004032135009765625
+    file = "/home/azzaare/.julia/dev/JuliaConstraintsPerfNightICN/CompositionalNetworks/src/icn.jl"
+    exclusive_seconds = 0.002765655517578125
+    [[inference.top]]
+    method = "iterate"
+    line = 292
+    module = "Base.Iterators"
+    inclusive_seconds = 0.0028476715087890625
+    file = "iterators.jl"
+    exclusive_seconds = 0.0027561187744140625
+    [[inference.top]]
+    method = "iterate"
+    line = 292
+    module = "Base.Iterators"
+    inclusive_seconds = 0.00284576416015625
+    file = "iterators.jl"
+    exclusive_seconds = 0.0027141571044921875
+    [[inference.top]]
+    method = "iterate"
+    line = 292
+    module = "Base.Iterators"
+    inclusive_seconds = 0.002834320068359375
+    file = "iterators.jl"
+    exclusive_seconds = 0.0026912689208984375
+[[inference]]
+instrumented_lifecycle_seconds = 2.280598545
+summed_exclusive_inference_seconds = 0.27638739347457886
+tree_sum_inclusive_seconds = 0.7843340039253235
+frames = 982
+mode = "current"
+
+    [[inference.top]]
+    method = "extract_parameters"
+    line = 31
+    module = "ConstraintCommons"
+    inclusive_seconds = 0.02105712890625
+    file = "/home/azzaare/.julia/dev/JuliaConstraintsPerfNightICN/ConstraintCommons/src/parameters.jl"
+    exclusive_seconds = 0.019439697265625
+    [[inference.top]]
+    method = "#decode_bank##0"
+    line = 68
+    module = "Main.ICNScoring"
+    inclusive_seconds = 0.0091552734375
+    file = "/home/azzaare/Gits/Benchmarks-night-routing/LiLim/src/ICNScoring.jl"
+    exclusive_seconds = 0.0091552734375
+    [[inference.top]]
+    method = "#compose#792"
+    line = 9
+    module = "CompositionalNetworks"
+    inclusive_seconds = 0.00421905517578125
+    file = "/home/azzaare/.julia/dev/JuliaConstraintsPerfNightICN/CompositionalNetworks/src/compose.jl"
+    exclusive_seconds = 0.003936767578125
+    [[inference.top]]
+    method = "iterate"
+    line = 292
+    module = "Base.Iterators"
+    inclusive_seconds = 0.0034027099609375
+    file = "iterators.jl"
+    exclusive_seconds = 0.0029087066650390625
+    [[inference.top]]
+    method = "iterate"
+    line = 292
+    module = "Base.Iterators"
+    inclusive_seconds = 0.00298309326171875
+    file = "iterators.jl"
+    exclusive_seconds = 0.00283050537109375
+    [[inference.top]]
+    method = "iterate"
+    line = 292
+    module = "Base.Iterators"
+    inclusive_seconds = 0.00295257568359375
+    file = "iterators.jl"
+    exclusive_seconds = 0.0028285980224609375
+    [[inference.top]]
+    method = "iterate"
+    line = 292
+    module = "Base.Iterators"
+    inclusive_seconds = 0.002834320068359375
+    file = "iterators.jl"
+    exclusive_seconds = 0.002750396728515625
+    [[inference.top]]
+    method = "_pipeline_shape_valid"
+    line = 44
+    module = "CompositionalNetworks"
+    inclusive_seconds = 0.003772735595703125
+    file = "/home/azzaare/.julia/dev/JuliaConstraintsPerfNightICN/CompositionalNetworks/src/icn.jl"
+    exclusive_seconds = 0.002635955810546875
+
+[[diagnostics]]
+measurements = ""
+correctness = "passed"
+summary = ""
+measurement_scope = ""
+status = "complete"
+tool_version = "0.12.3"
+analysis_scope = "operation specialized for prepared state type; synchronization excluded"
+tool = "jet"
+findings = []
+scenario = "learned-equality-pair"
+[[diagnostics]]
+measurements = ""
+correctness = "passed"
+summary = ""
+measurement_scope = ""
+status = "complete"
+tool_version = "0.2.6"
+analysis_scope = "static operation specialization; tool exception-path defaults; not a universal allocation guarantee"
+tool = "alloccheck"
+findings = []
+scenario = "learned-equality-pair"
+[[diagnostics]]
+correctness = "passed"
+summary = ""
+measurement_scope = "fresh process; source loading; full lifecycle including preparation and verification"
+status = "complete"
+tool_version = ""
+analysis_scope = ""
+tool = "latency"
+findings = []
+scenario = "learned-equality-pair"
+
+    [diagnostics.measurements]
+    first_case_seconds = 0.058500236
+    load_seconds = 3.266251855
+    warm_case_seconds = 4.394e-6
