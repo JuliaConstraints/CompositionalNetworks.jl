@@ -1,0 +1,115 @@
+cc_commit = "54ee23d9f2a41fbcb674937c558de181b84e6d5d"
+diagnostic_scope = "The generated scoring implementation is unchanged. The prior 888b021 parameter-membership record contains six completed collectors and four completed scoring analyzers; those operation diagnostics are inherited evidence, not rerun claims for this source hash."
+recorded_utc = "2026-10-08T23:58:15.188"
+filesystem = "No helper scripts, copied environments, reports or backup files created. Only intrinsic source, test and this qualification record persist."
+blas_threads = 1
+runtime = "1.13.1"
+gc_threads = 1
+bank_checks = "W4/W2/W52 schema SHA, saved weights, immutable zero-field decoders, scalar positive/negative/zero/mixed cases and independent original full-square pair counts; source bank unchanged."
+baseline_commit = "888b0211716d99fca58eb88f69c5971ea180ec6b"
+baseline_source_sha256 = "4841ca279c1dc54c393355cc56676cf3e81a9e2a14d3af414e12b63991a4e37f"
+test_sha256 = "3e5195074a7b962b5ebce99e154e4c991f20411bd1f68f81c9a488c8a342cdcb"
+contract = "Append the same four extra parameter hints from an immutable tuple instead of constructing an intermediate vector. Each operator still receives a freshly copied mutable Vector{Symbol}; hint order, names and extractor extensibility are unchanged."
+bank_sha256 = "4df0b409d303d1b666a2d0aba3367c1dc08a2b380da109e50dee83b042b8ea90"
+julia_threads = 2
+source_sha256 = "fe72265a26667f637474cd8ed4fb7fe0af94437dc32a53cbf1fcf7769dbe9c44"
+factory_scope = "Complete learnable_composition(max_depth=1) construction, including Random.seed!(112). Fifty BenchmarkTools samples with evals=1. Sequential baseline/current/current/baseline fresh processes, same diagnostics environment and dependencies. The final baseline temporarily restored only the one source line; current source restored immediately after completion. No learning, composition generation or scoring in the measured callback."
+timing_limitations = "Elapsed ranges overlap while other night jobs run. Allocation reduction only; no speed or scaling claim."
+cpu_affinity = [4, 6]
+
+[[measurements]]
+variant = "baseline"
+source_sha256 = "4841ca279c1dc54c393355cc56676cf3e81a9e2a14d3af414e12b63991a4e37f"
+
+    [[measurements.rows]]
+    minimum_ns = 147207.0
+    bytes = 112576
+    weightlen = [27, 3, 10, 5]
+    parameters = ["op", "val"]
+    available_weights = [1, 2, 3, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 47, 48, 49, 50, 51]
+    initialized_weights = [false, true, false, true, true, true, false, true, true, false, true, false, false, true, true, true, true, false, true, false, true, true, false, true, true, true, true, false, false, true, false, false, false, false, false, false, true, false, false, false, false, false, true, false, false]
+    allocations = 2243
+    case = "scalar"
+    [[measurements.rows]]
+    minimum_ns = 144374.0
+    bytes = 111296
+    weightlen = [19, 3, 9, 1]
+    parameters = []
+    available_weights = [1, 2, 3, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 22, 23, 24, 25, 26, 30, 33, 34, 35, 36, 37, 38, 39, 41, 42, 43, 44, 45, 47]
+    initialized_weights = [false, true, false, true, true, true, false, true, true, false, true, false, false, true, true, true, true, true, true, false, false, true, false, false, false, false, false, true, false, false, false, true]
+    allocations = 2220
+    case = "numeric-list"
+[[measurements]]
+variant = "candidate"
+source_sha256 = "fe72265a26667f637474cd8ed4fb7fe0af94437dc32a53cbf1fcf7769dbe9c44"
+
+    [[measurements.rows]]
+    minimum_ns = 147829.0
+    bytes = 106816
+    weightlen = [27, 3, 10, 5]
+    parameters = ["op", "val"]
+    available_weights = [1, 2, 3, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 47, 48, 49, 50, 51]
+    initialized_weights = [false, true, false, true, true, true, false, true, true, false, true, false, false, true, true, true, true, false, true, false, true, true, false, true, true, true, true, false, false, true, false, false, false, false, false, false, true, false, false, false, false, false, true, false, false]
+    allocations = 2123
+    case = "scalar"
+    [[measurements.rows]]
+    minimum_ns = 142146.0
+    bytes = 105536
+    weightlen = [19, 3, 9, 1]
+    parameters = []
+    available_weights = [1, 2, 3, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 22, 23, 24, 25, 26, 30, 33, 34, 35, 36, 37, 38, 39, 41, 42, 43, 44, 45, 47]
+    initialized_weights = [false, true, false, true, true, true, false, true, true, false, true, false, false, true, true, true, true, true, true, false, false, true, false, false, false, false, false, true, false, false, false, true]
+    allocations = 2100
+    case = "numeric-list"
+[[measurements]]
+variant = "candidate-repeat"
+source_sha256 = "fe72265a26667f637474cd8ed4fb7fe0af94437dc32a53cbf1fcf7769dbe9c44"
+
+    [[measurements.rows]]
+    minimum_ns = 145293.0
+    bytes = 106816
+    weightlen = [27, 3, 10, 5]
+    parameters = ["op", "val"]
+    available_weights = [1, 2, 3, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 47, 48, 49, 50, 51]
+    initialized_weights = [false, true, false, true, true, true, false, true, true, false, true, false, false, true, true, true, true, false, true, false, true, true, false, true, true, true, true, false, false, true, false, false, false, false, false, false, true, false, false, false, false, false, true, false, false]
+    allocations = 2123
+    case = "scalar"
+    [[measurements.rows]]
+    minimum_ns = 142589.0
+    bytes = 105536
+    weightlen = [19, 3, 9, 1]
+    parameters = []
+    available_weights = [1, 2, 3, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 22, 23, 24, 25, 26, 30, 33, 34, 35, 36, 37, 38, 39, 41, 42, 43, 44, 45, 47]
+    initialized_weights = [false, true, false, true, true, true, false, true, true, false, true, false, false, true, true, true, true, true, true, false, false, true, false, false, false, false, false, true, false, false, false, true]
+    allocations = 2100
+    case = "numeric-list"
+[[measurements]]
+variant = "baseline-repeat"
+source_sha256 = "4841ca279c1dc54c393355cc56676cf3e81a9e2a14d3af414e12b63991a4e37f"
+
+    [[measurements.rows]]
+    minimum_ns = 145971.0
+    bytes = 112576
+    weightlen = [27, 3, 10, 5]
+    parameters = ["op", "val"]
+    available_weights = [1, 2, 3, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 47, 48, 49, 50, 51]
+    initialized_weights = [false, true, false, true, true, true, false, true, true, false, true, false, false, true, true, true, true, false, true, false, true, true, false, true, true, true, true, false, false, true, false, false, false, false, false, false, true, false, false, false, false, false, true, false, false]
+    allocations = 2243
+    case = "scalar"
+    [[measurements.rows]]
+    minimum_ns = 143499.0
+    bytes = 111296
+    weightlen = [19, 3, 9, 1]
+    parameters = []
+    available_weights = [1, 2, 3, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 22, 23, 24, 25, 26, 30, 33, 34, 35, 36, 37, 38, 39, 41, 42, 43, 44, 45, 47]
+    initialized_weights = [false, true, false, true, true, true, false, true, true, false, true, false, false, true, true, true, true, true, true, false, false, true, false, false, false, false, false, true, false, false, false, true]
+    allocations = 2220
+    case = "numeric-list"
+
+[tests]
+package_assertions = 35849
+exact_witness_assertions = 29
+standalone_evaluator_arithmetic_assertions = 4872
+new_ownership_assertions = 11
+filter = "No extension tests; view_learning.jl and composed_learning.jl excluded."
+ownership = "Custom metadata extractor mutates and retains six hint vectors across two ICN constructions. All original hint snapshots match in order; vectors are pairwise distinct and separate from the unchanged global parameter list."

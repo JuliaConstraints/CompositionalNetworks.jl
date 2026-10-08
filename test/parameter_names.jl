@@ -41,3 +41,44 @@
               isequal(actual, expected)
     end
 end
+
+@testitem "ICN metadata extractors receive fresh mutable parameter hints" default_imports=false begin
+    import CompositionalNetworks as CN
+    import ConstraintCommons as CC
+    import Test: @test
+
+    struct HintProbe
+        inputs::Vector{Vector{Symbol}}
+        snapshots::Vector{Vector{Symbol}}
+    end
+    struct HintLayer{F} <: CN.AbstractLayer
+        name::Symbol
+        mutex::Bool
+        fn::F
+    end
+    function CC.extract_parameters(probe::HintProbe; parameters)
+        push!(probe.inputs, parameters)
+        push!(probe.snapshots, copy(parameters))
+        parameters[1] = :mutated_hint
+        push!(parameters, :added_hint)
+        return Vector{Symbol}[]
+    end
+
+    usual = copy(CC.USUAL_CONSTRAINT_PARAMETERS)
+    expected = vcat(usual, [:numvars, :dom_size, :op_filter, :filter_val])
+    probe = HintProbe(Vector{Symbol}[], Vector{Symbol}[])
+    layer = HintLayer(:HintProbe, false, (; first = probe, second = probe, third = probe))
+    for _ in 1:2
+        network = CN.ICN(; weights = trues(3), layers = [layer], connection = UInt32[1])
+        @test collect(network.weights) == trues(3)
+        @test network.weightlen == [3]
+    end
+    @test length(probe.inputs) == 6
+    @test all(==(expected), probe.snapshots)
+    @test all(input -> input isa Vector{Symbol}, probe.inputs)
+    @test all(input -> first(input) === :mutated_hint && last(input) === :added_hint,
+        probe.inputs)
+    @test all(probe.inputs[i] !== probe.inputs[j] for i in 1:6 for j in (i + 1):6)
+    @test all(input !== CC.USUAL_CONSTRAINT_PARAMETERS for input in probe.inputs)
+    @test CC.USUAL_CONSTRAINT_PARAMETERS == usual
+end

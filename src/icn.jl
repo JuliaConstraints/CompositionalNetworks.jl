@@ -1073,7 +1073,7 @@ struct ICN{S} <: AbstractICN where {S <: Union{AbstractVector{<:AbstractLayer}, 
                     fn,
                     parameters = append!(
                         copy(USUAL_CONSTRAINT_PARAMETERS),
-                        [:numvars, :dom_size, :op_filter, :filter_val]
+                        (:numvars, :dom_size, :op_filter, :filter_val)
                     )
                 )
                 names_match = isempty(par) ||
