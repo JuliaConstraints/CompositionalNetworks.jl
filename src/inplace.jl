@@ -577,13 +577,21 @@ function _aggregate_pairwise_sum(::Val{operations}, x; parameters...) where {ope
     # does not add a branch to each pair or retain a mutable learning network.
     if indices isa AbstractUnitRange{<:Integer} && all(operation -> operation in
             (:count_equal_left, :count_less_left, :count_great_left), operations)
-        @inbounds for i in indices, j in first(indices):(i - 1)
-            total += _pairwise_counts(operations, x, i, j; parameters...)
+        @inbounds for i in indices
+            # Do not form first_index - 1 at an integer limit.
+            i == first(indices) && continue
+            for j in first(indices):(i - 1)
+                total += _pairwise_counts(operations, x, i, j; parameters...)
+            end
         end
     elseif indices isa AbstractUnitRange{<:Integer} && all(operation -> operation in
             (:count_equal_right, :count_less_right, :count_great_right), operations)
-        @inbounds for i in indices, j in (i + 1):last(indices)
-            total += _pairwise_counts(operations, x, i, j; parameters...)
+        @inbounds for i in indices
+            # Do not form last_index + 1 at an integer limit.
+            i == last(indices) && continue
+            for j in (i + 1):last(indices)
+                total += _pairwise_counts(operations, x, i, j; parameters...)
+            end
         end
     else
         @inbounds for i in eachindex(x), j in eachindex(x)
