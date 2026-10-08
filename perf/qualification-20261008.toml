@@ -1,0 +1,437 @@
+recorded_utc = "2026-10-08T19:39:55.224"
+fused_reference_sha256 = "99eea5cd63eccfb0576a8a8c213a654011dc6bd89559074968f33084918c30cc"
+julia_threads = 2
+cpu_affinity = [4, 6]
+fused_buffer_finding = "Recovered scalar decoder allocates zero bytes on the actual 5271-term Float64 input. Repeated sizehint! shrinks the reusable error-term vector below the requirement when route count exceeds allowed fleet; pushes grow it again. In-memory shrink=false experiment preserves full scores and eliminates repeated allocation. Benchmark source was read only; no shared file was edited."
+timing_qualification = "Operational same-input scoring evidence while other tasks were active; no controlled scaling claim. Bank load, reconstruction and composition are outside scored operations."
+blas_threads = 1
+runtime = "1.13.1"
+gc_threads = 1
+bank_sha256 = "4df0b409d303d1b666a2d0aba3367c1dc08a2b380da109e50dee83b042b8ea90"
+source_sha256 = "962d264aba8143309be708198359c7f47cc4772ffebe92ed7398e867c7f31253"
+
+[[route_scores]]
+original_errors = ["fleet"]
+backend = "original_icn"
+matched_error = 28.0
+matched_distance = 3353.273989692375
+allocations = 0
+matched_vehicles = 53
+instance = "lc101.txt"
+bytes = 0
+original_valid = false
+customers = 106
+minimum_ns = 1961.0
+[[route_scores]]
+original_errors = ["fleet"]
+backend = "changed_icn"
+matched_error = 28.0
+matched_distance = 3353.273989692375
+allocations = 0
+matched_vehicles = 53
+instance = "lc101.txt"
+bytes = 0
+original_valid = false
+customers = 106
+minimum_ns = 1834.0
+[[route_scores]]
+original_errors = ["fleet"]
+backend = "direct"
+matched_error = 28.0
+matched_distance = 3353.273989692375
+allocations = 0
+matched_vehicles = 53
+instance = "lc101.txt"
+bytes = 0
+original_valid = false
+customers = 106
+minimum_ns = 1576.0
+[[route_scores]]
+original_errors = ["fleet"]
+backend = "fused_all"
+matched_error = 28.0
+matched_distance = 3353.273989692375
+allocations = 4
+matched_vehicles = 53
+instance = "lc101.txt"
+bytes = 11280
+original_valid = false
+customers = 106
+minimum_ns = 2663.0
+[[route_scores]]
+original_errors = ["fleet"]
+backend = "original_icn"
+matched_error = 111.0
+matched_distance = 34653.21658084654
+allocations = 0
+matched_vehicles = 211
+instance = "lc1_4_1.txt"
+bytes = 0
+original_valid = false
+customers = 422
+minimum_ns = 8017.0
+[[route_scores]]
+original_errors = ["fleet"]
+backend = "changed_icn"
+matched_error = 111.0
+matched_distance = 34653.21658084654
+allocations = 0
+matched_vehicles = 211
+instance = "lc1_4_1.txt"
+bytes = 0
+original_valid = false
+customers = 422
+minimum_ns = 7148.0
+[[route_scores]]
+original_errors = ["fleet"]
+backend = "direct"
+matched_error = 111.0
+matched_distance = 34653.21658084654
+allocations = 0
+matched_vehicles = 211
+instance = "lc1_4_1.txt"
+bytes = 0
+original_valid = false
+customers = 422
+minimum_ns = 6391.0
+[[route_scores]]
+original_errors = ["fleet"]
+backend = "fused_all"
+matched_error = 111.0
+matched_distance = 34653.21658084654
+allocations = 4
+matched_vehicles = 211
+instance = "lc1_4_1.txt"
+bytes = 44560
+original_valid = false
+customers = 422
+minimum_ns = 8489.0
+[[route_scores]]
+original_errors = ["fleet"]
+backend = "original_icn"
+matched_error = 277.0
+matched_distance = 215630.16927270315
+allocations = 0
+matched_vehicles = 527
+instance = "lc1_10_1.txt"
+bytes = 0
+original_valid = false
+customers = 1054
+minimum_ns = 19830.0
+[[route_scores]]
+original_errors = ["fleet"]
+backend = "changed_icn"
+matched_error = 277.0
+matched_distance = 215630.16927270315
+allocations = 0
+matched_vehicles = 527
+instance = "lc1_10_1.txt"
+bytes = 0
+original_valid = false
+customers = 1054
+minimum_ns = 18030.0
+[[route_scores]]
+original_errors = ["fleet"]
+backend = "direct"
+matched_error = 277.0
+matched_distance = 215630.16927270315
+allocations = 0
+matched_vehicles = 527
+instance = "lc1_10_1.txt"
+bytes = 0
+original_valid = false
+customers = 1054
+minimum_ns = 15687.0
+[[route_scores]]
+original_errors = ["fleet"]
+backend = "fused_all"
+matched_error = 277.0
+matched_distance = 215630.16927270315
+allocations = 4
+matched_vehicles = 527
+instance = "lc1_10_1.txt"
+bytes = 129488
+original_valid = false
+customers = 1054
+minimum_ns = 21613.0
+
+[[fused_buffer_experiment]]
+method = "original"
+bytes = 0
+ns = 1741.0
+instance = "lc101.txt"
+allocations = 0
+[[fused_buffer_experiment]]
+method = "fused_current"
+bytes = 11280
+ns = 2278.0
+instance = "lc101.txt"
+allocations = 4
+[[fused_buffer_experiment]]
+method = "fused_no_shrink"
+bytes = 0
+ns = 2039.0
+instance = "lc101.txt"
+allocations = 0
+[[fused_buffer_experiment]]
+method = "original"
+bytes = 0
+ns = 6826.0
+instance = "lc1_4_1.txt"
+allocations = 0
+[[fused_buffer_experiment]]
+method = "fused_current"
+bytes = 44560
+ns = 8500.0
+instance = "lc1_4_1.txt"
+allocations = 4
+[[fused_buffer_experiment]]
+method = "fused_no_shrink"
+bytes = 0
+ns = 7576.0
+instance = "lc1_4_1.txt"
+allocations = 0
+[[fused_buffer_experiment]]
+method = "original"
+bytes = 0
+ns = 17958.0
+instance = "lc1_10_1.txt"
+allocations = 0
+[[fused_buffer_experiment]]
+method = "fused_current"
+bytes = 129488
+ns = 20744.0
+instance = "lc1_10_1.txt"
+allocations = 4
+[[fused_buffer_experiment]]
+method = "fused_no_shrink"
+bytes = 0
+ns = 18597.0
+instance = "lc1_10_1.txt"
+allocations = 0
+
+[[collectors]]
+correctness = "passed"
+cpu_profile_samples = 0
+status = "complete"
+collector = "benchmark"
+message = ""
+implementation = "compiled"
+
+    [collectors."julia.wall.time"]
+    samples = 5
+    minimum = 5.6267e-5
+    maximum = 6.2972e-5
+
+    [collectors."julia.alloc.count"]
+    samples = 5
+    minimum = 0.0
+    maximum = 0.0
+
+    [collectors."julia.alloc.bytes"]
+    samples = 5
+    minimum = 0.0
+    maximum = 0.0
+[[collectors]]
+correctness = "passed"
+cpu_profile_samples = 0
+status = "complete"
+collector = "chairmark"
+message = ""
+implementation = "compiled"
+
+    [collectors."julia.wall.time"]
+    samples = 5
+    minimum = 5.8546000000000005e-5
+    maximum = 6.1117e-5
+
+    [collectors."julia.alloc.count"]
+    samples = 5
+    minimum = 0.0
+    maximum = 0.0
+
+    [collectors."julia.alloc.bytes"]
+    samples = 5
+    minimum = 0.0
+    maximum = 0.0
+[[collectors]]
+correctness = "passed"
+cpu_profile_samples = 0
+status = "complete"
+collector = "profile"
+message = ""
+implementation = "compiled"
+[[collectors]]
+correctness = "passed"
+cpu_profile_samples = 0
+status = "complete"
+collector = "profile_alloc"
+message = ""
+implementation = "compiled"
+[[collectors]]
+correctness = "passed"
+cpu_profile_samples = 0
+status = "complete"
+collector = "benchmark"
+message = ""
+implementation = "original-square"
+
+    [collectors."julia.wall.time"]
+    samples = 5
+    minimum = 0.000275541
+    maximum = 0.000281153
+
+    [collectors."julia.alloc.count"]
+    samples = 5
+    minimum = 0.0
+    maximum = 0.0
+
+    [collectors."julia.alloc.bytes"]
+    samples = 5
+    minimum = 0.0
+    maximum = 0.0
+[[collectors]]
+correctness = "passed"
+cpu_profile_samples = 0
+status = "complete"
+collector = "chairmark"
+message = ""
+implementation = "original-square"
+
+    [collectors."julia.wall.time"]
+    samples = 5
+    minimum = 0.000275603
+    maximum = 0.000283252
+
+    [collectors."julia.alloc.count"]
+    samples = 5
+    minimum = 0.0
+    maximum = 0.0
+
+    [collectors."julia.alloc.bytes"]
+    samples = 5
+    minimum = 0.0
+    maximum = 0.0
+
+[bank_cached_load]
+seconds = 5.902e-5
+bytes = 7520
+
+[bank_cold_load]
+seconds = 3.80252734
+bytes = 386935224
+
+[[diagnostics]]
+quality = "failed"
+correctness = "not_checked"
+status = "complete"
+findings_count = 1
+message = "Existing Project.toml lacks seven compat entries for test extras; ordinary dependency and weak-dependency compatibility checks passed."
+tool = "aqua"
+findings = ["Some tests did not pass: 3 passed, 1 failed, 0 errored, 0 broken."]
+analysis_scope = ""
+
+    [diagnostics.measurements]
+[[diagnostics]]
+quality = "not_checked"
+correctness = "passed"
+status = "complete"
+findings_count = 0
+message = ""
+tool = "jet"
+findings = []
+analysis_scope = "operation specialized for prepared state type; synchronization excluded"
+
+    [diagnostics.measurements]
+[[diagnostics]]
+quality = "not_checked"
+correctness = "passed"
+status = "complete"
+findings_count = 0
+message = ""
+tool = "alloccheck"
+findings = []
+analysis_scope = "static operation specialization; tool exception-path defaults; not a universal allocation guarantee"
+
+    [diagnostics.measurements]
+[[diagnostics]]
+quality = "not_checked"
+correctness = "passed"
+status = "complete"
+findings_count = 1
+message = ""
+tool = "snoopcompile"
+findings = ["InferenceTimingNode: 0.000014/0.000015 on Base.Compiler.Timings.ROOT() with 0 direct children"]
+analysis_scope = "first complete scenario lifecycle in diagnostic process"
+
+    [diagnostics.measurements]
+    inference_seconds = 1.537799835205078e-5
+[[diagnostics]]
+quality = "not_checked"
+correctness = "passed"
+status = "complete"
+findings_count = 0
+message = ""
+tool = "latency"
+findings = []
+analysis_scope = ""
+
+    [diagnostics.measurements]
+    first_case_seconds = 0.059250013
+    load_seconds = 4.804830664
+    warm_case_seconds = 6.9079e-5
+[[diagnostics]]
+quality = "not_checked"
+correctness = "passed"
+status = "complete"
+findings_count = 0
+message = ""
+tool = "gc"
+findings = []
+analysis_scope = "warmed operation and synchronization; fresh state; preparation, verification and cleanup excluded"
+
+    [diagnostics.measurements]
+    maximum_gc_seconds = 0.0
+    samples = 5
+    maximum_allocated_bytes = 0
+    maximum_lock_conflicts = 0
+[[diagnostics]]
+quality = "not_checked"
+correctness = "passed"
+status = "complete"
+findings_count = 0
+message = ""
+tool = "memory"
+findings = []
+analysis_scope = ""
+
+    [diagnostics.measurements]
+    samples = 5
+    state_before_bytes = 8048
+    state_after_bytes = 8048
+[[diagnostics]]
+quality = "not_checked"
+correctness = "passed"
+status = "complete"
+findings_count = 0
+message = ""
+tool = "locks"
+findings = []
+analysis_scope = ""
+
+    [diagnostics.measurements]
+    maximum_gc_seconds = 0.0
+    samples = 5
+    maximum_allocated_bytes = 0
+    maximum_lock_conflicts = 0
+[[diagnostics]]
+quality = "not_checked"
+correctness = "passed"
+status = "unavailable"
+findings_count = 0
+message = "heap snapshots require a report directory (diagnose(...; reports=...) or --reports)"
+tool = "heap"
+findings = []
+analysis_scope = ""
+
+    [diagnostics.measurements]

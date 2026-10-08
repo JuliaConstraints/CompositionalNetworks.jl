@@ -1,0 +1,222 @@
+runtime = "1.13.1"
+recorded_utc = "2026-10-08T20:26:00.503"
+scope = "Fresh process import invalidations, factory source load, exact saved witness recovery/composition, first typed score and warm typed score; no training."
+bank_sha256 = "4df0b409d303d1b666a2d0aba3367c1dc08a2b380da109e50dee83b042b8ea90"
+cpu_affinity = [4, 6]
+
+[source_load]
+lifecycle_seconds = 0.06075119972229004
+inference_seconds = 0.04826229810714722
+frames = 10
+
+    [[source_load.top]]
+    method = "MethodInstance for Base._include(::Function, ::Module, ::String)"
+    inclusive_seconds = 0.016237258911132812
+    exclusive_seconds = 0.015860557556152344
+    [[source_load.top]]
+    method = "MethodInstance for include_string(::typeof(identity), ::Module, ::String, ::String)"
+    inclusive_seconds = 0.01623249053955078
+    exclusive_seconds = 0.0161285400390625
+    [[source_load.top]]
+    method = "MethodInstance for (::Base.IncludeInto)(::String)"
+    inclusive_seconds = 0.013523101806640625
+    exclusive_seconds = 0.00750732421875
+    [[source_load.top]]
+    method = "MethodInstance for Base.include(::typeof(identity), ::Module, ::String)"
+    inclusive_seconds = 0.0060272216796875
+    exclusive_seconds = 0.0010480880737304688
+    [[source_load.top]]
+    method = "MethodInstance for Base._include(::typeof(identity), ::Module, ::String)"
+    inclusive_seconds = 0.004123687744140625
+    exclusive_seconds = 0.0031280517578125
+    [[source_load.top]]
+    method = "MethodInstance for Base.include(::Function, ::Module, ::String)"
+    inclusive_seconds = 0.0018361210823059082
+    exclusive_seconds = 0.0018355846405029297
+    [[source_load.top]]
+    method = "MethodInstance for ==(::Type, ::Function)"
+    inclusive_seconds = 0.0015706419944763184
+    exclusive_seconds = 0.001570284366607666
+    [[source_load.top]]
+    method = "MethodInstance for include_string(::Function, ::Module, ::String, ::String)"
+    inclusive_seconds = 0.0010652542114257812
+    exclusive_seconds = 0.001064300537109375
+    [[source_load.top]]
+    method = "MethodInstance for !=(::Any, ::typeof(Base.fl_lower))"
+    inclusive_seconds = 0.00012004375457763672
+    exclusive_seconds = 0.0001195669174194336
+    [[source_load.top]]
+    method = "MethodInstance for Base.Compiler.Timings.ROOT()"
+    inclusive_seconds = 1.537799835205078e-5
+    exclusive_seconds = 1.4185905456542969e-5
+
+[load_invalidations]
+trees = 107
+invalidated_descendants = 8675
+
+    [[load_invalidations.top]]
+    method = "convert(::Type{T}, interval::Intervals.Interval{T}) where T @ Intervals ~/.julia/packages/Intervals/k2PDm/src/interval.jl:240"
+    reason = "inserting"
+    invalidated_descendants = 2053
+    [[load_invalidations.top]]
+    method = "==(a::Intervals.Endpoint, b) @ Intervals ~/.julia/packages/Intervals/k2PDm/src/endpoint.jl:150"
+    reason = "inserting"
+    invalidated_descendants = 1267
+    [[load_invalidations.top]]
+    method = "convert(::Type{T}, interval::Intervals.AnchoredInterval{P, T}) where {P, T} @ Intervals ~/.julia/packages/Intervals/k2PDm/src/anchoredinterval.jl:181"
+    reason = "inserting"
+    invalidated_descendants = 1097
+    [[load_invalidations.top]]
+    method = "convert(::Type{T}, intervals::Intervals.IntervalSet) where T<:AbstractArray @ Intervals ~/.julia/packages/Intervals/k2PDm/src/interval_sets.jl:64"
+    reason = "inserting"
+    invalidated_descendants = 343
+    [[load_invalidations.top]]
+    method = "==(a, b::Intervals.Endpoint) @ Intervals ~/.julia/packages/Intervals/k2PDm/src/endpoint.jl:149"
+    reason = "inserting"
+    invalidated_descendants = 327
+    [[load_invalidations.top]]
+    method = "(::Type{T})(x::SentinelArrays.ChainedVectorIndex) where T<:Union{Signed, Unsigned} @ SentinelArrays ~/.julia/packages/SentinelArrays/YQPM3/src/chainedvector.jl:256"
+    reason = "inserting"
+    invalidated_descendants = 296
+    [[load_invalidations.top]]
+    method = "eachindex(i::IndexLinear, x::SparseArrays.ReadOnly) @ SparseArrays ~/.julia/juliaup/julia-1.13.1+0.x64.linux.gnu/share/julia/stdlib/v1.13/SparseArrays/src/readonly.jl:23"
+    reason = "inserting"
+    invalidated_descendants = 214
+    [[load_invalidations.top]]
+    method = "ndims(x::Union{PatternFolds.AbstractVectorFold, IntervalsFold}, args...; kwargs...) @ PatternFolds ~/.julia/packages/Lazy/9Xnd3/src/macros.jl:297"
+    reason = "inserting"
+    invalidated_descendants = 192
+    [[load_invalidations.top]]
+    method = "(::Colon)(x, xs::Lazy.List) @ Lazy ~/.julia/packages/Lazy/9Xnd3/src/Lazy.jl:58"
+    reason = "inserting"
+    invalidated_descendants = 173
+    [[load_invalidations.top]]
+    method = "kwcall(::NamedTuple, ::typeof(sort!), dict::Dictionaries.Dictionary) @ Dictionaries ~/.julia/packages/Dictionaries/P05gc/src/Dictionary.jl:392"
+    reason = "inserting"
+    invalidated_descendants = 165
+    [[load_invalidations.top]]
+    method = "kwcall(::NamedTuple, ::typeof(sort!), x::SparseArrays.AbstractCompressedVector) @ SparseArrays ~/.julia/juliaup/julia-1.13.1+0.x64.linux.gnu/share/julia/stdlib/v1.13/SparseArrays/src/sparsevector.jl:2281"
+    reason = "inserting"
+    invalidated_descendants = 165
+    [[load_invalidations.top]]
+    method = "kwcall(::NamedTuple, ::typeof(sort!), inds::Dictionaries.ArrayIndices) @ Dictionaries ~/.julia/packages/Dictionaries/P05gc/src/ArrayIndices.jl:140"
+    reason = "inserting"
+    invalidated_descendants = 164
+
+[factory_recovery]
+lifecycle_seconds = 25.978901386260986
+inference_seconds = 4.273335874080658
+frames = 2873
+
+    [[factory_recovery.top]]
+    method = "MethodInstance for Main.LearnedScoringCases.pair_counts(::Dict{String, Any})"
+    inclusive_seconds = 1.0622406005859375
+    exclusive_seconds = 0.020862579345703125
+    [[factory_recovery.top]]
+    method = "MethodInstance for Main.LearnedScoringCases.recovered_decoder(::Any, ::Any)"
+    inclusive_seconds = 1.041015625
+    exclusive_seconds = 0.005702972412109375
+    [[factory_recovery.top]]
+    method = "MethodInstance for (::ExproniconLite.var\"#print_expr#print_expr##0\"{ExproniconLite.InlinePrinter{IOBuffer}, ExproniconLite.var\"#print_function#print_function##0\"{ExproniconLite.InlinePrinter{IOBuffer}}, ExproniconLite.var\"#print_call#print_call##0\"{ExproniconLite.InlinePrinter{IOBuffer}, ExproniconLite.var\"#precedence#precedence##0\"{ExproniconLite.InlinePrinter{IOBuffer}, ExproniconLite.var\"#print#print##0\"{ExproniconLite.InlinePrinter{IOBuffer}}}, ExproniconLite.var\"#print#print##0\"{ExproniconLite.InlinePrinter{IOBuffer}}}, ExproniconLite.var\"#precedence#precedence##0\"{ExproniconLite.InlinePrinter{IOBuffer}, ExproniconLite.var\"#print#print##0\"{ExproniconLite.InlinePrinter{IOBuffer}}}, ExproniconLite.var\"#noblock#noblock##0\"{ExproniconLite.InlinePrinter{IOBuffer}}, ExproniconLite.var\"#macrocall#macrocall##0\"{ExproniconLite.InlinePrinter{IOBuffer}}, ExproniconLite.var\"#quoted#quoted##0\"{ExproniconLite.InlinePrinter{IOBuffer}}, ExproniconLite.var\"#symbol#symbol##0\"{ExproniconLite.InlinePrinter{IOBuffer}, ExproniconLite.ColorScheme}, ExproniconLite.var\"#assign#assign##0\"{ExproniconLite.InlinePrinter{IOBuffer}}, ExproniconLite.var\"#string#string##0\"{ExproniconLite.ColorScheme}, ExproniconLite.var\"#print#print##0\"{ExproniconLite.InlinePrinter{IOBuffer}}, ExproniconLite.ColorScheme})(::Expr)"
+    inclusive_seconds = 0.865966796875
+    exclusive_seconds = 0.79833984375
+    [[factory_recovery.top]]
+    method = "MethodInstance for (::ExproniconLite.Printer{IOBuffer})(::Expr)"
+    inclusive_seconds = 0.840087890625
+    exclusive_seconds = 0.65673828125
+    [[factory_recovery.top]]
+    method = "MethodInstance for CompositionalNetworks.var\"#compose#792\"(::Symbol, ::Bool, ::String, ::Bool, ::typeof(compose), ::ICN{Vector{AbstractLayer}})"
+    inclusive_seconds = 0.6747894287109375
+    exclusive_seconds = 0.04015350341796875
+    [[factory_recovery.top]]
+    method = "MethodInstance for compose(::ICN{Vector{AbstractLayer}})"
+    inclusive_seconds = 0.64794921875
+    exclusive_seconds = 0.00110626220703125
+    [[factory_recovery.top]]
+    method = "MethodInstance for Core.kwcall(::@NamedTuple{name::Symbol, jlfun::Bool, fname::String, dbg::Bool}, ::typeof(CompositionalNetworks._compose_index_relation), ::ICN{Vector{AbstractLayer}}, ::Val)"
+    inclusive_seconds = 0.466064453125
+    exclusive_seconds = 0.0009822845458984375
+    [[factory_recovery.top]]
+    method = "MethodInstance for CompositionalNetworks.var\"#_compose_index_relation#803\"(::Symbol, ::Bool, ::String, ::Bool, ::typeof(CompositionalNetworks._compose_index_relation), ::ICN{Vector{AbstractLayer}}, ::Val)"
+    inclusive_seconds = 0.4658203125
+    exclusive_seconds = 0.00354766845703125
+    [[factory_recovery.top]]
+    method = "MethodInstance for ExproniconLite.var\"#sprint_expr#88\"(::Nothing, ::Base.Pairs{Symbol, Union{}, Nothing, @NamedTuple{}}, ::typeof(ExproniconLite.sprint_expr), ::ExproniconLite.JLFunction)"
+    inclusive_seconds = 0.46038055419921875
+    exclusive_seconds = 0.004997611045837402
+    [[factory_recovery.top]]
+    method = "MethodInstance for Base.var\"#open#324\"(::Base.Pairs{Symbol, Union{}, Nothing, @NamedTuple{}}, ::typeof(open), ::CompositionalNetworks.var\"#805#806\"{ExproniconLite.JLFunction}, ::String, ::String)"
+    inclusive_seconds = 0.455810546875
+    exclusive_seconds = 0.0001800060272216797
+    [[factory_recovery.top]]
+    method = "MethodInstance for open(::CompositionalNetworks.var\"#805#806\"{ExproniconLite.JLFunction}, ::String, ::String)"
+    inclusive_seconds = 0.455810546875
+    exclusive_seconds = 0.0002067089080810547
+    [[factory_recovery.top]]
+    method = "MethodInstance for sprint_expr(::ExproniconLite.JLFunction)"
+    inclusive_seconds = 0.45556640625
+    exclusive_seconds = 0.00016105175018310547
+
+[warm_score]
+lifecycle_seconds = 1.537799835205078e-5
+inference_seconds = 0.0
+frames = 1
+
+    [[warm_score.top]]
+    method = "MethodInstance for Base.Compiler.Timings.ROOT()"
+    inclusive_seconds = 1.537799835205078e-5
+    exclusive_seconds = 1.4185905456542969e-5
+
+[first_score]
+lifecycle_seconds = 0.10155802965164185
+inference_seconds = 0.03756141662597656
+frames = 22
+
+    [[first_score.top]]
+    method = "MethodInstance for Main.LearnedScoringCases.score_counts(::@NamedTuple{decoder::CompositionalNetworks.var\"###142\", operations::Val{(:count_less_left, :count_great_left)}, input::Vector{Int64}})"
+    inclusive_seconds = 0.02907562255859375
+    exclusive_seconds = 0.012974739074707031
+    [[first_score.top]]
+    method = "MethodInstance for CompositionalNetworks.var\"##142\"(::Vector{Int64})"
+    inclusive_seconds = 0.0162506103515625
+    exclusive_seconds = 0.00039839744567871094
+    [[first_score.top]]
+    method = "MethodInstance for CompositionalNetworks.var\"##142#1146\"(::Nothing, ::CompositionalNetworks.var\"###142\", ::Vector{Int64})"
+    inclusive_seconds = 0.01605224609375
+    exclusive_seconds = 0.00046181678771972656
+    [[first_score.top]]
+    method = "MethodInstance for CompositionalNetworks._aggregate_pairwise_sum(::Val{(:count_less_left, :count_great_left)}, ::Vector{Int64})"
+    inclusive_seconds = 0.01580810546875
+    exclusive_seconds = 0.0007128715515136719
+    [[first_score.top]]
+    method = "MethodInstance for CompositionalNetworks.var\"#_aggregate_pairwise_sum#694\"(::Base.Pairs{Symbol, Union{}, Nothing, @NamedTuple{}}, ::typeof(CompositionalNetworks._aggregate_pairwise_sum), ::Val{(:count_less_left, :count_great_left)}, ::Vector{Int64})"
+    inclusive_seconds = 0.0155029296875
+    exclusive_seconds = 0.01458740234375
+    [[first_score.top]]
+    method = "MethodInstance for all(::Function, ::Tuple{Symbol, Symbol})"
+    inclusive_seconds = 0.003587484359741211
+    exclusive_seconds = 0.0034979581832885742
+    [[first_score.top]]
+    method = "MethodInstance for Base._all(::CompositionalNetworks.var\"#697#698\", ::Tuple{Symbol, Symbol}, ::Colon)"
+    inclusive_seconds = 0.0033190250396728516
+    exclusive_seconds = 0.003264188766479492
+    [[first_score.top]]
+    method = "MethodInstance for all(::CompositionalNetworks.var\"#697#698\", ::Tuple{Symbol, Symbol})"
+    inclusive_seconds = 0.0004830360412597656
+    exclusive_seconds = 0.0002484321594238281
+    [[first_score.top]]
+    method = "MethodInstance for CompositionalNetworks._pairwise_count(::Val{:count_less_left}, ::Vector{Int64}, ::Int64, ::Int64)"
+    inclusive_seconds = 0.00033211708068847656
+    exclusive_seconds = 0.0003120899200439453
+    [[first_score.top]]
+    method = "MethodInstance for CompositionalNetworks._pairwise_count(::Val{:count_great_left}, ::Vector{Int64}, ::Int64, ::Int64)"
+    inclusive_seconds = 0.0003085136413574219
+    exclusive_seconds = 0.0002856254577636719
+    [[first_score.top]]
+    method = "MethodInstance for Base._all(::Function, ::Tuple{Symbol, Symbol}, ::Colon)"
+    inclusive_seconds = 0.0002142190933227539
+    exclusive_seconds = 0.000213623046875
+    [[first_score.top]]
+    method = "MethodInstance for CompositionalNetworks.var\"#_pairwise_count#683\"(::Base.Pairs{Symbol, Union{}, Nothing, @NamedTuple{}}, ::typeof(CompositionalNetworks._pairwise_count), ::Val{:count_less_left}, ::Vector{Int64}, ::Int64, ::Int64)"
+    inclusive_seconds = 0.00019419193267822266
+    exclusive_seconds = 0.0001939535140991211

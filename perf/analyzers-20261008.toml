@@ -1,0 +1,255 @@
+recorded_utc = "2026-10-08T20:26:06.111"
+julia_threads = 2
+cpu_affinity = [4, 6]
+timing_qualification = "Operational same-input measurements while other tasks were active; no controlled scaling claim. Preparation and verification excluded from measurements."
+blas_threads = 1
+remaining_findings = "Aqua: missing compat bounds for seven pre-existing test extras. Microsecond collector profiles recorded too few samples for stack attribution; longer CPU profiling is a separate investigation."
+runtime = "1.13.1"
+gc_threads = 1
+source_sha256 = "2e03b906862f73116b408890114365c6853da2b41fa46f3607a74e6c2c685676"
+
+[[collectors]]
+correctness = "passed"
+status = "complete"
+collector = "benchmark"
+message = ""
+implementation = "compiled"
+
+    [collectors."julia.wall.time"]
+    samples = 5
+    minimum = 5.5075e-5
+    maximum = 5.9497e-5
+
+    [collectors.profile_alloc]
+
+    [collectors.profile]
+
+    [collectors."julia.alloc.count"]
+    samples = 5
+    minimum = 0
+    maximum = 0
+
+    [collectors."julia.alloc.bytes"]
+    samples = 5
+    minimum = 0
+    maximum = 0
+[[collectors]]
+correctness = "passed"
+status = "complete"
+collector = "chairmark"
+message = ""
+implementation = "compiled"
+
+    [collectors."julia.wall.time"]
+    samples = 5
+    minimum = 5.6578000000000006e-5
+    maximum = 6.0665e-5
+
+    [collectors.profile_alloc]
+
+    [collectors.profile]
+
+    [collectors."julia.alloc.count"]
+    samples = 5
+    minimum = 0.0
+    maximum = 0.0
+
+    [collectors."julia.alloc.bytes"]
+    samples = 5
+    minimum = 0.0
+    maximum = 0.0
+[[collectors]]
+correctness = "passed"
+status = "complete"
+collector = "profile"
+message = ""
+implementation = "compiled"
+
+    [collectors.profile_alloc]
+
+    [collectors.profile]
+[[collectors]]
+correctness = "passed"
+status = "complete"
+collector = "profile_alloc"
+message = ""
+implementation = "compiled"
+
+    [collectors.profile_alloc]
+
+    [collectors.profile]
+[[collectors]]
+correctness = "passed"
+status = "complete"
+collector = "benchmark"
+message = ""
+implementation = "original-square"
+
+    [collectors."julia.wall.time"]
+    samples = 5
+    minimum = 0.000272724
+    maximum = 0.000280996
+
+    [collectors.profile_alloc]
+
+    [collectors.profile]
+
+    [collectors."julia.alloc.count"]
+    samples = 5
+    minimum = 0
+    maximum = 0
+
+    [collectors."julia.alloc.bytes"]
+    samples = 5
+    minimum = 0
+    maximum = 0
+[[collectors]]
+correctness = "passed"
+status = "complete"
+collector = "chairmark"
+message = ""
+implementation = "original-square"
+
+    [collectors."julia.wall.time"]
+    samples = 5
+    minimum = 0.00027726000000000004
+    maximum = 0.000280485
+
+    [collectors.profile_alloc]
+
+    [collectors.profile]
+
+    [collectors."julia.alloc.count"]
+    samples = 5
+    minimum = 0.0
+    maximum = 0.0
+
+    [collectors."julia.alloc.bytes"]
+    samples = 5
+    minimum = 0.0
+    maximum = 0.0
+
+[tests]
+shared_routing_scoring_assertions = 30209
+package_assertions_without_training = 29633
+arithmetic_assertions = 2205
+evaluation_selection_assertions = 2667
+bank_sha256 = "4df0b409d303d1b666a2d0aba3367c1dc08a2b380da109e50dee83b042b8ea90"
+training_exclusions = ["optimizer.jl", "composed_learning.jl", "view_learning.jl", "learn_and_explore.jl"]
+
+[[diagnostics]]
+correctness = "not_checked"
+status = "complete"
+message = ""
+tool = "aqua"
+analysis_scope = ""
+quality = "failed"
+
+    [diagnostics.measurements]
+
+    [[diagnostics.findings]]
+    severity = "warning"
+    rule_id = "quality.aqua"
+    message = "Some tests did not pass: 3 passed, 1 failed, 0 errored, 0 broken."
+
+        [diagnostics.findings.evidence]
+
+        [diagnostics.findings.location]
+        line = 0
+        file = ""
+[[diagnostics]]
+correctness = "passed"
+status = "complete"
+message = ""
+tool = "jet"
+analysis_scope = "operation specialized for prepared state type; synchronization excluded"
+quality = "not_checked"
+findings = []
+
+    [diagnostics.measurements]
+[[diagnostics]]
+correctness = "passed"
+status = "complete"
+message = ""
+tool = "alloccheck"
+analysis_scope = "static operation specialization; tool exception-path defaults; not a universal allocation guarantee"
+quality = "not_checked"
+findings = []
+
+    [diagnostics.measurements]
+[[diagnostics]]
+correctness = "passed"
+status = "complete"
+message = ""
+tool = "snoopcompile"
+analysis_scope = "first complete scenario lifecycle in diagnostic process"
+quality = "not_checked"
+
+    [diagnostics.measurements]
+    inference_seconds = 1.537799835205078e-5
+
+    [[diagnostics.findings]]
+    severity = "warning"
+    rule_id = "compilation.inference"
+    message = "InferenceTimingNode: 0.000014/0.000015 on Base.Compiler.Timings.ROOT() with 0 direct children"
+
+        [diagnostics.findings.evidence]
+        inference_seconds = 1.537799835205078e-5
+
+        [diagnostics.findings.location]
+        line = 0
+        file = ""
+[[diagnostics]]
+correctness = "passed"
+status = "complete"
+message = ""
+tool = "latency"
+analysis_scope = ""
+quality = "not_checked"
+findings = []
+
+    [diagnostics.measurements]
+    first_case_seconds = 0.055363736
+    load_seconds = 4.450731307
+    warm_case_seconds = 6.6523e-5
+[[diagnostics]]
+correctness = "passed"
+status = "complete"
+message = ""
+tool = "gc"
+analysis_scope = "warmed operation and synchronization; fresh state; preparation, verification and cleanup excluded"
+quality = "not_checked"
+findings = []
+
+    [diagnostics.measurements]
+[[diagnostics]]
+correctness = "passed"
+status = "complete"
+message = ""
+tool = "memory"
+analysis_scope = ""
+quality = "not_checked"
+findings = []
+
+    [diagnostics.measurements]
+[[diagnostics]]
+correctness = "passed"
+status = "complete"
+message = ""
+tool = "locks"
+analysis_scope = ""
+quality = "not_checked"
+findings = []
+
+    [diagnostics.measurements]
+[[diagnostics]]
+correctness = "passed"
+artifact_policy = "Raw redacted heap was created under an OS temporary directory and removed after collecting summary evidence."
+status = "complete"
+message = ""
+tool = "heap"
+analysis_scope = ""
+quality = "not_checked"
+findings = []
+
+    [diagnostics.measurements]
