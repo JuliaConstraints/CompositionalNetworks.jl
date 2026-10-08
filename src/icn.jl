@@ -1028,6 +1028,25 @@ function _operation_parameter_compatible(layer::Symbol, operation::Symbol, param
     return true
 end
 
+# The original intersection comparison also rejects duplicate required names.
+# Keep that contract while avoiding a temporary set and vector for short native
+# symbol lists. Other collections and unusually wide signatures retain intersect.
+function _parameter_names_match(names, parameters)
+    names isa Vector{Symbol} &&
+        (parameters isa Vector{Symbol} ||
+         (parameters isa Vector{Union{}} && isempty(parameters))) &&
+        length(names) <= 16 && length(parameters) <= 64 ||
+        return intersect(names, parameters) == names
+    isempty(parameters) && return isempty(names)
+    for (index, name) in enumerate(names)
+        name in parameters || return false
+        for prior in 1:(index - 1)
+            names[prior] === name && return false
+        end
+    end
+    return true
+end
+
 struct ICN{S} <: AbstractICN where {S <: Union{AbstractVector{<:AbstractLayer}, Nothing}}
     weights::AbstractVector{Bool}
     parameters::Set{Symbol}
@@ -1058,7 +1077,7 @@ struct ICN{S} <: AbstractICN where {S <: Union{AbstractVector{<:AbstractLayer}, 
                     )
                 )
                 names_match = isempty(par) ||
-                              intersect(par[1], parameter_names) == par[1]
+                              _parameter_names_match(par[1], parameter_names)
                 if names_match && _operation_parameter_compatible(
                         layer.name, operation, parameter_values)
                     push!(lfn, j)
