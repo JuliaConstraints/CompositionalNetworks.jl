@@ -1,0 +1,136 @@
+runtime = "1.13.1"
+recorded_utc = "2026-10-08T20:34:36.051"
+scope = "Warm typed scores on n=1000 input. Package source frame occurrence counts include inlining and are not exclusive time; idle/background-thread frames excluded by source filter. Different batch lengths allow useful samples; batch elapsed times are not matched-work timing evidence."
+bank_sha256 = "4df0b409d303d1b666a2d0aba3367c1dc08a2b380da109e50dee83b042b8ea90"
+source_sha256 = "2e03b906862f73116b408890114365c6853da2b41fa46f3607a74e6c2c685676"
+cpu_affinity = [4, 6]
+
+[[profiles]]
+method = "compiled"
+elapsed_seconds = 1.776159697
+profile_words = 94721
+repetitions = 30000
+warm_batch_allocated_bytes = 0
+
+    [[profiles.package_frame_occurrences]]
+    line = 567
+    function = "#_pairwise_counts#693"
+    occurrences = 2121
+    file = "/home/azzaare/.julia/dev/JuliaConstraintsPerfNightICN/CompositionalNetworks/src/inplace.jl"
+    [[profiles.package_frame_occurrences]]
+    line = 565
+    function = "_pairwise_counts"
+    occurrences = 2121
+    file = "/home/azzaare/.julia/dev/JuliaConstraintsPerfNightICN/CompositionalNetworks/src/inplace.jl"
+    [[profiles.package_frame_occurrences]]
+    line = 572
+    function = "_aggregate_pairwise_sum"
+    occurrences = 1658
+    file = "/home/azzaare/.julia/dev/JuliaConstraintsPerfNightICN/CompositionalNetworks/src/inplace.jl"
+    [[profiles.package_frame_occurrences]]
+    line = 32
+    function = "score_counts"
+    occurrences = 1658
+    file = "/home/azzaare/.julia/dev/JuliaConstraintsPerfNightICN/CompositionalNetworks/perf/learned_scoring.jl"
+    [[profiles.package_frame_occurrences]]
+    line = 581
+    function = "#_aggregate_pairwise_sum#694"
+    occurrences = 1519
+    file = "/home/azzaare/.julia/dev/JuliaConstraintsPerfNightICN/CompositionalNetworks/src/inplace.jl"
+    [[profiles.package_frame_occurrences]]
+    line = 582
+    function = "#_aggregate_pairwise_sum#694"
+    occurrences = 120
+    file = "/home/azzaare/.julia/dev/JuliaConstraintsPerfNightICN/CompositionalNetworks/src/inplace.jl"
+    [[profiles.package_frame_occurrences]]
+    line = 536
+    function = "#_pairwise_count#683"
+    occurrences = 32
+    file = "/home/azzaare/.julia/dev/JuliaConstraintsPerfNightICN/CompositionalNetworks/src/inplace.jl"
+    [[profiles.package_frame_occurrences]]
+    line = 536
+    function = "_pairwise_count"
+    occurrences = 32
+    file = "/home/azzaare/.julia/dev/JuliaConstraintsPerfNightICN/CompositionalNetworks/src/inplace.jl"
+    [[profiles.package_frame_occurrences]]
+    line = 580
+    function = "#_aggregate_pairwise_sum#694"
+    occurrences = 10
+    file = "/home/azzaare/.julia/dev/JuliaConstraintsPerfNightICN/CompositionalNetworks/src/inplace.jl"
+    [[profiles.package_frame_occurrences]]
+    line = 0
+    function = "#_aggregate_pairwise_sum#694"
+    occurrences = 9
+    file = "/home/azzaare/.julia/dev/JuliaConstraintsPerfNightICN/CompositionalNetworks/src/inplace.jl"
+    [[profiles.package_frame_occurrences]]
+    line = 539
+    function = "_pairwise_count"
+    occurrences = 5
+    file = "/home/azzaare/.julia/dev/JuliaConstraintsPerfNightICN/CompositionalNetworks/src/inplace.jl"
+    [[profiles.package_frame_occurrences]]
+    line = 539
+    function = "#_pairwise_count#684"
+    occurrences = 5
+    file = "/home/azzaare/.julia/dev/JuliaConstraintsPerfNightICN/CompositionalNetworks/src/inplace.jl"
+[[profiles]]
+method = "original-square"
+elapsed_seconds = 1.678586227
+profile_words = 85806
+repetitions = 6000
+warm_batch_allocated_bytes = 0
+
+    [[profiles.package_frame_occurrences]]
+    line = 33
+    function = "score_square"
+    occurrences = 1589
+    file = "/home/azzaare/.julia/dev/JuliaConstraintsPerfNightICN/CompositionalNetworks/perf/learned_scoring.jl"
+    [[profiles.package_frame_occurrences]]
+    line = 27
+    function = "full_square"
+    occurrences = 1570
+    file = "/home/azzaare/.julia/dev/JuliaConstraintsPerfNightICN/CompositionalNetworks/perf/learned_scoring.jl"
+    [[profiles.package_frame_occurrences]]
+    line = 565
+    function = "_pairwise_counts"
+    occurrences = 413
+    file = "/home/azzaare/.julia/dev/JuliaConstraintsPerfNightICN/CompositionalNetworks/src/inplace.jl"
+    [[profiles.package_frame_occurrences]]
+    line = 567
+    function = "#_pairwise_counts#693"
+    occurrences = 410
+    file = "/home/azzaare/.julia/dev/JuliaConstraintsPerfNightICN/CompositionalNetworks/src/inplace.jl"
+    [[profiles.package_frame_occurrences]]
+    line = 28
+    function = "full_square"
+    occurrences = 16
+    file = "/home/azzaare/.julia/dev/JuliaConstraintsPerfNightICN/CompositionalNetworks/perf/learned_scoring.jl"
+    [[profiles.package_frame_occurrences]]
+    line = 536
+    function = "#_pairwise_count#683"
+    occurrences = 9
+    file = "/home/azzaare/.julia/dev/JuliaConstraintsPerfNightICN/CompositionalNetworks/src/inplace.jl"
+    [[profiles.package_frame_occurrences]]
+    line = 536
+    function = "_pairwise_count"
+    occurrences = 9
+    file = "/home/azzaare/.julia/dev/JuliaConstraintsPerfNightICN/CompositionalNetworks/src/inplace.jl"
+    [[profiles.package_frame_occurrences]]
+    line = 0
+    function = "full_square"
+    occurrences = 3
+    file = "/home/azzaare/.julia/dev/JuliaConstraintsPerfNightICN/CompositionalNetworks/perf/learned_scoring.jl"
+    [[profiles.package_frame_occurrences]]
+    line = 0
+    function = "#_pairwise_counts#693"
+    occurrences = 3
+    file = "/home/azzaare/.julia/dev/JuliaConstraintsPerfNightICN/CompositionalNetworks/src/inplace.jl"
+    [[profiles.package_frame_occurrences]]
+    line = 539
+    function = "_pairwise_count"
+    occurrences = 3
+    file = "/home/azzaare/.julia/dev/JuliaConstraintsPerfNightICN/CompositionalNetworks/src/inplace.jl"
+    [[profiles.package_frame_occurrences]]
+    line = 539
+    function = "#_pairwise_count#684"
+    occurrences = 3
+    file = "/home/azzaare/.julia/dev/JuliaConstraintsPerfNightICN/CompositionalNetworks/src/inplace.jl"
