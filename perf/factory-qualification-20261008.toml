@@ -1,0 +1,172 @@
+recorded_utc = "2026-10-08T21:02:35.636"
+case_sha256 = "a1018f1a99d5fe569447d3b73de20a63b67265261e27acf6b6aef0a53f89776a"
+scope = "Profiling factory oracle changed to avoid a captured mutable accumulator. Decoder implementation and scored inputs unchanged. Full-square atomic predicate reference stays outside scoring."
+oracle_assertions = 734
+discarded_experiment = "Outlining optional source export into a non-specializing helper showed no consistent cold-load gain: two baseline processes 3.987/4.038 s versus two outlined processes 3.976/4.085 s. No implementation change retained."
+cpu_affinity = [4, 6]
+timing_qualification = "Operational data while other tasks were active; setup/oracle costs are not scored decoder work."
+runtime = "1.13.1"
+allocation_finding = "Original setup oracle allocated boxed index/count tuples and integers; moving its accumulator into an independent function removed the captured-box loop."
+bank_sha256 = "4df0b409d303d1b666a2d0aba3367c1dc08a2b380da109e50dee83b042b8ea90"
+source_sha256 = "ede46b3a3b440704a369171650322d856586df81349c512e832c0cd85262cd9c"
+
+[[original_factory_measurements]]
+seconds = 0.056052851
+bytes = 28137136
+[[original_factory_measurements]]
+seconds = 0.067383279
+bytes = 28135568
+[[original_factory_measurements]]
+seconds = 0.055094875
+bytes = 28135408
+
+[[warm_factory]]
+seconds = 0.001595627
+bytes = 261872
+[[warm_factory]]
+seconds = 0.001618008
+bytes = 261872
+[[warm_factory]]
+seconds = 0.001582316
+bytes = 261872
+
+[[collectors]]
+correctness = "passed"
+status = "complete"
+collector = "benchmark"
+implementation = "compiled"
+
+    [collectors."julia.wall.time"]
+    samples = 5
+    minimum = 5.801e-5
+    maximum = 6.2322e-5
+
+    [collectors."julia.alloc.count"]
+    samples = 5
+    minimum = 0
+    maximum = 0
+
+    [collectors."julia.alloc.bytes"]
+    samples = 5
+    minimum = 0
+    maximum = 0
+[[collectors]]
+correctness = "passed"
+status = "complete"
+collector = "chairmark"
+implementation = "compiled"
+
+    [collectors."julia.wall.time"]
+    samples = 5
+    minimum = 5.8034e-5
+    maximum = 6.511100000000001e-5
+
+    [collectors."julia.alloc.count"]
+    samples = 5
+    minimum = 0.0
+    maximum = 0.0
+
+    [collectors."julia.alloc.bytes"]
+    samples = 5
+    minimum = 0.0
+    maximum = 0.0
+[[collectors]]
+correctness = "passed"
+status = "complete"
+collector = "profile"
+implementation = "compiled"
+[[collectors]]
+correctness = "passed"
+status = "complete"
+collector = "profile_alloc"
+implementation = "compiled"
+[[collectors]]
+correctness = "passed"
+status = "complete"
+collector = "benchmark"
+implementation = "original-square"
+
+    [collectors."julia.wall.time"]
+    samples = 5
+    minimum = 0.000280231
+    maximum = 0.000284866
+
+    [collectors."julia.alloc.count"]
+    samples = 5
+    minimum = 0
+    maximum = 0
+
+    [collectors."julia.alloc.bytes"]
+    samples = 5
+    minimum = 0
+    maximum = 0
+[[collectors]]
+correctness = "passed"
+status = "complete"
+collector = "chairmark"
+implementation = "original-square"
+
+    [collectors."julia.wall.time"]
+    samples = 5
+    minimum = 0.000269951
+    maximum = 0.000281184
+
+    [collectors."julia.alloc.count"]
+    samples = 5
+    minimum = 0.0
+    maximum = 0.0
+
+    [collectors."julia.alloc.bytes"]
+    samples = 5
+    minimum = 0.0
+    maximum = 0.0
+
+[[diagnostics]]
+measurements = ""
+correctness = "passed"
+status = "complete"
+tool_version = "0.12.3"
+analysis_scope = "operation specialized for prepared state type; synchronization excluded"
+tool = "jet"
+findings = []
+[[diagnostics]]
+measurements = ""
+correctness = "passed"
+status = "complete"
+tool_version = "0.2.6"
+analysis_scope = "static operation specialization; tool exception-path defaults; not a universal allocation guarantee"
+tool = "alloccheck"
+findings = []
+[[diagnostics]]
+correctness = "passed"
+status = "complete"
+tool_version = ""
+analysis_scope = ""
+tool = "latency"
+findings = []
+
+    [diagnostics.measurements]
+    first_case_seconds = 0.059280907
+    load_seconds = 4.452331742
+    warm_case_seconds = 6.614e-5
+[[diagnostics]]
+correctness = "passed"
+status = "complete"
+tool_version = "3.2.9"
+analysis_scope = "first complete scenario lifecycle in diagnostic process"
+tool = "snoopcompile"
+
+    [diagnostics.measurements]
+    inference_seconds = 1.537799835205078e-5
+
+    [[diagnostics.findings]]
+    severity = "warning"
+    rule_id = "compilation.inference"
+    message = "InferenceTimingNode: 0.000014/0.000015 on Base.Compiler.Timings.ROOT() with 0 direct children"
+
+        [diagnostics.findings.evidence]
+        inference_seconds = 1.537799835205078e-5
+
+        [diagnostics.findings.location]
+        line = 0
+        file = ""

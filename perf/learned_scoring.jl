@@ -32,6 +32,18 @@ end
 score_counts(state) = state.decoder(state.input)
 score_square(state) = full_square(state.operations, state.input)
 
+# Keep the oracle accumulator local instead of boxing it in the verification
+# closure. The full-square traversal independently applies each atomic predicate.
+function expected_counts(x, witness)
+    total = 0
+    for i in eachindex(x), j in eachindex(x)
+        j < i || continue
+        total += witness == 2 ? ((x[j] < x[i]) + (x[j] > x[i])) :
+                 ((x[j] == x[i]) + (x[j] > x[i]))
+    end
+    return total
+end
+
 function pair_counts(parameters)
     witness = Int(get(parameters, "witness", 2))
     n = Int(get(parameters, "n", 1000))
@@ -41,13 +53,7 @@ function pair_counts(parameters)
     operations = witness == 2 ? Val((:count_less_left, :count_great_left)) :
                  Val((:count_equal_left, :count_great_left))
     original = mod.(collect(1:n), 23)
-    # This oracle spells out the learned atomic predicates independently.
-    expected = 0
-    for i in eachindex(original), j in firstindex(original):(i - 1)
-        expected += witness == 2 ?
-                    ((original[j] < original[i]) + (original[j] > original[i])) :
-                    ((original[j] == original[i]) + (original[j] > original[i]))
-    end
+    expected = expected_counts(original, witness)
     operation = get(parameters, "method", "compiled") == "square" ?
                 score_square : score_counts
     return (
