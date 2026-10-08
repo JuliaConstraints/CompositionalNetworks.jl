@@ -1,0 +1,489 @@
+recorded_utc = "2026-10-08T22:44:09.842"
+interpretation = "The normal CN.composition(network).f path infers expression-printer methods. Stored CodeInstance inference/LLVM counters and overlapping inclusive trees are diagnostic aggregates; they are not elapsed time or speedup estimates."
+qualification = "Actual sparse-guide cold bank recovery, separate from factory-warmed PerfChecker SnoopCompile. Read-only V3 cohort. All witness and private-buffer checks passed."
+
+[separate_memory_process]
+recorded_utc = "2026-10-08T22:41:45.109"
+cn_commit = "46192ea8ecde5ad8029c61f05c737984f370c52d"
+scope = "First actual prepare_backend(:icn_fused) after loading SnoopCompile and Reproduction.jl in a fresh process; warm retrieval follows immediately. No scenario factory precedes the cold call. No training or native solver execution."
+decoder_checks = "Exact bank; equality target zero on positive, negative, zero and mixed-sign inputs; one immutable zero-field pure decoder shared; distinct input/residual buffers; problem workspaces remain lazily uninitialized."
+julia_threads = 2
+cpu_affinity = [4, 6]
+cc_commit = "1707636e0145e00c6b3098f25e3e41c61de38136"
+project = "/tmp/hdr-routing-integrated-v3-env-20261008"
+blas_threads = 1
+mode = "memory"
+runtime = "1.13.1"
+gc_threads = 1
+limitations = "Inference timing includes Ref assignment and invokelatest bookkeeping. Inference/LLVM aggregates sum unique code instances and may not cover all lifecycle work; inclusive tree sums overlap and are not elapsed time. Compiler counters use Float16 storage. Memory/GC are measured in a separate fresh process without Snoop instrumentation. Operational measurements with other night jobs active."
+
+    [separate_memory_process.fingerprints]
+    manifest = "0ca5338888e453a9eee7e77170f0e37c94566ecaf9b42420d22143428bc1f19a"
+    project = "7347b66bc4e6eaaf3393198faebfac15611bc1bb150dcd5c87e845c73fd6b21d"
+    bank = "4df0b409d303d1b666a2d0aba3367c1dc08a2b380da109e50dee83b042b8ea90"
+    scoring = "42238a307fa43a06f3837e844e46fb158dbc64ee6705e7ce18f1651441b8f434"
+    reproduction = "fedcedc41733536fb07e8d1bd05f1d5a5021b36e4ee972397c61f8ae1352f332"
+
+    [separate_memory_process.measurements.cold_memory]
+    gc_seconds = 0.2249754
+    recompile_seconds = 0.0
+    uninstrumented_lifecycle_seconds = 2.641928768
+    compile_seconds = 2.637114554
+    allocated_bytes = 672133600
+
+        [separate_memory_process.measurements.cold_memory.gc_counters]
+        bigalloc = 92
+        realloc = 0
+        freecall = 14203
+        total_time = 224975400
+        full_sweep = 1
+        allocd = 672133600
+        poolalloc = 10229240
+        pause = 5
+        malloc = 17574
+
+    [separate_memory_process.measurements.warm_memory]
+    gc_seconds = 0.0
+    recompile_seconds = 0.0
+    uninstrumented_lifecycle_seconds = 5.1057e-5
+    compile_seconds = 0.0
+    allocated_bytes = 7664
+
+        [separate_memory_process.measurements.warm_memory.gc_counters]
+        bigalloc = 1
+        realloc = 0
+        freecall = 0
+        total_time = 0
+        full_sweep = 0
+        allocd = 7664
+        poolalloc = 35
+        pause = 0
+        malloc = 0
+
+[inference_process]
+recorded_utc = "2026-10-08T22:40:28.263"
+cn_commit = "46192ea8ecde5ad8029c61f05c737984f370c52d"
+scope = "First actual prepare_backend(:icn_fused) after loading SnoopCompile and Reproduction.jl in a fresh process; warm retrieval follows immediately. No scenario factory precedes the cold call. No training or native solver execution."
+decoder_checks = "Exact bank; equality target zero on positive, negative, zero and mixed-sign inputs; one immutable zero-field pure decoder shared; distinct input/residual buffers; problem workspaces remain lazily uninitialized."
+julia_threads = 2
+cpu_affinity = [4, 6]
+cc_commit = "1707636e0145e00c6b3098f25e3e41c61de38136"
+project = "/tmp/hdr-routing-integrated-v3-env-20261008"
+blas_threads = 1
+mode = "inference"
+runtime = "1.13.1"
+gc_threads = 1
+limitations = "Inference timing includes Ref assignment and invokelatest bookkeeping. Inference/LLVM aggregates sum unique code instances and may not cover all lifecycle work; inclusive tree sums overlap and are not elapsed time. Compiler counters use Float16 storage. Memory/GC are measured in a separate fresh process without Snoop instrumentation. Operational measurements with other night jobs active."
+
+    [inference_process.fingerprints]
+    manifest = "0ca5338888e453a9eee7e77170f0e37c94566ecaf9b42420d22143428bc1f19a"
+    project = "7347b66bc4e6eaaf3393198faebfac15611bc1bb150dcd5c87e845c73fd6b21d"
+    bank = "4df0b409d303d1b666a2d0aba3367c1dc08a2b380da109e50dee83b042b8ea90"
+    scoring = "42238a307fa43a06f3837e844e46fb158dbc64ee6705e7ce18f1651441b8f434"
+    reproduction = "fedcedc41733536fb07e8d1bd05f1d5a5021b36e4ee972397c61f8ae1352f332"
+
+    [inference_process.measurements]
+    cold_instrumented_seconds = 2.710433071
+    warm_instrumented_seconds = 6.9952e-5
+
+        [inference_process.measurements.cold]
+        summed_exclusive_inference_seconds = 1.3546868562698364
+        tree_inclusive_seconds_with_overlap = 30.472953021526337
+        summed_llvm_seconds = 1.5497550964355469
+        flattened_frames = 2476
+        method_groups = 794
+        remaining_source_groups = 67
+        unique_specializations = 2456
+        unique_code_instances = 2476
+        source_groups = 83
+
+            [[inference_process.measurements.cold.top_methods]]
+            method = "Printer"
+            source = "/home/azzaare/.julia/packages/ExproniconLite/4LrQ4/src/print/multi.jl"
+            line = 31
+            llvm_seconds = 0.0
+            inference_seconds = 0.2607574462890625
+            module = "ExproniconLite"
+            code_instances = 2
+            specializations = 2
+            [[inference_process.measurements.cold.top_methods]]
+            method = "print_expr"
+            source = "/home/azzaare/.julia/packages/ExproniconLite/4LrQ4/src/print/inline.jl"
+            line = 329
+            llvm_seconds = 0.0
+            inference_seconds = 0.24489498138427734
+            module = "ExproniconLite"
+            code_instances = 5
+            specializations = 5
+            [[inference_process.measurements.cold.top_methods]]
+            method = "#_compose_inplace#804"
+            source = "/home/azzaare/.julia/dev/JuliaConstraintsPerfNightIntegratedV3/CompositionalNetworks/src/compose.jl"
+            line = 172
+            llvm_seconds = 0.11328125
+            inference_seconds = 0.006351470947265625
+            module = "CompositionalNetworks"
+            code_instances = 1
+            specializations = 1
+            [[inference_process.measurements.cold.top_methods]]
+            method = "_"
+            source = "/home/azzaare/.julia/dev/JuliaConstraintsPerfNightIntegratedV3/CompositionalNetworks/src/icn.jl"
+            line = 1038
+            llvm_seconds = 0.07958984375
+            inference_seconds = 0.020721435546875
+            module = "CompositionalNetworks"
+            code_instances = 1
+            specializations = 1
+            [[inference_process.measurements.cold.top_methods]]
+            method = "_index_relation_kernel"
+            source = "/home/azzaare/.julia/dev/JuliaConstraintsPerfNightIntegratedV3/CompositionalNetworks/src/compose.jl"
+            line = 79
+            llvm_seconds = 0.08746337890625
+            inference_seconds = 0.010162353515625
+            module = "CompositionalNetworks"
+            code_instances = 1
+            specializations = 1
+            [[inference_process.measurements.cold.top_methods]]
+            method = "_specialized_compilation_plan"
+            source = "/home/azzaare/.julia/dev/JuliaConstraintsPerfNightIntegratedV3/CompositionalNetworks/src/compose.jl"
+            line = 1241
+            llvm_seconds = 0.0821533203125
+            inference_seconds = 0.01142120361328125
+            module = "CompositionalNetworks"
+            code_instances = 1
+            specializations = 1
+            [[inference_process.measurements.cold.top_methods]]
+            method = "_selected_layer_names"
+            source = "/home/azzaare/.julia/dev/JuliaConstraintsPerfNightIntegratedV3/CompositionalNetworks/src/icn.jl"
+            line = 14
+            llvm_seconds = 0.06693267822265625
+            inference_seconds = 0.006378531455993652
+            module = "CompositionalNetworks"
+            code_instances = 14
+            specializations = 14
+            [[inference_process.measurements.cold.top_methods]]
+            method = "generate_new_valid_weights"
+            source = "/home/azzaare/.julia/dev/JuliaConstraintsPerfNightIntegratedV3/CompositionalNetworks/src/icn.jl"
+            line = 107
+            llvm_seconds = 0.04949951171875
+            inference_seconds = 0.01568603515625
+            module = "CompositionalNetworks"
+            code_instances = 1
+            specializations = 1
+            [[inference_process.measurements.cold.top_methods]]
+            method = "materialize!"
+            source = "broadcast.jl"
+            line = 906
+            llvm_seconds = 0.031982421875
+            inference_seconds = 0.031766414642333984
+            module = "Base.Broadcast"
+            code_instances = 8
+            specializations = 8
+            [[inference_process.measurements.cold.top_methods]]
+            method = "#bank_decoder##2"
+            source = "/home/azzaare/Gits/Benchmarks-night-sparse-guide/Hexaly/src/Scoring.jl"
+            line = 51
+            llvm_seconds = 0.028411865234375
+            inference_seconds = 0.032012939453125
+            module = "Main.HexalyReproduction.ReproductionScoring"
+            code_instances = 1
+            specializations = 1
+            [[inference_process.measurements.cold.top_methods]]
+            method = "#print_expr#165"
+            source = "/home/azzaare/.julia/packages/ExproniconLite/4LrQ4/src/print/multi.jl"
+            line = 1515
+            llvm_seconds = 0.0
+            inference_seconds = 0.0584716796875
+            module = "ExproniconLite"
+            code_instances = 1
+            specializations = 1
+            [[inference_process.measurements.cold.top_methods]]
+            method = "_pipeline_shape_valid"
+            source = "/home/azzaare/.julia/dev/JuliaConstraintsPerfNightIntegratedV3/CompositionalNetworks/src/icn.jl"
+            line = 44
+            llvm_seconds = 0.0458221435546875
+            inference_seconds = 0.00818634033203125
+            module = "CompositionalNetworks"
+            code_instances = 3
+            specializations = 3
+            [[inference_process.measurements.cold.top_methods]]
+            method = "#_compose_specialized#835"
+            source = "/home/azzaare/.julia/dev/JuliaConstraintsPerfNightIntegratedV3/CompositionalNetworks/src/compose.jl"
+            line = 1320
+            llvm_seconds = 0.04095458984375
+            inference_seconds = 0.009613037109375
+            module = "CompositionalNetworks"
+            code_instances = 1
+            specializations = 1
+            [[inference_process.measurements.cold.top_methods]]
+            method = "grow_to!"
+            source = "array.jl"
+            line = 921
+            llvm_seconds = 0.04517364501953125
+            inference_seconds = 0.003232717514038086
+            module = "Base"
+            code_instances = 7
+            specializations = 7
+            [[inference_process.measurements.cold.top_methods]]
+            method = "iterate"
+            source = "iterators.jl"
+            line = 201
+            llvm_seconds = 0.025028228759765625
+            inference_seconds = 0.017306923866271973
+            module = "Base.Iterators"
+            code_instances = 26
+            specializations = 26
+            [[inference_process.measurements.cold.top_methods]]
+            method = "deepcopy_internal"
+            source = "deepcopy.jl"
+            line = 137
+            llvm_seconds = 0.036956787109375
+            inference_seconds = 0.002676725387573242
+            module = "Base"
+            code_instances = 7
+            specializations = 7
+            [[inference_process.measurements.cold.top_methods]]
+            method = "deepcopy_internal"
+            source = "deepcopy.jl"
+            line = 128
+            llvm_seconds = 0.0325164794921875
+            inference_seconds = 0.006409645080566406
+            module = "Base"
+            code_instances = 7
+            specializations = 7
+            [[inference_process.measurements.cold.top_methods]]
+            method = "#compose#792"
+            source = "/home/azzaare/.julia/dev/JuliaConstraintsPerfNightIntegratedV3/CompositionalNetworks/src/compose.jl"
+            line = 9
+            llvm_seconds = 0.0262603759765625
+            inference_seconds = 0.0125274658203125
+            module = "CompositionalNetworks"
+            code_instances = 1
+            specializations = 1
+            [[inference_process.measurements.cold.top_methods]]
+            method = "_ordered_layers"
+            source = "/home/azzaare/.julia/dev/JuliaConstraintsPerfNightIntegratedV3/CompositionalNetworks/src/icn.jl"
+            line = 772
+            llvm_seconds = 0.0290374755859375
+            inference_seconds = 0.0093841552734375
+            module = "CompositionalNetworks"
+            code_instances = 1
+            specializations = 1
+            [[inference_process.measurements.cold.top_methods]]
+            method = "_growend_internal!"
+            source = "array.jl"
+            line = 1158
+            llvm_seconds = 0.03568267822265625
+            inference_seconds = 0.0024170875549316406
+            module = "Base"
+            code_instances = 4
+            specializations = 4
+
+            [[inference_process.measurements.cold.top_sources]]
+            source = "/home/azzaare/.julia/dev/JuliaConstraintsPerfNightIntegratedV3/CompositionalNetworks/src/compose.jl"
+            llvm_seconds = 0.37568092346191406
+            inference_seconds = 0.06899261474609375
+            module = "CompositionalNetworks"
+            code_instances = 18
+            specializations = 18
+            [[inference_process.measurements.cold.top_sources]]
+            source = "/home/azzaare/.julia/dev/JuliaConstraintsPerfNightIntegratedV3/CompositionalNetworks/src/icn.jl"
+            llvm_seconds = 0.35398292541503906
+            inference_seconds = 0.08619856834411621
+            module = "CompositionalNetworks"
+            code_instances = 55
+            specializations = 55
+            [[inference_process.measurements.cold.top_sources]]
+            source = "/home/azzaare/.julia/packages/ExproniconLite/4LrQ4/src/print/multi.jl"
+            llvm_seconds = 0.0
+            inference_seconds = 0.33251482248306274
+            module = "ExproniconLite"
+            code_instances = 38
+            specializations = 38
+            [[inference_process.measurements.cold.top_sources]]
+            source = "/home/azzaare/.julia/packages/ExproniconLite/4LrQ4/src/print/inline.jl"
+            llvm_seconds = 0.0
+            inference_seconds = 0.2950553894042969
+            module = "ExproniconLite"
+            code_instances = 97
+            specializations = 97
+            [[inference_process.measurements.cold.top_sources]]
+            source = "array.jl"
+            llvm_seconds = 0.21602249145507812
+            inference_seconds = 0.05757880210876465
+            module = "Base"
+            code_instances = 144
+            specializations = 143
+            [[inference_process.measurements.cold.top_sources]]
+            source = "broadcast.jl"
+            llvm_seconds = 0.03647613525390625
+            inference_seconds = 0.12705230712890625
+            module = "Base.Broadcast"
+            code_instances = 395
+            specializations = 394
+            [[inference_process.measurements.cold.top_sources]]
+            source = "deepcopy.jl"
+            llvm_seconds = 0.10859203338623047
+            inference_seconds = 0.027232050895690918
+            module = "Base"
+            code_instances = 46
+            specializations = 46
+            [[inference_process.measurements.cold.top_sources]]
+            source = "iterators.jl"
+            llvm_seconds = 0.06926918029785156
+            inference_seconds = 0.05787944793701172
+            module = "Base.Iterators"
+            code_instances = 182
+            specializations = 182
+            [[inference_process.measurements.cold.top_sources]]
+            source = "sort.jl"
+            llvm_seconds = 0.06332206726074219
+            inference_seconds = 0.013011932373046875
+            module = "Base.Sort"
+            code_instances = 30
+            specializations = 30
+            [[inference_process.measurements.cold.top_sources]]
+            source = "/home/azzaare/Gits/Benchmarks-night-sparse-guide/Hexaly/src/Scoring.jl"
+            llvm_seconds = 0.037166595458984375
+            inference_seconds = 0.03457021713256836
+            module = "Main.HexalyReproduction.ReproductionScoring"
+            code_instances = 7
+            specializations = 7
+            [[inference_process.measurements.cold.top_sources]]
+            source = "abstractarray.jl"
+            llvm_seconds = 0.042102813720703125
+            inference_seconds = 0.02896326780319214
+            module = "Base"
+            code_instances = 185
+            specializations = 170
+            [[inference_process.measurements.cold.top_sources]]
+            source = "/home/azzaare/.julia/dev/JuliaConstraintsPerfNightIntegratedV3/CompositionalNetworks/src/composition_ir.jl"
+            llvm_seconds = 0.03982734680175781
+            inference_seconds = 0.006307840347290039
+            module = "CompositionalNetworks"
+            code_instances = 11
+            specializations = 11
+            [[inference_process.measurements.cold.top_sources]]
+            source = "subarray.jl"
+            llvm_seconds = 0.0023651123046875
+            inference_seconds = 0.036137402057647705
+            module = "Base"
+            code_instances = 31
+            specializations = 31
+            [[inference_process.measurements.cold.top_sources]]
+            source = "generator.jl"
+            llvm_seconds = 0.01826953887939453
+            inference_seconds = 0.01127547025680542
+            module = "Base"
+            code_instances = 69
+            specializations = 69
+            [[inference_process.measurements.cold.top_sources]]
+            source = "Base_compiler.jl"
+            llvm_seconds = 0.020097732543945312
+            inference_seconds = 0.007076680660247803
+            module = "Base"
+            code_instances = 134
+            specializations = 134
+            [[inference_process.measurements.cold.top_sources]]
+            source = "essentials.jl"
+            llvm_seconds = 0.020940780639648438
+            inference_seconds = 0.004720330238342285
+            module = "Base"
+            code_instances = 112
+            specializations = 112
+
+            [inference_process.measurements.cold.remaining_sources_aggregate]
+            llvm_seconds = 0.14563941955566406
+            inference_seconds = 0.16011971235275269
+            code_instances = 922
+            specializations = 919
+
+            [[inference_process.measurements.cold.scorer_methods]]
+            method = "#bank_decoder##2"
+            source = "/home/azzaare/Gits/Benchmarks-night-sparse-guide/Hexaly/src/Scoring.jl"
+            line = 51
+            llvm_seconds = 0.028411865234375
+            inference_seconds = 0.032012939453125
+            module = "Main.HexalyReproduction.ReproductionScoring"
+            code_instances = 1
+            specializations = 1
+            [[inference_process.measurements.cold.scorer_methods]]
+            method = "#prepare_backend#5"
+            source = "/home/azzaare/Gits/Benchmarks-night-sparse-guide/Hexaly/src/Scoring.jl"
+            line = 67
+            llvm_seconds = 0.00656890869140625
+            inference_seconds = 0.001216888427734375
+            module = "Main.HexalyReproduction.ReproductionScoring"
+            code_instances = 1
+            specializations = 1
+            [[inference_process.measurements.cold.scorer_methods]]
+            method = "prepare_backend"
+            source = "/home/azzaare/Gits/Benchmarks-night-sparse-guide/Hexaly/src/Scoring.jl"
+            line = 67
+            llvm_seconds = 0.002185821533203125
+            inference_seconds = 0.0003910064697265625
+            module = "Main.HexalyReproduction.ReproductionScoring"
+            code_instances = 1
+            specializations = 1
+            [[inference_process.measurements.cold.scorer_methods]]
+            method = "#bank_decoder##0"
+            source = "/home/azzaare/Gits/Benchmarks-night-sparse-guide/Hexaly/src/Scoring.jl"
+            line = 50
+            llvm_seconds = 0.0
+            inference_seconds = 0.00045680999755859375
+            module = "Main.HexalyReproduction.ReproductionScoring"
+            code_instances = 1
+            specializations = 1
+            [[inference_process.measurements.cold.scorer_methods]]
+            method = "bank_decoder"
+            source = "/home/azzaare/Gits/Benchmarks-night-sparse-guide/Hexaly/src/Scoring.jl"
+            line = 47
+            llvm_seconds = 0.0
+            inference_seconds = 0.0004200935363769531
+            module = "Main.HexalyReproduction.ReproductionScoring"
+            code_instances = 1
+            specializations = 1
+            [[inference_process.measurements.cold.scorer_methods]]
+            method = "Backend"
+            source = "/home/azzaare/Gits/Benchmarks-night-sparse-guide/Hexaly/src/Scoring.jl"
+            line = 34
+            llvm_seconds = 0.0
+            inference_seconds = 7.2479248046875e-5
+            module = "Main.HexalyReproduction.ReproductionScoring"
+            code_instances = 2
+            specializations = 2
+
+        [inference_process.measurements.warm]
+        summed_exclusive_inference_seconds = 1.4185905456542969e-5
+        tree_inclusive_seconds_with_overlap = 1.537799835205078e-5
+        summed_llvm_seconds = 0.0
+        flattened_frames = 1
+        method_groups = 1
+        remaining_source_groups = 0
+        unique_specializations = 1
+        unique_code_instances = 1
+        source_groups = 1
+        scorer_methods = []
+
+            [[inference_process.measurements.warm.top_methods]]
+            method = "ROOT"
+            source = "../usr/share/julia/Compiler/src/typeinfer.jl"
+            line = 66
+            llvm_seconds = 0.0
+            inference_seconds = 1.4185905456542969e-5
+            module = "Base.Compiler.Timings"
+            code_instances = 1
+            specializations = 1
+
+            [[inference_process.measurements.warm.top_sources]]
+            source = "../usr/share/julia/Compiler/src/typeinfer.jl"
+            llvm_seconds = 0.0
+            inference_seconds = 1.4185905456542969e-5
+            module = "Base.Compiler.Timings"
+            code_instances = 1
+            specializations = 1
+
+            [inference_process.measurements.warm.remaining_sources_aggregate]
+            llvm_seconds = 0
+            inference_seconds = 0
+            code_instances = 0
+            specializations = 0
