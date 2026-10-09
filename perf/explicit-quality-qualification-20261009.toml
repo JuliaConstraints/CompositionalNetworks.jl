@@ -1,0 +1,107 @@
+aqua_version = "0.8.18"
+blas_threads = 1
+candidate_commit = "94f146716e6f527cd2497ab765e5f1095b855125"
+change = "Declare SHA in test extras and target with compatible 0.7/1 bounds, matching the actual profiling fixture import. Runtime source and full-square oracle unchanged."
+cleanup = "Only intrinsic Project metadata and this qualification record remain. Pkg's required temporary sandbox files automatically removed; no helper scripts, logs, dumps or backups."
+cpu_affinity = [4, 6]
+diagnostic_manifest_sha256 = "10b7ae47f6bef299009e6dca7075b75f3bca4e77bb1c9c21b83dd84fe2de1c1e"
+entrypoint_coverage = "Standard runtests leaves Aqua, ExplicitImports and JET includes commented. These are separate explicit checks; full defaults used, no ignore lists or suppressed categories."
+explicit_imports_version = "1.15.0"
+gc_threads = 1
+julia_threads = 2
+limits = ["This is an explicit default Aqua check, including test extras, not evidence supplied by the commented standard entrypoint.", "The one existing missing-extras-compat failure is preserved; no check disabled, ignored, marked broken or replaced.", "The upstream Aqua include itself sets deps_compat=false and checks check_extras=false separately; that restricted include would not establish default extras compatibility.", "No dependency versions, source, oracle, frozen checkout or shared routing file changed. No training or native solver execution.", "Julia 1.13.1 executed; no Julia 1.12 runtime claim."]
+missing_extra_compat = ["Aqua", "ExplicitImports", "HiGHS", "Memoization", "Test", "TestItemRunner", "ThreadPools"]
+passing_aqua_categories = ["Method ambiguity", "Unbound type parameters", "Undefined exports", "Project/test Project comparison", "Stale dependencies", "Julia compatibility", "Direct dependency compatibility", "Weak dependency compatibility", "Piracy", "Persistent tasks"]
+project_sha256 = "c7c15d5a6f6c2c24f8da6c2577a1dbaa4ccbf2be9f5fc562e5a859cf39b52dbe"
+qualified_project_sha256 = "fe14b2b78165181b24f10ef0b4fa2c99ac291aa9938f3f0374ab269a7ae4c9b0"
+record_verified_utc = "2026-10-09T03:07:43.908"
+recorded_utc = "2026-10-09T03:00:23.568"
+runtests_sha256 = "2d5e0502f94d9ec6cbc3689ed1ffc46ff899e82ff04215e2e55fe7481699cf55"
+runtime = "1.13.1"
+schema = "cn-explicit-quality-and-test-dependency/1"
+
+[[checks]]
+broken = 0
+check = "aqua-default"
+completed_utc = "2026-10-09T03:00:32.926"
+error_type = "TestSetException"
+errored = 0
+failed = 1
+findings = ["""Test Failed at /home/azzaare/.julia/packages/Aqua/yUvBM/src/deps_compat.jl:60\n  Expression: isempty(result)\n   Evaluated: isempty(Base.PkgId[Base.PkgId(Base.UUID(\"4c88cf16-eb10-579e-8560-4a9242c79595\"), \"Aqua\"), Base.PkgId(Base.UUID(\"7d51a73a-1435-4ff3-83d9-f097790105c7\"), \"ExplicitImports\"), Base.PkgId(Base.UUID(\"87dc4568-4c63-4d18-b0c0-bb2238e4078b\"), \"HiGHS\"), Base.PkgId(Base.UUID(\"6fafb56a-5788-4b4e-91ca-c0cea6611c73\"), \"Memoization\"), Base.PkgId(Base.UUID(\"8dfed614-e22c-5e08-85e1-65c5234f0b40\"), \"Test\"), Base.PkgId(Base.UUID(\"f8b46487-2199-4994-9208-9a1283c18c0a\"), \"TestItemRunner\"), Base.PkgId(Base.UUID(\"b189fb0b-2eb5-4ed4-bc0c-d34c51242431\"), \"ThreadPools\")])"""]
+message = "Some tests did not pass: 10 passed, 1 failed, 0 errored, 0 broken."
+passed = 10
+started_utc = "2026-10-09T03:00:23.904"
+status = "failed"
+[[checks]]
+broken = 0
+check = "explicit-imports"
+completed_utc = "2026-10-09T03:00:38.921"
+errored = 0
+failed = 0
+passed = 1
+started_utc = "2026-10-09T03:00:32.947"
+status = "passed"
+
+[current_quality]
+aqua_version = "0.8.18"
+blas_threads = 1
+candidate_commit = "94f146716e6f527cd2497ab765e5f1095b855125"
+cpu_affinity = [4, 6]
+diagnostic_manifest_sha256 = "10b7ae47f6bef299009e6dca7075b75f3bca4e77bb1c9c21b83dd84fe2de1c1e"
+entrypoint_coverage = "Standard runtests leaves Aqua, ExplicitImports and JET includes commented. These are separate explicit checks; full defaults used, no ignore lists or suppressed categories."
+explicit_imports_version = "1.15.0"
+gc_threads = 1
+julia_threads = 2
+metadata_state = "Owned Project has the uncommitted SHA extras/target/compat declaration; implementation remains the candidate commit."
+project_sha256 = "fe14b2b78165181b24f10ef0b4fa2c99ac291aa9938f3f0374ab269a7ae4c9b0"
+recorded_utc = "2026-10-09T03:06:11.272"
+runtests_sha256 = "2d5e0502f94d9ec6cbc3689ed1ffc46ff899e82ff04215e2e55fe7481699cf55"
+runtime = "1.13.1"
+schema = "cn-explicit-quality-checks/1"
+
+    [[current_quality.checks]]
+    broken = 0
+    check = "aqua-default"
+    completed_utc = "2026-10-09T03:06:20.975"
+    error_type = "TestSetException"
+    errored = 0
+    failed = 1
+    findings = ["""Test Failed at /home/azzaare/.julia/packages/Aqua/yUvBM/src/deps_compat.jl:60\n  Expression: isempty(result)\n   Evaluated: isempty(Base.PkgId[Base.PkgId(Base.UUID(\"4c88cf16-eb10-579e-8560-4a9242c79595\"), \"Aqua\"), Base.PkgId(Base.UUID(\"7d51a73a-1435-4ff3-83d9-f097790105c7\"), \"ExplicitImports\"), Base.PkgId(Base.UUID(\"87dc4568-4c63-4d18-b0c0-bb2238e4078b\"), \"HiGHS\"), Base.PkgId(Base.UUID(\"6fafb56a-5788-4b4e-91ca-c0cea6611c73\"), \"Memoization\"), Base.PkgId(Base.UUID(\"8dfed614-e22c-5e08-85e1-65c5234f0b40\"), \"Test\"), Base.PkgId(Base.UUID(\"f8b46487-2199-4994-9208-9a1283c18c0a\"), \"TestItemRunner\"), Base.PkgId(Base.UUID(\"b189fb0b-2eb5-4ed4-bc0c-d34c51242431\"), \"ThreadPools\")])"""]
+    message = "Some tests did not pass: 10 passed, 1 failed, 0 errored, 0 broken."
+    passed = 10
+    started_utc = "2026-10-09T03:06:11.585"
+    status = "failed"
+    [[current_quality.checks]]
+    broken = 0
+    check = "explicit-imports"
+    completed_utc = "2026-10-09T03:06:27.270"
+    errored = 0
+    failed = 0
+    passed = 1
+    started_utc = "2026-10-09T03:06:20.997"
+    status = "passed"
+
+[source_sha256]
+"src/compose.jl" = "261f1e08ac500d60ee5f5c48f748e79f47f3b8d9f2ea22b4aab6f7d3fe66d8a5"
+"src/icn.jl" = "50f259bba5d1db1abbaa0d8d94f37b187ad5a8d6291b90821e3bdeeb501e645e"
+"src/inplace.jl" = "1e7715393461076b5e3b2bb47f6322d969ae0199e01f4f1f0503471e232d17e5"
+
+[test_dependency_qualification]
+assertions = 734
+baseline_commit = "94f146716e6f527cd2497ab765e5f1095b855125"
+baseline_error = "LoadError: ArgumentError: Package SHA not found in current path."
+baseline_process_exit_code = 1
+baseline_project_sha256 = "c7c15d5a6f6c2c24f8da6c2577a1dbaa4ccbf2be9f5fc562e5a859cf39b52dbe"
+baseline_test_target_has_sha = false
+case_file_sha256 = "36824ccf6edafbf158931934e07b97d9cc7cafdea540d67bb8907eca8f1acb62"
+corrected_process_exit_code = 0
+corrected_test_target_has_sha = true
+dependencies = "Frozen V6 dependency graph and sources; only CN source path replaced in memory by owned candidate. Root V6 Project, Manifest and frozen files not edited."
+environment_checks = "Before/after Project and Manifest fingerprint equality asserted in each completed sandbox process; both temporary test directories removed by Pkg."
+environment_manifest_sha256 = "27214c6563d47cb8878bd26f7197566c37a8b116473418e13b30ab81b32edfb7"
+environment_project_sha256 = "5372c69bd7cd4a893c8e417610f06a3f9d1fb482241a94982d84da5678a51a25"
+executed_sha_version = "1.0.0"
+harness_correction = "Initial in-memory path override changed only Manifest and hit Pkg's Project/Manifest source-consistency assertion before tests. Aligned both in-memory source paths; completed baseline and corrected sandboxes used identical dependency versions."
+limits = ["Only the affected 734-assertion file rerun in the sandbox, avoiding duplicate broad training/native tests.", "No scoring decoder, bank, oracle, runtime function or existing dependency bounds changed.", "Default Aqua still reports the same seven missing test-extra compat entries; explicit imports pass. No omissions or suppression.", "SHA1.0 on Julia1.13.1 executed; 0.7 compatibility declared, not separately executed."]
+scope = "Actual Pkg gen_target_project and sandbox with allow_reresolve=false, offline. Targeted original learned_scoring_cases.jl in fresh subprocess with isolated LOAD_PATH and the generated test target. This proves the missing test dependency repaired; it is not a rerun of the full package entrypoint."
+test_file_sha256 = "19b2e0d2e94e7dab1786beb50610188b66d2b5122c72aa9a2e1dcf7591aff24c"
