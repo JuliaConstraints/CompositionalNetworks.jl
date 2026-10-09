@@ -1028,6 +1028,18 @@ function _operation_parameter_compatible(layer::Symbol, operation::Symbol, param
     return true
 end
 
+function _operation_parameter_hints()
+    usual = USUAL_CONSTRAINT_PARAMETERS
+    count = length(usual)
+    hints = Vector{Symbol}(undef, count + 4)
+    copyto!(hints, 1, usual, 1, count)
+    hints[count + 1] = :numvars
+    hints[count + 2] = :dom_size
+    hints[count + 3] = :op_filter
+    hints[count + 4] = :filter_val
+    return hints
+end
+
 # The original intersection comparison also rejects duplicate required names.
 # Keep that contract while avoiding a temporary set and vector for short native
 # symbol lists. Other collections and unusually wide signatures retain intersect.
@@ -1071,10 +1083,7 @@ struct ICN{S} <: AbstractICN where {S <: Union{AbstractVector{<:AbstractLayer}, 
             for (j, (operation, fn)) in enumerate(pairs(layer.fn))
                 par = extract_parameters(
                     fn,
-                    parameters = append!(
-                        copy(USUAL_CONSTRAINT_PARAMETERS),
-                        (:numvars, :dom_size, :op_filter, :filter_val)
-                    )
+                    parameters = _operation_parameter_hints()
                 )
                 names_match = isempty(par) ||
                               _parameter_names_match(par[1], parameter_names)
@@ -1090,11 +1099,13 @@ struct ICN{S} <: AbstractICN where {S <: Union{AbstractVector{<:AbstractLayer}, 
         weightlen = length.(parindexes)
 
         index, jindex = 0, 0
-        consider = Array{Int}(undef, sum(length.(parindexes)))
+        consider = Array{Int}(undef, sum(weightlen))
         for (i, layer) in enumerate(layers)
-            consider[(1:length(parindexes[i])) .+ jindex] .= parindexes[i] .+ index
+            for (position, operation_index) in enumerate(parindexes[i])
+                consider[jindex + position] = operation_index + index
+            end
             index += len[i]
-            jindex += length(parindexes[i])
+            jindex += weightlen[i]
         end
 
         weights = if isempty(weights)
