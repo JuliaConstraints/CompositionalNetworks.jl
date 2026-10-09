@@ -25,6 +25,13 @@ JuMPExactExt = "JuMP"
 LocalSearchSolversExt = "LocalSearchSolvers"
 
 [compat]
+Aqua = "0.8"
+ExplicitImports = "1"
+HiGHS = "1"
+Memoization = "0.2"
+Test = "1"
+TestItemRunner = "1"
+ThreadPools = "2"
 LocalSearchSolvers = "0.4.11"
 Evolutionary = "0.11, 0.12"
 JuMP = "1"
