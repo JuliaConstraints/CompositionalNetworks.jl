@@ -31,6 +31,8 @@ end
 
 score_counts(state) = state.decoder(state.input)
 score_square(state) = full_square(state.operations, state.input)
+score_triangle(state) = invoke(CN._aggregate_pairwise_sum,
+    Tuple{typeof(state.operations),Any}, state.operations, state.input)
 
 # Keep the oracle accumulator local instead of boxing it in the verification
 # closure. The full-square traversal independently applies each atomic predicate.
@@ -52,10 +54,12 @@ function pair_counts(parameters)
     decoder = recovered_decoder(bank, witness)
     operations = witness == 2 ? Val((:count_less_left, :count_great_left)) :
                  Val((:count_equal_left, :count_great_left))
-    original = mod.(collect(1:n), 23)
+    input_type = get(parameters, "element", "int") == "float64" ? Float64 : Int
+    original = input_type.(mod.(collect(1:n), 23))
     expected = expected_counts(original, witness)
-    operation = get(parameters, "method", "compiled") == "square" ?
-                score_square : score_counts
+    method = get(parameters, "method", "compiled")
+    operation = method == "square" ? score_square :
+                method == "original-triangle" ? score_triangle : score_counts
     return (
         prepare = () -> (; decoder, operations, input = copy(original)),
         operation,

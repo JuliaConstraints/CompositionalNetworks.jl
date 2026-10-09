@@ -1,0 +1,99 @@
+schema_version = "perfchecker-scenario-catalog/1"
+root = ".."
+
+[[scenarios]]
+id = "learned-2-int-predicates"
+source = "learned_scoring.jl"
+factory = "LearnedScoringCases.pair_counts"
+implementation = "compiled"
+collectors = ["benchmark", "chairmark", "profile", "profile_alloc"]
+[scenarios.parameters]
+witness = 2
+element = "int"
+n = 1000
+method = "compiled"
+
+[[scenarios]]
+id = "learned-2-int-predicates"
+source = "learned_scoring.jl"
+factory = "LearnedScoringCases.pair_counts"
+implementation = "original-triangle"
+collectors = ["benchmark", "chairmark"]
+[scenarios.parameters]
+witness = 2
+element = "int"
+n = 1000
+method = "original-triangle"
+
+[[scenarios]]
+id = "learned-2-float64-predicates"
+source = "learned_scoring.jl"
+factory = "LearnedScoringCases.pair_counts"
+implementation = "compiled"
+collectors = ["benchmark", "chairmark", "profile", "profile_alloc"]
+[scenarios.parameters]
+witness = 2
+element = "float64"
+n = 1000
+method = "compiled"
+
+[[scenarios]]
+id = "learned-2-float64-predicates"
+source = "learned_scoring.jl"
+factory = "LearnedScoringCases.pair_counts"
+implementation = "original-triangle"
+collectors = ["benchmark", "chairmark"]
+[scenarios.parameters]
+witness = 2
+element = "float64"
+n = 1000
+method = "original-triangle"
+
+[[scenarios]]
+id = "learned-52-int-predicates"
+source = "learned_scoring.jl"
+factory = "LearnedScoringCases.pair_counts"
+implementation = "compiled"
+collectors = ["benchmark", "chairmark", "profile", "profile_alloc"]
+[scenarios.parameters]
+witness = 52
+element = "int"
+n = 1000
+method = "compiled"
+
+[[scenarios]]
+id = "learned-52-int-predicates"
+source = "learned_scoring.jl"
+factory = "LearnedScoringCases.pair_counts"
+implementation = "original-triangle"
+collectors = ["benchmark", "chairmark"]
+[scenarios.parameters]
+witness = 52
+element = "int"
+n = 1000
+method = "original-triangle"
+
+[[scenarios]]
+id = "learned-52-float64-predicates"
+source = "learned_scoring.jl"
+factory = "LearnedScoringCases.pair_counts"
+implementation = "compiled"
+collectors = ["benchmark", "chairmark", "profile", "profile_alloc"]
+[scenarios.parameters]
+witness = 52
+element = "float64"
+n = 1000
+method = "compiled"
+
+[[scenarios]]
+id = "learned-52-float64-predicates"
+source = "learned_scoring.jl"
+factory = "LearnedScoringCases.pair_counts"
+implementation = "original-triangle"
+collectors = ["benchmark", "chairmark"]
+[scenarios.parameters]
+witness = 52
+element = "float64"
+n = 1000
+method = "original-triangle"
+

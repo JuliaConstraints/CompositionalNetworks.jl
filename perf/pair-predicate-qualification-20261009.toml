@@ -1,0 +1,1292 @@
+analyzer_scope = "Four fresh operation specializations for each Float64 saved witness at n=1000; JET, AllocCheck, GC and reachable memory all complete with zero findings. Five warmed GC samples per case have zero allocated bytes, compilation and recompilation. Reachable state remains 8048 bytes; state/result jointly 8056 bytes."
+baseline_commit = "84838810398433d93db9817eef8a6c0c9bd5148b"
+baseline_source_sha256 = "762cadda81d3308f0abe047fd0bab4510d643e4e6ac657307d2abe1156b9ba5f"
+case_sha256 = "36824ccf6edafbf158931934e07b97d9cc7cafdea540d67bb8907eca8f1acb62"
+catalog_sha256 = "b81bacb4229ea9c56e25e985a44348c676833f051f4de2a5ec9fa7ad4d81d8b3"
+change = "Two exact operation-tuple specializations for Vector with a closed primitive numeric element union. Load each active pair once; combine less/greater as Boolean OR, and equal/greater as >=. Keep explicit two-element path. All other storage, numeric protocols and operation tuples use the unchanged generic helper."
+cleanup = "Only intrinsic source, regression tests, reusable profiling case/catalog and this qualification record persisted. No helper scripts, temporary environments, dumps, backups or raw reports created."
+harness_corrections = ["Initial profiling workers lacked the bank path and stopped before measurements. Explicit bank parameters were supplied in private scenario dictionaries before the complete fresh runs.", "The first manual matched harness called a newly generated decoder from an older Julia world. Enter the warmed wrapper through Base.invokelatest outside its timed operation; all published warmed compile/recompile counters are zero.", "Prototype LLVM inspection looked at an uninlined forwarding wrapper for the former helper; its small emitted wrapper is not evidence of missing vectorization. No vectorization claim relies on that inspection."]
+limits = ["Operational concurrent overnight timing, not controlled speedup, full-application throughput or fitted scaling evidence.", "Julia 1.13.1 executed; no Julia 1.12 runtime claim.", "Custom storage and numeric callback protocols retain the existing observation order and cost.", "No change to topology, saved weight bytes, selection, construction, exported API or full result semantics.", "Shared Root sources and frozen integrated environments were not edited.", "No native solver execution, optimization training or broad benchmark matrix."]
+measurement_scope = "Actual saved decoders recovered in factories; each prepared state owns its input and a zero-field immutable decoder. Same n=2 and n=1000 Int64/Float64 inputs; 100 samples/evals=1 in original/current/current/original order. Former triangle control uses explicit invoke of the unchanged generic helper. Construction, oracle and verification excluded."
+native_types = ["Bool", "Int8", "Int16", "Int32", "Int64", "Int128", "UInt8", "UInt16", "UInt32", "UInt64", "UInt128", "Float16", "Float32", "Float64"]
+proof = "For homogeneous primitive numbers, strict less and strict greater are mutually exclusive, so their Boolean OR equals their integer sum. Equality and strict greater are mutually exclusive and their sum equals >=, including signed zeros, infinities and unordered NaNs. Each active left-index pair is visited once with an Int accumulator; no arithmetic is reordered or approximated."
+recorded_utc = "2026-10-09T02:24:50.091"
+schema = "juliaconstraints-native-pair-predicate-qualification/1"
+source_sha256 = "1e7715393461076b5e3b2bb47f6322d969ae0199e01f4f1f0503471e232d17e5"
+test_sha256 = "a841a6cbbbfd690559e8ff9e49a8a74ace00d9372ffdaba80bc76dcbec1a44d7"
+unchanged_compose_sha256 = "261f1e08ac500d60ee5f5c48f748e79f47f3b8d9f2ea22b4aab6f7d3fe66d8a5"
+unchanged_constructor_sha256 = "50f259bba5d1db1abbaa0d8d94f37b187ad5a8d6291b90821e3bdeeb501e645e"
+
+[analyzer_evidence]
+case_sha256 = "36824ccf6edafbf158931934e07b97d9cc7cafdea540d67bb8907eca8f1acb62"
+recorded_utc = "2026-10-09T02:18:54.473"
+source_sha256 = "1e7715393461076b5e3b2bb47f6322d969ae0199e01f4f1f0503471e232d17e5"
+
+    [[analyzer_evidence.analyzers]]
+    analysis_scope = "operation specialized for prepared state type; synchronization excluded"
+    correctness = "passed"
+    findings = []
+    findings_count = 0
+    quality = "not_checked"
+    scenario = "learned-2-float64-predicates"
+    status = "complete"
+    summary = ""
+    tool = "jet"
+
+        [analyzer_evidence.analyzers.measurements]
+    [[analyzer_evidence.analyzers]]
+    analysis_scope = "static operation specialization; tool exception-path defaults; not a universal allocation guarantee"
+    correctness = "passed"
+    findings = []
+    findings_count = 0
+    quality = "not_checked"
+    scenario = "learned-2-float64-predicates"
+    status = "complete"
+    summary = ""
+    tool = "alloccheck"
+
+        [analyzer_evidence.analyzers.measurements]
+    [[analyzer_evidence.analyzers]]
+    analysis_scope = "warmed operation and synchronization; fresh state; preparation, verification and cleanup excluded"
+    correctness = "passed"
+    findings = []
+    findings_count = 0
+    limitations = ["Diagnostic instrumentation is separate from baseline timing.", "GC counters are process-wide and can include concurrently running tasks.", "No observed collection is not evidence that the workload never triggers GC."]
+    quality = "not_checked"
+    scenario = "learned-2-float64-predicates"
+    status = "complete"
+    summary = "5 operations: 0.0 ms in GC, 0 allocated bytes in total. Diagnostic counters are process-wide."
+    tool = "gc"
+
+        [analyzer_evidence.analyzers.measurements]
+        samples = 5
+
+            [analyzer_evidence.analyzers.measurements.allocated_bytes]
+            maximum = 0
+            minimum = 0
+
+            [analyzer_evidence.analyzers.measurements.bigalloc]
+            maximum = 0
+            minimum = 0
+
+            [analyzer_evidence.analyzers.measurements.compile_time]
+            maximum = 0.0
+            minimum = 0.0
+
+            [analyzer_evidence.analyzers.measurements.full_sweep]
+            maximum = 0
+            minimum = 0
+
+            [analyzer_evidence.analyzers.measurements.gc_seconds]
+            maximum = 0.0
+            minimum = 0.0
+
+            [analyzer_evidence.analyzers.measurements.lock_conflicts]
+            maximum = 0
+            minimum = 0
+
+            [analyzer_evidence.analyzers.measurements.malloc]
+            maximum = 0
+            minimum = 0
+
+            [analyzer_evidence.analyzers.measurements.operation_seconds]
+            maximum = 6.1683e-5
+            minimum = 2.7538e-5
+
+            [analyzer_evidence.analyzers.measurements.pause]
+            maximum = 0
+            minimum = 0
+
+            [analyzer_evidence.analyzers.measurements.poolalloc]
+            maximum = 0
+            minimum = 0
+
+            [analyzer_evidence.analyzers.measurements.realloc]
+            maximum = 0
+            minimum = 0
+
+            [analyzer_evidence.analyzers.measurements.recompile_time]
+            maximum = 0.0
+            minimum = 0.0
+    [[analyzer_evidence.analyzers]]
+    correctness = "passed"
+    findings = []
+    findings_count = 0
+    limitations = ["Reachable state growth may be an intended result or cache, not a leak.", "Process memory includes Julia, allocator retention and unrelated tasks; two points do not measure an operation peak.", "State and result are traversed together to avoid double-counting shared Julia objects; native/device allocations require their own provider."]
+    quality = "not_checked"
+    scenario = "learned-2-float64-predicates"
+    status = "complete"
+    summary = "5 operations: reachable state changed by 0 to 0 bytes. Growth may be intended output or a cache; it does not establish a leak."
+    tool = "memory"
+
+        [analyzer_evidence.analyzers.measurements]
+        samples = 5
+
+            [analyzer_evidence.analyzers.measurements.state_after_bytes]
+            maximum = 8048
+            minimum = 8048
+
+            [analyzer_evidence.analyzers.measurements.state_and_result_bytes]
+            maximum = 8056
+            minimum = 8056
+
+            [analyzer_evidence.analyzers.measurements.state_before_bytes]
+            maximum = 8048
+            minimum = 8048
+    [[analyzer_evidence.analyzers]]
+    analysis_scope = "operation specialized for prepared state type; synchronization excluded"
+    correctness = "passed"
+    findings = []
+    findings_count = 0
+    quality = "not_checked"
+    scenario = "learned-52-float64-predicates"
+    status = "complete"
+    summary = ""
+    tool = "jet"
+
+        [analyzer_evidence.analyzers.measurements]
+    [[analyzer_evidence.analyzers]]
+    analysis_scope = "static operation specialization; tool exception-path defaults; not a universal allocation guarantee"
+    correctness = "passed"
+    findings = []
+    findings_count = 0
+    quality = "not_checked"
+    scenario = "learned-52-float64-predicates"
+    status = "complete"
+    summary = ""
+    tool = "alloccheck"
+
+        [analyzer_evidence.analyzers.measurements]
+    [[analyzer_evidence.analyzers]]
+    analysis_scope = "warmed operation and synchronization; fresh state; preparation, verification and cleanup excluded"
+    correctness = "passed"
+    findings = []
+    findings_count = 0
+    limitations = ["Diagnostic instrumentation is separate from baseline timing.", "GC counters are process-wide and can include concurrently running tasks.", "No observed collection is not evidence that the workload never triggers GC."]
+    quality = "not_checked"
+    scenario = "learned-52-float64-predicates"
+    status = "complete"
+    summary = "5 operations: 0.0 ms in GC, 0 allocated bytes in total. Diagnostic counters are process-wide."
+    tool = "gc"
+
+        [analyzer_evidence.analyzers.measurements]
+        samples = 5
+
+            [analyzer_evidence.analyzers.measurements.allocated_bytes]
+            maximum = 0
+            minimum = 0
+
+            [analyzer_evidence.analyzers.measurements.bigalloc]
+            maximum = 0
+            minimum = 0
+
+            [analyzer_evidence.analyzers.measurements.compile_time]
+            maximum = 0.0
+            minimum = 0.0
+
+            [analyzer_evidence.analyzers.measurements.full_sweep]
+            maximum = 0
+            minimum = 0
+
+            [analyzer_evidence.analyzers.measurements.gc_seconds]
+            maximum = 0.0
+            minimum = 0.0
+
+            [analyzer_evidence.analyzers.measurements.lock_conflicts]
+            maximum = 0
+            minimum = 0
+
+            [analyzer_evidence.analyzers.measurements.malloc]
+            maximum = 0
+            minimum = 0
+
+            [analyzer_evidence.analyzers.measurements.operation_seconds]
+            maximum = 5.2226e-5
+            minimum = 4.0397e-5
+
+            [analyzer_evidence.analyzers.measurements.pause]
+            maximum = 0
+            minimum = 0
+
+            [analyzer_evidence.analyzers.measurements.poolalloc]
+            maximum = 0
+            minimum = 0
+
+            [analyzer_evidence.analyzers.measurements.realloc]
+            maximum = 0
+            minimum = 0
+
+            [analyzer_evidence.analyzers.measurements.recompile_time]
+            maximum = 0.0
+            minimum = 0.0
+    [[analyzer_evidence.analyzers]]
+    correctness = "passed"
+    findings = []
+    findings_count = 0
+    limitations = ["Reachable state growth may be an intended result or cache, not a leak.", "Process memory includes Julia, allocator retention and unrelated tasks; two points do not measure an operation peak.", "State and result are traversed together to avoid double-counting shared Julia objects; native/device allocations require their own provider."]
+    quality = "not_checked"
+    scenario = "learned-52-float64-predicates"
+    status = "complete"
+    summary = "5 operations: reachable state changed by 0 to 0 bytes. Growth may be intended output or a cache; it does not establish a leak."
+    tool = "memory"
+
+        [analyzer_evidence.analyzers.measurements]
+        samples = 5
+
+            [analyzer_evidence.analyzers.measurements.state_after_bytes]
+            maximum = 8048
+            minimum = 8048
+
+            [analyzer_evidence.analyzers.measurements.state_and_result_bytes]
+            maximum = 8056
+            minimum = 8056
+
+            [analyzer_evidence.analyzers.measurements.state_before_bytes]
+            maximum = 8048
+            minimum = 8048
+
+[bank]
+populated = 3
+schemas = ["W4 sum", "W2 all_equal", "W52 ordered"]
+sha256 = "4df0b409d303d1b666a2d0aba3367c1dc08a2b380da109e50dee83b042b8ea90"
+slots = 52
+training = false
+weights_unchanged = true
+
+[collector_evidence]
+case_sha256 = "36824ccf6edafbf158931934e07b97d9cc7cafdea540d67bb8907eca8f1acb62"
+recorded_utc = "2026-10-09T02:20:56.971"
+source_sha256 = "1e7715393461076b5e3b2bb47f6322d969ae0199e01f4f1f0503471e232d17e5"
+
+    [[collector_evidence.collectors]]
+    collector = "benchmark"
+    correctness = "passed"
+    implementation = "compiled"
+    message = ""
+    scenario = "learned-equality-pair"
+    status = "complete"
+
+        [collector_evidence.collectors."julia.alloc.bytes"]
+        maximum = 0
+        minimum = 0
+        samples = 5
+
+        [collector_evidence.collectors."julia.alloc.count"]
+        maximum = 0
+        minimum = 0
+        samples = 5
+
+        [collector_evidence.collectors."julia.wall.time"]
+        maximum = 6.26e-7
+        minimum = 2.7e-8
+        samples = 5
+    [[collector_evidence.collectors]]
+    collector = "chairmark"
+    correctness = "passed"
+    implementation = "compiled"
+    message = ""
+    scenario = "learned-equality-pair"
+    status = "complete"
+
+        [collector_evidence.collectors."julia.alloc.bytes"]
+        maximum = 0.0
+        minimum = 0.0
+        samples = 5
+
+        [collector_evidence.collectors."julia.alloc.count"]
+        maximum = 0.0
+        minimum = 0.0
+        samples = 5
+
+        [collector_evidence.collectors."julia.wall.time"]
+        maximum = 2.8100000000000004e-7
+        minimum = 2.8000000000000003e-8
+        samples = 5
+    [[collector_evidence.collectors]]
+    collector = "profile"
+    correctness = "passed"
+    implementation = "compiled"
+    message = ""
+    scenario = "learned-equality-pair"
+    status = "complete"
+    [[collector_evidence.collectors]]
+    collector = "profile_alloc"
+    correctness = "passed"
+    implementation = "compiled"
+    message = ""
+    scenario = "learned-equality-pair"
+    status = "complete"
+    [[collector_evidence.collectors]]
+    collector = "benchmark"
+    correctness = "passed"
+    implementation = "original-square"
+    message = ""
+    scenario = "learned-equality-pair"
+    status = "complete"
+
+        [collector_evidence.collectors."julia.alloc.bytes"]
+        maximum = 0
+        minimum = 0
+        samples = 5
+
+        [collector_evidence.collectors."julia.alloc.count"]
+        maximum = 0
+        minimum = 0
+        samples = 5
+
+        [collector_evidence.collectors."julia.wall.time"]
+        maximum = 5.29e-7
+        minimum = 3.0e-8
+        samples = 5
+    [[collector_evidence.collectors]]
+    collector = "chairmark"
+    correctness = "passed"
+    implementation = "original-square"
+    message = ""
+    scenario = "learned-equality-pair"
+    status = "complete"
+
+        [collector_evidence.collectors."julia.alloc.bytes"]
+        maximum = 0.0
+        minimum = 0.0
+        samples = 5
+
+        [collector_evidence.collectors."julia.alloc.count"]
+        maximum = 0.0
+        minimum = 0.0
+        samples = 5
+
+        [collector_evidence.collectors."julia.wall.time"]
+        maximum = 5.74e-7
+        minimum = 3.5e-8
+        samples = 5
+    [[collector_evidence.collectors]]
+    collector = "benchmark"
+    correctness = "passed"
+    implementation = "compiled"
+    message = ""
+    scenario = "learned-order-pair"
+    status = "complete"
+
+        [collector_evidence.collectors."julia.alloc.bytes"]
+        maximum = 0
+        minimum = 0
+        samples = 5
+
+        [collector_evidence.collectors."julia.alloc.count"]
+        maximum = 0
+        minimum = 0
+        samples = 5
+
+        [collector_evidence.collectors."julia.wall.time"]
+        maximum = 5.47e-7
+        minimum = 2.8e-8
+        samples = 5
+    [[collector_evidence.collectors]]
+    collector = "chairmark"
+    correctness = "passed"
+    implementation = "compiled"
+    message = ""
+    scenario = "learned-order-pair"
+    status = "complete"
+
+        [collector_evidence.collectors."julia.alloc.bytes"]
+        maximum = 0.0
+        minimum = 0.0
+        samples = 5
+
+        [collector_evidence.collectors."julia.alloc.count"]
+        maximum = 0.0
+        minimum = 0.0
+        samples = 5
+
+        [collector_evidence.collectors."julia.wall.time"]
+        maximum = 3.58e-7
+        minimum = 3.3000000000000004e-8
+        samples = 5
+    [[collector_evidence.collectors]]
+    collector = "profile"
+    correctness = "passed"
+    implementation = "compiled"
+    message = ""
+    scenario = "learned-order-pair"
+    status = "complete"
+    [[collector_evidence.collectors]]
+    collector = "profile_alloc"
+    correctness = "passed"
+    implementation = "compiled"
+    message = ""
+    scenario = "learned-order-pair"
+    status = "complete"
+    [[collector_evidence.collectors]]
+    collector = "benchmark"
+    correctness = "passed"
+    implementation = "original-square"
+    message = ""
+    scenario = "learned-order-pair"
+    status = "complete"
+
+        [collector_evidence.collectors."julia.alloc.bytes"]
+        maximum = 0
+        minimum = 0
+        samples = 5
+
+        [collector_evidence.collectors."julia.alloc.count"]
+        maximum = 0
+        minimum = 0
+        samples = 5
+
+        [collector_evidence.collectors."julia.wall.time"]
+        maximum = 6.87e-7
+        minimum = 2.9e-8
+        samples = 5
+    [[collector_evidence.collectors]]
+    collector = "chairmark"
+    correctness = "passed"
+    implementation = "original-square"
+    message = ""
+    scenario = "learned-order-pair"
+    status = "complete"
+
+        [collector_evidence.collectors."julia.alloc.bytes"]
+        maximum = 0.0
+        minimum = 0.0
+        samples = 5
+
+        [collector_evidence.collectors."julia.alloc.count"]
+        maximum = 0.0
+        minimum = 0.0
+        samples = 5
+
+        [collector_evidence.collectors."julia.wall.time"]
+        maximum = 3.3e-7
+        minimum = 3.2e-8
+        samples = 5
+    [[collector_evidence.collectors]]
+    collector = "benchmark"
+    correctness = "passed"
+    implementation = "compiled"
+    message = ""
+    scenario = "learned-2-int-predicates"
+    status = "complete"
+
+        [collector_evidence.collectors."julia.alloc.bytes"]
+        maximum = 0
+        minimum = 0
+        samples = 5
+
+        [collector_evidence.collectors."julia.alloc.count"]
+        maximum = 0
+        minimum = 0
+        samples = 5
+
+        [collector_evidence.collectors."julia.wall.time"]
+        maximum = 4.2277e-5
+        minimum = 3.7462e-5
+        samples = 5
+    [[collector_evidence.collectors]]
+    collector = "chairmark"
+    correctness = "passed"
+    implementation = "compiled"
+    message = ""
+    scenario = "learned-2-int-predicates"
+    status = "complete"
+
+        [collector_evidence.collectors."julia.alloc.bytes"]
+        maximum = 0.0
+        minimum = 0.0
+        samples = 5
+
+        [collector_evidence.collectors."julia.alloc.count"]
+        maximum = 0.0
+        minimum = 0.0
+        samples = 5
+
+        [collector_evidence.collectors."julia.wall.time"]
+        maximum = 4.7624000000000003e-5
+        minimum = 3.9812000000000004e-5
+        samples = 5
+    [[collector_evidence.collectors]]
+    collector = "profile"
+    correctness = "passed"
+    implementation = "compiled"
+    message = ""
+    scenario = "learned-2-int-predicates"
+    status = "complete"
+    [[collector_evidence.collectors]]
+    collector = "profile_alloc"
+    correctness = "passed"
+    implementation = "compiled"
+    message = ""
+    scenario = "learned-2-int-predicates"
+    status = "complete"
+    [[collector_evidence.collectors]]
+    collector = "benchmark"
+    correctness = "passed"
+    implementation = "original-triangle"
+    message = ""
+    scenario = "learned-2-int-predicates"
+    status = "complete"
+
+        [collector_evidence.collectors."julia.alloc.bytes"]
+        maximum = 0
+        minimum = 0
+        samples = 5
+
+        [collector_evidence.collectors."julia.alloc.count"]
+        maximum = 0
+        minimum = 0
+        samples = 5
+
+        [collector_evidence.collectors."julia.wall.time"]
+        maximum = 6.2037e-5
+        minimum = 5.6455e-5
+        samples = 5
+    [[collector_evidence.collectors]]
+    collector = "chairmark"
+    correctness = "passed"
+    implementation = "original-triangle"
+    message = ""
+    scenario = "learned-2-int-predicates"
+    status = "complete"
+
+        [collector_evidence.collectors."julia.alloc.bytes"]
+        maximum = 0.0
+        minimum = 0.0
+        samples = 5
+
+        [collector_evidence.collectors."julia.alloc.count"]
+        maximum = 0.0
+        minimum = 0.0
+        samples = 5
+
+        [collector_evidence.collectors."julia.wall.time"]
+        maximum = 6.1611e-5
+        minimum = 5.7135e-5
+        samples = 5
+    [[collector_evidence.collectors]]
+    collector = "benchmark"
+    correctness = "passed"
+    implementation = "compiled"
+    message = ""
+    scenario = "learned-2-float64-predicates"
+    status = "complete"
+
+        [collector_evidence.collectors."julia.alloc.bytes"]
+        maximum = 0
+        minimum = 0
+        samples = 5
+
+        [collector_evidence.collectors."julia.alloc.count"]
+        maximum = 0
+        minimum = 0
+        samples = 5
+
+        [collector_evidence.collectors."julia.wall.time"]
+        maximum = 4.0269e-5
+        minimum = 2.6812e-5
+        samples = 5
+    [[collector_evidence.collectors]]
+    collector = "chairmark"
+    correctness = "passed"
+    implementation = "compiled"
+    message = ""
+    scenario = "learned-2-float64-predicates"
+    status = "complete"
+
+        [collector_evidence.collectors."julia.alloc.bytes"]
+        maximum = 0.0
+        minimum = 0.0
+        samples = 5
+
+        [collector_evidence.collectors."julia.alloc.count"]
+        maximum = 0.0
+        minimum = 0.0
+        samples = 5
+
+        [collector_evidence.collectors."julia.wall.time"]
+        maximum = 3.8138e-5
+        minimum = 3.0982e-5
+        samples = 5
+    [[collector_evidence.collectors]]
+    collector = "profile"
+    correctness = "passed"
+    implementation = "compiled"
+    message = ""
+    scenario = "learned-2-float64-predicates"
+    status = "complete"
+    [[collector_evidence.collectors]]
+    collector = "profile_alloc"
+    correctness = "passed"
+    implementation = "compiled"
+    message = ""
+    scenario = "learned-2-float64-predicates"
+    status = "complete"
+    [[collector_evidence.collectors]]
+    collector = "benchmark"
+    correctness = "passed"
+    implementation = "original-triangle"
+    message = ""
+    scenario = "learned-2-float64-predicates"
+    status = "complete"
+
+        [collector_evidence.collectors."julia.alloc.bytes"]
+        maximum = 0
+        minimum = 0
+        samples = 5
+
+        [collector_evidence.collectors."julia.alloc.count"]
+        maximum = 0
+        minimum = 0
+        samples = 5
+
+        [collector_evidence.collectors."julia.wall.time"]
+        maximum = 6.1764e-5
+        minimum = 4.2708e-5
+        samples = 5
+    [[collector_evidence.collectors]]
+    collector = "chairmark"
+    correctness = "passed"
+    implementation = "original-triangle"
+    message = ""
+    scenario = "learned-2-float64-predicates"
+    status = "complete"
+
+        [collector_evidence.collectors."julia.alloc.bytes"]
+        maximum = 0.0
+        minimum = 0.0
+        samples = 5
+
+        [collector_evidence.collectors."julia.alloc.count"]
+        maximum = 0.0
+        minimum = 0.0
+        samples = 5
+
+        [collector_evidence.collectors."julia.wall.time"]
+        maximum = 6.357200000000001e-5
+        minimum = 4.206e-5
+        samples = 5
+    [[collector_evidence.collectors]]
+    collector = "benchmark"
+    correctness = "passed"
+    implementation = "compiled"
+    message = ""
+    scenario = "learned-52-int-predicates"
+    status = "complete"
+
+        [collector_evidence.collectors."julia.alloc.bytes"]
+        maximum = 0
+        minimum = 0
+        samples = 5
+
+        [collector_evidence.collectors."julia.alloc.count"]
+        maximum = 0
+        minimum = 0
+        samples = 5
+
+        [collector_evidence.collectors."julia.wall.time"]
+        maximum = 4.9896e-5
+        minimum = 4.3292e-5
+        samples = 5
+    [[collector_evidence.collectors]]
+    collector = "chairmark"
+    correctness = "passed"
+    implementation = "compiled"
+    message = ""
+    scenario = "learned-52-int-predicates"
+    status = "complete"
+
+        [collector_evidence.collectors."julia.alloc.bytes"]
+        maximum = 0.0
+        minimum = 0.0
+        samples = 5
+
+        [collector_evidence.collectors."julia.alloc.count"]
+        maximum = 0.0
+        minimum = 0.0
+        samples = 5
+
+        [collector_evidence.collectors."julia.wall.time"]
+        maximum = 4.9033e-5
+        minimum = 4.2473000000000005e-5
+        samples = 5
+    [[collector_evidence.collectors]]
+    collector = "profile"
+    correctness = "passed"
+    implementation = "compiled"
+    message = ""
+    scenario = "learned-52-int-predicates"
+    status = "complete"
+    [[collector_evidence.collectors]]
+    collector = "profile_alloc"
+    correctness = "passed"
+    implementation = "compiled"
+    message = ""
+    scenario = "learned-52-int-predicates"
+    status = "complete"
+    [[collector_evidence.collectors]]
+    collector = "benchmark"
+    correctness = "passed"
+    implementation = "original-triangle"
+    message = ""
+    scenario = "learned-52-int-predicates"
+    status = "complete"
+
+        [collector_evidence.collectors."julia.alloc.bytes"]
+        maximum = 0
+        minimum = 0
+        samples = 5
+
+        [collector_evidence.collectors."julia.alloc.count"]
+        maximum = 0
+        minimum = 0
+        samples = 5
+
+        [collector_evidence.collectors."julia.wall.time"]
+        maximum = 5.2706e-5
+        minimum = 4.0312e-5
+        samples = 5
+    [[collector_evidence.collectors]]
+    collector = "chairmark"
+    correctness = "passed"
+    implementation = "original-triangle"
+    message = ""
+    scenario = "learned-52-int-predicates"
+    status = "complete"
+
+        [collector_evidence.collectors."julia.alloc.bytes"]
+        maximum = 0.0
+        minimum = 0.0
+        samples = 5
+
+        [collector_evidence.collectors."julia.alloc.count"]
+        maximum = 0.0
+        minimum = 0.0
+        samples = 5
+
+        [collector_evidence.collectors."julia.wall.time"]
+        maximum = 5.3966000000000005e-5
+        minimum = 4.1710000000000006e-5
+        samples = 5
+    [[collector_evidence.collectors]]
+    collector = "benchmark"
+    correctness = "passed"
+    implementation = "compiled"
+    message = ""
+    scenario = "learned-52-float64-predicates"
+    status = "complete"
+
+        [collector_evidence.collectors."julia.alloc.bytes"]
+        maximum = 0
+        minimum = 0
+        samples = 5
+
+        [collector_evidence.collectors."julia.alloc.count"]
+        maximum = 0
+        minimum = 0
+        samples = 5
+
+        [collector_evidence.collectors."julia.wall.time"]
+        maximum = 5.3793e-5
+        minimum = 3.4627e-5
+        samples = 5
+    [[collector_evidence.collectors]]
+    collector = "chairmark"
+    correctness = "passed"
+    implementation = "compiled"
+    message = ""
+    scenario = "learned-52-float64-predicates"
+    status = "complete"
+
+        [collector_evidence.collectors."julia.alloc.bytes"]
+        maximum = 0.0
+        minimum = 0.0
+        samples = 5
+
+        [collector_evidence.collectors."julia.alloc.count"]
+        maximum = 0.0
+        minimum = 0.0
+        samples = 5
+
+        [collector_evidence.collectors."julia.wall.time"]
+        maximum = 4.8476e-5
+        minimum = 3.8378000000000004e-5
+        samples = 5
+    [[collector_evidence.collectors]]
+    collector = "profile"
+    correctness = "passed"
+    implementation = "compiled"
+    message = ""
+    scenario = "learned-52-float64-predicates"
+    status = "complete"
+    [[collector_evidence.collectors]]
+    collector = "profile_alloc"
+    correctness = "passed"
+    implementation = "compiled"
+    message = ""
+    scenario = "learned-52-float64-predicates"
+    status = "complete"
+    [[collector_evidence.collectors]]
+    collector = "benchmark"
+    correctness = "passed"
+    implementation = "original-triangle"
+    message = ""
+    scenario = "learned-52-float64-predicates"
+    status = "complete"
+
+        [collector_evidence.collectors."julia.alloc.bytes"]
+        maximum = 0
+        minimum = 0
+        samples = 5
+
+        [collector_evidence.collectors."julia.alloc.count"]
+        maximum = 0
+        minimum = 0
+        samples = 5
+
+        [collector_evidence.collectors."julia.wall.time"]
+        maximum = 6.112e-5
+        minimum = 4.2485e-5
+        samples = 5
+    [[collector_evidence.collectors]]
+    collector = "chairmark"
+    correctness = "passed"
+    implementation = "original-triangle"
+    message = ""
+    scenario = "learned-52-float64-predicates"
+    status = "complete"
+
+        [collector_evidence.collectors."julia.alloc.bytes"]
+        maximum = 0.0
+        minimum = 0.0
+        samples = 5
+
+        [collector_evidence.collectors."julia.alloc.count"]
+        maximum = 0.0
+        minimum = 0.0
+        samples = 5
+
+        [collector_evidence.collectors."julia.wall.time"]
+        maximum = 6.0831e-5
+        minimum = 4.1279e-5
+        samples = 5
+
+[first_entry]
+control = "Original worker deletes the two new native positional methods and their two keyword forwarding methods only in memory, asserts that both native calls resolve to the original Any-argument method, then composes and calls the same saved decoders. Current worker deletes no methods. Shared files are unchanged."
+limits = "One worker per variant, two witnesses in fixed order. First-entry bytes include compilation and runtime; they exclude module/bank construction and do not measure whole application startup. No controlled cold elapsed-time or process-peak claim."
+scope = "Separate fresh workers after bank recovery/composition. First and warmed scoring enter through Base.invokelatest; its 16-byte boxed-result overhead remains in the warmed observations. Typed matched calls and collectors separately measure zero bytes. No explicit BenchmarkTools, SnoopCompile or PerfChecker imports in these workers."
+workers_per_variant = 1
+
+    [first_entry.current]
+    explicit_benchmark_or_profiler_imports = false
+    manifest_sha256 = "10b7ae47f6bef299009e6dca7075b75f3bca4e77bb1c9c21b83dd84fe2de1c1e"
+    project_sha256 = "ad05b9535f13c53957ec6cae6d7fc75502d94a145876cd644c29ea4e0cd88edf"
+    recorded_utc = "2026-10-09T02:21:43.927"
+    removed_worker_methods = 0
+    source_sha256 = "1e7715393461076b5e3b2bb47f6322d969ae0199e01f4f1f0503471e232d17e5"
+    variant = "current"
+
+        [[first_entry.current.measurements]]
+        first_bytes = 690072
+        first_compile_seconds = 0.014177251
+        first_recompile_seconds = 0.0
+        first_seconds = 0.01423829
+        warm_bytes = 16
+        warm_compile_seconds = 0.0
+        warm_recompile_seconds = 0.0
+        warm_seconds = 5.2837e-5
+        witness = 2
+        [[first_entry.current.measurements]]
+        first_bytes = 1308552
+        first_compile_seconds = 0.011339102
+        first_recompile_seconds = 0.0
+        first_seconds = 0.011395452
+        warm_bytes = 16
+        warm_compile_seconds = 0.0
+        warm_recompile_seconds = 0.0
+        warm_seconds = 4.5085e-5
+        witness = 52
+
+    [first_entry.original]
+    explicit_benchmark_or_profiler_imports = false
+    manifest_sha256 = "10b7ae47f6bef299009e6dca7075b75f3bca4e77bb1c9c21b83dd84fe2de1c1e"
+    project_sha256 = "ad05b9535f13c53957ec6cae6d7fc75502d94a145876cd644c29ea4e0cd88edf"
+    recorded_utc = "2026-10-09T02:21:43.942"
+    removed_worker_methods = 4
+    source_sha256 = "1e7715393461076b5e3b2bb47f6322d969ae0199e01f4f1f0503471e232d17e5"
+    variant = "original"
+
+        [[first_entry.original.measurements]]
+        first_bytes = 3595216
+        first_compile_seconds = 0.033828836
+        first_recompile_seconds = 0.0
+        first_seconds = 0.033897307
+        warm_bytes = 16
+        warm_compile_seconds = 0.0
+        warm_recompile_seconds = 0.0
+        warm_seconds = 6.6428e-5
+        witness = 2
+        [[first_entry.original.measurements]]
+        first_bytes = 2585736
+        first_compile_seconds = 0.018830959
+        first_recompile_seconds = 0.0
+        first_seconds = 0.018902912
+        warm_bytes = 16
+        warm_compile_seconds = 0.0
+        warm_recompile_seconds = 0.0
+        warm_seconds = 6.5248e-5
+        witness = 52
+
+[matched]
+case_sha256 = "36824ccf6edafbf158931934e07b97d9cc7cafdea540d67bb8907eca8f1acb62"
+evals = 1
+recorded_utc = "2026-10-09T02:18:26.954"
+samples = 100
+source_sha256 = "1e7715393461076b5e3b2bb47f6322d969ae0199e01f4f1f0503471e232d17e5"
+
+    [[matched.measurements]]
+    allocations = 0
+    bytes = 0
+    element = "int"
+    minimum_ns = 13.0
+    n = 2
+    variant = "original-triangle"
+    warm_compile_seconds = 0.0
+    warm_recompile_seconds = 0.0
+    witness = 2
+    [[matched.measurements]]
+    allocations = 0
+    bytes = 0
+    element = "int"
+    minimum_ns = 13.0
+    n = 2
+    variant = "compiled"
+    warm_compile_seconds = 0.0
+    warm_recompile_seconds = 0.0
+    witness = 2
+    [[matched.measurements]]
+    allocations = 0
+    bytes = 0
+    element = "int"
+    minimum_ns = 13.0
+    n = 2
+    variant = "compiled-repeat"
+    warm_compile_seconds = 0.0
+    warm_recompile_seconds = 0.0
+    witness = 2
+    [[matched.measurements]]
+    allocations = 0
+    bytes = 0
+    element = "int"
+    minimum_ns = 13.0
+    n = 2
+    variant = "original-triangle-repeat"
+    warm_compile_seconds = 0.0
+    warm_recompile_seconds = 0.0
+    witness = 2
+    [[matched.measurements]]
+    allocations = 0
+    bytes = 0
+    element = "int"
+    minimum_ns = 56583.0
+    n = 1000
+    variant = "original-triangle"
+    warm_compile_seconds = 0.0
+    warm_recompile_seconds = 0.0
+    witness = 2
+    [[matched.measurements]]
+    allocations = 0
+    bytes = 0
+    element = "int"
+    minimum_ns = 31826.0
+    n = 1000
+    variant = "compiled"
+    warm_compile_seconds = 0.0
+    warm_recompile_seconds = 0.0
+    witness = 2
+    [[matched.measurements]]
+    allocations = 0
+    bytes = 0
+    element = "int"
+    minimum_ns = 31855.0
+    n = 1000
+    variant = "compiled-repeat"
+    warm_compile_seconds = 0.0
+    warm_recompile_seconds = 0.0
+    witness = 2
+    [[matched.measurements]]
+    allocations = 0
+    bytes = 0
+    element = "int"
+    minimum_ns = 56541.0
+    n = 1000
+    variant = "original-triangle-repeat"
+    warm_compile_seconds = 0.0
+    warm_recompile_seconds = 0.0
+    witness = 2
+    [[matched.measurements]]
+    allocations = 0
+    bytes = 0
+    element = "float64"
+    minimum_ns = 14.0
+    n = 2
+    variant = "original-triangle"
+    warm_compile_seconds = 0.0
+    warm_recompile_seconds = 0.0
+    witness = 2
+    [[matched.measurements]]
+    allocations = 0
+    bytes = 0
+    element = "float64"
+    minimum_ns = 13.0
+    n = 2
+    variant = "compiled"
+    warm_compile_seconds = 0.0
+    warm_recompile_seconds = 0.0
+    witness = 2
+    [[matched.measurements]]
+    allocations = 0
+    bytes = 0
+    element = "float64"
+    minimum_ns = 13.0
+    n = 2
+    variant = "compiled-repeat"
+    warm_compile_seconds = 0.0
+    warm_recompile_seconds = 0.0
+    witness = 2
+    [[matched.measurements]]
+    allocations = 0
+    bytes = 0
+    element = "float64"
+    minimum_ns = 14.0
+    n = 2
+    variant = "original-triangle-repeat"
+    warm_compile_seconds = 0.0
+    warm_recompile_seconds = 0.0
+    witness = 2
+    [[matched.measurements]]
+    allocations = 0
+    bytes = 0
+    element = "float64"
+    minimum_ns = 40686.0
+    n = 1000
+    variant = "original-triangle"
+    warm_compile_seconds = 0.0
+    warm_recompile_seconds = 0.0
+    witness = 2
+    [[matched.measurements]]
+    allocations = 0
+    bytes = 0
+    element = "float64"
+    minimum_ns = 23320.0
+    n = 1000
+    variant = "compiled"
+    warm_compile_seconds = 0.0
+    warm_recompile_seconds = 0.0
+    witness = 2
+    [[matched.measurements]]
+    allocations = 0
+    bytes = 0
+    element = "float64"
+    minimum_ns = 22332.0
+    n = 1000
+    variant = "compiled-repeat"
+    warm_compile_seconds = 0.0
+    warm_recompile_seconds = 0.0
+    witness = 2
+    [[matched.measurements]]
+    allocations = 0
+    bytes = 0
+    element = "float64"
+    minimum_ns = 40550.0
+    n = 1000
+    variant = "original-triangle-repeat"
+    warm_compile_seconds = 0.0
+    warm_recompile_seconds = 0.0
+    witness = 2
+    [[matched.measurements]]
+    allocations = 0
+    bytes = 0
+    element = "int"
+    minimum_ns = 13.0
+    n = 2
+    variant = "original-triangle"
+    warm_compile_seconds = 0.0
+    warm_recompile_seconds = 0.0
+    witness = 52
+    [[matched.measurements]]
+    allocations = 0
+    bytes = 0
+    element = "int"
+    minimum_ns = 13.0
+    n = 2
+    variant = "compiled"
+    warm_compile_seconds = 0.0
+    warm_recompile_seconds = 0.0
+    witness = 52
+    [[matched.measurements]]
+    allocations = 0
+    bytes = 0
+    element = "int"
+    minimum_ns = 13.0
+    n = 2
+    variant = "compiled-repeat"
+    warm_compile_seconds = 0.0
+    warm_recompile_seconds = 0.0
+    witness = 52
+    [[matched.measurements]]
+    allocations = 0
+    bytes = 0
+    element = "int"
+    minimum_ns = 13.0
+    n = 2
+    variant = "original-triangle-repeat"
+    warm_compile_seconds = 0.0
+    warm_recompile_seconds = 0.0
+    witness = 52
+    [[matched.measurements]]
+    allocations = 0
+    bytes = 0
+    element = "int"
+    minimum_ns = 38781.0
+    n = 1000
+    variant = "original-triangle"
+    warm_compile_seconds = 0.0
+    warm_recompile_seconds = 0.0
+    witness = 52
+    [[matched.measurements]]
+    allocations = 0
+    bytes = 0
+    element = "int"
+    minimum_ns = 34798.0
+    n = 1000
+    variant = "compiled"
+    warm_compile_seconds = 0.0
+    warm_recompile_seconds = 0.0
+    witness = 52
+    [[matched.measurements]]
+    allocations = 0
+    bytes = 0
+    element = "int"
+    minimum_ns = 34777.0
+    n = 1000
+    variant = "compiled-repeat"
+    warm_compile_seconds = 0.0
+    warm_recompile_seconds = 0.0
+    witness = 52
+    [[matched.measurements]]
+    allocations = 0
+    bytes = 0
+    element = "int"
+    minimum_ns = 39615.0
+    n = 1000
+    variant = "original-triangle-repeat"
+    warm_compile_seconds = 0.0
+    warm_recompile_seconds = 0.0
+    witness = 52
+    [[matched.measurements]]
+    allocations = 0
+    bytes = 0
+    element = "float64"
+    minimum_ns = 13.0
+    n = 2
+    variant = "original-triangle"
+    warm_compile_seconds = 0.0
+    warm_recompile_seconds = 0.0
+    witness = 52
+    [[matched.measurements]]
+    allocations = 0
+    bytes = 0
+    element = "float64"
+    minimum_ns = 13.0
+    n = 2
+    variant = "compiled"
+    warm_compile_seconds = 0.0
+    warm_recompile_seconds = 0.0
+    witness = 52
+    [[matched.measurements]]
+    allocations = 0
+    bytes = 0
+    element = "float64"
+    minimum_ns = 12.0
+    n = 2
+    variant = "compiled-repeat"
+    warm_compile_seconds = 0.0
+    warm_recompile_seconds = 0.0
+    witness = 52
+    [[matched.measurements]]
+    allocations = 0
+    bytes = 0
+    element = "float64"
+    minimum_ns = 13.0
+    n = 2
+    variant = "original-triangle-repeat"
+    warm_compile_seconds = 0.0
+    warm_recompile_seconds = 0.0
+    witness = 52
+    [[matched.measurements]]
+    allocations = 0
+    bytes = 0
+    element = "float64"
+    minimum_ns = 40782.0
+    n = 1000
+    variant = "original-triangle"
+    warm_compile_seconds = 0.0
+    warm_recompile_seconds = 0.0
+    witness = 52
+    [[matched.measurements]]
+    allocations = 0
+    bytes = 0
+    element = "float64"
+    minimum_ns = 22695.0
+    n = 1000
+    variant = "compiled"
+    warm_compile_seconds = 0.0
+    warm_recompile_seconds = 0.0
+    witness = 52
+    [[matched.measurements]]
+    allocations = 0
+    bytes = 0
+    element = "float64"
+    minimum_ns = 22840.0
+    n = 1000
+    variant = "compiled-repeat"
+    warm_compile_seconds = 0.0
+    warm_recompile_seconds = 0.0
+    witness = 52
+    [[matched.measurements]]
+    allocations = 0
+    bytes = 0
+    element = "float64"
+    minimum_ns = 41680.0
+    n = 1000
+    variant = "original-triangle-repeat"
+    warm_compile_seconds = 0.0
+    warm_recompile_seconds = 0.0
+    witness = 52
+
+[other_pins]
+ConstraintCommons = "98cb9470250aa55ed19e35b78c133a98b56b5bdb"
+ConstraintDomains = "19b4b9082ac3588e417d0c711f961dd5008e8653"
+ConstraintModels = "21cd573b73a9608d33936f8e63e8d8ad857002f6"
+Constraints = "a399df351c5d9b0bf753c0612ea2178eee4fa4cb"
+PatternFolds = "ebff5af17c648432650202d2f55945448ffe5ee8"
+
+[runtime]
+blas_threads = 1
+cpu_affinity = [4, 6]
+julia = "1.13.1"
+julia_gc_threads = 1
+julia_threads = 2
+mkl_threads = 1
+omp_threads = 1
+package_precompile_auto = false
+
+[tests]
+added_assertions = 23382
+cn_nontraining = 59231
+cn_standalone = 4872
+coverage = ["All 14 primitive element types, empty/singleton/two-element vectors and exhaustive extreme-value pair/triple fixtures", "Float16/32/64 signed zeros, infinities, signaling/quiet NaN payloads of both signs, and randomized raw-bit vectors", "Exact result type and byte-preserved inputs against independent full pair oracle and explicit invoke of former helper", "Custom storage getter traces, mutation and late errors compared using separate fixtures", "Custom Real comparison events and late exceptions retain the original helper", "BigInt, Rational, abstract Real element arrays and views retain matching fallback results", "Saved bank schemas, weights and zero-field decoded outputs retain exact equality"]
+exact_bank = 29
+prototype_saved_decoder_assertions = 96
+source_unchanged_during_full_tests = true

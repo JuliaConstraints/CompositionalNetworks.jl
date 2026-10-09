@@ -568,6 +568,40 @@ _is_pairwise_count(operation::Symbol) = _is_pairwise_count(Val(operation))
            _pairwise_counts(Base.tail(operations), x, i, j; parameters...)
 end
 
+const _PairwisePrimitive = Union{Bool, Int8, Int16, Int32, Int64, Int128,
+    UInt8, UInt16, UInt32, UInt64, UInt128, Float16, Float32, Float64}
+
+# These exact learned combinations need one Boolean result per active pair.
+# Native vectors permit reusing each loaded value; custom storage and numeric
+# protocols retain the generic helper and its observation order.
+function _aggregate_pairwise_sum(
+        ::Val{(:count_less_left, :count_great_left)}, x::Vector{T};
+        parameters...) where {T<:_PairwisePrimitive}
+    if length(x) == 2
+        a = @inbounds x[1]
+        b = @inbounds x[2]
+        return 0 + ((a < b) | (a > b))
+    end
+    total = 0
+    @inbounds for i in eachindex(x), j in 1:(i - 1)
+        a = x[j]
+        b = x[i]
+        total += (a < b) | (a > b)
+    end
+    return total
+end
+
+function _aggregate_pairwise_sum(
+        ::Val{(:count_equal_left, :count_great_left)}, x::Vector{T};
+        parameters...) where {T<:_PairwisePrimitive}
+    length(x) == 2 && return @inbounds 0 + (x[1] >= x[2])
+    total = 0
+    @inbounds for i in eachindex(x), j in 1:(i - 1)
+        total += x[j] >= x[i]
+    end
+    return total
+end
+
 "Fuse any learned sum of pairwise-count transformations into one nested loop."
 function _aggregate_pairwise_sum(::Val{operations}, x; parameters...) where {operations}
     total = 0
