@@ -1,0 +1,155 @@
+baseline_frozen_library_commit = "84838810398433d93db9817eef8a6c0c9bd5148b"
+blas_threads = 1
+cleanup = "Only this intrinsic reusable library qualification record persisted; no helper scripts, source copies, logs, temporary environments or dumps were created."
+control = "Unmodified Root ICNScoring and original LC101 raw input under the frozen V5 environment. Compile saved bank once; score both real ICN backends before and after evaluating only the exact owned native-predicate constant and two helper methods in the worker's frozen CN module."
+cpu_affinity = [4, 6]
+julia_gc_threads = 1
+julia_threads = 2
+limits = ["Current methods evaluated only in memory. Root sources, frozen library files and environments were never edited.", "This record qualifies score results and counters, not an end-to-end search trace or RNG sequence.", "No application speedup, cold-startup, controlled elapsed-time, native solver or training claim.", "The baseline and current complete scores match each other and the same Root direct-score traversal. Original validator objective summation can differ at rounding precision because it uses a different route traversal order.", "Source fingerprints identify the process snapshot; Root may continue authorized changes afterward."]
+measurement_scope = "Warm complete actual ICN and fused-scalar routing scores on the feasible LC101 assignment; 100 samples/evals=1 after preparation. Both allocate zero bytes/objects and have zero warmed compilation/recompilation."
+mkl_threads = 1
+omp_threads = 1
+qualified_library_commit = "aa0ed00a87a3011bab91fce693928fab971c9661"
+recorded_utc = "2026-10-09T02:36:29.118"
+runtime = "1.13.1"
+schema = "juliaconstraints-native-pair-routing-qualification/1"
+scope = "Five successor assignments per backend: complete original-feasible ten routes, per-request routes with fleet violations, reversed route order, split requests, and a disconnected customer cycle. Same decoded functions, inputs and private workspaces; decoder call/evaluation counts and complete score NamedTuples compare unchanged. Independent Root direct scorer matches all ten result rows."
+
+[checks]
+all_root_source_fingerprints_unchanged_during_process = true
+complete_before_after_result_and_counter_equality = true
+independent_direct_result_assertions = 10
+owned_source_fingerprint_unchanged_during_process = true
+project_and_manifest_fingerprints_unchanged_during_process = true
+single_evaluation_assertions = 20
+unchanged_input_assertions = 20
+
+[evidence]
+bank_sha256 = "4df0b409d303d1b666a2d0aba3367c1dc08a2b380da109e50dee83b042b8ea90"
+frozen_source_sha256 = "762cadda81d3308f0abe047fd0bab4510d643e4e6ac657307d2abe1156b9ba5f"
+owned_source_sha256 = "1e7715393461076b5e3b2bb47f6322d969ae0199e01f4f1f0503471e232d17e5"
+raw_sha256 = "1e525ef3d65d15cdcd65974704bd640487424a1700061895d919d60ad210588f"
+
+    [evidence.environment_hashes]
+    "Manifest.toml" = "a7069bee0c827ce4a30fd31f6560711e9dc2fe659124be46063f5f3b1fe63b6e"
+    "Project.toml" = "d15e0a62a9ec9b3a04f3b9ccb9487f68238041f04f9093f6881c21bd98c3b0c4"
+
+    [[evidence.measurements]]
+    allocations = 0
+    bytes = 0
+    kind = "icn"
+    minimum_ns = 1593.0
+    warm_compile_seconds = 0.0
+    warm_recompile_seconds = 0.0
+    [[evidence.measurements]]
+    allocations = 0
+    bytes = 0
+    kind = "icn_fused_scalar"
+    minimum_ns = 1668.0
+    warm_compile_seconds = 0.0
+    warm_recompile_seconds = 0.0
+
+    [[evidence.results]]
+    calls = 445
+    distance = 828.9368669428343
+    error = 0.0
+    evaluations = 1
+    fixture = "feasible"
+    kind = "icn"
+    vehicles = 10
+    [[evidence.results]]
+    calls = 531
+    distance = 3353.273989692375
+    error = 28.0
+    evaluations = 1
+    fixture = "pairs"
+    kind = "icn"
+    vehicles = 53
+    [[evidence.results]]
+    calls = 445
+    distance = 828.9368669428341
+    error = 91758.24305372698
+    evaluations = 1
+    fixture = "reversed"
+    kind = "icn"
+    vehicles = 10
+    [[evidence.results]]
+    calls = 637
+    distance = 6141.955277359906
+    error = 3157.0
+    evaluations = 1
+    fixture = "split"
+    kind = "icn"
+    vehicles = 106
+    [[evidence.results]]
+    calls = 0
+    distance = +inf
+    error = 1.0
+    evaluations = 1
+    fixture = "cycle"
+    kind = "icn"
+    vehicles = 9223372036854775807
+    [[evidence.results]]
+    calls = 107
+    distance = 828.9368669428343
+    error = 0.0
+    evaluations = 1
+    fixture = "feasible"
+    kind = "icn_fused_scalar"
+    vehicles = 10
+    [[evidence.results]]
+    calls = 107
+    distance = 3353.273989692375
+    error = 28.0
+    evaluations = 1
+    fixture = "pairs"
+    kind = "icn_fused_scalar"
+    vehicles = 53
+    [[evidence.results]]
+    calls = 107
+    distance = 828.9368669428341
+    error = 91758.24305372698
+    evaluations = 1
+    fixture = "reversed"
+    kind = "icn_fused_scalar"
+    vehicles = 10
+    [[evidence.results]]
+    calls = 107
+    distance = 6141.955277359906
+    error = 3157.0
+    evaluations = 1
+    fixture = "split"
+    kind = "icn_fused_scalar"
+    vehicles = 106
+    [[evidence.results]]
+    calls = 0
+    distance = +inf
+    error = 1.0
+    evaluations = 1
+    fixture = "cycle"
+    kind = "icn_fused_scalar"
+    vehicles = 9223372036854775807
+
+    [evidence.root_source_hashes]
+    "/home/azzaare/Gits/Benchmarks-night-sparse-guide/LiLim/src/BenchmarkTargets.jl" = "f0e8402db539b95fdf6072a7537f351002d73ebf6df55d401aaf1ea8ec262c60"
+    "/home/azzaare/Gits/Benchmarks-night-sparse-guide/LiLim/src/CampaignCatalog.jl" = "d45d3ff6f9a88f99aefd3265e6f7187167195e614b6c8ef2b346031681783fb3"
+    "/home/azzaare/Gits/Benchmarks-night-sparse-guide/LiLim/src/Experiment.jl" = "e1f969e3dcf0ed5e327d29bcedd54c27f89834580bf0310320fb141d16dea4ae"
+    "/home/azzaare/Gits/Benchmarks-night-sparse-guide/LiLim/src/GHOSTNative.jl" = "933cfee9cc63056e0d8ac66fe14d550017b8ffe91bc3982674e7989a2c6990f3"
+    "/home/azzaare/Gits/Benchmarks-night-sparse-guide/LiLim/src/HexalyPreflight.jl" = "c8092cc77d1c5fc9ae38de79e72cf0761a00871c6b946a2a252461faa7410a36"
+    "/home/azzaare/Gits/Benchmarks-night-sparse-guide/LiLim/src/Hybrid.jl" = "08dc5644ac9fb06d1df410a679a56b7c766fc8092266e93606ea074c7d13b5ba"
+    "/home/azzaare/Gits/Benchmarks-night-sparse-guide/LiLim/src/ICNScoring.jl" = "5fb75fc59065359161fad934019b06940c5ec68b8b033eb320227d541a0a5212"
+    "/home/azzaare/Gits/Benchmarks-night-sparse-guide/LiLim/src/MetaRepair.jl" = "d170b3eb82ab6dc3559b55cbdb6206457d48f816e21a1f513bd1cb319d1f2868"
+    "/home/azzaare/Gits/Benchmarks-night-sparse-guide/LiLim/src/NativeSolvers.jl" = "a2a1b9276496803b8dd55b4b7452092fb82179cecaddaefb4807e03e62512817"
+    "/home/azzaare/Gits/Benchmarks-night-sparse-guide/LiLim/src/PanelPlotStyles.jl" = "353e0d98aadd04103812963cda74116191a1fbdcd7733a258b56a00e212c0dd8"
+    "/home/azzaare/Gits/Benchmarks-night-sparse-guide/LiLim/src/Pilot.jl" = "5a08683820a39270c168b4436c6a8aa5e1b759b9e949074c776218e2212bd9da"
+    "/home/azzaare/Gits/Benchmarks-night-sparse-guide/LiLim/src/PlatformResources.jl" = "4937175e5c71001debc4f7a9d0a5b332639bf5755309092754c73228ceb169b1"
+    "/home/azzaare/Gits/Benchmarks-night-sparse-guide/LiLim/src/QUBOGuidance.jl" = "bf2f9a7477aa7d859ea20734148b3e6aa953e137c3eaa56eb157155bc7e3af11"
+    "/home/azzaare/Gits/Benchmarks-night-sparse-guide/LiLim/src/ROFragments.jl" = "20723afe6e56c67b8b530d3bef04608767418cfd42758a632445943b75a8e209"
+    "/home/azzaare/Gits/Benchmarks-night-sparse-guide/LiLim/src/ResourceExperiment.jl" = "71421c7cedb05ee7300951fec5de7b6d33577aeb8b8a7bac4e33f43835248770"
+    "/home/azzaare/Gits/Benchmarks-night-sparse-guide/LiLim/src/RoutingPanel.jl" = "d5407cc4bd255e04edc6a8d69fd0f157ad110d5eb6daab8f26afc5b31e6eee3b"
+    "/home/azzaare/Gits/Benchmarks-night-sparse-guide/LiLim/src/SearchPolicies.jl" = "7d52a377c8eb430824bc464ff302ade6bed62de10cd37602829b1d6524498fa9"
+    "/home/azzaare/Gits/Benchmarks-night-sparse-guide/LiLim/src/SolverArtifacts.jl" = "a6e76d0ae58871f03ecbad04bf6a4533aa234fb650a3809c49ffa0e39651b203"
+    "/home/azzaare/Gits/Benchmarks-night-sparse-guide/LiLim/src/StrategyPanel.jl" = "fb69d593a1cf1edc9bd4b3ab6a7acdca9ebf9b2639c2801578a99143e20cd92f"
+    "/home/azzaare/Gits/Benchmarks-night-sparse-guide/LiLim/src/StructuredRouting.jl" = "e227e6659e74c66e760f09f976e7e8ec81b27c5da57175d98f226f659b0bcd18"
+    "/home/azzaare/Gits/Benchmarks-night-sparse-guide/LiLim/src/TimefoldRuntime.jl" = "de26b0ff08547c11cfff47296751137adcb20d376d8e21d226bb5d00fa9336c8"
+    "/home/azzaare/Gits/Benchmarks-night-sparse-guide/LiLim/src/TraceCounters.jl" = "8b88af8004cd14a7d37e76e4917e692893f12a2e12f144cda1b2da028c370f0a"
