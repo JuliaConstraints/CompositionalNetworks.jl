@@ -395,3 +395,218 @@ candidate_min_bytes = 317246576
 baseline_min_bytes = 324197840
 minimum_observed_margin_bytes = 4165392
 baseline_max_bytes = 324219104
+
+[rejected_compilation_selection]
+recorded_utc = "2026-10-09T03:50:29.581"
+focused_checks_source_sha256 = "f62b67b6659f15211cf4d8d3cc2e9d018fedafedc14f6d4dceaba415a56424d1"
+focused_scope = "Matching generated source/AST and zero-field decoder results; later weight changes; custom storage property/read traces, mutation and errors. Candidate was rejected before full package tests; no full-suite claim."
+warm_construction_bytes_saved_per_decoder = 1632
+cleanup = "Disposable environment automatically removed; source restored to published implementation; candidate source additions, tests and perf cases/catalog removed. No helper scripts, logs, backups or intermediate reports persist."
+analyzer_scope = "Sixteen completed fresh-worker analyzers with correctness passed: each full construction had JET 93 warnings and AllocCheck 471 potential allocations; no clean full-construction inference claim. The native guard had JET 0 and one AllocCheck jl_subtype potential-allocation report, retained despite observed warm GC 0 bytes. GC construction bytes matched the repeated native measurements and all warmed compilation/recompilation counters were zero. Reachable prepared state stayed unchanged; this does not measure global generated-method retention."
+decision = "rejected; source restored and candidate test/catalog/case files removed"
+unpublished_runtime_candidate = true
+contract = "Reuse the selected-operation list within one compose call only for native ICN metadata and the identical built-in four-layer layout. All custom protocols retain the original helper sequence."
+julia_threads = 2
+restored_source_sha256 = "261f1e08ac500d60ee5f5c48f748e79f47f3b8d9f2ea22b4aab6f7d3fe66d8a5"
+timing_scope = "Operational observations with other night jobs active; no controlled speed, end-to-end startup or solver throughput claim."
+cpu_affinity = [4, 6]
+reason = "Current first-bank allocation 169867224/169884216 bytes versus former 155014952/155014632; minimum gap 14852272 bytes. All four warm bank-cache retrievals remained 7520 bytes with zero compilation/recompilation. The first-setup regression outweighs the three small construction savings."
+cold_scope = "First actual ICNScoring.load_backend(:icn_fused_scalar) after complete routing bootstrap in four fresh processes, former/current/current/former. Frozen V7 environment versus a disposable two-file copy changing only the CN source path. No solver execution, training or scored throughput measurement."
+blas_threads = 1
+matched_scope = "Complete decoder construction only; exact saved W4/W2/W52 networks, 100 BenchmarkTools samples with evals=1, former/current/current/former order. Former compose entry body recovered from clean HEAD and renamed in memory; no source modifications to the baseline or helper scripts."
+candidate_source_sha256 = "e22dd49954e67f4640a03ce1cbab82ab1e4a7ac8d9b9d6372d314465e5a36ab4"
+runtime = "1.13.1"
+warm_construction_objects_saved_per_decoder = 40
+gc_threads = 1
+bank_sha256 = "4df0b409d303d1b666a2d0aba3367c1dc08a2b380da109e50dee83b042b8ea90"
+focused_checks = 220
+
+    [rejected_compilation_selection.frozen_v7_environment_hashes]
+    "Project.toml" = "9523463e63a0ef4d5795e761b3bcb4b1466c6358ee9a88aff6c69af9bf74144d"
+    "Manifest.toml" = "fc37225b20f76ec93f47fa4a90fa15e0889db45a1fe59fda9446c14f4a533f06"
+
+    [rejected_compilation_selection.root_source_hashes]
+    "/home/azzaare/Gits/Benchmarks-night-sparse-guide/LiLim/src/Hybrid.jl" = "08dc5644ac9fb06d1df410a679a56b7c766fc8092266e93606ea074c7d13b5ba"
+    "/home/azzaare/Gits/Benchmarks-night-sparse-guide/LiLim/src/SearchPolicies.jl" = "7d52a377c8eb430824bc464ff302ade6bed62de10cd37602829b1d6524498fa9"
+    "/home/azzaare/Gits/Benchmarks-night-sparse-guide/LiLim/src/MetaRepair.jl" = "d170b3eb82ab6dc3559b55cbdb6206457d48f816e21a1f513bd1cb319d1f2868"
+    "/home/azzaare/Gits/Benchmarks-night-sparse-guide/LiLim/src/TimefoldRuntime.jl" = "de26b0ff08547c11cfff47296751137adcb20d376d8e21d226bb5d00fa9336c8"
+    "/home/azzaare/Gits/Benchmarks-night-sparse-guide/LiLim/src/PanelPlotStyles.jl" = "353e0d98aadd04103812963cda74116191a1fbdcd7733a258b56a00e212c0dd8"
+    "/home/azzaare/Gits/Benchmarks-night-sparse-guide/LiLim/src/GHOSTNative.jl" = "933cfee9cc63056e0d8ac66fe14d550017b8ffe91bc3982674e7989a2c6990f3"
+    "/home/azzaare/Gits/Benchmarks-night-sparse-guide/LiLim/src/TraceCounters.jl" = "8b88af8004cd14a7d37e76e4917e692893f12a2e12f144cda1b2da028c370f0a"
+    "/home/azzaare/Gits/Benchmarks-night-sparse-guide/LiLim/src/QUBOGuidance.jl" = "bf2f9a7477aa7d859ea20734148b3e6aa953e137c3eaa56eb157155bc7e3af11"
+    "/home/azzaare/Gits/Benchmarks-night-sparse-guide/LiLim/src/PlatformResources.jl" = "4937175e5c71001debc4f7a9d0a5b332639bf5755309092754c73228ceb169b1"
+    "/home/azzaare/Gits/Benchmarks-night-sparse-guide/LiLim/src/HexalyPreflight.jl" = "c8092cc77d1c5fc9ae38de79e72cf0761a00871c6b946a2a252461faa7410a36"
+    "/home/azzaare/Gits/Benchmarks-night-sparse-guide/LiLim/src/RoutingPanel.jl" = "d5407cc4bd255e04edc6a8d69fd0f157ad110d5eb6daab8f26afc5b31e6eee3b"
+    "/home/azzaare/Gits/Benchmarks-night-sparse-guide/LiLim/src/NativeSolvers.jl" = "a2a1b9276496803b8dd55b4b7452092fb82179cecaddaefb4807e03e62512817"
+    "/home/azzaare/Gits/Benchmarks-night-sparse-guide/LiLim/src/ROFragments.jl" = "20723afe6e56c67b8b530d3bef04608767418cfd42758a632445943b75a8e209"
+    "/home/azzaare/Gits/Benchmarks-night-sparse-guide/LiLim/src/SolverArtifacts.jl" = "a6e76d0ae58871f03ecbad04bf6a4533aa234fb650a3809c49ffa0e39651b203"
+    "/home/azzaare/Gits/Benchmarks-night-sparse-guide/LiLim/src/ICNScoring.jl" = "5fb75fc59065359161fad934019b06940c5ec68b8b033eb320227d541a0a5212"
+    "/home/azzaare/Gits/Benchmarks-night-sparse-guide/LiLim/src/Pilot.jl" = "5a08683820a39270c168b4436c6a8aa5e1b759b9e949074c776218e2212bd9da"
+    "/home/azzaare/Gits/Benchmarks-night-sparse-guide/LiLim/src/ResourceExperiment.jl" = "71421c7cedb05ee7300951fec5de7b6d33577aeb8b8a7bac4e33f43835248770"
+    "/home/azzaare/Gits/Benchmarks-night-sparse-guide/LiLim/src/StructuredRouting.jl" = "b1497be366770195a8e551b72f5382f4abffe00a7f119abf621fc0b1a33abd7d"
+    "/home/azzaare/Gits/Benchmarks-night-sparse-guide/LiLim/src/BenchmarkTargets.jl" = "f0e8402db539b95fdf6072a7537f351002d73ebf6df55d401aaf1ea8ec262c60"
+    "/home/azzaare/Gits/Benchmarks-night-sparse-guide/LiLim/src/CampaignCatalog.jl" = "d45d3ff6f9a88f99aefd3265e6f7187167195e614b6c8ef2b346031681783fb3"
+    "/home/azzaare/Gits/Benchmarks-night-sparse-guide/LiLim/src/Experiment.jl" = "e1f969e3dcf0ed5e327d29bcedd54c27f89834580bf0310320fb141d16dea4ae"
+    "/home/azzaare/Gits/Benchmarks-night-sparse-guide/LiLim/src/StrategyPanel.jl" = "fb69d593a1cf1edc9bd4b3ab6a7acdca9ebf9b2639c2801578a99143e20cd92f"
+
+    [[rejected_compilation_selection.cold_workers]]
+    variant = "former"
+    bank_sha256 = "4df0b409d303d1b666a2d0aba3367c1dc08a2b380da109e50dee83b042b8ea90"
+    source_sha256 = "261f1e08ac500d60ee5f5c48f748e79f47f3b8d9f2ea22b4aab6f7d3fe66d8a5"
+
+        [rejected_compilation_selection.cold_workers.cold]
+        gc_seconds = 0.042664592
+        recompile_seconds = 0.0
+        bytes = 155014952
+        seconds = 1.962077916
+        compile_seconds = 1.955253192
+
+        [rejected_compilation_selection.cold_workers.environment_hashes]
+        "Project.toml" = "9523463e63a0ef4d5795e761b3bcb4b1466c6358ee9a88aff6c69af9bf74144d"
+        "Manifest.toml" = "fc37225b20f76ec93f47fa4a90fa15e0889db45a1fe59fda9446c14f4a533f06"
+
+        [rejected_compilation_selection.cold_workers.warm]
+        gc_seconds = 0.0
+        recompile_seconds = 0.0
+        bytes = 7520
+        seconds = 5.4372e-5
+        compile_seconds = 0.0
+    [[rejected_compilation_selection.cold_workers]]
+    variant = "current"
+    bank_sha256 = "4df0b409d303d1b666a2d0aba3367c1dc08a2b380da109e50dee83b042b8ea90"
+    source_sha256 = "e22dd49954e67f4640a03ce1cbab82ab1e4a7ac8d9b9d6372d314465e5a36ab4"
+
+        [rejected_compilation_selection.cold_workers.cold]
+        gc_seconds = 0.081791653
+        recompile_seconds = 0.0
+        bytes = 169867224
+        seconds = 2.177682664
+        compile_seconds = 2.171282999
+
+        [rejected_compilation_selection.cold_workers.environment_hashes]
+        "Project.toml" = "9f75d977e5bbbf552cae417bc9bacb9b2559961cf7b78689b0ab63eb7a57dae7"
+        "Manifest.toml" = "b6eb8793a93335ef113d3b9f30d645e0700177d66e770fcf2697752cbc9d69da"
+
+        [rejected_compilation_selection.cold_workers.warm]
+        gc_seconds = 0.0
+        recompile_seconds = 0.0
+        bytes = 7520
+        seconds = 4.2952e-5
+        compile_seconds = 0.0
+    [[rejected_compilation_selection.cold_workers]]
+    variant = "current-repeat"
+    bank_sha256 = "4df0b409d303d1b666a2d0aba3367c1dc08a2b380da109e50dee83b042b8ea90"
+    source_sha256 = "e22dd49954e67f4640a03ce1cbab82ab1e4a7ac8d9b9d6372d314465e5a36ab4"
+
+        [rejected_compilation_selection.cold_workers.cold]
+        gc_seconds = 0.036217917
+        recompile_seconds = 0.0
+        bytes = 169884216
+        seconds = 2.261679938
+        compile_seconds = 2.254760106
+
+        [rejected_compilation_selection.cold_workers.environment_hashes]
+        "Project.toml" = "9f75d977e5bbbf552cae417bc9bacb9b2559961cf7b78689b0ab63eb7a57dae7"
+        "Manifest.toml" = "b6eb8793a93335ef113d3b9f30d645e0700177d66e770fcf2697752cbc9d69da"
+
+        [rejected_compilation_selection.cold_workers.warm]
+        gc_seconds = 0.0
+        recompile_seconds = 0.0
+        bytes = 7520
+        seconds = 5.2567e-5
+        compile_seconds = 0.0
+    [[rejected_compilation_selection.cold_workers]]
+    variant = "former-repeat"
+    bank_sha256 = "4df0b409d303d1b666a2d0aba3367c1dc08a2b380da109e50dee83b042b8ea90"
+    source_sha256 = "261f1e08ac500d60ee5f5c48f748e79f47f3b8d9f2ea22b4aab6f7d3fe66d8a5"
+
+        [rejected_compilation_selection.cold_workers.cold]
+        gc_seconds = 0.0
+        recompile_seconds = 0.0
+        bytes = 155014632
+        seconds = 1.869319521
+        compile_seconds = 1.862705266
+
+        [rejected_compilation_selection.cold_workers.environment_hashes]
+        "Project.toml" = "9523463e63a0ef4d5795e761b3bcb4b1466c6358ee9a88aff6c69af9bf74144d"
+        "Manifest.toml" = "fc37225b20f76ec93f47fa4a90fa15e0889db45a1fe59fda9446c14f4a533f06"
+
+        [rejected_compilation_selection.cold_workers.warm]
+        gc_seconds = 0.0
+        recompile_seconds = 0.0
+        bytes = 7520
+        seconds = 5.7531e-5
+        compile_seconds = 0.0
+
+    [[rejected_compilation_selection.matched_measurements]]
+    variant = "former"
+    bytes = 35184
+    witness = 4
+    allocations = 773
+    minimum_ns = 1.113967e6
+    [[rejected_compilation_selection.matched_measurements]]
+    variant = "current"
+    bytes = 33552
+    witness = 4
+    allocations = 733
+    minimum_ns = 1.153868e6
+    [[rejected_compilation_selection.matched_measurements]]
+    variant = "current-repeat"
+    bytes = 33552
+    witness = 4
+    allocations = 733
+    minimum_ns = 1.173526e6
+    [[rejected_compilation_selection.matched_measurements]]
+    variant = "former-repeat"
+    bytes = 35184
+    witness = 4
+    allocations = 773
+    minimum_ns = 1.162008e6
+    [[rejected_compilation_selection.matched_measurements]]
+    variant = "former"
+    bytes = 26368
+    witness = 2
+    allocations = 598
+    minimum_ns = 701288.0
+    [[rejected_compilation_selection.matched_measurements]]
+    variant = "current"
+    bytes = 24736
+    witness = 2
+    allocations = 558
+    minimum_ns = 727915.0
+    [[rejected_compilation_selection.matched_measurements]]
+    variant = "current-repeat"
+    bytes = 24736
+    witness = 2
+    allocations = 558
+    minimum_ns = 718144.0
+    [[rejected_compilation_selection.matched_measurements]]
+    variant = "former-repeat"
+    bytes = 26368
+    witness = 2
+    allocations = 598
+    minimum_ns = 731973.0
+    [[rejected_compilation_selection.matched_measurements]]
+    variant = "former"
+    bytes = 26368
+    witness = 52
+    allocations = 598
+    minimum_ns = 662847.0
+    [[rejected_compilation_selection.matched_measurements]]
+    variant = "current"
+    bytes = 24736
+    witness = 52
+    allocations = 558
+    minimum_ns = 681922.0
+    [[rejected_compilation_selection.matched_measurements]]
+    variant = "current-repeat"
+    bytes = 24736
+    witness = 52
+    allocations = 558
+    minimum_ns = 686120.0
+    [[rejected_compilation_selection.matched_measurements]]
+    variant = "former-repeat"
+    bytes = 26368
+    witness = 52
+    allocations = 598
+    minimum_ns = 696710.0
